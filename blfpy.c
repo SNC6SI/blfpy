@@ -1,18 +1,10 @@
 #include "include.h"
 
-#if 0
-HANDLE hFile;
-char* cfileName;
-BOOL bSuccess;
-Py_ssize_t len;
-DWORD statisticCnt;
-DWORD msgcnt = 0;
-VBLFileStatisticsEx statistics = {sizeof(statistics)};
-#endif
+
 # if 1
 PyObject* readFileInfos(PyObject* self, PyObject* args)
 {
-#if 1
+
     HANDLE hFile;
     char* cfileName;
     BOOL bSuccess;
@@ -20,7 +12,7 @@ PyObject* readFileInfos(PyObject* self, PyObject* args)
     DWORD statisticCnt;
     DWORD msgcnt = 0;
     VBLFileStatisticsEx statistics = { sizeof(statistics) };
-#endif
+
     PyObject* arglist;
     PyObject* measureStartTime;
     PyObject* lastObjectTime;
@@ -85,7 +77,7 @@ PyObject* readData(PyObject* self, PyObject* args)
     Py_ssize_t len;
     DWORD statisticCnt = 0;
     DWORD msgcnt = 0;
-    VBLFileStatisticsEx statistics;
+    VBLFileStatisticsEx statistics = { sizeof(statistics) };
     VBLObjectHeaderBase base;
     VBLCANMessage message;
     VBLCANMessage2 message2;
@@ -222,14 +214,17 @@ PyObject* readData(PyObject* self, PyObject* args)
     dimcanmsg = ((npy_intp)msgcnt);
     L_candata    = PyArray_SimpleNewFromData(1, &dimcandata, NPY_LONGLONG, ll64_candata);
     PyArray_ENABLEFLAGS((PyArrayObject *)L_candata, NPY_ARRAY_OWNDATA);
+    
     L_canmsgid   = PyArray_SimpleNewFromData(1, &dimcanmsg, NPY_ULONG, u32_canmsgid);
     PyArray_ENABLEFLAGS((PyArrayObject*)L_canmsgid, NPY_ARRAY_OWNDATA);
+    
     L_canchannel = PyArray_SimpleNewFromData(1, &dimcanmsg, NPY_USHORT, u16_canchannel);
     PyArray_ENABLEFLAGS((PyArrayObject*)L_canchannel, NPY_ARRAY_OWNDATA);
+    
     L_cantime    = PyArray_SimpleNewFromData(1, &dimcanmsg, NPY_DOUBLE, f64_cantime);
     PyArray_ENABLEFLAGS((PyArrayObject*)L_cantime, NPY_ARRAY_OWNDATA);
- 
-    arglist = Py_BuildValue("[NNNN]", L_candata, L_canmsgid, L_canchannel, L_cantime);
+    
+    arglist = Py_BuildValue("(NNNN)", L_candata, L_canmsgid, L_canchannel, L_cantime);
 
     return arglist;
 }
