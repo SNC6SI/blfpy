@@ -77,7 +77,8 @@ class blfread():
         # 1: id
         # 2: channel
         # 3: time
-        self.info = {}
+        # TODO: multiple blf data file
+        self.data_info = {}
         channels = np.unique(self.data[2])
         for ch in channels:
             ch_dict = {}
@@ -85,8 +86,8 @@ class blfread():
             can_ids = np.unique(self.data[1][ch_idx])
             for can_id in can_ids:
                 can_id_idx = np.argwhere(np.squeeze(self.data[1][ch_idx])==can_id)
-                ch_dict[format(can_id, 'X')] = np.squeeze(can_id_idx)
-            self.info[ch] = ch_dict
+                ch_dict[can_id] = np.squeeze(can_id_idx)
+            self.data_info[ch] = ch_dict
 
 
     def save_data(self):
