@@ -83,7 +83,8 @@ PyObject* readData(PyObject* self, PyObject* args)
     VBLCANMessage2 message2;
     size_t i;
 
-    long long * ll64_candata, * ll64_tmp;
+    unsigned char * u8_candata, *u8_tmp;
+//     long long * ll64_candata, * ll64_tmp;
     unsigned short * u16_canchannel, * u16_tmp;
     unsigned long * u32_canmsgid, * u32_tmp;
     double * f64_cantime, * f64_tmp;
@@ -111,7 +112,7 @@ PyObject* readData(PyObject* self, PyObject* args)
     statisticCnt = statistics.mObjectCount;
 
     // allocate memroy
-    ll64_candata = (long long *)malloc(((size_t)(statisticCnt)) * (sizeof(long long)) * 8);
+    u8_candata = (long long *)malloc(((size_t)(statisticCnt)) * (sizeof(unsigned char)) * 8);
     u32_canmsgid = (unsigned long *)malloc(((size_t)(statisticCnt)) * sizeof(unsigned long));
     u16_canchannel = (unsigned short *)malloc(((size_t)(statisticCnt)) * sizeof(unsigned short));
     f64_cantime = (double *)malloc(((size_t)(statisticCnt)) * sizeof(double));
@@ -129,7 +130,7 @@ PyObject* readData(PyObject* self, PyObject* args)
             if (bSuccess) {
                 for (i = 0; i < 8; i++)
                 {
-                    * (ll64_candata + (((size_t)msgcnt) << 3) + i) = (long long)message.mData[i];
+                    * (u8_candata + (((size_t)msgcnt) << 3) + i) = (unsigned char)message.mData[i];
                 }
 
                 *(u32_canmsgid + msgcnt) = message.mID;
@@ -154,7 +155,7 @@ PyObject* readData(PyObject* self, PyObject* args)
             if (bSuccess) {
                 for (i = 0; i < 8; i++)
                 {
-                    *(ll64_candata + (((size_t)msgcnt) << 3) + i) = (long long)message2.mData[i];
+                    *(u8_candata + (((size_t)msgcnt) << 3) + i) = (unsigned char)message2.mData[i];
                 }  
 
                 *(u32_canmsgid + msgcnt) = message2.mID;
@@ -198,8 +199,8 @@ PyObject* readData(PyObject* self, PyObject* args)
     // reallocate memory if needed
     if (statisticCnt!= msgcnt)
     {
-        ll64_tmp = (long long *)realloc(ll64_candata, ((size_t)(msgcnt)) * (sizeof(long long)) * 8);
-        if (ll64_tmp != NULL) ll64_candata = ll64_tmp;
+        u8_tmp = (long long *)realloc(u8_candata, ((size_t)(msgcnt)) * (sizeof(unsigned char)) * 8);
+        if (u8_tmp != NULL) u8_candata = u8_tmp;
         u32_tmp = (unsigned long *)realloc(u32_canmsgid, ((size_t)(msgcnt)) * sizeof(unsigned long));
         if (u32_tmp != NULL) u32_canmsgid = u32_tmp;
         u16_tmp = (unsigned short *)realloc(u16_canchannel, ((size_t)(msgcnt)) * sizeof(unsigned short));
@@ -212,7 +213,7 @@ PyObject* readData(PyObject* self, PyObject* args)
     // set owndata is important for memory management (free memory) in python
     dimcandata = ((npy_intp)msgcnt) << 3;
     dimcanmsg = ((npy_intp)msgcnt);
-    L_candata    = PyArray_SimpleNewFromData(1, &dimcandata, NPY_LONGLONG, ll64_candata);
+    L_candata    = PyArray_SimpleNewFromData(1, &dimcandata, NPY_UINT8, u8_candata);
     PyArray_ENABLEFLAGS((PyArrayObject *)L_candata, NPY_ARRAY_OWNDATA);
     
     L_canmsgid   = PyArray_SimpleNewFromData(1, &dimcanmsg, NPY_ULONG, u32_canmsgid);
