@@ -7,6 +7,7 @@ Created on Fri Jul 10 11:23:44 2020
 
 import numpy as np
 from dbcparser import dbc2code
+import blfpy
 
 
 class blfread():
@@ -30,13 +31,31 @@ class blfread():
     def dbc(self, dbc=None):
         if dbc is not None:
             self.__dbc = dbc
+            
+    @property
+    def blf(self):
+        if self.__blf is not None:
+            return self.__blf
+        else:
+            return ''
+
+    @blf.setter
+    def blf(self, blf=None):
+        if blf is not None:
+            self.__blf = blf
     
     
     def collect_parser(self):
-        pass
+        self.parser = dbc2code(fn=self.__dbc)
+        self.parser.do_parse()
     
     def unpack_data(self):
-        pass
+        # info = blfpy.readFileInfo()
+        # print(info)
+        d = blfpy.readFileData(self.__blf.encode('GBK'))
+        if len(d[0])>0:
+            self.d = d
+
     
     def parse_data(self):
         pass
@@ -56,3 +75,6 @@ class blfread():
 
 if __name__ == "__main__":
     a = blfread()
+    a.dbc='test/dbc/ME7_PTCAN_CMatrix_190815_PVS.dbc'
+    a.blf='20200608_IC321_500_快充测试009.blf'
+    a.run_task()
