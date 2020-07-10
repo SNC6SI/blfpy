@@ -43,19 +43,13 @@ class dbc2code():
                     SG_dict['gain'] = float(SG_dict['gain'])
                     SG_dict['offset'] = float(SG_dict['offset'])
                     
-                    SG_dict['sigmat'] = self.info2matrix(SG_dict)
-                    SG_dict['pycode'] = self.matrix2py(SG_dict)
-                    
                     SG_list.append(SG_dict)
                     
             BO_dict['SG_list'] = SG_list
             self.BO_blks[canid] = BO_dict
 
-    def do_parse(self):
-        self.get_BO_txt()
-        self.get_BO_blks()
-    
-    def info2matrix(self, info):
+
+    def parser_internal_info2matrix(self, info):
         #TODO: intel, now motorola only
         bitend_idx = np.argwhere(self.bitmatrix==info['start'])
         bitstart_idx = bitend_idx + info['length'] - 1
@@ -110,7 +104,9 @@ class dbc2code():
                     sigmat[i, 4] = sigmat[i-1, 4] + sigmat[i-1, 3]
         return sigmat
     
-    def matrix2py(self, SG_dict):
+
+
+    def parser_internal_matrix2py(self, SG_dict):
         sigmat = SG_dict['sigmat']
         gain = SG_dict['gain']
         offset = SG_dict['offset']
@@ -142,7 +138,10 @@ class dbc2code():
         return SGalgostr
 
         
-            
+
+    def do_parse(self):
+        self.get_BO_txt()
+        self.get_parser()
 
 if __name__ == "__main__":
     dbc = dbc2code(fn="test/dbc/ME7_PTCAN_CMatrix_190815_PVS.dbc")
