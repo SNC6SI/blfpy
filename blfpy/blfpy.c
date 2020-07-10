@@ -112,7 +112,7 @@ PyObject* readData(PyObject* self, PyObject* args)
     statisticCnt = statistics.mObjectCount;
 
     // allocate memroy
-    u8_candata = (long long *)malloc(((size_t)(statisticCnt)) * (sizeof(unsigned char)) * 8);
+    u8_candata = (unsigned char *)malloc(((size_t)(statisticCnt)) * (sizeof(unsigned char)) * 8);
     u32_canmsgid = (unsigned long *)malloc(((size_t)(statisticCnt)) * sizeof(unsigned long));
     u16_canchannel = (unsigned short *)malloc(((size_t)(statisticCnt)) * sizeof(unsigned short));
     f64_cantime = (double *)malloc(((size_t)(statisticCnt)) * sizeof(double));
@@ -199,7 +199,7 @@ PyObject* readData(PyObject* self, PyObject* args)
     // reallocate memory if needed
     if (statisticCnt!= msgcnt)
     {
-        u8_tmp = (long long *)realloc(u8_candata, ((size_t)(msgcnt)) * (sizeof(unsigned char)) * 8);
+        u8_tmp = (unsigned char *)realloc(u8_candata, ((size_t)(msgcnt)) * (sizeof(unsigned char)) * 8);
         if (u8_tmp != NULL) u8_candata = u8_tmp;
         u32_tmp = (unsigned long *)realloc(u32_canmsgid, ((size_t)(msgcnt)) * sizeof(unsigned long));
         if (u32_tmp != NULL) u32_canmsgid = u32_tmp;
