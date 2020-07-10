@@ -19,7 +19,11 @@ class blfread():
             self.__dbc = dbc
         if blf is not None:
             self.__blf = blf
-            
+
+
+    # =========================================================================
+    # property
+    # =========================================================================
     @property
     def dbc(self):
         if self.__dbc is not None:
@@ -27,11 +31,13 @@ class blfread():
         else:
             return ''
 
+
     @dbc.setter
     def dbc(self, dbc=None):
         if dbc is not None:
             self.__dbc = dbc
-            
+
+
     @property
     def blf(self):
         if self.__blf is not None:
@@ -39,30 +45,38 @@ class blfread():
         else:
             return ''
 
+
     @blf.setter
     def blf(self, blf=None):
         if blf is not None:
             self.__blf = blf
-    
-    
+
+    # =========================================================================
+    # methods
+    # =========================================================================
+
     def collect_parser(self):
         self.parser = dbc2code(fn=self.__dbc)
         self.parser.do_parse()
-    
+
+
     def unpack_data(self):
-        # info = blfpy.readFileInfo()
+        # info = blfpy.readFileInfo(self.__blf.encode('GBK'))
         # print(info)
         d = blfpy.readFileData(self.__blf.encode('GBK'))
         if len(d[0])>0:
-            self.d = d
+            self.data = d
 
-    
+
     def parse_data(self):
         pass
     
+
+
     def save_data(self):
         pass
-    
+
+
     def run_task(self):
         if self.__dbc is not None:
             self.collect_parser()
@@ -71,10 +85,9 @@ class blfread():
         if (self.__dbc is not None) and (self.__blf is not None):
             self.parse_data()
     
-        
+
 
 if __name__ == "__main__":
-    a = blfread()
-    a.dbc='test/dbc/ME7_PTCAN_CMatrix_190815_PVS.dbc'
-    a.blf='20200608_IC321_500_快充测试009.blf'
-    a.run_task()
+    bl = blfread(dbc='test/dbc/ME7_PTCAN_CMatrix_190815_PVS.dbc',
+                 blf='20200608_IC321_500_快充测试009.blf')
+    bl.run_task()
