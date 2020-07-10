@@ -69,8 +69,24 @@ class blfread():
 
 
     def parse_data(self):
-        pass
-    
+        self.parse_interal_info()
+
+
+    def parse_interal_info(self):
+        # 0: 8-bytes
+        # 1: id
+        # 2: channel
+        # 3: time
+        self.info = {}
+        channels = np.unique(self.data[2])
+        for ch in channels:
+            ch_dict = {}
+            ch_idx = np.argwhere(self.data[2]==ch)
+            can_ids = np.unique(self.data[1][ch_idx])
+            for can_id in can_ids:
+                can_id_idx = np.argwhere(np.squeeze(self.data[1][ch_idx])==can_id)
+                ch_dict[format(can_id, 'X')] = np.squeeze(can_id_idx)
+            self.info[ch] = ch_dict
 
 
     def save_data(self):
