@@ -53,9 +53,14 @@ class dbc2code():
 
 
     def parser_internal_info2matrix(self, info):
-        #TODO: intel, now motorola only
-        bitend_idx = np.argwhere(self.bitmatrix==info['start'])
-        bitstart_idx = bitend_idx + info['length'] - 1
+        if not info['endian']:
+            # motorola
+            bitend_idx = np.argwhere(self.bitmatrix==info['start'])
+            bitstart_idx = bitend_idx + info['length'] - 1
+        else:
+            # intel
+            bitstart_idx = np.argwhere(self.bitmatrix==info['start'])
+            bitend_idx = np.argwhere(self.bitmatrix==(info['start']+info['length']-1))
         
         bitend_bytepos = math.floor(bitend_idx/8)
         bitstart_bytepos = math.floor(bitstart_idx/8)
@@ -94,7 +99,10 @@ class dbc2code():
                     sigmat[i, 3] = sigmat[i, 2] - sigmat[i, 1] + 1
                     sigmat[i, 4] = 0
                 elif i < loopnum-1:
-                    sigmat[i, 0] = sigmat[i-1, 0] - 1
+                    if not info['endian']:
+                        sigmat[i, 0] = sigmat[i-1, 0] - 1
+                    else:
+                        sigmat[i, 0] = sigmat[i-1, 0] + 1
                     sigmat[i, 1] = 0
                     sigmat[i, 2] = 7
                     sigmat[i, 3] = sigmat[i, 2] - sigmat[i, 1] + 1
