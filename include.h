@@ -6,7 +6,7 @@
 #include <stdio.h>
 #include <Windows.h>
 #include <math.h>
+#include <numpy/ndarraytypes.h>
+#include <numpy/ufuncobject.h>
+#include <numpy/halffloat.h>
 #include "binlog.h"
-#include "numpy/ndarraytypes.h"
-#include "numpy/ufuncobject.h"
-#include "numpy/halffloat.h"
