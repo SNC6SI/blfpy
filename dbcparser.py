@@ -26,14 +26,15 @@ class dbc2code():
     def get_BO_txt(self):
         self.BO_txt_blks = self.Blk_RE.findall(self.dbc_raw)
 
-    def get_BO_blks(self):
-        self.BO_blks = {}
+    def get_parser(self):
+        self.message = {}
         for BO in self.BO_txt_blks:
             lines = BO.split('\n')
             BO_dict = self.BO_RE.match(lines[0]).groupdict()
             canid = BO_dict['canid']
             BO_dict['canid'] = int(BO_dict['canid'])
-            SG_list = []
+            BO_dict['canid_hex'] = format(BO_dict['canid'], 'X')
+            SG_dicts = {}
             for SG in lines[1:]:
                 if len(SG) > 0:
                     SG_dict = self.SG_RE.match(SG).groupdict()
@@ -42,11 +43,13 @@ class dbc2code():
                     SG_dict['endian'] = int(SG_dict['endian'])
                     SG_dict['gain'] = float(SG_dict['gain'])
                     SG_dict['offset'] = float(SG_dict['offset'])
-                    
-                    SG_list.append(SG_dict)
-                    
-            BO_dict['SG_list'] = SG_list
-            self.BO_blks[canid] = BO_dict
+                    # involke parse method
+                    SG_dict['sigmat'] = self.parser_internal_info2matrix(SG_dict)
+                    SG_dict['pycode'] = self.parser_internal_matrix2py(SG_dict)
+                    # 
+                    SG_dicts[SG_dict['name']] = SG_dict
+            BO_dict['signal'] = SG_dicts
+            self.message[format(BO_dict['canid'], 'X')] = BO_dict
 
 
     def parser_internal_info2matrix(self, info):
@@ -103,7 +106,6 @@ class dbc2code():
                     sigmat[i, 3] = sigmat[i, 2] - sigmat[i, 1] + 1
                     sigmat[i, 4] = sigmat[i-1, 4] + sigmat[i-1, 3]
         return sigmat
-    
 
 
     def parser_internal_matrix2py(self, SG_dict):
@@ -121,27 +123,22 @@ class dbc2code():
             # s = self.bb + '[' + str(sigmat[j, 0]) + ']'
             s =  '(' + s + '>>' + str(sigmat[j, 1]) + ')'
             s = '(' + s + '&(' + str(2**sigmat[j, 3]-1) + '))'
-
             if sigmat[j, 4]:
                 s = '(' + str(2**sigmat[j, 4]) + ')*' + s
-
             SGalgostr = s + SGalgostr
-    
         SGalgostr = '(' + SGalgostr + ')'
-        
         # gain offset
         if gain!=1:
             SGalgostr = SGalgostr + '*' + str(gain)
         if offset:
             SGalgostr = SGalgostr + '+' + str(offset)
-        
         return SGalgostr
 
-        
 
     def do_parse(self):
         self.get_BO_txt()
         self.get_parser()
+
 
 if __name__ == "__main__":
     dbc = dbc2code(fn="test/dbc/ME7_PTCAN_CMatrix_190815_PVS.dbc")
