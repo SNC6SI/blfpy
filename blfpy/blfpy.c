@@ -90,12 +90,17 @@ PyObject* readData(PyObject* self, PyObject* args)
     double * f64_cantime, * f64_tmp;
 
     //double* candata, * canmsgid, * canchannel, * cantime;
-    PyObject* arglist;
-    PyObject * L_candata;
-    PyObject * L_canmsgid;
-    PyObject * L_canchannel;
-    PyObject * L_cantime;
+    PyObject * arglist;
+    PyArrayObject * L_candata, * L_candata_;
+    PyArrayObject * L_canmsgid;
+    PyArrayObject * L_canchannel;
+    PyArrayObject * L_cantime;
     npy_intp dimcandata, dimcanmsg;
+    npy_intp d[2];
+    PyArray_Dims bytedim;
+    
+    bytedim.ptr = d;
+    bytedim.len = 2;
 
     if (!PyArg_ParseTuple(args, "s#", &cfileName, &len))
         return NULL;
@@ -213,17 +218,21 @@ PyObject* readData(PyObject* self, PyObject* args)
     // set owndata is important for memory management (free memory) in python
     dimcandata = ((npy_intp)msgcnt) << 3;
     dimcanmsg = ((npy_intp)msgcnt);
-    L_candata    = PyArray_SimpleNewFromData(1, &dimcandata, NPY_UINT8, u8_candata);
-    PyArray_ENABLEFLAGS((PyArrayObject *)L_candata, NPY_ARRAY_OWNDATA);
+    L_candata_    = PyArray_SimpleNewFromData(1, &dimcandata, NPY_UINT8, u8_candata);
+    PyArray_ENABLEFLAGS(L_candata_, NPY_ARRAY_OWNDATA);
+    bytedim.ptr[0] = msgcnt;
+    bytedim.ptr[1] = 8;
+    L_candata = PyArray_Newshape(L_candata_, &bytedim, NPY_CORDER);
+    Py_DECREF(L_candata_);
     
     L_canmsgid   = PyArray_SimpleNewFromData(1, &dimcanmsg, NPY_ULONG, u32_canmsgid);
-    PyArray_ENABLEFLAGS((PyArrayObject*)L_canmsgid, NPY_ARRAY_OWNDATA);
+    PyArray_ENABLEFLAGS(L_canmsgid, NPY_ARRAY_OWNDATA);
     
     L_canchannel = PyArray_SimpleNewFromData(1, &dimcanmsg, NPY_USHORT, u16_canchannel);
-    PyArray_ENABLEFLAGS((PyArrayObject*)L_canchannel, NPY_ARRAY_OWNDATA);
+    PyArray_ENABLEFLAGS(L_canchannel, NPY_ARRAY_OWNDATA);
     
     L_cantime    = PyArray_SimpleNewFromData(1, &dimcanmsg, NPY_DOUBLE, f64_cantime);
-    PyArray_ENABLEFLAGS((PyArrayObject*)L_cantime, NPY_ARRAY_OWNDATA);
+    PyArray_ENABLEFLAGS(L_cantime, NPY_ARRAY_OWNDATA);
     
     arglist = Py_BuildValue("(NNNN)", L_candata, L_canmsgid, L_canchannel, L_cantime);
 
