@@ -49,7 +49,7 @@ class dbc2code():
                     # 
                     SG_dicts[SG_dict['name']] = SG_dict
             BO_dict['signal'] = SG_dicts
-            self.message[format(BO_dict['canid'], 'X')] = BO_dict
+            self.message[BO_dict['canid']] = BO_dict
 
 
     def parser_internal_info2matrix(self, info):
