@@ -37,7 +37,9 @@ class blfread():
         if dbc is not None:
             self.__dbc = dbc
 
-
+    # TODO: 
+        # blf can be str or list of str
+        # with same dbc but different raw_data, load dbcparser only once
     @property
     def blf(self):
         if self.__blf is not None:
