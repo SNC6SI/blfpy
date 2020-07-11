@@ -1,0 +1,2622 @@
+VERSION ""
+
+
+NS_ : 
+        NS_DESC_
+        CM_
+        BA_DEF_
+        BA_
+        VAL_
+        CAT_DEF_
+        CAT_
+        FILTER
+        BA_DEF_DEF_
+        EV_DATA_
+        ENVVAR_DATA_
+        SGTYPE_
+        SGTYPE_VAL_
+        BA_DEF_SGTYPE_
+        BA_SGTYPE_
+        SIG_TYPE_REF_
+        VAL_TABLE_
+        SIG_GROUP_
+        SIG_VALTYPE_
+        SIGTYPE_VALTYPE_
+        BO_TX_BU_
+        BA_DEF_REL_
+        BA_REL_
+        BA_DEF_DEF_REL_
+        BU_SG_REL_
+        BU_EV_REL_
+        BU_BO_REL_
+        SG_MUL_VAL_
+
+BS_:
+
+BU_: VBU ACU WPTC MCU OBC DCDC GW GCU EMS 
+
+
+BO_ 791 GW_TPCV_0x317: 8 GW
+ SG_ TPCV1_Feedback_status : 1|2@0+ (1,0) [0|3] ""  VBU
+ SG_ TPCV1_Feedback_opening : 7|6@0+ (2.5,0) [0|100] ""  VBU
+ SG_ TPCV1_ResponseError : 8|1@0+ (1,0) [0|1] ""  VBU
+ SG_ TPCV2_Feedback_status : 17|2@0+ (1,0) [0|3] ""  VBU
+ SG_ TPCV2_Feedback_opening : 23|6@0+ (2.5,0) [0|100] ""  VBU
+ SG_ TPCV2_ResponseError : 24|1@0+ (1,0) [0|1] ""  VBU
+
+BO_ 811 VBU_0x32B: 8 VBU
+ SG_ VBU_WakeUpRMCU : 7|1@0+ (1,0) [0|1] ""  MCU
+
+BO_ 404 PA_DistFront_0x194: 8 GW
+ SG_ Checksum_0x194 : 7|8@0+ (1,0) [0|255] ""  VBU
+ SG_ PA_APA_DistanceValueLR_FL : 15|8@0+ (2,0) [0|500] "cm"  VBU
+ SG_ PA_APA_DistanceValueLR_FR : 23|8@0+ (2,0) [0|500] "cm"  VBU
+ SG_ PA_APA_DistanceValueSR_FL : 31|7@0+ (2,0) [0|250] "cm"  VBU
+ SG_ PA_APA_DistanceValueSR_FML : 39|7@0+ (2,0) [0|250] "cm"  VBU
+ SG_ PA_APA_DistanceValueSR_FMR : 47|7@0+ (2,0) [0|250] "cm"  VBU
+ SG_ PA_APA_DistanceValueSR_FR : 55|7@0+ (2,0) [0|250] "cm"  VBU
+ SG_ RollingCounter_0x194 : 59|4@0+ (1,0) [0|15] ""  VBU
+
+BO_ 405 PA_DistRear_0x195: 8 GW
+ SG_ Checksum_0x195 : 7|8@0+ (1,0) [0|255] ""  VBU
+ SG_ PA_APA_DistanceValueLR_RL : 15|8@0+ (2,0) [0|500] "cm"  VBU
+ SG_ PA_APA_DistanceValueLR_RR : 23|8@0+ (2,0) [0|500] "cm"  VBU
+ SG_ PA_APA_DistanceValueSR_RL : 31|7@0+ (2,0) [0|250] "cm"  VBU
+ SG_ PA_APA_DistanceValueSR_RML : 39|7@0+ (2,0) [0|250] "cm"  VBU
+ SG_ PA_APA_DistanceValueSR_RMR : 47|7@0+ (2,0) [0|250] "cm"  VBU
+ SG_ PA_APA_DistanceValueSR_RR : 55|7@0+ (2,0) [0|250] "cm"  VBU
+ SG_ RollingCounter_0x195 : 59|4@0+ (1,0) [0|15] ""  VBU
+
+BO_ 401 APS_0x191: 8 GW
+ SG_ Checksum_0x191 : 7|8@0+ (1,0) [0|255] ""  VBU
+ SG_ APS_VBU_BrakeFunctionMode : 15|4@0+ (1,0) [0|15] "deg"  VBU
+ SG_ APS_VBU_BrakeModeSts : 19|3@0+ (1,0) [0|7] ""  VBU
+ SG_ APS_VBU_Speed_Limitation : 23|4@0+ (0.2,0) [0|3] "km/h"  VBU
+ SG_ APS_VBU_Target_Gear_Request : 26|3@0+ (1,0) [0|7] ""  VBU
+ SG_ APS_VBU_APAFailed : 31|1@0+ (1,0) [0|1] ""  VBU
+ SG_ APS_VBU_FailureBrakeMode : 39|2@0+ (1,0) [0|3] ""  VBU
+ SG_ APS_VBU_Stop_Distance : 45|8@0+ (1,0) [0|255] ""  VBU
+ SG_ APS_R_Gear_RequestTips : 47|2@0+ (1,0) [0|3] ""  VBU
+ SG_ APS_VBU_Req_StraightOut : 48|1@0+ (1,0) [0|1] ""  VBU
+ SG_ APS_VBU_Gear_Request : 51|3@0+ (1,0) [0|7] ""  VBU
+ SG_ APS_VBU_Req_StraightCtrol : 53|2@0+ (1,0) [0|3] ""  VBU
+ SG_ RollingCounter_0x191 : 59|4@0+ (1,0) [0|15] ""  VBU
+
+BO_ 599 AC_0x257: 8 GW
+ SG_ Checksum_0x257 : 7|8@0+ (1,0) [0|255] ""  VBU,EMS
+ SG_ AC_RemoteAC : 10|3@0+ (1,0) [0|7] ""  VBU
+ SG_ AC_VBU_ComfortheatReqLvl : 45|4@0+ (1,0) [0|15] ""  VBU
+ SG_ RollingCounter_0x257 : 59|4@0+ (1,0) [0|15] ""  VBU,EMS
+
+BO_ 1323 VBU_0x52B: 8 VBU
+ SG_ VBU_State0 : 7|8@0+ (1,0) [0|255] ""  Vector__XXX
+ SG_ VBU_State1 : 15|8@0+ (1,0) [0|255] ""  Vector__XXX
+ SG_ VBU_State2 : 23|8@0+ (1,0) [0|255] ""  Vector__XXX
+ SG_ VBU_State3 : 31|8@0+ (1,0) [0|255] ""  Vector__XXX
+ SG_ VBU_State4 : 39|8@0+ (1,0) [0|255] ""  Vector__XXX
+ SG_ VBU_State5 : 47|8@0+ (1,0) [0|255] ""  Vector__XXX
+ SG_ VBU_State6 : 55|8@0+ (1,0) [0|255] ""  Vector__XXX
+ SG_ VBU_State7 : 63|8@0+ (1,0) [0|255] ""  Vector__XXX
+
+BO_ 1325 VBU_0x52D: 8 VBU
+ SG_ VBU_ErrorCode0 : 7|8@0+ (1,0) [0|255] ""  Vector__XXX
+ SG_ VBU_ErrorCode1 : 15|8@0+ (1,0) [0|255] ""  Vector__XXX
+ SG_ VBU_ErrorCode2 : 23|8@0+ (1,0) [0|255] ""  Vector__XXX
+ SG_ VBU_ErrorCode3 : 31|8@0+ (1,0) [0|255] ""  Vector__XXX
+ SG_ VBU_ErrorCode4 : 39|8@0+ (1,0) [0|255] ""  Vector__XXX
+ SG_ VBU_ErrorCode5 : 47|8@0+ (1,0) [0|255] ""  Vector__XXX
+ SG_ VBU_ErrorCode6 : 55|8@0+ (1,0) [0|255] ""  Vector__XXX
+ SG_ VBU_ErrorCode7 : 63|8@0+ (1,0) [0|255] ""  Vector__XXX
+
+BO_ 1326 VBU_0x52E: 8 VBU
+ SG_ VBU_ErrorCode8 : 7|8@0+ (1,0) [0|255] ""  Vector__XXX
+ SG_ VBU_ErrorCode9 : 15|8@0+ (1,0) [0|255] ""  Vector__XXX
+ SG_ VBU_ErrorCode10 : 23|8@0+ (1,0) [0|255] ""  Vector__XXX
+ SG_ VBU_ErrorCode11 : 31|8@0+ (1,0) [0|255] ""  Vector__XXX
+ SG_ VBU_ErrorCode12 : 39|8@0+ (1,0) [0|255] ""  Vector__XXX
+ SG_ VBU_ErrorCode13 : 47|8@0+ (1,0) [0|255] ""  Vector__XXX
+ SG_ VBU_ErrorCode14 : 55|8@0+ (1,0) [0|255] ""  Vector__XXX
+ SG_ VBU_ErrorCode15 : 63|8@0+ (1,0) [0|255] ""  Vector__XXX
+
+BO_ 1327 VBU_0x52F: 8 VBU
+ SG_ VBU_ErrorCode16 : 7|8@0+ (1,0) [0|255] ""  Vector__XXX
+ SG_ VBU_ErrorCode17 : 15|8@0+ (1,0) [0|255] ""  Vector__XXX
+ SG_ VBU_ErrorCode18 : 23|8@0+ (1,0) [0|255] ""  Vector__XXX
+ SG_ VBU_ErrorCode19 : 31|8@0+ (1,0) [0|255] ""  Vector__XXX
+ SG_ VBU_ErrorCode20 : 39|8@0+ (1,0) [0|255] ""  Vector__XXX
+ SG_ VBU_ErrorCode21 : 47|8@0+ (1,0) [0|255] ""  Vector__XXX
+ SG_ VBU_ErrorCode22 : 55|8@0+ (1,0) [0|255] ""  Vector__XXX
+ SG_ VBU_ErrorCode23 : 63|8@0+ (1,0) [0|255] ""  Vector__XXX
+
+BO_ 1379 VBU_0x563: 8 VBU
+ SG_ VBU_MCUOutputWaterTemp : 7|8@0+ (1,-40) [-40|215] ""  Vector__XXX
+ SG_ VBU_ComfortPumpPWM : 15|7@0+ (1,0) [0|100] "%"  Vector__XXX
+ SG_ VBU_MotorPumpFB_PWM : 30|7@0+ (1,0) [0|100] "%"  Vector__XXX
+ SG_ VCU_FastCharge_A : 31|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ VBU_CC2 : 39|8@0+ (0.1,0) [0|25.4] "V"  Vector__XXX
+ SG_ VBU_BatPumpFB_PWM : 47|7@0+ (1,0) [0|100] "%"  Vector__XXX
+ SG_ VBU_ComfortPumpFB_PWM : 55|7@0+ (1,0) [0|100] "%"  Vector__XXX
+
+BO_ 596 AC_0x254: 8 GW
+ SG_ AC_WindModeSts : 26|3@0+ (1,0) [0|7] ""  VBU
+ SG_ AC_OutTemperature : 47|8@0+ (0.5,-40) [-40|80] "℃"  VBU,EMS
+
+BO_ 597 AC_0x255: 8 GW
+ SG_ AC_VBU_FanPWMReq : 46|7@0+ (1,0) [0|100] "%"  VBU
+ SG_ AC_VBU_APTCPwrReq : 54|7@0+ (0.1,0) [0|12.7] ""  VBU
+ SG_ AC_VBU_EACPwrReq : 62|7@0+ (0.1,0) [0|12.7] ""  VBU
+
+BO_ 800 EAC_0x320: 8 GW
+ SG_ EAC_power : 6|7@0+ (0.1,0) [0|12.7] "KW"  VBU
+ SG_ EAC_Status : 15|2@0+ (1,0) [0|3] ""  VBU
+
+BO_ 806 APTC_0x326: 8 GW
+ SG_ APTC_WorkSts : 1|2@0+ (1,0) [0|3] ""  VBU
+ SG_ APTC_WorkPower : 14|7@0+ (0.1,0) [0|12.7] "KW"  VBU
+ SG_ APTC_ErrorLevel : 49|2@0+ (1,0) [0|3] ""  VBU
+
+BO_ 582 MPC_0x246: 8 GW
+ SG_ MPC_LKS_LeftVisualization : 35|3@0+ (1,0) [0|7] ""  VBU
+ SG_ MPC_LKS_RightVisualization : 38|3@0+ (1,0) [0|7] ""  VBU
+
+BO_ 851 TBOX_0x353: 8 GW
+ SG_ Checksum_0x353 : 7|8@0+ (1,0) [0|255] ""  VBU
+ SG_ TBOX_VBU_TimeCharge : 18|2@0+ (1,0) [0|3] ""  VBU
+ SG_ TBOX_VBU_RemoteChrgLock : 46|1@0+ (1,0) [0|1] ""  VBU
+ SG_ TBOX_FOTA_mode : 47|1@0+ (1,0) [0|1] ""  MCU,DCDC,VBU
+ SG_ RollingCounter_0x353 : 59|4@0+ (1,0) [0|15] ""  VBU
+
+BO_ 881 VBU_0x371: 8 VBU
+ SG_ VBU_instantaneous_Energy : 7|12@0+ (0.1,-204.7) [-204.7|204.6] ""  GW
+ SG_ VBU_instantaneous_EnergyUnit : 8|1@0+ (1,0) [0|1] ""  GW
+ SG_ VBU_Maintenance_lights : 10|1@0+ (1,0) [0|1] ""  GW
+ SG_ VBU_trip : 31|12@0+ (1,0) [0|4095] "km"  GW
+ SG_ VBU_ChargeIncreaseMileage : 50|11@0+ (1,0) [0|2046] "km"  GW
+
+BO_ 882 VBU_0x372: 8 VBU
+ SG_ VBU_SubtotalAverageEnergy : 7|9@0+ (0.1,0) [0|51] "kwh/100km"  GW
+ SG_ VBU_SubtotalEnergy : 23|15@0+ (0.1,0) [0|3276.6] "kwh"  GW
+ SG_ VBU_Subtotaltime : 39|15@0+ (1,0) [0|32766] "min"  GW
+ SG_ VBU_ChargeIncreaseMileageSpeed : 51|12@0+ (1,0) [0|2046] "km/h"  GW
+
+BO_ 883 VBU_0x373: 8 VBU
+ SG_ VBU_DST : 7|12@0+ (1,0) [0|4095] "km"  GW
+ SG_ VBU_SingleMileageAverageEnergy : 8|9@0+ (0.1,0) [0|51] "kwh/100km"  GW
+ SG_ VBU_SingleMileageEnergy : 31|15@0+ (0.1,0) [0|3276.5] "kwh"  GW
+ SG_ VBU_SingleMileagetime : 47|15@0+ (1,0) [0|32765] "min"  GW
+ SG_ VBU_SlowChargeGunSt : 57|2@0+ (1,0) [0|3] ""  GW
+ SG_ VBU_FastChargeGunSt : 59|2@0+ (1,0) [0|3] ""  GW
+
+BO_ 154 VBU_0x9A: 8 VBU
+ SG_ Checksum_0x9A : 7|8@0+ (1,0) [0|255] ""  MCU,GW
+ SG_ VBU_ErrorLevel : 10|3@0+ (1,0) [0|7] ""  MCU,GW
+ SG_ VBU_MCU_WorkMode : 13|3@0+ (1,0) [0|7] ""  MCU,GW
+ SG_ VBU_WarmUpCycleMet : 14|1@0+ (1,0) [0|1] ""  MCU,OBC,DCDC,GCU,EMS
+ SG_ VBU_MILReq : 15|1@0+ (1,0) [0|1] ""  EMS
+ SG_ VBU_MCU_TrqReq : 22|15@0+ (0.1,-1000) [-1000|1000] "NM"  MCU,GW
+ SG_ VBU_MCU_SpdReq : 38|16@0+ (1,-32767) [-32767|32768] "RPM"  MCU,GW
+ SG_ VBU_MotorOffsetCalCmd : 54|8@0+ (1,0) [0|255] ""  MCU,GW
+ SG_ Rolling_counter_0x9A : 59|4@0+ (1,0) [0|15] ""  MCU,GW
+
+BO_ 155 VBU_0x9B: 8 VBU
+ SG_ Checksum_0x9B : 7|8@0+ (1,0) [0|255] ""  OBC,GW
+ SG_ VBU_DC_WorkMode : 13|3@0+ (1,0) [0|7] ""  DCDC,GW
+ SG_ VBU_WPTC_En : 21|2@0+ (1,0) [0|3] ""  WPTC,GW
+ SG_ VBU_DC_VoltageReq : 31|8@0+ (0.1,0) [12|16] "V"  DCDC,GW
+ SG_ VBU_WPTC_Request : 33|2@0+ (1,0) [0|3] ""  WPTC,GW
+ SG_ VBU_OBC_RemoteCharge : 34|1@0+ (1,0) [0|1] ""  OBC,GW
+ SG_ VBU_WPTC_BatHotlPwrSet : 46|7@0+ (0.1,0) [0|12] ""  WPTC,GW
+ SG_ VBU_OBC_ChrgLock : 49|2@0+ (1,0) [0|3] ""  OBC
+ SG_ VBU_TBOX_ChrgLockSts : 52|3@0+ (1,0) [0|7] ""  GW
+ SG_ VBU_ACU_DrvSeatBeltSWSts : 54|1@0+ (1,0) [0|1] ""  ACU
+ SG_ VBU_OBC_ChrgEnable : 63|3@0+ (1,0) [0|7] ""  OBC,GW
+ SG_ Rolling_counter_0x9B : 59|4@0+ (1,0) [0|15] ""  OBC,GW
+
+BO_ 156 VBU_0x9C: 8 VBU
+ SG_ Checksum_0x9C : 7|8@0+ (1,0) [0|255] ""  GW
+ SG_ VBU_Cruise_Sts : 9|2@0+ (1,0) [0|3] ""  GW
+ SG_ VBU_DriveInhibitAlarm : 10|1@0+ (1,0) [0|1] ""  GW
+ SG_ VBU_EPB_FunctionSet : 12|2@0+ (1,0) [0|3] ""  GW
+ SG_ VBU_HU_ChrgLockSts : 15|3@0+ (1,0) [0|7] ""  GW
+ SG_ VBU_CCS_SpeedArm : 23|8@0+ (1,0) [0|200] "km/h"  GW
+ SG_ VBU_SpeedLimitSWSts : 25|1@0+ (1,0) [0|1] ""  GW
+ SG_ VBU_DMS_Status : 27|2@0+ (1,0) [0|3] ""  GW
+ SG_ VBU_DMS_SWStatus : 28|1@0+ (1,0) [0|1] ""  GW
+ SG_ VBU_IdleModeAct : 29|1@0+ (1,0) [0|1] ""  GW
+ SG_ VBU_LimitSpeed : 39|8@0+ (1,0) [0|200] ""  GW
+ SG_ VBU_LimitSpeedAlarm_L : 40|1@0+ (1,0) [0|1] ""  GW
+ SG_ VBU_LimitSpeedAlarm_V : 41|1@0+ (1,0) [0|1] ""  GW
+ SG_ VBU_TPCV1Control : 47|6@0+ (2.5,0) [0|100] ""  GW,EMS
+ SG_ VBU_TPCV2Control : 55|6@0+ (2.5,0) [0|100] ""  GW
+ SG_ Rolling_counter_0x9C : 59|4@0+ (1,0) [0|15] ""  GW
+
+BO_ 157 VBU_0x9D: 8 VBU
+ SG_ VBU_AC_ComfortEAC_En : 0|1@0+ (1,0) [0|1] ""  GW
+ SG_ VBU_RefuelingInfo : 5|3@0+ (1,0) [0|7] ""  GW
+ SG_ VBU_AC_BatCoolEAC_En : 1|1@0+ (1,0) [0|1] ""  GW
+ SG_ VBU_AC_APTC_En : 2|1@0+ (1,0) [0|1] ""  GW
+ SG_ VBU_AC_APTCPwrSet : 14|7@0+ (0.1,0) [0|12.7] "KW"  GW
+ SG_ VBU_AC_EACPwrSet : 22|7@0+ (0.1,0) [0|12.7] "KW"  GW
+ SG_ VBU_FanPWMSts : 30|7@0+ (1,0) [0|100] "%"  GW
+ SG_ VBU_RemoteACFeedback : 38|4@0+ (1,0) [0|15] ""  GW
+ SG_ VBU_ComfortPumpError : 40|1@0+ (1,0) [0|1] ""  GW
+ SG_ VBU_ENGWVControl : 41|1@0+ (1,0) [0|1] ""  GW,EMS
+ SG_ VBU_WPTCWVControl : 42|1@0+ (1,0) [0|1] ""  GW,EMS
+ SG_ VBU_ENGWVFault : 43|1@0+ (1,0) [0|1] ""  GW,EMS
+ SG_ VBU_WPTCWVFault : 44|1@0+ (1,0) [0|1] ""  GW,EMS
+ SG_ VBU_FanSts : 45|1@0+ (1,0) [0|1] ""  GW
+ SG_ VBU_FuelLipOpenRemind : 46|1@0+ (1,0) [0|1] ""  GW
+ SG_ VBU_RefuelingSysErrorRemind : 47|1@0+ (1,0) [0|1] ""  GW
+ SG_ VCU_12VbatterySOHLow : 48|1@0+ (1,0) [0|1] ""  GW
+ SG_ VCU_LVSmartChrg_Status : 50|2@0+ (1,0) [0|3] ""  GW
+ SG_ VCU_SlowChargeLight : 53|3@0+ (1,0) [0|7] ""  GW
+ SG_ VCU_FastChargeLight : 58|3@0+ (1,0) [0|7] ""  GW
+ SG_ VBU_AC_ThermalReqLvl : 62|4@0+ (1,0) [0|15] ""  GW
+
+BO_ 256 VBU_BMS_0x100: 8 VBU
+ SG_ CheckSum_0x100 : 7|8@0+ (1,0) [0|255] ""  MCU,GW,GCU
+ SG_ VBU_BMS_PackU : 15|13@0+ (0.1,0) [0|800] "V"  MCU,GW,GCU
+ SG_ VBU_BMS_WaringLevel : 18|3@0+ (1,0) [0|7] ""  GW
+ SG_ VBU_BMS_PackI : 31|16@0+ (0.1,-1000) [-1000|1000] "A"  GW
+ SG_ VBU_BMS_RelayChrPos : 41|2@0+ (1,0) [0|3] ""  GW
+ SG_ VBU_BMS_RelayNeg : 43|2@0+ (1,0) [0|3] ""  MCU,GW,GCU
+ SG_ VBU_BMS_RelayPre : 45|2@0+ (1,0) [0|3] ""  GW
+ SG_ VBU_BMS_RelayPos : 47|2@0+ (1,0) [0|3] ""  MCU,GW,GCU
+ SG_ VBU_BMS_RelayChrNeg : 49|2@0+ (1,0) [0|3] ""  GW
+ SG_ VBU_BMS_State : 53|4@0+ (1,0) [0|15] ""  GW
+ SG_ VBU_BMS_ChrFastState : 55|2@0+ (1,0) [0|3] ""  GW
+ SG_ VBU_BMS_SPreCharging : 61|2@0+ (1,0) [0|3] ""  GW
+ SG_ VBU_BMS_ChrSlowState : 63|2@0+ (1,0) [0|3] ""  GW
+ SG_ VBU_BMS_0x100_RollingCounter : 59|4@0+ (1,0) [0|15] ""  MCU,GW,GCU
+
+BO_ 258 VBU_BMS_0x102: 8 VBU
+ SG_ VBU_BMS_RealSOC : 7|10@0+ (0.1,0) [0|100] "%"  GW
+ SG_ VBU_BMS_PackDispSoc : 13|10@0+ (0.1,0) [0|100] "%"  GW,EMS
+ SG_ VBU_BMS_ChrNegRelayEnable : 16|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ VBU_BMS_ChrPosRelayEnable : 17|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ VBU_BMS_PreRelayEnable : 19|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ VBU_BMS_MainNegRelayEnable : 30|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ VBU_BMS_MainPosRelayEnable : 31|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ VBU_BMS_LinkU : 44|13@0+ (0.1,0) [0|800] "V"  GW
+ SG_ VBU_BMS_BalanceSts : 45|1@0+ (1,0) [0|1] ""  GW
+ SG_ VBU_BMS_0x102_RollingCounter : 59|4@0+ (1,0) [0|15] ""  GW
+
+BO_ 259 VBU_BMS_0x103: 8 VBU
+ SG_ VBU_BMS_Insulation_positive : 7|10@0+ (1,0) [0|1000] "KΩ"  GW
+ SG_ VBU_BMS_Insulation_negative : 13|10@0+ (1,0) [0|1000] "KΩ"  GW
+ SG_ VBU_BMS_Current_power : 19|10@0+ (0.5,-250) [-250|250] ""  Vector__XXX
+ SG_ VBU_BMS_0x103_RollingCounter : 59|4@0+ (1,0) [0|15] ""  Vector__XXX
+
+BO_ 261 VBU_BMS_0x105: 8 VBU
+ SG_ VBU_BMS_PackSOH : 6|7@0+ (1,0) [0|100] "%"  Vector__XXX
+ SG_ VBU_BMS_ChrRequestU : 15|13@0+ (0.1,0) [0|800] "V"  OBC,GW
+ SG_ VBU_BMS_ChrRequest : 18|3@0+ (1,0) [0|7] ""  OBC,GW
+ SG_ VBU_BMS_ChrRequestI : 31|12@0+ (0.1,0) [0|400] "A"  OBC,GW
+ SG_ VBU_BMS_TotalEnergy : 47|19@0+ (1,0) [0|524286] "kwh"  GW
+ SG_ VBU_BMS_0x105_RollingCounter : 59|4@0+ (1,0) [0|15] ""  OBC,GW
+
+BO_ 274 VBU_BMS_0x112: 8 VBU
+ SG_ VBU_BMS_MaxCellNo : 7|8@0+ (1,0) [0|255] ""  GW
+ SG_ VBU_BMS_MaxCellU : 15|13@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_MinCellNo : 31|8@0+ (1,0) [0|255] ""  GW
+ SG_ VBU_BMS_MinCellU : 39|13@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_CellVolDev : 55|12@0+ (1,0) [0|4000] "mV"  GW
+ SG_ VBU_BMS_0x112_RollingCounter : 59|4@0+ (1,0) [0|15] ""  GW
+
+BO_ 277 VBU_BMS_0x115: 8 VBU
+ SG_ VBU_BMS_MaxDschPower : 7|10@0+ (0.25,0) [0|250] "KW"  Vector__XXX
+ SG_ VBU_BMS_MaxDschPowerPeak : 13|10@0+ (0.25,0) [0|250] "KW"  Vector__XXX
+ SG_ VBU_BMS_DschAllowedPower : 19|10@0+ (0.25,0) [0|250] "KW"  Vector__XXX
+ SG_ VBU_BMS_MaxChrgPowerPeak : 25|10@0+ (0.25,0) [0|250] "KW"  Vector__XXX
+ SG_ VBU_BMS_MaxChrgPower : 47|10@0+ (0.25,0) [0|250] "KW"  Vector__XXX
+ SG_ VBU_BMS_ChrgAllowedPower : 53|10@0+ (0.25,0) [0|250] "KW"  Vector__XXX
+ SG_ VBU_BMS_0x115_RollingCounter : 59|4@0+ (1,0) [0|15] ""  Vector__XXX
+
+BO_ 278 VBU_BMS_0x116: 8 VBU
+ SG_ VBU_BMS_CellOverVolWaring : 1|2@0+ (1,0) [0|3] ""  GW
+ SG_ VBU_BMS_CellUnderVolWaring : 3|2@0+ (1,0) [0|3] ""  GW
+ SG_ VBU_BMS_TempOverWaring : 5|2@0+ (1,0) [0|3] ""  GW
+ SG_ VBU_BMS_TempUnderWaring : 7|2@0+ (1,0) [0|3] ""  GW
+ SG_ VBU_BMS_CellVolDevWaring : 9|2@0+ (1,0) [0|3] ""  GW
+ SG_ VBU_BMS_TempDveWaring : 11|2@0+ (1,0) [0|3] ""  GW
+ SG_ VBU_BMS_BattOverVolWaring : 13|2@0+ (1,0) [0|3] ""  GW
+ SG_ VBU_BMS_BattUnderVolWaring : 15|2@0+ (1,0) [0|3] ""  GW
+ SG_ VBU_BMS_DCChargePlugTempOverHigh : 16|1@0+ (1,0) [0|1] ""  GW
+ SG_ VBU_BMS_DisCharOverCurr : 18|2@0+ (1,0) [0|3] ""  GW
+ SG_ VBU_BMS_RegenOverCurr : 20|2@0+ (1,0) [0|3] ""  GW
+ SG_ VBU_BMS_InnerCANTimeout : 21|1@0+ (1,0) [0|1] ""  GW
+ SG_ VBU_BMS_ISOWaring : 23|2@0+ (1,0) [0|3] ""  GW
+ SG_ VBU_BMS_BCUHWFault : 24|1@0+ (1,0) [0|1] ""  GW
+ SG_ VBU_BMS_NegRelayFault : 26|2@0+ (1,0) [0|3] ""  GW
+ SG_ VBU_BMS_PosRelayFault : 28|2@0+ (1,0) [0|3] ""  GW
+ SG_ VBU_BMS_PreRelayFault : 30|2@0+ (1,0) [0|3] ""  GW
+ SG_ VBU_BMS_CharPosRelayFault : 33|2@0+ (1,0) [0|3] ""  GW
+ SG_ VBU_BMS_CharNegRelayFault : 35|2@0+ (1,0) [0|3] ""  GW
+ SG_ VBU_BMS_BMUFault : 36|1@0+ (1,0) [0|1] ""  GW
+ SG_ VBU_BMS_BattHVDisaccord : 38|1@0+ (1,0) [0|1] ""  GW
+ SG_ VBU_BMS_CurrSensorFault : 39|1@0+ (1,0) [0|1] ""  GW
+ SG_ VBU_BMS_SOClow : 41|2@0+ (1,0) [0|3] ""  GW
+ SG_ VBU_BMS_Mismatch : 42|1@0+ (1,0) [0|1] ""  GW
+ SG_ VBU_BMS_SOCOverHigh : 43|1@0+ (1,0) [0|1] ""  GW
+ SG_ VBU_BMS_BattOverCharge : 44|1@0+ (1,0) [0|1] ""  GW
+ SG_ VBU_BMS_SOCSkip : 45|1@0+ (1,0) [0|1] ""  GW
+ SG_ VBU_BMS_CGOverCurr : 46|1@0+ (1,0) [0|1] ""  GW
+ SG_ VBU_BMS_LiquidLeak : 48|1@0+ (1,0) [0|1] ""  GW
+ SG_ VBU_BMS_ThermRunAway : 50|1@0+ (1,0) [0|1] ""  GW
+ SG_ VBU_BMS_Maintenance : 52|2@0+ (1,0) [0|3] ""  GW
+ SG_ VBU_BMS_BusbarTempOverWaring : 53|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ VBU_BMS_batteryCutoff : 62|1@0+ (1,0) [0|1] ""  GW
+ SG_ VBU_BMS_BatteryERROR : 63|1@0+ (1,0) [0|1] ""  GW
+ SG_ VBU_BMS_0x116_RollingCounter : 59|4@0+ (1,0) [0|15] ""  GW
+
+BO_ 276 VBU_BMS_0x114: 8 VBU
+ SG_ VBU_BMS_CellSumVol : 7|13@0+ (0.1,0) [0|800] "V"  Vector__XXX
+ SG_ VBU_BMS_ThermalCtrlTargetTemp : 23|8@0+ (1,-40) [-40|85] "℃"  GW
+ SG_ VBU_BMS_InputWaterTemp : 31|8@0+ (0.5,-40) [-40|85] "℃"  GW,EMS
+ SG_ VBU_BMS_OutputWaterTemp : 39|8@0+ (0.5,-40) [-40|85] "℃"  GW,EMS
+ SG_ VBU_BMS_DisChargeSOPbuffer : 55|8@0+ (0.5,0) [0|100] ""  Vector__XXX
+ SG_ VBU_BMS_0x114_RollingCounter : 59|4@0+ (1,0) [0|15] ""  GW
+
+BO_ 279 VBU_0x117: 8 VBU
+ SG_ VBU_ActualPowerPer : 7|8@0+ (1,-100) [-100|100] ""  GW
+ SG_ VBU_thermalControlReq : 10|3@0+ (1,0) [0|7] ""  GW
+ SG_ VBU_EnergyRegLimPer : 23|7@0+ (1,0) [0|100] ""  GW
+ SG_ VBU_ExchangerInputWaterTemp : 39|8@0+ (1,-40) [-40|215] "℃"  GW
+ SG_ VBU_BattThermalReqLvl : 47|8@0+ (1,0) [0|15] ""  GW
+ SG_ VBU_RecoTiming : 54|7@0+ (1,0) [0|120] ""  GW
+ SG_ VBU_EnergyDriveLimPer : 63|7@0+ (1,0) [0|100] ""  GW
+
+BO_ 289 ESP_0x121: 8 GW
+ SG_ Checksum_0x121 : 7|8@0+ (1,0) [0|255] ""  VBU
+ SG_ ESP_VehicleSpeed : 11|12@0+ (0.05625,0) [0|230.28749] "kph"  ACU,MCU,VBU,GCU,EMS
+ SG_ ESP_VehicleSpeed_Valid : 12|1@0+ (1,0) [0|1] ""  ACU,MCU,VBU,GCU,EMS
+ SG_ ESP_OFF : 13|1@0+ (1,0) [0|1] ""  VBU
+ SG_ ESP_ABS_Error : 14|1@0+ (1,0) [0|1] ""  VBU
+ SG_ ESP_ABS_Intervention : 15|1@0+ (1,0) [0|1] ""  VBU
+ SG_ ESP_VDC_TCS_Error : 24|1@0+ (1,0) [0|1] ""  VBU
+ SG_ ESP_EBD_Error : 25|1@0+ (1,0) [0|1] ""  VBU
+ SG_ ESP_VDC_Intervention : 26|1@0+ (1,0) [0|1] ""  VBU
+ SG_ ESP_TCS_Intervention : 27|1@0+ (1,0) [0|1] ""  VBU
+ SG_ ESP_EBD_Intervention : 28|1@0+ (1,0) [0|1] ""  VBU
+ SG_ ESP_EPBFailstatus : 34|1@0+ (1,0) [0|1] ""  VBU
+ SG_ ESP_EPBStatus : 37|3@0+ (1,0) [0|7] ""  VBU
+ SG_ ESP_VehicleStop : 38|1@0+ (1,0) [0|1] ""  VBU
+ SG_ ESP_VehicleStop_Valid : 39|1@0+ (1,0) [0|1] ""  VBU
+ SG_ ESP_MasterCyPressureCmp : 47|8@0+ (1,0) [0|255] "bar"  VBU
+ SG_ ESP_MasterCyPressure_Valid : 48|1@0+ (1,0) [0|1] ""  VBU
+ SG_ ESP_AVHActive : 52|1@0+ (1,0) [0|1] ""  VBU
+ SG_ ESP_HHCActive : 55|1@0+ (1,0) [0|1] ""  VBU
+ SG_ RollingCounter_0x121 : 59|4@0+ (1,0) [0|15] ""  VBU
+
+BO_ 533 ESP_0x215: 8 GW
+ SG_ Checksum_0x215 : 7|8@0+ (1,0) [0|255] ""  VBU
+ SG_ ABS_WheelPulse_FL_Valid : 8|1@0+ (1,0) [0|1] ""  VBU
+ SG_ ABS_WheelPulse_FR_Valid : 9|1@0+ (1,0) [0|1] ""  VBU
+ SG_ ABS_WheelPulse_RL_Valid : 10|1@0+ (1,0) [0|1] ""  VBU
+ SG_ ABS_WheelPulse_RR_Valid : 11|1@0+ (1,0) [0|1] ""  VBU
+ SG_ ABS_WheelPulse_FL : 23|8@0+ (1,0) [0|255] ""  VBU
+ SG_ ABS_WheelPulse_FR : 31|8@0+ (1,0) [0|255] ""  VBU
+ SG_ ABS_WheelPulse_RL : 39|8@0+ (1,0) [0|255] ""  VBU
+ SG_ ABS_WheelPulse_RR : 47|8@0+ (1,0) [0|255] ""  VBU
+ SG_ RollingCounter_0x215 : 59|4@0+ (1,0) [0|15] ""  VBU
+
+BO_ 291 MCU_0x123: 8 MCU
+ SG_ MCU_DC_linkVoltage : 12|10@0+ (1,0) [0|1023] "V"  VBU,GW
+ SG_ MCU_DC_linkCurrent : 18|11@0+ (1,-1023) [-1023|1024] "A"  VBU,GW
+
+BO_ 293 ESP_0x125: 8 GW
+ SG_ Checksum_0x125 : 7|8@0+ (1,0) [0|255] ""  VBU
+ SG_ ESP_TorqueIncrease : 14|15@0+ (0.1,-1000) [-1000|1000] "NM"  VBU
+ SG_ ESP_TorqueIncreaseSt : 15|1@0+ (1,0) [0|1] ""  VBU
+ SG_ ESP_TorqueReqFast : 30|15@0+ (0.1,-1000) [-1000|1000] "NM"  VBU
+ SG_ ESP_TorqueReqFastSt : 31|1@0+ (1,0) [0|1] ""  VBU
+ SG_ RollingCounter_0x125 : 59|4@0+ (1,0) [0|15] ""  VBU
+ SG_ ESC_Gear_Request : 63|3@0+ (1,0) [0|7] ""  VBU
+
+BO_ 320 VBU_0x140: 8 VBU
+ SG_ Checksum_0x140 : 7|8@0+ (1,0) [0|255] ""  GW
+ SG_ VBU_CurrentMotorTorq : 14|15@0+ (0.1,-1000) [-1000|1000] "NM"  GW
+ SG_ VBU_MaxMotorTorque : 30|15@0+ (0.1,-1000) [-1000|1000] "NM"  GW
+ SG_ VBU_MinMotorTorque : 46|15@0+ (0.1,-1000) [-1000|1000] "NM"  GW
+ SG_ Rollingcounter_0x140 : 59|4@0+ (1,0) [0|15] ""  GW
+
+BO_ 321 VBU_0x141: 8 VBU
+ SG_ Checksum_0x141 : 7|8@0+ (1,0) [0|255] ""  GW
+ SG_ VBU_DriverDemandTorq : 14|15@0+ (0.1,-1000) [-1000|1000] "NM"  GW
+ SG_ VBU_Onepedal : 15|1@0+ (1,0) [0|1] ""  GW
+ SG_ VBU_QECACC : 26|3@0+ (1,0) [0|7] ""  GW
+ SG_ VBU_OnepedalSetEn : 28|1@0+ (1,0) [0|1] ""  GW
+ SG_ VBU_GearShiftInProgress : 30|1@0+ (1,0) [0|1] ""  GW
+ SG_ VBU_ShiftInProgress_Status : 31|1@0+ (1,0) [0|1] ""  GW
+ SG_ VBU_AccelerationModePer : 38|7@0+ (1,0) [0|100] ""  GW
+ SG_ VBU_OverRide : 39|1@0+ (1,0) [0|1] ""  GW
+ SG_ VBU_DriveMode : 42|3@0+ (1,0) [0|7] ""  GW
+ SG_ VBU_APA_LC_Availability : 44|2@0+ (1,0) [0|3] ""  GW
+ SG_ VBU_APA_LC_FailureSts : 47|3@0+ (1,0) [0|7] ""  GW
+ SG_ VBU_E_Pedalwarn : 48|1@0+ (1,0) [0|1] ""  GW
+ SG_ VBU_ChargeDepthwarn : 49|1@0+ (1,0) [0|1] ""  GW
+ SG_ VBU_APA_LC_Status : 63|4@0+ (1,0) [0|15] ""  GW
+ SG_ Rollingcounter_0x141 : 59|4@0+ (1,0) [0|15] ""  GW
+
+BO_ 322 VBU_0x142: 8 VBU
+ SG_ Checksum_0x142 : 7|8@0+ (1,0) [0|255] ""  GW
+ SG_ VBU_vacuumpumpsensorRelvalue : 15|10@0+ (0.2,-108) [-108|5] "Kpa"  GW
+ SG_ VBU_MCU_MotorSpeed : 31|16@0+ (1,-32767) [-32767|32768] "RPM"  GW
+ SG_ Rollingcounter_0x142 : 59|4@0+ (1,0) [0|15] ""  GW
+
+BO_ 336 VBU_0x150: 8 VBU
+ SG_ Checksum_0x150 : 7|8@0+ (1,0) [0|255] ""  GW
+ SG_ VBU_GearLeverPos : 10|3@0+ (1,0) [0|7] ""  GW,EMS
+ SG_ VBU_TortoiseLamp : 11|1@0+ (1,0) [0|1] ""  GW
+ SG_ VBU_12VbatteryError : 14|1@0+ (1,0) [0|1] ""  GW
+ SG_ VBU_ReadySts : 15|1@0+ (1,0) [0|1] ""  GW,GCU,EMS
+ SG_ VBU_MotorPumpError : 16|1@0+ (1,0) [0|1] ""  GW
+ SG_ VBU_VacuumSysFaultLamp : 17|1@0+ (1,0) [0|1] ""  GW
+ SG_ VBU_GearP_EnterWarning : 18|1@0+ (1,0) [0|1] ""  GW
+ SG_ VBU_VehicleSysFaultLamp : 19|1@0+ (1,0) [0|1] ""  GW
+ SG_ VBU_BattPumpError : 20|1@0+ (1,0) [0|1] ""  GW
+ SG_ VBU_DriveableAlarm : 21|1@0+ (1,0) [0|1] ""  GW
+ SG_ VCU_GearFlashReq : 23|2@0+ (1,0) [0|3] ""  GW
+ SG_ VBU_EnergyRecoveryPer : 31|7@0+ (1,0) [0|100] "%"  GW
+ SG_ VBU_Mileage : 39|10@0+ (1,0) [0|1022] "KM"  GW
+ SG_ VBU_PowerConsumption : 40|9@0+ (0.1,0) [0|51] "Kwh/100km"  GW
+ SG_ VBU_EnergyRecoveryMode : 44|2@0+ (1,0) [0|3] ""  GW
+ SG_ VBU_CloolantHighAlarm : 45|1@0+ (1,0) [0|1] ""  GW
+ SG_ VBU_TBOX_SlowChargeSt : 63|4@0+ (1,0) [0|15] ""  GW
+ SG_ Rollingcounter_0x150 : 59|4@0+ (1,0) [0|15] ""  GW
+
+BO_ 337 VBU_0x151: 8 VBU
+ SG_ Checksum_0x151 : 7|8@0+ (1,0) [0|255] ""  GW
+ SG_ VBU_HVLock_ALL : 9|2@0+ (1,0) [0|3] ""  GW
+ SG_ VBU_BrakeLampReq : 10|1@0+ (1,0) [0|1] ""  GW
+ SG_ VBU_Intelligent_Charge_Sts : 11|1@0+ (1,0) [0|1] ""  GW
+ SG_ VCU_HVLock1 : 13|2@0+ (1,0) [0|3] ""  GW
+ SG_ VBU_UnlockFuelLid : 14|1@0+ (1,0) [0|1] ""  GW
+ SG_ VBU_BrkSw_Sts : 23|2@0+ (1,0) [0|3] ""  GW,EMS
+ SG_ VBU_AccelPedalMalSts : 17|2@0+ (1,0) [0|3] ""  EMS
+ SG_ VBU_BrkPed_Pos : 31|8@0+ (1,0) [0|100] "%"  GW,EMS
+ SG_ VBU_AccSW_Sts : 39|2@0+ (1,0) [0|3] ""  GW
+ SG_ VBU_AtmosphePressValue : 37|6@0+ (2,0) [0|116] "Kpa"  GW
+ SG_ VBU_AccPedPos : 47|8@0+ (0.5,0) [0|100] "%"  GW,GCU,EMS
+ SG_ VBU_TargetGear : 50|3@0+ (1,0) [0|7] ""  GW
+ SG_ VBU_APS_WorkStatus : 55|5@0+ (1,0) [0|31] ""  GW
+ SG_ Rolling_counter_0x151 : 59|4@0+ (1,0) [0|15] ""  GW
+ SG_ VCU_HVLock2 : 61|2@0+ (1,0) [0|3] ""  GW
+ SG_ VCU_HVLock3 : 63|2@0+ (1,0) [0|3] ""  GW
+
+BO_ 373 EPS_0x175: 8 GW
+ SG_ Checksum_0x175 : 7|8@0+ (1,0) [0|255] ""  VBU
+ SG_ SAS_SteerWheelAngle : 15|16@0+ (0.0238,-780) [-780|780] "deg"  VBU
+ SG_ SAS_SteerWheelRotSpd : 29|14@0+ (0.125,-1024) [-1024|1023] "deg/s"  VBU
+ SG_ SAS_SteerWheelRotSpdStatus : 30|1@0+ (1,0) [0|1] ""  VBU
+ SG_ SAS_SASStsSnsr : 31|1@0+ (1,0) [0|1] ""  VBU
+ SG_ EPS_SteeringTorque : 42|11@0+ (0.01,-10.24) [-10.24|10.23] "Nm"  VBU
+ SG_ EPS_SteeringTorqueValid : 43|1@0+ (1,0) [0|1] ""  VBU
+ SG_ SAS_SASStsCal : 47|1@0+ (1,0) [0|1] ""  VBU
+ SG_ Rolling_counter_0x175 : 59|4@0+ (1,0) [0|15] ""  VBU
+
+BO_ 392 DCDC_0x188: 8 DCDC
+ SG_ DCDC_ErrorLevel : 10|3@0+ (1,0) [0|7] ""  VBU,GW
+ SG_ DCDC_stMode : 13|3@0+ (1,0) [0|7] ""  VBU,GW
+ SG_ DCDC_DischargeMode : 15|2@0+ (1,0) [0|3] ""  VBU,GW
+ SG_ DCDC_IdcLVBUrr : 23|11@0+ (0.2,0) [0|400] "A"  VBU,GW
+ SG_ DCDC_IdcHVBUrr : 26|11@0+ (0.1,0) [0|100] "A"  VBU,GW
+ SG_ DCDC_UdcLvVolt : 47|12@0+ (0.1,0) [0|40] "V"  VBU,GW
+ SG_ DCDC_UdcHvVolt : 50|11@0+ (1,0) [0|600] "V"  VBU,GW
+
+BO_ 528 ACU_0x210: 8 ACU
+ SG_ ACU_CrashStatus : 8|1@0+ (1,0) [0|1] ""  MCU,VBU,GW,GCU,EMS
+ SG_ ACU_DrvSeatBeltSWSts : 24|1@0+ (1,0) [0|1] ""  VBU,GW
+
+BO_ 529 ESP_ABS_0x211: 8 GW
+ SG_ Checksum_0x211 : 7|8@0+ (1,0) [0|255] ""  VBU,EMS
+ SG_ ABS_WheelSpeed_FL : 15|12@0+ (0.05625,0) [0|230.28749] "kph"  VBU,EMS
+ SG_ ABS_WheelSpeed_FR : 19|12@0+ (0.05625,0) [0|230.28749] "kph"  VBU,EMS
+ SG_ ABS_WheelSpeed_RL : 39|12@0+ (0.05625,0) [0|230.28749] "kph"  VBU,EMS
+ SG_ ABS_WheelSpeed_RR : 43|12@0+ (0.05625,0) [0|230.28749] "kph"  VBU,EMS
+ SG_ RollingCounter_0x211 : 59|4@0+ (1,0) [0|15] ""  VBU,EMS
+ SG_ ABS_WheelSpeed_FL_Valid : 60|1@0+ (1,0) [0|1] ""  VBU,EMS
+ SG_ ABS_WheelSpeed_FR_Valid : 61|1@0+ (1,0) [0|1] ""  VBU,EMS
+ SG_ ABS_WheelSpeed_RL_Valid : 62|1@0+ (1,0) [0|1] ""  VBU,EMS
+ SG_ ABS_WheelSpeed_RR_Valid : 63|1@0+ (1,0) [0|1] ""  VBU,EMS
+
+BO_ 532 ESP_0x214: 8 GW
+ SG_ Checksum_0x214 : 7|8@0+ (1,0) [0|255] ""  VBU
+ SG_ ESP_WheelDirection_FL : 9|2@0+ (1,0) [0|3] ""  VBU
+ SG_ ESP_WheelDirection_FL_Valid : 10|1@0+ (1,0) [0|1] "kph"  VBU
+ SG_ ESP_WheelDirection_FR : 12|2@0+ (1,0) [0|3] ""  VBU
+ SG_ ESP_WheelDirection_FR_Valid : 13|1@0+ (1,0) [0|1] ""  VBU
+ SG_ ESP_WheelDirection_RL : 15|2@0+ (1,0) [0|3] ""  VBU
+ SG_ ESP_WheelDirection_RL_Valid : 16|1@0+ (1,0) [0|1] ""  VBU
+ SG_ ESP_WheelDirection_RR : 18|2@0+ (1,0) [0|3] ""  VBU
+ SG_ ESP_WheelDirection_RR_Valid : 19|1@0+ (1,0) [0|1] ""  VBU
+ SG_ ESP_CDD_Intervention : 20|1@0+ (1,0) [0|1] ""  VBU
+ SG_ ESP_CDD_Available : 21|1@0+ (1,0) [0|1] ""  VBU
+ SG_ ESP_VLC_EngTrqReq : 46|15@0+ (0.1,-1000) [-1000|1000] "NM"  VBU
+ SG_ ESP_VLC_EngTrqReqActive : 47|1@0+ (1,0) [0|1] ""  VBU
+ SG_ RollingCounter_0x214 : 59|4@0+ (1,0) [0|15] ""  VBU
+ SG_ ESP_VLC_Intervention : 60|1@0+ (1,0) [0|1] ""  VBU
+ SG_ ESP_VLC_Error : 61|1@0+ (1,0) [0|1] ""  VBU
+ SG_ ESP_APA_CDD_active : 63|1@0+ (1,0) [0|1] ""  VBU
+
+BO_ 579 ESP_0x243: 8 GW
+ SG_ Checksum_0x243 : 7|8@0+ (1,0) [0|255] ""  VBU
+ SG_ ESP_LongAccSensor : 27|12@0+ (0.01,-20) [-20|20] "m/s^2"  VBU
+ SG_ ESP_LongAccSensorValid : 28|1@0+ (1,0) [0|1] ""  VBU
+ SG_ ESP_LaterAccSensor : 43|12@0+ (0.01,-20) [-20|20] "m/s^2"  VBU
+ SG_ ESP_LaterAccSensorValid : 44|1@0+ (1,0) [0|1] ""  VBU
+ SG_ ESP_AEB_Intervention : 46|1@0+ (1,0) [0|1] ""  VBU
+ SG_ ESC_APA_LC_Status : 63|4@0+ (1,0) [0|15] ""  VBU
+ SG_ RollingCounter_0x243 : 59|4@0+ (1,0) [0|15] ""  VBU
+
+BO_ 642 SCM_0x282: 8 GW
+ SG_ Checksum_0x282 : 7|8@0+ (1,0) [0|255] ""  VBU
+ SG_ SCM_CC_Switch : 12|2@0+ (1,0) [0|3] ""  VBU
+ SG_ SCM_Res_Set_Switch : 14|2@0+ (1,0) [0|3] ""  VBU
+ SG_ SCM_PRND_req : 34|3@0+ (1,0) [0|7] ""  VBU
+ SG_ Counter_0x282 : 59|4@0+ (1,0) [0|15] ""  VBU
+
+BO_ 734 HU_0x2DE_PT: 8 GW
+ SG_ HU_VBU_RemoteChrgLock : 0|1@0+ (1,0) [0|1] ""  VBU
+ SG_ HU_ChargeDepthSet : 3|2@0+ (1,0) [0|3] ""  VBU
+ SG_ HU_Onepedal : 5|2@0+ (1,0) [0|3] ""  VBU
+ SG_ HU_EnergyRecoveryPer : 14|7@0+ (1,0) [0|100] ""  VBU
+ SG_ HU_SpeedLimitSW : 20|2@0+ (1,0) [0|3] ""  VBU
+ SG_ HU_LimitSpeedSet : 31|8@0+ (1,0) [0|200] ""  VBU
+ SG_ HU_DriveMode : 39|3@0+ (1,0) [0|7] ""  VBU
+ SG_ HU_AccelerationModePer : 47|7@0+ (1,0) [0|100] ""  VBU
+ SG_ HU_SubMileage_Reset : 54|1@0+ (1,0) [0|1] ""  VBU
+ SG_ HU_DMS_SW : 57|2@0+ (1,0) [0|3] ""  VBU
+ SG_ HU_Refueling_Request : 60|1@0+ (1,0) [0|1] ""  VBU
+
+BO_ 774 VBU_BMS_0x306: 8 VBU
+ SG_ VBU_BMS_RemainChargingTime : 7|10@0+ (1,0) [0|1000] "min"  GW
+ SG_ VBU_BMS_Charing_Time : 13|10@0+ (1,0) [0|1000] "min"  GW
+ SG_ VBU_BMS_Charging_Ah : 16|9@0+ (0.5,0) [0|250] "Ah"  GW
+ SG_ VBU_BMS_TotalCharging_Ah : 35|20@0+ (1,0) [0|500000] "Ah"  GW
+ SG_ VBU_BMS_Charging_Energy : 63|8@0+ (0.5,0) [0|125] "kwh"  GW
+
+BO_ 784 BCM_0x310: 8 GW
+ SG_ BCM_SystemPowerMode : 1|2@0+ (1,0) [0|3] ""  MCU,DCDC,VBU,GCU,EMS
+ SG_ BCM_AntiThelf_Sts : 3|2@0+ (1,0) [0|3] ""  VBU
+ SG_ BCM_DriverLock_Sts : 5|2@0+ (1,0) [0|3] ""  OBC,VBU
+ SG_ BCM_StartRequest : 6|1@0+ (1,0) [0|1] ""  VBU
+ SG_ BCM_Hood_Sts : 9|2@0+ (1,0) [0|3] ""  VBU,EMS
+ SG_ BCM_PUSHMotorMal_controlSts : 23|1@0+ (1,0) [0|1] ""  VBU
+ SG_ BCM_FL_Door_Sts : 25|2@0+ (1,0) [0|3] ""  VBU
+ SG_ BCM_FR_Door_Sts : 27|2@0+ (1,0) [0|3] ""  VBU
+ SG_ BCM_RL_Door_Sts : 29|2@0+ (1,0) [0|3] ""  VBU
+ SG_ BCM_RR_Door_Sts : 31|2@0+ (1,0) [0|3] ""  VBU
+ SG_ BCM_PUSH_Switc_Sts : 39|2@0+ (1,0) [0|3] ""  VBU
+
+BO_ 805 WPTC_0x325: 8 WPTC
+ SG_ WPTC_Power : 14|7@0+ (0.1,0) [0|12.7] "KW"  VBU
+ SG_ WPTC_PowerMaxLim : 54|7@0+ (0.1,0) [0|12.7] "KW"  VBU
+ SG_ WPTC_RunSts : 61|2@0+ (1,0) [0|3] ""  VBU,EMS
+
+BO_ 853 TBOX_0x355_Time: 8 GW
+ SG_ TBOX_TimeSyncSts : 7|1@0+ (1,0) [0|1] ""  MCU,VBU,GCU,EMS
+ SG_ TBOX_TimeSyncData_Year : 15|7@0+ (1,2000) [2000|2099] ""  MCU,VBU,GCU,EMS
+ SG_ TBOX_TimeSyncData_Month : 23|4@0+ (1,0) [1|12] ""  MCU,VBU,GCU,EMS
+ SG_ TBOX_TimeSyncData_Day : 31|5@0+ (1,0) [1|31] ""  MCU,VBU,GCU,EMS
+ SG_ TBOX_TimeSyncData_Hour : 39|5@0+ (1,0) [0|23] ""  MCU,VBU,GCU,EMS
+ SG_ TBOX_TimeSyncData_Minute : 47|6@0+ (1,0) [0|59] ""  MCU,VBU,GCU,EMS
+ SG_ TBOX_TimeSyncData_Second : 55|6@0+ (1,0) [0|59] ""  MCU,VBU,GCU,EMS
+
+BO_ 905 DCDC_0x389: 8 DCDC
+ SG_ DCDC_TempAct : 47|8@0+ (1,-40) [-40|215] "°C"  VBU,GW
+
+BO_ 928 ICM_0x3A0: 8 GW
+ SG_ ICM_ODOTotal : 7|24@0+ (1,0) [0|999999] "KM"  MCU,VBU,GCU,EMS
+ SG_ ICM_SubMileage_Reset : 59|1@0+ (1,0) [0|1] ""  VBU
+
+BO_ 1027 VBU_NM_0x403: 8 VBU
+ SG_ VBU_NM_DA : 7|8@0+ (1,0) [0|255] ""  GW
+ SG_ VBU_NM_ALIVE : 8|1@0+ (1,0) [0|1] ""  GW
+ SG_ VBU_NM_RING : 9|1@0+ (1,0) [0|1] ""  GW
+ SG_ VBU_NM_LIMPHOME : 10|1@0+ (1,0) [0|1] ""  GW
+ SG_ VBU_NM_SLEEP_Ind : 12|1@0+ (1,0) [0|1] ""  GW
+ SG_ VBU_NM_SLEEP_ACK : 13|1@0+ (1,0) [0|1] ""  GW
+
+BO_ 1032 GW_PT_NM_0x408: 8 GW
+ SG_ GW_PT_NM_DA : 7|8@0+ (1,0) [0|255] ""  VBU
+ SG_ GW_PT_NM_ALIVE : 8|1@0+ (1,0) [0|1] ""  VBU
+ SG_ GW_PT_NM_RING : 9|1@0+ (1,0) [0|1] ""  VBU
+ SG_ GW_PT_NM_LIMPHOME : 10|1@0+ (1,0) [0|1] ""  VBU
+ SG_ GW_PT_NM_SLEEP_Ind : 12|1@0+ (1,0) [0|1] ""  VBU
+ SG_ GW_PT_NM_SLEEP_ACK : 13|1@0+ (1,0) [0|1] ""  VBU
+
+BO_ 938 VBU_BMS_FastChargeInfo: 8 VBU
+ SG_ BST_ReachSOCsetting : 0|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ BST_ReachBattVolset : 1|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ BST_ReachCellVolset : 2|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ BST_ISOFault : 3|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ BST_VBU_BMS_PCBOverTemp : 4|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ BST_ChargeOverCurr : 5|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ BST_FastChaVolUnusual : 6|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ BST_FastChargerSTOP : 7|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ CST_ReachChargerSet : 9|2@0+ (1,0) [0|3] ""  Vector__XXX
+ SG_ CST_ManualStop : 11|2@0+ (1,0) [0|3] ""  Vector__XXX
+ SG_ CST_FaultStop : 13|2@0+ (1,0) [0|3] ""  Vector__XXX
+ SG_ CST_BMSStop : 15|2@0+ (1,0) [0|3] ""  Vector__XXX
+ SG_ CST_FastCharOverTemp : 17|2@0+ (1,0) [0|3] ""  Vector__XXX
+ SG_ CST_CharContorFault : 19|2@0+ (1,0) [0|3] ""  Vector__XXX
+ SG_ CST_FastChaInOvTemp : 21|2@0+ (1,0) [0|3] ""  Vector__XXX
+ SG_ CST_EngNotTransfer : 23|2@0+ (1,0) [0|3] ""  Vector__XXX
+ SG_ CST_FastChaUrgentStop : 25|2@0+ (1,0) [0|3] ""  Vector__XXX
+ SG_ CST_OtherFault : 27|2@0+ (1,0) [0|3] ""  Vector__XXX
+ SG_ CST_CurrentMismatch : 29|2@0+ (1,0) [0|3] ""  Vector__XXX
+ SG_ CST_VoltageUnusual : 31|2@0+ (1,0) [0|3] ""  Vector__XXX
+ SG_ BEM_CRM_00_OverTim : 32|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ BEM_CRM_AA_OverTim : 33|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ BEM_CTSCML_OverTim : 34|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ BEM_CRO_OverTim : 35|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ BEM_CCS_OverTim : 36|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ BEM_CST_OverTim : 37|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ BEM_CSD_OverTim : 38|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ CEM_BRM_OverTim : 40|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ CEM_BCP_OverTim : 41|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ CEM_BRO_OverTim : 42|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ CEM_BCS_OverTim : 43|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ CEM_BCL_OverTim : 44|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ CEM_BST_OverTim : 45|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ CEM_BSD_OverTim : 46|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ VBU_BMS_ChargeSOPbuffer : 55|8@0+ (0.5,0) [0|100] ""  Vector__XXX
+
+BO_ 1299 VBU_BMS_0x513: 8 VBU
+ SG_ VBU_BMS_MaxTempNo : 7|8@0+ (1,0) [0|255] ""  GW
+ SG_ VBU_BMS_MaxTemp : 15|8@0+ (0.5,-40) [-40|85] "℃"  GW
+ SG_ VBU_BMS_MinTempNo : 23|8@0+ (1,0) [0|255] ""  GW
+ SG_ VBU_BMS_MinTemp : 31|8@0+ (0.5,-40) [-40|85] "℃"  GW
+ SG_ VBU_BMS_BattTempDev : 39|8@0+ (0.5,-40) [-40|85] "℃"  GW
+ SG_ VBU_BMS_CCTemp1 : 47|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ VBU_BMS_CCTemp2 : 55|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ VBU_BMS_0x513_RollingCounter : 59|4@0+ (1,0) [0|15] ""  GW
+
+BO_ 1300 VBU_BMS_0x514: 8 VBU
+ SG_ VBU_BMS_ModuleBusbarMaxTempNo : 15|8@0+ (1,0) [0|255] ""  GW
+ SG_ VBU_BMS_ModuleBusbarMaxTemp : 23|8@0+ (0.5,-40) [-40|85] "℃"  GW
+ SG_ VBU_BMS_ModuleBusbarMinTempNo : 31|8@0+ (1,0) [0|255] ""  GW
+ SG_ VBU_BMS_ModuleBusbarMinTemp : 39|8@0+ (0.5,-40) [-40|85] "℃"  GW
+ SG_ VBU_BMS_RelayCutOffNum : 47|10@0+ (1,0) [0|1023] ""  Vector__XXX
+ SG_ VBU_BMS_0x514_RollingCounter : 59|4@0+ (1,0) [0|15] ""  GW
+
+BO_ 1324 VBU_0x52C: 8 VBU
+ SG_ VBU_accelerator1 : 7|6@0+ (0.1,0) [0|6.3] "V"  Vector__XXX
+ SG_ VBU_accelerator2 : 15|6@0+ (0.1,0) [0|6.3] "V"  Vector__XXX
+ SG_ VBU_brakesensor1 : 23|6@0+ (0.1,0) [0|6.3] "V"  Vector__XXX
+ SG_ VBU_brakesensor2 : 31|6@0+ (0.1,0) [0|6.3] "V"  Vector__XXX
+ SG_ VBU_vacuumpumpsensor : 39|6@0+ (0.1,0) [0|6.3] "V"  Vector__XXX
+ SG_ VBU_KL87inputVol : 47|8@0+ (0.1,0) [0|25.4] "V"  Vector__XXX
+ SG_ VBU_AtmosphePressure : 55|6@0+ (0.1,0) [0|6.3] "V"  Vector__XXX
+
+BO_ 1328 VBU_BMS_0x530: 8 VBU
+ SG_ VBU_BMS_BattCellNum1Vol : 7|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum2Vol : 23|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum3Vol : 39|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum4Vol : 55|16@0+ (1,0) [0|5000] "mV"  GW
+
+BO_ 1329 VBU_BMS_0x531: 8 VBU
+ SG_ VBU_BMS_BattCellNum5Vol : 7|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum6Vol : 23|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum7Vol : 39|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum8Vol : 55|16@0+ (1,0) [0|5000] "mV"  GW
+
+BO_ 1330 VBU_BMS_0x532: 8 VBU
+ SG_ VBU_BMS_BattCellNum9Vol : 7|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum10Vol : 23|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum11Vol : 39|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum12Vol : 55|16@0+ (1,0) [0|5000] "mV"  GW
+
+BO_ 1331 VBU_BMS_0x533: 8 VBU
+ SG_ VBU_BMS_BattCellNum13Vol : 7|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum14Vol : 23|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum15Vol : 39|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum16Vol : 55|16@0+ (1,0) [0|5000] "mV"  GW
+
+BO_ 1332 VBU_BMS_0x534: 8 VBU
+ SG_ VBU_BMS_BattCellNum17Vol : 7|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum18Vol : 23|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum19Vol : 39|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum20Vol : 55|16@0+ (1,0) [0|5000] "mV"  GW
+
+BO_ 1333 VBU_BMS_0x535: 8 VBU
+ SG_ VBU_BMS_BattCellNum21Vol : 7|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum22Vol : 23|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum23Vol : 39|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum24Vol : 55|16@0+ (1,0) [0|5000] "mV"  GW
+
+BO_ 1334 VBU_BMS_0x536: 8 VBU
+ SG_ VBU_BMS_BattCellNum25Vol : 7|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum26Vol : 23|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum27Vol : 39|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum28Vol : 55|16@0+ (1,0) [0|5000] "mV"  GW
+
+BO_ 1335 VBU_BMS_0x537: 8 VBU
+ SG_ VBU_BMS_BattCellNum29Vol : 7|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum30Vol : 23|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum31Vol : 39|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum32Vol : 55|16@0+ (1,0) [0|5000] "mV"  GW
+
+BO_ 1336 VBU_BMS_0x538: 8 VBU
+ SG_ VBU_BMS_BattCellNum33Vol : 7|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum34Vol : 23|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum35Vol : 39|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum36Vol : 55|16@0+ (1,0) [0|5000] "mV"  GW
+
+BO_ 1337 VBU_BMS_0x539: 8 VBU
+ SG_ VBU_BMS_BattCellNum37Vol : 7|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum38Vol : 23|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum39Vol : 39|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum40Vol : 55|16@0+ (1,0) [0|5000] "mV"  GW
+
+BO_ 1338 VBU_BMS_0x53A: 8 VBU
+ SG_ VBU_BMS_BattCellNum41Vol : 7|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum42Vol : 23|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum43Vol : 39|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum44Vol : 55|16@0+ (1,0) [0|5000] "mV"  GW
+
+BO_ 1339 VBU_BMS_0x53B: 8 VBU
+ SG_ VBU_BMS_BattCellNum45Vol : 7|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum46Vol : 23|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum47Vol : 39|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum48Vol : 55|16@0+ (1,0) [0|5000] "mV"  GW
+
+BO_ 1340 VBU_BMS_0x53C: 8 VBU
+ SG_ VBU_BMS_BattCellNum49Vol : 7|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum50Vol : 23|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum51Vol : 39|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum52Vol : 55|16@0+ (1,0) [0|5000] "mV"  GW
+
+BO_ 1341 VBU_BMS_0x53D: 8 VBU
+ SG_ VBU_BMS_BattCellNum53Vol : 7|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum54Vol : 23|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum55Vol : 39|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum56Vol : 55|16@0+ (1,0) [0|5000] "mV"  GW
+
+BO_ 1342 VBU_BMS_0x53E: 8 VBU
+ SG_ VBU_BMS_BattCellNum57Vol : 7|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum58Vol : 23|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum59Vol : 39|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum60Vol : 55|16@0+ (1,0) [0|5000] "mV"  GW
+
+BO_ 1343 VBU_BMS_0x53F: 8 VBU
+ SG_ VBU_BMS_BattCellNum61Vol : 7|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum62Vol : 23|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum63Vol : 39|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum64Vol : 55|16@0+ (1,0) [0|5000] "mV"  GW
+
+BO_ 1344 VBU_BMS_0x540: 8 VBU
+ SG_ VBU_BMS_BattCellNum65Vol : 7|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum66Vol : 23|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum67Vol : 39|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum68Vol : 55|16@0+ (1,0) [0|5000] "mV"  GW
+
+BO_ 1345 VBU_BMS_0x541: 8 VBU
+ SG_ VBU_BMS_BattCellNum69Vol : 7|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum70Vol : 23|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum71Vol : 39|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum72Vol : 55|16@0+ (1,0) [0|5000] "mV"  GW
+
+BO_ 1346 VBU_BMS_0x542: 8 VBU
+ SG_ VBU_BMS_BattCellNum73Vol : 7|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum74Vol : 23|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum75Vol : 39|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum76Vol : 55|16@0+ (1,0) [0|5000] "mV"  GW
+
+BO_ 1347 VBU_BMS_0x543: 8 VBU
+ SG_ VBU_BMS_BattCellNum77Vol : 7|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum78Vol : 23|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum79Vol : 39|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum80Vol : 55|16@0+ (1,0) [0|5000] "mV"  GW
+
+BO_ 1348 VBU_BMS_0x544: 8 VBU
+ SG_ VBU_BMS_BattCellNum81Vol : 7|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum82Vol : 23|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum83Vol : 39|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum84Vol : 55|16@0+ (1,0) [0|5000] "mV"  GW
+
+BO_ 1349 VBU_BMS_0x545: 8 VBU
+ SG_ VBU_BMS_BattCellNum85Vol : 7|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum86Vol : 23|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum87Vol : 39|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum88Vol : 55|16@0+ (1,0) [0|5000] "mV"  GW
+
+BO_ 1350 VBU_BMS_0x546: 8 VBU
+ SG_ VBU_BMS_BattCellNum89Vol : 7|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum90Vol : 23|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum91Vol : 39|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum92Vol : 55|16@0+ (1,0) [0|5000] "mV"  GW
+
+BO_ 1351 VBU_BMS_0x547: 8 VBU
+ SG_ VBU_BMS_BattCellNum93Vol : 7|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum94Vol : 23|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum95Vol : 39|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum96Vol : 55|16@0+ (1,0) [0|5000] "mV"  GW
+
+BO_ 1352 VBU_BMS_0x548: 8 VBU
+ SG_ VBU_BMS_BattCellNum97Vol : 7|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum98Vol : 23|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum99Vol : 39|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum100Vol : 55|16@0+ (1,0) [0|5000] "mV"  GW
+
+BO_ 1353 VBU_BMS_0x549: 8 VBU
+ SG_ VBU_BMS_BattCellNum101Vol : 7|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum102Vol : 23|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum103Vol : 39|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum104Vol : 55|16@0+ (1,0) [0|5000] "mV"  GW
+
+BO_ 1354 VBU_BMS_0x54A: 8 VBU
+ SG_ VBU_BMS_BattCellNum105Vol : 7|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum106Vol : 23|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum107Vol : 39|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ VBU_BMS_BattCellNum108Vol : 55|16@0+ (1,0) [0|5000] "mV"  GW
+
+BO_ 1360 OBC_0x550: 8 OBC
+ SG_ Checksum_0x550 : 7|8@0+ (1,0) [0|255] ""  VBU,GW
+ SG_ OBC_ChrgOutputVolt : 15|16@0+ (0.1,0) [0|600] "V"  VBU,GW
+ SG_ OBC_ChrgFailLevel : 26|3@0+ (1,0) [0|7] ""  VBU,GW
+ SG_ OBC_CCLineSts : 27|1@0+ (1,0) [0|1] ""  VBU,GW
+ SG_ OBC_ChrgSts : 31|3@0+ (1,0) [0|7] ""  VBU,GW
+ SG_ OBC_ChrgOutputCurr : 43|12@0+ (0.1,0) [0|40] ""  VBU,GW
+ SG_ Rolling_counter_0x550 : 59|4@0+ (1,0) [0|15] ""  VBU,GW
+ SG_ OBC_S2Sts : 60|1@0+ (1,0) [0|1] ""  VBU,GW
+ SG_ OBC_ChrgAllowedSts : 61|1@0+ (1,0) [0|1] ""  VBU,GW
+
+BO_ 1377 VBU_0x561: 8 VBU
+ SG_ VBU_MotorcoV : 5|6@0+ (0.1,0) [0|6.3] "V"  Vector__XXX
+ SG_ VBU_BattcolV : 13|6@0+ (0.1,0) [0|6.3] "V"  Vector__XXX
+ SG_ VBU_MotorLoopInputTemp : 23|8@0+ (1,-40) [-40|215] "℃"  Vector__XXX
+ SG_ VBU_APULoopOutputTemp : 31|8@0+ (1,-40) [-40|215] "℃"  Vector__XXX
+ SG_ VBU_IG1input : 32|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ VBU_startinput : 33|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ VBU_OBCwakeupVBU : 34|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ VBUwakeupOBC : 35|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ VBU_VCUwakeupDC_GCU : 36|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ VBUwakeupMCU : 37|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ VBU_VacuumPumpRelay : 38|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ VBU_WPTCRelay : 39|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ VBU_EMSRelay : 40|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ VBU_MotorPumpPWM : 55|7@0+ (1,0) [0|100] "%"  Vector__XXX
+ SG_ VBU_BattPumpPWM : 63|7@0+ (1,0) [0|100] "%"  Vector__XXX
+
+BO_ 1378 MCU_0x562: 8 MCU
+ SG_ MCU_MotoroffsetCalReq : 34|1@0+ (1,0) [0|1] ""  VBU
+
+BO_ 1424 VBU_BMS_0x590: 8 VBU
+ SG_ VBU_BMS_BattSerialNumber : 7|16@0+ (1,0) [0|9999] ""  GW
+ SG_ VBU_BMS_BattManuYear : 23|8@0+ (1,0) [0|99] ""  GW
+ SG_ VBU_BMS_BattManuMonth : 31|8@0+ (1,0) [1|12] ""  GW
+ SG_ VBU_BMS_BattManuDay : 39|8@0+ (1,0) [1|31] ""  GW
+
+BO_ 1425 VBU_BMS_0x591: 8 VBU
+ SG_ VBU_BMS_BattSupplierCode : 15|24@0+ (1,0) [0|16777215] ""  GW
+ SG_ VBU_BMS_ProductTypeCode : 39|8@0+ (1,0) [0|255] ""  GW
+ SG_ VBU_BMS_BattTypeCode : 47|8@0+ (1,0) [0|255] ""  GW
+ SG_ VBU_BMS_BattSpecCode : 55|16@0+ (1,0) [0|65535] ""  GW
+
+BO_ 1426 VBU_BMS_0x592: 8 VBU
+ SG_ VBU_BMS_BattRetrospectCode1 : 7|28@0+ (1,0) [1|72057594037927900] ""  GW
+ SG_ VBU_BMS_BattRetrospectCode2 : 39|28@0+ (1,0) [1|72057594037927900] ""  GW
+
+BO_ 1427 VBU_BMS_0x593: 8 VBU
+ SG_ VBU_BMS_BattProductionDate : 7|24@0+ (1,0) [1|16777215] ""  GW
+ SG_ VBU_BMS_BattS_Num : 31|24@0+ (1,0) [0|16777215] ""  GW
+ SG_ VBU_BMS_BattRecycleCode : 55|16@0+ (1,0) [0|65535] ""  GW
+
+BO_ 1428 VBU_BMS_0x594: 8 VBU
+ SG_ VBU_BMS_BattCodeLenth : 7|8@0+ (1,0) [1|26] ""  GW
+ SG_ VBU_BMS_PackSOE : 28|10@0+ (0.1,0) [0|102.3] "kwh"  GW
+ SG_ VBU_BMS_Temp_ProbeNum : 45|6@0+ (1,0) [0|63] ""  GW
+ SG_ VBU_BMS_PackageTotalNum : 47|2@0+ (1,0) [0|3] ""  GW
+ SG_ VBU_BMS_CellTotalNum : 55|8@0+ (1,0) [0|255] ""  GW
+
+BO_ 1504 VBU_BMS_0x5E0_Version: 8 VBU
+ SG_ VBU_BMS_CVS_CSCVersion_Supplier : 3|4@0+ (1,0) [0|15] ""  GW
+ SG_ VBU_BMS_BatteriesVersion_Supplier : 19|4@0+ (1,0) [0|15] ""  GW
+
+BO_ 1505 VBU_0x5E1_Version: 8 VBU
+ SG_ VBU_SWVersion_Supplier : 3|4@0+ (1,0) [0|15] ""  GW
+ SG_ VBU_SWVersion_Main : 7|4@0+ (1,0) [0|15] ""  GW
+ SG_ VBU_SWVersion_Sub1 : 11|4@0+ (1,0) [0|15] ""  GW
+ SG_ VBU_SWVersion_Sub2 : 15|4@0+ (1,0) [0|15] ""  GW
+ SG_ VBU_HWVersion_Supplier : 19|4@0+ (1,0) [0|15] ""  GW
+ SG_ VBU_HWVersion_Main : 23|4@0+ (1,0) [0|15] ""  GW
+ SG_ VBU_HWVersion_Sub1 : 27|4@0+ (1,0) [0|15] ""  GW
+ SG_ VBU_HWVersion_Sub2 : 31|4@0+ (1,0) [0|15] ""  GW
+ SG_ VBU_SoftMainVersion_in : 39|8@0+ (1,0) [0|255] ""  GW
+ SG_ VBU_SoftSubVersion_in : 47|8@0+ (1,0) [0|255] ""  GW
+ SG_ VBU_SoftPhase_in : 55|8@0+ (1,0) [0|255] ""  GW
+ SG_ VBU_SoftPhaseDescription_in : 63|8@0+ (1,0) [0|255] ""  GW
+
+BO_ 1520 VBU_BMS_0x5F0: 8 VBU
+ SG_ VBU_BMS_BattTempSensorNum1 : 7|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ VBU_BMS_BattTempSensorNum2 : 15|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ VBU_BMS_BattTempSensorNum3 : 23|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ VBU_BMS_BattTempSensorNum4 : 31|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ VBU_BMS_BattTempSensorNum5 : 39|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ VBU_BMS_BattTempSensorNum6 : 47|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ VBU_BMS_BattTempSensorNum7 : 55|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ VBU_BMS_BattTempSensorNum8 : 63|8@0+ (1,-40) [-40|120] "℃"  GW
+
+BO_ 1521 VBU_BMS_0x5F1: 8 VBU
+ SG_ VBU_BMS_BattTempSensorNum9 : 7|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ VBU_BMS_BattTempSensorNum10 : 15|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ VBU_BMS_BattTempSensorNum11 : 23|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ VBU_BMS_BattTempSensorNum12 : 31|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ VBU_BMS_BattTempSensorNum13 : 39|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ VBU_BMS_BattTempSensorNum14 : 47|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ VBU_BMS_BattTempSensorNum15 : 55|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ VBU_BMS_BattTempSensorNum16 : 63|8@0+ (1,-40) [-40|120] "℃"  GW
+
+BO_ 1522 VBU_BMS_0x5F2: 8 VBU
+ SG_ VBU_BMS_BattTempSensorNum17 : 7|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ VBU_BMS_BattTempSensorNum18 : 15|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ VBU_BMS_BattTempSensorNum19 : 23|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ VBU_BMS_BattTempSensorNum20 : 31|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ VBU_BMS_BattTempSensorNum21 : 39|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ VBU_BMS_BattTempSensorNum22 : 47|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ VBU_BMS_BattTempSensorNum23 : 55|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ VBU_BMS_BattTempSensorNum24 : 63|8@0+ (1,-40) [-40|120] "℃"  GW
+
+BO_ 1523 VBU_BMS_0x5F3: 8 VBU
+ SG_ VBU_BMS_BattTempSensorNum25 : 7|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ VBU_BMS_BattTempSensorNum26 : 15|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ VBU_BMS_BattTempSensorNum27 : 23|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ VBU_BMS_BattTempSensorNum28 : 31|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ VBU_BMS_BattTempSensorNum29 : 39|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ VBU_BMS_BattTempSensorNum30 : 47|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ VBU_BMS_BattTempSensorNum31 : 55|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ VBU_BMS_BattTempSensorNum32 : 63|8@0+ (1,-40) [-40|120] "℃"  GW
+
+BO_ 1524 VBU_BMS_0x5F4: 8 VBU
+ SG_ VBU_BMS_BattTempSensorNum33 : 7|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ VBU_BMS_BattTempSensorNum34 : 15|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ VBU_BMS_BattTempSensorNum35 : 23|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ VBU_BMS_BattTempSensorNum36 : 31|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ VBU_BMS_BattTempSensorNum37 : 39|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ VBU_BMS_BattTempSensorNum38 : 47|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ VBU_BMS_BattTempSensorNum39 : 55|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ VBU_BMS_BattTempSensorNum40 : 63|8@0+ (1,-40) [-40|120] "℃"  GW
+
+BO_ 1525 VBU_BMS_0x5F5: 8 VBU
+ SG_ VBU_BMS_BattTempSensorNum41 : 7|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ VBU_BMS_BattTempSensorNum42 : 15|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ VBU_BMS_BattTempSensorNum43 : 23|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ VBU_BMS_BattTempSensorNum44 : 31|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ VBU_BMS_BattTempSensorNum45 : 39|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ VBU_BMS_BattTempSensorNum46 : 47|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ VBU_BMS_BattTempSensorNum47 : 55|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ VBU_BMS_BattTempSensorNum48 : 63|8@0+ (1,-40) [-40|120] "℃"  GW
+
+BO_ 1526 VBU_BMS_0x5F6: 8 VBU
+ SG_ VBU_BMS_BattTempSensorNum49 : 7|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ VBU_BMS_BattTempSensorNum50 : 15|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ VBU_BMS_BattTempSensorNum51 : 23|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ VBU_BMS_BattTempSensorNum52 : 31|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ VBU_BMS_BattTempSensorNum53 : 39|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ VBU_BMS_BattTempSensorNum54 : 47|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ VBU_BMS_BattTempSensorNum55 : 55|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ VBU_BMS_BattTempSensorNum56 : 63|8@0+ (1,-40) [-40|120] "℃"  GW
+
+BO_ 1527 VBU_BMS_0x5F7: 8 VBU
+ SG_ VBU_BMS_BattTempSensorNum57 : 7|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ VBU_BMS_BattTempSensorNum58 : 15|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ VBU_BMS_BattTempSensorNum59 : 23|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ VBU_BMS_BattTempSensorNum60 : 31|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ VBU_BMS_BattTempSensorNum61 : 39|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ VBU_BMS_BattTempSensorNum62 : 47|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ VBU_BMS_BattTempSensorNum63 : 55|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ VBU_BMS_BattTempSensorNum64 : 63|8@0+ (1,-40) [-40|120] "℃"  GW
+
+BO_ 1528 VBU_BMS_0x5F8: 8 VBU
+ SG_ VBU_BMS_BattTempSensorNum65 : 7|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ VBU_BMS_BattTempSensorNum66 : 15|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ VBU_BMS_BattTempSensorNum67 : 23|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ VBU_BMS_BattTempSensorNum68 : 31|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ VBU_BMS_BattTempSensorNum69 : 39|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ VBU_BMS_BattTempSensorNum70 : 47|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ VBU_BMS_BattTempSensorNum71 : 55|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ VBU_BMS_BattTempSensorNum72 : 63|8@0+ (1,-40) [-40|120] "℃"  GW
+
+BO_ 1552 OBC_0x610: 8 OBC
+ SG_ OBC_CP_Duty : 55|8@0+ (0.5,0) [0|100] "%"  VBU,GW
+ SG_ OBC_CC_Status : 63|3@0+ (1,0) [0|7] ""  VBU,GW
+
+BO_ 1553 OBC_0x611: 8 OBC
+ SG_ OBC_CoolantPlateTemp : 55|8@0+ (1,-55) [-55|200] "DegC"  VBU,GW
+
+BO_ 1555 OBC_0x613: 8 OBC
+ SG_ OBC_MaxChrgOutpVolt : 15|16@0+ (0.1,0) [0|600] "V"  VBU
+ SG_ OBC_MaxChrgOutpCur : 31|12@0+ (0.1,0) [0|40] "A"  VBU
+ SG_ OBC_MaxChrgOutpPwr : 33|10@0+ (0.1,0) [0|100] "kw"  VBU
+
+BO_ 1556 OBC_0x614: 8 OBC
+ SG_ OBC_TempAct : 31|8@0+ (1,-40) [-40|215] "DegC"  VBU,GW
+ SG_ OBC_ChrgLockSts : 37|4@0+ (1,0) [0|7] ""  VBU,GW
+
+BO_ 1793 VBU_0x701: 8 VBU
+ SG_ VBU_WakeUpOBC : 7|64@0+ (1,0) [0|0] ""  OBC
+
+BO_ 626 EMS_0x272: 8 EMS
+ SG_ EMS_PSNotActiveTimeAccu : 15|16@0+ (1,0) [0|65534] "min"  MCU,OBC,DCDC,VBU,GW,GCU
+
+BO_ 627 EMS_0x273: 8 EMS
+ SG_ EMS_Fuellevel : 31|8@0+ (0.5,0) [0|100] "%"  VBU,GW
+
+BO_ 2019 VBU_UDSDiag_ReqPhsy: 8 GW
+ SG_ VBU_UDSDiag_ReqPhsy_0x7E3 : 7|64@0+ (1,0) [0|255] ""  VBU
+
+BO_ 2027 VBU_UDSDiag_Resp: 8 VBU
+ SG_ VBU_UDSDiag_Resp_0x7EB : 7|64@0+ (1,0) [0|255] ""  GW
+
+BO_ 2015 UDSDiag_ReqFunc: 8 GW
+ SG_ UDSDiag_ReqFunc_0x7DF : 7|64@0+ (1,0) [0|255] ""  ACU,WPTC,MCU,OBC,DCDC,VBU,GCU,EMS
+
+
+CM_ "Version:V1.6,Date:2019/11/12,Author:李明,Review:,Approval:,Description:(VBU)把VCU和BMS合并为一个节点VBU，BMS发送报文都改为VBU发送;
+Version:V1.6,Date:2019/11/12,Author:李明,Review:,Approval:,Description:(VBU)MCU_0x120报文增加发送MCU_MILReq，EMS接收;
+Version:V1.6,Date:2019/12/17,Author:王晓飞,Review:李明,Approval:,Description:(VBU)VBU增加接受MCU_DC_linkVoltage、MCU_DC_linkCurrent、OBC_CP_Duty、OBC_MaxChrgOutpVolt、OBC_MaxChrgOutpCur、OBC_MaxChrgOutpPwr、OBC_ChrgOutputVolt、OBC_ChrgOutputCurr、OBC_S2Sts;
+Version:V1.6,Date:2019/12/17,Author:王晓飞,Review:李明,Approval:,Description:(VBU)删除BMS_UDSDiag_ReqPhsy和BMS_UDSDiag_Resp;
+Version:V1.6,Date:2019/12/17,Author:王晓飞,Review:李明,Approval:,Description:(VBU)1、APS_0x191增加如下信号由VBU接受：APS_VBU_BrakeFunctionMode/APS_VBU_BrakeModeSts/APS_VBU_Speed_Limitation/APS_VBU_Target_Gear_Request/APS_VBU_APAFailed/APS_VBU_FailureBrakeMode/APS_VBU_Stop_Distance/APS_R_Gear_RequestTips
+2、APS_0x191报文如下信号分配给VBU接受
+APS_VBU_Gear_Request/RollingCounter_0x191;
+Version:V1.6,Date:2019/12/17,Author:王晓飞,Review:李明,Approval:,Description:(VBU)VBU_0x563报文信号名有VBU_heaterLoopOutputTemp改为VBU_MCUOutputWaterTemp;
+Version:V1.6,Date:2019/12/17,Author:王晓飞,Review:李明,Approval:,Description:(VBU)VBU取消接收TBOX_0x353报文信号TBOX_VBU_12vChargeReq;
+Version:V1.6,Date:2019/12/17,Author:李明,Review:,Approval:,Description:(VBU)增加TBOX_FOTA_mode信号由VBU/DCDC/MCU接收;
+Version:V1.6,Date:2019/12/17,Author:李明,Review:,Approval:,Description:(VBU)VBU接收的TBOX_VBU_TimeCharge信号定义0x2: stop、0x3: Invalid改为0x2: 充电预约未到结束、0x3: 充电预约已到结束;
+Version:V1.6,Date:2019/12/17,Author:王晓飞,Review:李明,Approval:,Description:(VBU)VBU_0x371报文删除VBU_TrailerMode信号，并且增加VBU_Maintenance_lights给GW转发给ICM接受;
+Version:V1.6,Date:2019/12/17,Author:王晓飞,Review:李明,Approval:,Description:(VBU)VBU_0x9A报文VBU_MCU_WorkMode信号定义0x5/06由预留改为0x5: HillHold、0x6: EmgPark;
+Version:V1.6,Date:2019/12/17,Author:王晓飞,Review:李明,Approval:,Description:(VBU)VBU_0x9B报文删除VBU_BMS_WorkMode，VBU_WPTC_En信号定义增加0x2: Discharge、0x3: Reserved;
+Version:V1.6,Date:2019/12/17,Author:李明,Review:,Approval:,Description:(VBU)VBU_0x9D报文增加发送信号VBU_AC_ThermalReqLvl，GW转AC接收;
+Version:V1.6,Date:2019/12/17,Author:李明,Review:,Approval:,Description:(VBU)VBU_0x9D报文增加发送信号VBU_SlowChargeLight、VBU_FastChargeLigh，GW转APL接收;
+Version:V1.6,Date:2019/12/17,Author:李明,Review:,Approval:,Description:(VBU)VBU_0x9D报文增加发送信号VBU_12VbatterySOHLow、VBU_LVSmartChrg_Status;
+Version:V1.6,Date:2019/12/17,Author:王晓飞,Review:李明,Approval:,Description:(VBU)VBU_0x117报文增加VBU_ActualPowerPer、VBU_EnergyRegLimPer、VBU_EnergyDriveLimPer给GW转给ICM接受，删除VBU_InputWaterTemp;
+Version:V1.6,Date:2019/12/17,Author:王晓飞,Review:李明,Approval:,Description:(VBU)VBU_0x141报文删除VBU_CreepSwitch、VBU_AccelerationMode，增加VBU_OnepedalSetEn、VBU_DriveMode、VBU_APA_LC_Availability、VBU_APA_LC_FailureSts、VBU_E_Pedalwarn、VBU_ChargeDepthwarn、VBU_APA_LC_Status;
+Version:V1.6,Date:2019/12/17,Author:李明,Review:,Approval:,Description:(VBU)VBU_0x150报文删除VBU_MotorLoopCoolantLow、VBU_BatLoopCoolantLow;
+Version:V1.6,Date:2019/12/17,Author:王晓飞,Review:李明,Approval:,Description:(VBU)VBU_0x151报文信号VBU_HVLock_self改为VBU_HVLock1，增加VBU_HVLock2、VBU_HVLock3,增加VBU_AtmosphePressValue;
+Version:V1.6,Date:2019/12/17,Author:王晓飞,Review:,Approval:,Description:(VBU)VBU增加接收增加HU_ChargeDepthSet/HU_Onepedal/HU_DriveMode给VBU接收，删除接收HU_EnergyRecoveryMode、HU_AccelerationMode、HU_Onepedal、HU_CreepSwitch;
+Version:V1.6,Date:2019/12/17,Author:王晓飞,Review:李明,Approval:,Description:(VBU)VBU_0x561报文删除VBUwakeupBMS信号，增加VBU_VBUwakeupDC_GCU、VBU_EMSRelay;
+Version:V1.6,Date:2019/12/17,Author:李明,Review:,Approval:,Description:(VBU)VBU增加接收ESP_0x215报文内信号;
+Version:V1.6,Date:2019/12/17,Author:王晓飞,Review:李明,Approval:,Description:(VBU)BMS_0x100报文BMS_RelayChrPos、BMS_RelayNeg、BMS_RelayPre、BMS_RelayPos、BMS_RelayChrNeg信号值描述更新;
+Version:V1.6,Date:2019/12/17,Author:王晓飞,Review:李明,Approval:,Description:(VBU)BMS_0x102报文删除BMS_WakeUpSignal、BMS_RequestMIL、BMS_HVIL1_State、BMS_HVIL2_State、BMS_Insulation_R信号;
+Version:V1.6,Date:2019/12/17,Author:李明,Review:,Approval:,Description:(VBU)新增BMS_0x103报文及信号BMS_Insulation_positive、BMS_Insulation_negative、BMS_Current_power，GW转发TBOX接收;
+Version:V1.6,Date:2019/12/17,Author:李明,Review:,Approval:,Description:(VBU)VBU_0x151报文内信号VBU_AccelPedalMalSts的起始位改为17;
+Version:V1.6,Date:2019/12/17,Author:王晓飞,Review:李明,Approval:,Description:(VBU)BMS_0x116报文删除BMS_VBUCANTimeout、BMS_LowVoltageFault、BMS_CrashFault信号，
+增加VBU_BMS_BMS_batteryCutoff、VBU_BMS_BatteryERROR给GW转发给ICM;
+Version:V1.6,Date:2019/12/17,Author:王晓飞,Review:李明,Approval:,Description:(VBU)BMS_0x5E0_Version报文中信号BMS_SWVersion_Supplier改为BMS_CVS_CSCVersion_Supplier，信号值更新
+BMS_HWVersion_Supplier改为BMS_BatteriesVersion_Supplier，信号值更新
+删除信号BMS_SWVersion_Main、BMS_SWVersion_Sub1、BMS_SWVersion_Sub2、BMS_HWVersion_Main、BMS_HWVersion_Sub1、BMS_HWVersion_Sub2、BMS_PackEnergy/BMS_CellSupplier;
+Version:V1.6,Date:2019/12/17,Author:王晓飞,Review:李明,Approval:,Description:(VBU)增加报文BMS_0x5F5/BMS_0x5F6/BMS_0x5F7/BMS_0x5F8给GW接收转发TBOX;
+Version:V1.6,Date:2019/12/20,Author:李明,Review:,Approval:,Description:(VBU)VBU接收的WPTC_0x325报文内信号WPTC_RunSts起始位调整为61;
+Version:V1.6,Date:2019/12/20,Author:李明,Review:,Approval:,Description:(VBU)VBU_0x563增加发送VCU_FastCharge_A;
+Version:V1.6,Date:2019/12/20,Author:李明,Review:,Approval:,Description:(VBU)更新VBU_TPCV1Control和VBU_TPCV2Control的初始值为0x14;
+Version:V1.6,Date:2019/12/20,Author:李明,Review:,Approval:,Description:(VBU)删除0x114报文里VBU_BMS_thermalControlReq、VBU_BMS_BattThermalReqLvl;
+Version:V1.6,Date:2019/12/20,Author:李明,Review:,Approval:,Description:(VBU)新增VBU_0x142报文，并增加信号VBU_vacuumpumpsensorRelvalue;
+Version:V1.6,Date:2019/12/20,Author:李明,Review:,Approval:,Description:(VBU)BMS_116报文删除发送VBU_BMS_LowVoltageFault;
+Version:V1.6,Date:2019/12/20,Author:李明,Review:,Approval:,Description:(VBU)VBU_BMS_BattRetrospectCode更新为两个信号VBU_BMS_BattRetrospectCode1和VBU_BMS_BattRetrospectCode2;
+Version:V1.6,Date:2019/12/23,Author:李明,Review:,Approval:,Description:(VBU)VBU_0x142报文新增发送VBU_MCU_MotorSpeed和Rollingcounter_0x142;
+Version:V1.7,Date:2019/12/26,Author:李明,Review:,Approval:,Description:(VBU)VBU_0x150增加发送VCU_GearFlashReq;
+Version:V1.7,Date:2019/12/26,Author:李明,Review:,Approval:,Description:(VBU)更新VBU发送的适用HEV的信号描述;
+ ";
+
+CM_ SG_ 811 VBU_WakeUpRMCU "VBU唤醒MCU信号，适用后驱";
+CM_ SG_ 1323 VBU_State0 "VBU状态0";
+CM_ SG_ 1323 VBU_State1 "VBU状态1";
+CM_ SG_ 1323 VBU_State2 "VBU状态2";
+CM_ SG_ 1323 VBU_State3 "VBU状态3";
+CM_ SG_ 1323 VBU_State4 "VBU状态4";
+CM_ SG_ 1323 VBU_State5 "VBU状态5";
+CM_ SG_ 1323 VBU_State6 "VBU状态6";
+CM_ SG_ 1323 VBU_State7 "VBU状态7";
+CM_ SG_ 1325 VBU_ErrorCode0 "VBU故障码0";
+CM_ SG_ 1325 VBU_ErrorCode1 "VBU故障码1";
+CM_ SG_ 1325 VBU_ErrorCode2 "VBU故障码2";
+CM_ SG_ 1325 VBU_ErrorCode3 "VBU故障码3";
+CM_ SG_ 1325 VBU_ErrorCode4 "VBU故障码4";
+CM_ SG_ 1325 VBU_ErrorCode5 "VBU故障码5";
+CM_ SG_ 1325 VBU_ErrorCode6 "VBU故障码6";
+CM_ SG_ 1325 VBU_ErrorCode7 "VBU故障码7";
+CM_ SG_ 1326 VBU_ErrorCode8 "VBU故障码8";
+CM_ SG_ 1326 VBU_ErrorCode9 "VBU故障码9";
+CM_ SG_ 1326 VBU_ErrorCode10 "VBU故障码10";
+CM_ SG_ 1326 VBU_ErrorCode11 "VBU故障码11";
+CM_ SG_ 1326 VBU_ErrorCode12 "VBU故障码12";
+CM_ SG_ 1326 VBU_ErrorCode13 "VBU故障码13";
+CM_ SG_ 1326 VBU_ErrorCode14 "VBU故障码14";
+CM_ SG_ 1326 VBU_ErrorCode15 "VBU故障码15";
+CM_ SG_ 1327 VBU_ErrorCode16 "VBU故障码16";
+CM_ SG_ 1327 VBU_ErrorCode17 "VBU故障码17";
+CM_ SG_ 1327 VBU_ErrorCode18 "VBU故障码18";
+CM_ SG_ 1327 VBU_ErrorCode19 "VBU故障码19";
+CM_ SG_ 1327 VBU_ErrorCode20 "VBU故障码20";
+CM_ SG_ 1327 VBU_ErrorCode21 "VBU故障码21";
+CM_ SG_ 1327 VBU_ErrorCode22 "VBU故障码22";
+CM_ SG_ 1327 VBU_ErrorCode23 "VBU故障码23";
+CM_ SG_ 1379 VBU_MCUOutputWaterTemp "电机出水口温度";
+CM_ SG_ 1379 VBU_ComfortPumpPWM "乘员舱水泵输出占空比(HEV)";
+CM_ SG_ 1379 VBU_MotorPumpFB_PWM "电机水泵反馈占空比";
+CM_ SG_ 1379 VCU_FastCharge_A "直流枪A+信号";
+CM_ SG_ 1379 VBU_CC2 "直流枪CC2电压";
+CM_ SG_ 1379 VBU_BatPumpFB_PWM "电池水泵反馈占空比";
+CM_ SG_ 1379 VBU_ComfortPumpFB_PWM "乘员舱水泵反馈占空比(HEV)";
+CM_ SG_ 881 VBU_instantaneous_Energy "瞬时能耗";
+CM_ SG_ 881 VBU_instantaneous_EnergyUnit "瞬时能耗单位";
+CM_ SG_ 881 VBU_Maintenance_lights "维修灯报警";
+CM_ SG_ 881 VBU_trip "小计里程";
+CM_ SG_ 881 VBU_ChargeIncreaseMileage "充电增加里程";
+CM_ SG_ 882 VBU_SubtotalAverageEnergy "小计百公里能耗";
+CM_ SG_ 882 VBU_SubtotalEnergy "小计能耗";
+CM_ SG_ 882 VBU_Subtotaltime "小计里程时间";
+CM_ SG_ 882 VBU_ChargeIncreaseMileageSpeed "充电里程增加速率";
+CM_ SG_ 883 VBU_DST "本次里程";
+CM_ SG_ 883 VBU_SingleMileageAverageEnergy "本次百公里能耗";
+CM_ SG_ 883 VBU_SingleMileageEnergy "本次能耗";
+CM_ SG_ 883 VBU_SingleMileagetime "本次里程时间";
+CM_ SG_ 883 VBU_SlowChargeGunSt "交流枪状态";
+CM_ SG_ 883 VBU_FastChargeGunSt "直流枪状态";
+CM_ SG_ 154 Checksum_0x9A "Checksum: IDMSB XOR IDLSB XOR Byte1 XOR Byte2 XOR Byte3 XOR Byte4 XOR Byte5 XOR Byte6 XOR Byte7";
+CM_ SG_ 154 VBU_ErrorLevel "VBU故障等级";
+CM_ SG_ 154 VBU_MCU_WorkMode "VBU控制MCU工作模式";
+CM_ SG_ 154 VBU_WarmUpCycleMet "暖机循环条件满足(HEV)";
+CM_ SG_ 154 VBU_MILReq "VBU request Mil lamp
+VBU请求亮故障灯(HEV)";
+CM_ SG_ 154 VBU_MCU_TrqReq "VBU控制电机目标扭矩";
+CM_ SG_ 154 VBU_MCU_SpdReq "VBU控制电机目标转速";
+CM_ SG_ 154 VBU_MotorOffsetCalCmd "电机角度自学习条件准备状态";
+CM_ SG_ 154 Rolling_counter_0x9A "RollingCounter: used 4bit length signal and the arithmetic is increased from 0 to 15 by every message.";
+CM_ SG_ 155 Checksum_0x9B "Checksum: IDMSB XOR IDLSB XOR Byte1 XOR Byte2 XOR Byte3 XOR Byte4 XOR Byte5 XOR Byte6 XOR Byte7";
+CM_ SG_ 155 VBU_DC_WorkMode "VBU控制DC工作模式";
+CM_ SG_ 155 VBU_WPTC_En "WPTC使能";
+CM_ SG_ 155 VBU_DC_VoltageReq "VBU控制DC输出电压";
+CM_ SG_ 155 VBU_WPTC_Request "WPTC开启模式请求";
+CM_ SG_ 155 VBU_OBC_RemoteCharge "远程充电请求";
+CM_ SG_ 155 VBU_WPTC_BatHotlPwrSet "水PTC目标功率档位";
+CM_ SG_ 155 VBU_OBC_ChrgLock "充电枪电子锁控制命令";
+CM_ SG_ 155 VBU_TBOX_ChrgLockSts "VBU 电子锁状态反馈给TBOX";
+CM_ SG_ 155 VBU_ACU_DrvSeatBeltSWSts "VBU请求安全带信号";
+CM_ SG_ 155 VBU_OBC_ChrgEnable "VBU控制OBC工作模式";
+CM_ SG_ 155 Rolling_counter_0x9B "RollingCounter: used 4bit length signal and the arithmetic is increased from 0 to 15 by every message.";
+CM_ SG_ 156 Checksum_0x9C "Checksum: IDMSB XOR IDLSB XOR Byte1 XOR Byte2 XOR Byte3 XOR Byte4 XOR Byte5 XOR Byte6XOR Byte7";
+CM_ SG_ 156 VBU_Cruise_Sts "巡航状态";
+CM_ SG_ 156 VBU_DriveInhibitAlarm "行车禁止提醒";
+CM_ SG_ 156 VBU_EPB_FunctionSet "VBU请求EPB控制";
+CM_ SG_ 156 VBU_HU_ChrgLockSts "VBU 电子锁状态反馈给HU";
+CM_ SG_ 156 VBU_CCS_SpeedArm "定速巡航目标车速";
+CM_ SG_ 156 VBU_SpeedLimitSWSts "车速限制功能状态";
+CM_ SG_ 156 VBU_DMS_Status "驾驶员疲劳状态";
+CM_ SG_ 156 VBU_DMS_SWStatus "驾驶员疲劳开关状态";
+CM_ SG_ 156 VBU_IdleModeAct "强制怠速模式激活状态(HEV)";
+CM_ SG_ 156 VBU_LimitSpeed "当前限速值设置范围：0~200KM/H
+设置的间隔：1km/h";
+CM_ SG_ 156 VBU_LimitSpeedAlarm_L "限速报警光触发";
+CM_ SG_ 156 VBU_LimitSpeedAlarm_V "限速报警声音触发";
+CM_ SG_ 156 VBU_TPCV1Control "乘员舱比例阀的开度控制(HEV)";
+CM_ SG_ 156 VBU_TPCV2Control "动力系统比例阀的开度控制(HEV)";
+CM_ SG_ 156 Rolling_counter_0x9C "RollingCounter: used 4bit length signal and the arithmetic is increased from 0 to 15 by every message.";
+CM_ SG_ 157 VBU_AC_ComfortEAC_En "舒适性压缩机使能";
+CM_ SG_ 157 VBU_RefuelingInfo "VBU 加油允许状态(HEV)";
+CM_ SG_ 157 VBU_AC_BatCoolEAC_En "电池冷却压缩机使能";
+CM_ SG_ 157 VBU_AC_APTC_En "空气PTC使能（EV）";
+CM_ SG_ 157 VBU_AC_APTCPwrSet "空气PTC目标功率（EV）";
+CM_ SG_ 157 VBU_AC_EACPwrSet "压缩机目标功率";
+CM_ SG_ 157 VBU_FanPWMSts "冷却风扇PWM占空比";
+CM_ SG_ 157 VBU_RemoteACFeedback "远程空调反馈";
+CM_ SG_ 157 VBU_ComfortPumpError "乘员舱水泵故障(HEV)";
+CM_ SG_ 157 VBU_ENGWVControl "发动机截止阀控制(HEV)";
+CM_ SG_ 157 VBU_WPTCWVControl "WPTC截止阀控制(HEV)";
+CM_ SG_ 157 VBU_ENGWVFault "发动机截止阀故障(HEV)";
+CM_ SG_ 157 VBU_WPTCWVFault "WPTC截止阀故障(HEV)";
+CM_ SG_ 157 VBU_FanSts "风扇故障状态";
+CM_ SG_ 157 VBU_FuelLipOpenRemind "油箱盖未关提醒(HEV)";
+CM_ SG_ 157 VBU_RefuelingSysErrorRemind "加油系统异常提醒(HEV)";
+CM_ SG_ 157 VCU_12VbatterySOHLow "12V Battery SOH Low";
+CM_ SG_ 157 VCU_LVSmartChrg_Status "VCU LV Smart Charge Status";
+CM_ SG_ 157 VCU_SlowChargeLight "VCU控制慢充充电指示灯工作模式";
+CM_ SG_ 157 VCU_FastChargeLight "VCU控制快充充电指示灯工作模式";
+CM_ SG_ 157 VBU_AC_ThermalReqLvl "乘员舱制热档位允许(HEV)";
+CM_ SG_ 256 CheckSum_0x100 "Checksum: IDMSB XOR IDLSB XOR Byte1 XOR Byte2 XOR Byte3 XOR Byte4 XOR Byte5 XOR Byte6 XOR Byte7";
+CM_ SG_ 256 VBU_BMS_PackU "电池电压";
+CM_ SG_ 256 VBU_BMS_WaringLevel "电池报警等级";
+CM_ SG_ 256 VBU_BMS_PackI "电池电流";
+CM_ SG_ 256 VBU_BMS_RelayChrPos "快充正接触器状态";
+CM_ SG_ 256 VBU_BMS_RelayNeg "总负接触器状态";
+CM_ SG_ 256 VBU_BMS_RelayPre "预充电接触器状态";
+CM_ SG_ 256 VBU_BMS_RelayPos "总正接触器状态";
+CM_ SG_ 256 VBU_BMS_RelayChrNeg "快充负接触器状态";
+CM_ SG_ 256 VBU_BMS_State "VBU工作状态";
+CM_ SG_ 256 VBU_BMS_ChrFastState "直流充电状态";
+CM_ SG_ 256 VBU_BMS_SPreCharging "预充电状态";
+CM_ SG_ 256 VBU_BMS_ChrSlowState "交流充电状态";
+CM_ SG_ 256 VBU_BMS_0x100_RollingCounter "从0到15循环计数，如果通信中断，则重新从0开始计数。";
+CM_ SG_ 258 VBU_BMS_RealSOC "电池实际SOC
+允许跳变";
+CM_ SG_ 258 VBU_BMS_PackDispSoc "仪表显示SOC";
+CM_ SG_ 258 VBU_BMS_ChrNegRelayEnable "快充负继电器驱动信号";
+CM_ SG_ 258 VBU_BMS_ChrPosRelayEnable "快充正继电器驱动信号";
+CM_ SG_ 258 VBU_BMS_PreRelayEnable "预充继电器驱动信号";
+CM_ SG_ 258 VBU_BMS_MainNegRelayEnable "主负继电器驱动信号";
+CM_ SG_ 258 VBU_BMS_MainPosRelayEnable "主正继电器驱动信号";
+CM_ SG_ 258 VBU_BMS_LinkU "电池预充电电压";
+CM_ SG_ 258 VBU_BMS_BalanceSts "电池均衡状态";
+CM_ SG_ 258 VBU_BMS_0x102_RollingCounter "从0到15循环计数，如果通信中断，则重新从0开始计数。";
+CM_ SG_ 259 VBU_BMS_Insulation_positive "绝缘电阻正极对地";
+CM_ SG_ 259 VBU_BMS_Insulation_negative "绝缘电阻负极对地";
+CM_ SG_ 259 VBU_BMS_Current_power "电池当前功率";
+CM_ SG_ 259 VBU_BMS_0x103_RollingCounter "从0到15循环计数，如果通信中断，则重新从0开始计数。";
+CM_ SG_ 261 VBU_BMS_PackSOH "电池生命健康度";
+CM_ SG_ 261 VBU_BMS_ChrRequestU "充电电压请求";
+CM_ SG_ 261 VBU_BMS_ChrRequest "充电请求";
+CM_ SG_ 261 VBU_BMS_ChrRequestI "充电电流请求";
+CM_ SG_ 261 VBU_BMS_TotalEnergy "总能耗";
+CM_ SG_ 261 VBU_BMS_0x105_RollingCounter "从0到15循环计数，如果通信中断，则重新从0开始计数。";
+CM_ SG_ 274 VBU_BMS_MaxCellNo "电池最高单体电压编号";
+CM_ SG_ 274 VBU_BMS_MaxCellU "电池最高单体电压";
+CM_ SG_ 274 VBU_BMS_MinCellNo "电池最低单体电压编号";
+CM_ SG_ 274 VBU_BMS_MinCellU "电池最低单体电压";
+CM_ SG_ 274 VBU_BMS_CellVolDev "电池单体压差";
+CM_ SG_ 274 VBU_BMS_0x112_RollingCounter "从0到15循环计数，如果通信中断，则重新从0开始计数。";
+CM_ SG_ 277 VBU_BMS_MaxDschPower "电池最大可持续放电功率";
+CM_ SG_ 277 VBU_BMS_MaxDschPowerPeak "电池最大峰值放电功率";
+CM_ SG_ 277 VBU_BMS_DschAllowedPower "电池允许放电功率";
+CM_ SG_ 277 VBU_BMS_MaxChrgPowerPeak "电池最大峰值充电功率";
+CM_ SG_ 277 VBU_BMS_MaxChrgPower "电池最大可持续充电功率";
+CM_ SG_ 277 VBU_BMS_ChrgAllowedPower "电池允许充电功率";
+CM_ SG_ 277 VBU_BMS_0x115_RollingCounter "从0到15循环计数，如果通信中断，则重新从0开始计数。";
+CM_ SG_ 278 VBU_BMS_CellOverVolWaring "单体过压
+GBT 32960.3 T18-5";
+CM_ SG_ 278 VBU_BMS_CellUnderVolWaring "单体欠压
+GBT 32960.3 T18-6";
+CM_ SG_ 278 VBU_BMS_TempOverWaring "温度过高
+GBT 32960.3 T18-1";
+CM_ SG_ 278 VBU_BMS_TempUnderWaring "温度过低";
+CM_ SG_ 278 VBU_BMS_CellVolDevWaring "压差过大
+GBT 32960.3 T18-10";
+CM_ SG_ 278 VBU_BMS_TempDveWaring "温差过大
+GBT 32960.3 T18-0";
+CM_ SG_ 278 VBU_BMS_BattOverVolWaring "电池包过压
+GBT 32960.3 T18-2";
+CM_ SG_ 278 VBU_BMS_BattUnderVolWaring "电池包欠压
+GBT 32960.3 T18-3";
+CM_ SG_ 278 VBU_BMS_DCChargePlugTempOverHigh "快充枪过温故障";
+CM_ SG_ 278 VBU_BMS_DisCharOverCurr "放电过流";
+CM_ SG_ 278 VBU_BMS_RegenOverCurr "回馈电流过大";
+CM_ SG_ 278 VBU_BMS_InnerCANTimeout "BMS内网通讯超时";
+CM_ SG_ 278 VBU_BMS_ISOWaring "绝缘报警";
+CM_ SG_ 278 VBU_BMS_BCUHWFault "采集板硬件故障
+具体故障信息由UDS事件帧报出";
+CM_ SG_ 278 VBU_BMS_NegRelayFault "负极继电器故障";
+CM_ SG_ 278 VBU_BMS_PosRelayFault "正极继电器故障";
+CM_ SG_ 278 VBU_BMS_PreRelayFault "预充电继电器故障";
+CM_ SG_ 278 VBU_BMS_CharPosRelayFault "快充正极继电器故障";
+CM_ SG_ 278 VBU_BMS_CharNegRelayFault "快充负继电器故障";
+CM_ SG_ 278 VBU_BMS_BMUFault "主控板故障
+主板硬件故障
+具体故障信息由UDS事件帧报出";
+CM_ SG_ 278 VBU_BMS_BattHVDisaccord "高压异常
+电池采样与累加值不一致";
+CM_ SG_ 278 VBU_BMS_CurrSensorFault "电流传感器故障
+具体故障信息由UDS事件帧报出";
+CM_ SG_ 278 VBU_BMS_SOClow "SOC低报警
+GBT 32960.3 T18-4";
+CM_ SG_ 278 VBU_BMS_Mismatch "动力蓄电池包不匹配报警
+GBT 32960.3 T18-9";
+CM_ SG_ 278 VBU_BMS_SOCOverHigh "SOC过高
+GBT 32960.3 T18-7";
+CM_ SG_ 278 VBU_BMS_BattOverCharge "电池过充
+GBT 32960.3 T18-17";
+CM_ SG_ 278 VBU_BMS_SOCSkip "SOC跳变
+GBT 32960.3 T18-8";
+CM_ SG_ 278 VBU_BMS_CGOverCurr "充电过流故障";
+CM_ SG_ 278 VBU_BMS_LiquidLeak "电池漏液故障";
+CM_ SG_ 278 VBU_BMS_ThermRunAway "电池热失控故障";
+CM_ SG_ 278 VBU_BMS_Maintenance "电池保养灯";
+CM_ SG_ 278 VBU_BMS_BusbarTempOverWaring "汇流排过温";
+CM_ SG_ 278 VBU_BMS_batteryCutoff "动力电池切断";
+CM_ SG_ 278 VBU_BMS_BatteryERROR "动力电池故障";
+CM_ SG_ 278 VBU_BMS_0x116_RollingCounter "从0到15循环计数，如果通信中断，则重新从0开始计数。";
+CM_ SG_ 276 VBU_BMS_CellSumVol "单体累加电压";
+CM_ SG_ 276 VBU_BMS_ThermalCtrlTargetTemp "电池包热管理目标温度";
+CM_ SG_ 276 VBU_BMS_InputWaterTemp "电池进水口温度";
+CM_ SG_ 276 VBU_BMS_OutputWaterTemp "电池出水口温度";
+CM_ SG_ 276 VBU_BMS_DisChargeSOPbuffer "BMS放电功率bufffer，BMS  水池法计算放电功率系数";
+CM_ SG_ 276 VBU_BMS_0x114_RollingCounter "从0到15循环计数，如果通信中断，则重新从0开始计数。";
+CM_ SG_ 279 VBU_ActualPowerPer "实际功率百分比";
+CM_ SG_ 279 VBU_thermalControlReq "电池热管理控制请求";
+CM_ SG_ 279 VBU_EnergyRegLimPer "回馈功率限制百分比";
+CM_ SG_ 279 VBU_ExchangerInputWaterTemp "电池换热器入水口温度 (HEV)";
+CM_ SG_ 279 VBU_BattThermalReqLvl "电池包热管理需求等级，暂时定义为15个等级";
+CM_ SG_ 279 VBU_RecoTiming "恢复充电倒计时";
+CM_ SG_ 279 VBU_EnergyDriveLimPer "驱动功率受限百分比";
+CM_ SG_ 320 Checksum_0x140 "Checksum: IDMSB XOR IDLSB XOR Byte1 XOR Byte2 XOR Byte3 XOR Byte4 XOR Byte5 XOR Byte6 XOR Byte7";
+CM_ SG_ 320 VBU_CurrentMotorTorq "当前电机扭矩";
+CM_ SG_ 320 VBU_MaxMotorTorque "电机最大电动扭矩";
+CM_ SG_ 320 VBU_MinMotorTorque "电机最小电动扭矩";
+CM_ SG_ 320 Rollingcounter_0x140 "从0到15循环计数，如果通信中断，则重新从0开始计数。";
+CM_ SG_ 321 Checksum_0x141 "Checksum: IDMSB XOR IDLSB XOR Byte1 XOR Byte2 XOR Byte3 XOR Byte4 XOR Byte5 XOR Byte6 XOR Byte7";
+CM_ SG_ 321 VBU_DriverDemandTorq "Motor torque requested by driver or cruise control, reduced by motor drag torque and torque consumption of auxiliary devices";
+CM_ SG_ 321 VBU_Onepedal "单踏板模式";
+CM_ SG_ 321 VBU_QECACC "VBU响应VLC扭矩控制的状态";
+CM_ SG_ 321 VBU_OnepedalSetEn "单踏板模式设置使能";
+CM_ SG_ 321 VBU_GearShiftInProgress "Gear shifting Progress";
+CM_ SG_ 321 VBU_ShiftInProgress_Status "Gear shift in progress status";
+CM_ SG_ 321 VBU_AccelerationModePer "加速模式百分比，范围：0-100%
+精度：1%";
+CM_ SG_ 321 VBU_OverRide "Indicating the torque demanded by the driver is higher than the torque demanded by ACC.
+指示驾驶员要求的扭矩高于ACC所要求的扭矩";
+CM_ SG_ 321 VBU_DriveMode "整车驾驶模式";
+CM_ SG_ 321 VBU_APA_LC_Availability "VCU_APA_LC_Availability";
+CM_ SG_ 321 VBU_APA_LC_FailureSts "VCU_APA_LC_FailureSts";
+CM_ SG_ 321 VBU_E_Pedalwarn "单踏板设置提示";
+CM_ SG_ 321 VBU_ChargeDepthwarn "充电深度设置提示";
+CM_ SG_ 321 VBU_APA_LC_Status "VCU_APA_LC_Status";
+CM_ SG_ 321 Rollingcounter_0x141 "从0到15循环计数，如果通信中断，则重新从0开始计数。";
+CM_ SG_ 322 Checksum_0x142 "Checksum: IDMSB XOR IDLSB XOR Byte1 XOR Byte2 XOR Byte3 XOR Byte4 XOR Byte5 XOR Byte6 XOR Byte7";
+CM_ SG_ 322 VBU_vacuumpumpsensorRelvalue "真空泵压力传感器相对压力值";
+CM_ SG_ 322 VBU_MCU_MotorSpeed "电机实时输出转速";
+CM_ SG_ 322 Rollingcounter_0x142 "从0到15循环计数，如果通信中断，则重新从0开始计数。";
+CM_ SG_ 336 Checksum_0x150 "Checksum: IDMSB XOR IDLSB XOR Byte1 XOR Byte2 XOR Byte3 XOR Byte4 XOR Byte5 XOR Byte6 XOR Byte7";
+CM_ SG_ 336 VBU_GearLeverPos "实际档位";
+CM_ SG_ 336 VBU_TortoiseLamp "龟灯信号";
+CM_ SG_ 336 VBU_12VbatteryError "12V蓄电池故障";
+CM_ SG_ 336 VBU_ReadySts "Ready信号";
+CM_ SG_ 336 VBU_MotorPumpError "电机水泵故障";
+CM_ SG_ 336 VBU_VacuumSysFaultLamp "真空系统故障灯";
+CM_ SG_ 336 VBU_GearP_EnterWarning "P档无法进入提醒";
+CM_ SG_ 336 VBU_VehicleSysFaultLamp "整车系统故障";
+CM_ SG_ 336 VBU_BattPumpError "电池水泵故障";
+CM_ SG_ 336 VBU_DriveableAlarm "可行驶状态报警信号";
+CM_ SG_ 336 VCU_GearFlashReq "换挡提示";
+CM_ SG_ 336 VBU_EnergyRecoveryPer "能量回收强度百分比";
+CM_ SG_ 336 VBU_Mileage "续航里程";
+CM_ SG_ 336 VBU_PowerConsumption "百公里电耗";
+CM_ SG_ 336 VBU_EnergyRecoveryMode "能量回收强度模式";
+CM_ SG_ 336 VBU_CloolantHighAlarm "冷却液温度过高报警";
+CM_ SG_ 336 VBU_TBOX_SlowChargeSt "交流充电反馈";
+CM_ SG_ 336 Rollingcounter_0x150 "从0到15循环计数，如果通信中断，则重新从0开始计数。";
+CM_ SG_ 337 Checksum_0x151 "Checksum: IDMSB XOR IDLSB XOR Byte1 XOR Byte2 XOR Byte3 XOR Byte4 XOR Byte5 XOR Byte6XOR Byte7";
+CM_ SG_ 337 VBU_HVLock_ALL "VBU高压互锁信号(综合）";
+CM_ SG_ 337 VBU_BrakeLampReq "点亮制动灯请求";
+CM_ SG_ 337 VBU_Intelligent_Charge_Sts "智能充电状态";
+CM_ SG_ 337 VCU_HVLock1 "VCU高压互锁1信号";
+CM_ SG_ 337 VBU_UnlockFuelLid "油箱锁解锁请求(HEV)";
+CM_ SG_ 337 VBU_BrkSw_Sts "制动踏板开关状态
+Brake pedal switch Status";
+CM_ SG_ 337 VBU_AccelPedalMalSts "油门踏板故障状态";
+CM_ SG_ 337 VBU_BrkPed_Pos "制动踏板位置度信号";
+CM_ SG_ 337 VBU_AccSW_Sts "油门踏板开关状态";
+CM_ SG_ 337 VBU_AtmosphePressValue "大气压力值";
+CM_ SG_ 337 VBU_AccPedPos "油门踏板位置度
+Accelerator pedal position";
+CM_ SG_ 337 VBU_TargetGear "VBUtarget gear";
+CM_ SG_ 337 VBU_APS_WorkStatus "VBU反馈给APS的工作状态";
+CM_ SG_ 337 Rolling_counter_0x151 "RollingCounter: used 4bit length signal and the arithmetic is increased from 0 to 15 by every message.";
+CM_ SG_ 337 VCU_HVLock2 "VCU高压互锁2信号";
+CM_ SG_ 337 VCU_HVLock3 "VCU高压互锁3信号";
+CM_ SG_ 774 VBU_BMS_RemainChargingTime "剩余充电时间";
+CM_ SG_ 774 VBU_BMS_Charing_Time "本次充电时长";
+CM_ SG_ 774 VBU_BMS_Charging_Ah "本次充入容量";
+CM_ SG_ 774 VBU_BMS_TotalCharging_Ah "累计充电容量";
+CM_ SG_ 774 VBU_BMS_Charging_Energy "本次充入能量";
+CM_ SG_ 1027 VBU_NM_DA "目标地址";
+CM_ SG_ 1027 VBU_NM_ALIVE "Alive报文";
+CM_ SG_ 1027 VBU_NM_RING "Ring报文";
+CM_ SG_ 1027 VBU_NM_LIMPHOME "Limphome报文";
+CM_ SG_ 1027 VBU_NM_SLEEP_Ind "睡眠标志位";
+CM_ SG_ 1027 VBU_NM_SLEEP_ACK "睡眠确认位";
+CM_ SG_ 938 BST_ReachSOCsetting "达到SOC设定值停止充电";
+CM_ SG_ 938 BST_ReachBattVolset "达到总压设定值停止充电";
+CM_ SG_ 938 BST_ReachCellVolset "达到单体电压设定值停止充电";
+CM_ SG_ 938 BST_ISOFault "绝缘故障停止充电";
+CM_ SG_ 938 BST_VBU_BMS_PCBOverTemp "BMS元器件过温停止充电";
+CM_ SG_ 938 BST_ChargeOverCurr "充电电流过大停止充电";
+CM_ SG_ 938 BST_FastChaVolUnusual "充电桩输出电压异常停止";
+CM_ SG_ 938 BST_FastChargerSTOP "充电桩主动停止";
+CM_ SG_ 938 CST_ReachChargerSet "达到充电桩设定条件停止";
+CM_ SG_ 938 CST_ManualStop "人工停止";
+CM_ SG_ 938 CST_FaultStop "故障停止";
+CM_ SG_ 938 CST_BMSStop "BMS主动停止";
+CM_ SG_ 938 CST_FastCharOverTemp "充电桩过温";
+CM_ SG_ 938 CST_CharContorFault "充电连接器故障";
+CM_ SG_ 938 CST_FastChaInOvTemp "充电桩内部过温故障";
+CM_ SG_ 938 CST_EngNotTransfer "电量不能传送";
+CM_ SG_ 938 CST_FastChaUrgentStop "充电桩急停故障";
+CM_ SG_ 938 CST_OtherFault "其他故障停止";
+CM_ SG_ 938 CST_CurrentMismatch "电流不匹配停止";
+CM_ SG_ 938 CST_VoltageUnusual "电压异常停止";
+CM_ SG_ 938 BEM_CRM_00_OverTim "接收CRM=0X00报文超时";
+CM_ SG_ 938 BEM_CRM_AA_OverTim "接收CRM=0XAA报文超时";
+CM_ SG_ 938 BEM_CTSCML_OverTim "接收CTS和CML报文超时";
+CM_ SG_ 938 BEM_CRO_OverTim "接收CRO报文超时";
+CM_ SG_ 938 BEM_CCS_OverTim "接收CCS报文超时";
+CM_ SG_ 938 BEM_CST_OverTim "接收CST报文超时";
+CM_ SG_ 938 BEM_CSD_OverTim "接收CST报文超时";
+CM_ SG_ 938 CEM_BRM_OverTim "接收BRM报文超时";
+CM_ SG_ 938 CEM_BCP_OverTim "接收BRM报文超时";
+CM_ SG_ 938 CEM_BRO_OverTim "接收BRO报文超时";
+CM_ SG_ 938 CEM_BCS_OverTim "接收BCS报文超时";
+CM_ SG_ 938 CEM_BCL_OverTim "接收BCL报文超时";
+CM_ SG_ 938 CEM_BST_OverTim "接收BST报文超时";
+CM_ SG_ 938 CEM_BSD_OverTim "接收BSD报文超时";
+CM_ SG_ 938 VBU_BMS_ChargeSOPbuffer "BMS充电功率bufffer，BMS  水池法计算充电功率系数";
+CM_ SG_ 1299 VBU_BMS_MaxTempNo "电池最高温度编号";
+CM_ SG_ 1299 VBU_BMS_MaxTemp "电池最高温度";
+CM_ SG_ 1299 VBU_BMS_MinTempNo "电池最低温度编号";
+CM_ SG_ 1299 VBU_BMS_MinTemp "电池最低温度";
+CM_ SG_ 1299 VBU_BMS_BattTempDev "电池温度差";
+CM_ SG_ 1299 VBU_BMS_CCTemp1 "快充接口1温度";
+CM_ SG_ 1299 VBU_BMS_CCTemp2 "快充接口2温度";
+CM_ SG_ 1299 VBU_BMS_0x513_RollingCounter "从0到15循环计数，如果通信中断，则重新从0开始计数。";
+CM_ SG_ 1300 VBU_BMS_ModuleBusbarMaxTempNo "模组busbar最高温度编号";
+CM_ SG_ 1300 VBU_BMS_ModuleBusbarMaxTemp "模组busbar最高温度";
+CM_ SG_ 1300 VBU_BMS_ModuleBusbarMinTempNo "模组busbar最低温度编号";
+CM_ SG_ 1300 VBU_BMS_ModuleBusbarMinTemp "模组busbar最低温度";
+CM_ SG_ 1300 VBU_BMS_RelayCutOffNum "继电器带载切断次数";
+CM_ SG_ 1300 VBU_BMS_0x514_RollingCounter "从0到15循环计数，如果通信中断，则重新从0开始计数。";
+CM_ SG_ 1324 VBU_accelerator1 "油门信号电压1";
+CM_ SG_ 1324 VBU_accelerator2 "油门信号电压2";
+CM_ SG_ 1324 VBU_brakesensor1 "制动角度传感器电压1";
+CM_ SG_ 1324 VBU_brakesensor2 "制动角度传感器电压2";
+CM_ SG_ 1324 VBU_vacuumpumpsensor "真空泵压力传感器电压";
+CM_ SG_ 1324 VBU_KL87inputVol "KL87输入电压";
+CM_ SG_ 1324 VBU_AtmosphePressure "大气压力传感器电压";
+CM_ SG_ 1328 VBU_BMS_BattCellNum1Vol "1号单体电压值";
+CM_ SG_ 1328 VBU_BMS_BattCellNum2Vol "2号单体电压值";
+CM_ SG_ 1328 VBU_BMS_BattCellNum3Vol "3号单体电压值";
+CM_ SG_ 1328 VBU_BMS_BattCellNum4Vol "4号单体电压值";
+CM_ SG_ 1329 VBU_BMS_BattCellNum5Vol "5号单体电压值";
+CM_ SG_ 1329 VBU_BMS_BattCellNum6Vol "6号单体电压值";
+CM_ SG_ 1329 VBU_BMS_BattCellNum7Vol "7号单体电压值";
+CM_ SG_ 1329 VBU_BMS_BattCellNum8Vol "8号单体电压值";
+CM_ SG_ 1330 VBU_BMS_BattCellNum9Vol "9号单体电压值";
+CM_ SG_ 1330 VBU_BMS_BattCellNum10Vol "10号单体电压值";
+CM_ SG_ 1330 VBU_BMS_BattCellNum11Vol "11号单体电压值";
+CM_ SG_ 1330 VBU_BMS_BattCellNum12Vol "12号单体电压值";
+CM_ SG_ 1331 VBU_BMS_BattCellNum13Vol "13号单体电压值";
+CM_ SG_ 1331 VBU_BMS_BattCellNum14Vol "14号单体电压值";
+CM_ SG_ 1331 VBU_BMS_BattCellNum15Vol "15号单体电压值";
+CM_ SG_ 1331 VBU_BMS_BattCellNum16Vol "16号单体电压值";
+CM_ SG_ 1332 VBU_BMS_BattCellNum17Vol "17号单体电压值";
+CM_ SG_ 1332 VBU_BMS_BattCellNum18Vol "18号单体电压值";
+CM_ SG_ 1332 VBU_BMS_BattCellNum19Vol "19号单体电压值";
+CM_ SG_ 1332 VBU_BMS_BattCellNum20Vol "20号单体电压值";
+CM_ SG_ 1333 VBU_BMS_BattCellNum21Vol "21号单体电压值";
+CM_ SG_ 1333 VBU_BMS_BattCellNum22Vol "22号单体电压值";
+CM_ SG_ 1333 VBU_BMS_BattCellNum23Vol "23号单体电压值";
+CM_ SG_ 1333 VBU_BMS_BattCellNum24Vol "24号单体电压值";
+CM_ SG_ 1334 VBU_BMS_BattCellNum25Vol "25号单体电压值";
+CM_ SG_ 1334 VBU_BMS_BattCellNum26Vol "26号单体电压值";
+CM_ SG_ 1334 VBU_BMS_BattCellNum27Vol "27号单体电压值";
+CM_ SG_ 1334 VBU_BMS_BattCellNum28Vol "28号单体电压值";
+CM_ SG_ 1335 VBU_BMS_BattCellNum29Vol "29号单体电压值";
+CM_ SG_ 1335 VBU_BMS_BattCellNum30Vol "30号单体电压值";
+CM_ SG_ 1335 VBU_BMS_BattCellNum31Vol "31号单体电压值";
+CM_ SG_ 1335 VBU_BMS_BattCellNum32Vol "32号单体电压值";
+CM_ SG_ 1336 VBU_BMS_BattCellNum33Vol "33号单体电压值";
+CM_ SG_ 1336 VBU_BMS_BattCellNum34Vol "34号单体电压值";
+CM_ SG_ 1336 VBU_BMS_BattCellNum35Vol "35号单体电压值";
+CM_ SG_ 1336 VBU_BMS_BattCellNum36Vol "36号单体电压值";
+CM_ SG_ 1337 VBU_BMS_BattCellNum37Vol "37号单体电压值";
+CM_ SG_ 1337 VBU_BMS_BattCellNum38Vol "38号单体电压值";
+CM_ SG_ 1337 VBU_BMS_BattCellNum39Vol "39号单体电压值";
+CM_ SG_ 1337 VBU_BMS_BattCellNum40Vol "40号单体电压值";
+CM_ SG_ 1338 VBU_BMS_BattCellNum41Vol "41号单体电压值";
+CM_ SG_ 1338 VBU_BMS_BattCellNum42Vol "42号单体电压值";
+CM_ SG_ 1338 VBU_BMS_BattCellNum43Vol "43号单体电压值";
+CM_ SG_ 1338 VBU_BMS_BattCellNum44Vol "44号单体电压值";
+CM_ SG_ 1339 VBU_BMS_BattCellNum45Vol "45号单体电压值";
+CM_ SG_ 1339 VBU_BMS_BattCellNum46Vol "46号单体电压值";
+CM_ SG_ 1339 VBU_BMS_BattCellNum47Vol "47号单体电压值";
+CM_ SG_ 1339 VBU_BMS_BattCellNum48Vol "48号单体电压值";
+CM_ SG_ 1340 VBU_BMS_BattCellNum49Vol "49号单体电压值";
+CM_ SG_ 1340 VBU_BMS_BattCellNum50Vol "50号单体电压值";
+CM_ SG_ 1340 VBU_BMS_BattCellNum51Vol "51号单体电压值";
+CM_ SG_ 1340 VBU_BMS_BattCellNum52Vol "52号单体电压值";
+CM_ SG_ 1341 VBU_BMS_BattCellNum53Vol "53号单体电压值";
+CM_ SG_ 1341 VBU_BMS_BattCellNum54Vol "54号单体电压值";
+CM_ SG_ 1341 VBU_BMS_BattCellNum55Vol "55号单体电压值";
+CM_ SG_ 1341 VBU_BMS_BattCellNum56Vol "56号单体电压值";
+CM_ SG_ 1342 VBU_BMS_BattCellNum57Vol "57号单体电压值";
+CM_ SG_ 1342 VBU_BMS_BattCellNum58Vol "58号单体电压值";
+CM_ SG_ 1342 VBU_BMS_BattCellNum59Vol "59号单体电压值";
+CM_ SG_ 1342 VBU_BMS_BattCellNum60Vol "60号单体电压值";
+CM_ SG_ 1343 VBU_BMS_BattCellNum61Vol "61号单体电压值";
+CM_ SG_ 1343 VBU_BMS_BattCellNum62Vol "62号单体电压值";
+CM_ SG_ 1343 VBU_BMS_BattCellNum63Vol "63号单体电压值";
+CM_ SG_ 1343 VBU_BMS_BattCellNum64Vol "64号单体电压值";
+CM_ SG_ 1344 VBU_BMS_BattCellNum65Vol "65号单体电压值";
+CM_ SG_ 1344 VBU_BMS_BattCellNum66Vol "66号单体电压值";
+CM_ SG_ 1344 VBU_BMS_BattCellNum67Vol "67号单体电压值";
+CM_ SG_ 1344 VBU_BMS_BattCellNum68Vol "68号单体电压值";
+CM_ SG_ 1345 VBU_BMS_BattCellNum69Vol "69号单体电压值";
+CM_ SG_ 1345 VBU_BMS_BattCellNum70Vol "70号单体电压值";
+CM_ SG_ 1345 VBU_BMS_BattCellNum71Vol "71号单体电压值";
+CM_ SG_ 1345 VBU_BMS_BattCellNum72Vol "72号单体电压值";
+CM_ SG_ 1346 VBU_BMS_BattCellNum73Vol "73号单体电压值";
+CM_ SG_ 1346 VBU_BMS_BattCellNum74Vol "74号单体电压值";
+CM_ SG_ 1346 VBU_BMS_BattCellNum75Vol "75号单体电压值";
+CM_ SG_ 1346 VBU_BMS_BattCellNum76Vol "76号单体电压值";
+CM_ SG_ 1347 VBU_BMS_BattCellNum77Vol "77号单体电压值";
+CM_ SG_ 1347 VBU_BMS_BattCellNum78Vol "78号单体电压值";
+CM_ SG_ 1347 VBU_BMS_BattCellNum79Vol "79号单体电压值";
+CM_ SG_ 1347 VBU_BMS_BattCellNum80Vol "80号单体电压值";
+CM_ SG_ 1348 VBU_BMS_BattCellNum81Vol "81号单体电压值";
+CM_ SG_ 1348 VBU_BMS_BattCellNum82Vol "82号单体电压值";
+CM_ SG_ 1348 VBU_BMS_BattCellNum83Vol "83号单体电压值";
+CM_ SG_ 1348 VBU_BMS_BattCellNum84Vol "84号单体电压值";
+CM_ SG_ 1349 VBU_BMS_BattCellNum85Vol "85号单体电压值";
+CM_ SG_ 1349 VBU_BMS_BattCellNum86Vol "86号单体电压值";
+CM_ SG_ 1349 VBU_BMS_BattCellNum87Vol "87号单体电压值";
+CM_ SG_ 1349 VBU_BMS_BattCellNum88Vol "88号单体电压值";
+CM_ SG_ 1350 VBU_BMS_BattCellNum89Vol "89号单体电压值";
+CM_ SG_ 1350 VBU_BMS_BattCellNum90Vol "90号单体电压值";
+CM_ SG_ 1350 VBU_BMS_BattCellNum91Vol "91号单体电压值";
+CM_ SG_ 1350 VBU_BMS_BattCellNum92Vol "92号单体电压值";
+CM_ SG_ 1351 VBU_BMS_BattCellNum93Vol "93号单体电压值";
+CM_ SG_ 1351 VBU_BMS_BattCellNum94Vol "94号单体电压值";
+CM_ SG_ 1351 VBU_BMS_BattCellNum95Vol "95号单体电压值";
+CM_ SG_ 1351 VBU_BMS_BattCellNum96Vol "96号单体电压值";
+CM_ SG_ 1352 VBU_BMS_BattCellNum97Vol "97号单体电压值";
+CM_ SG_ 1352 VBU_BMS_BattCellNum98Vol "98号单体电压值";
+CM_ SG_ 1352 VBU_BMS_BattCellNum99Vol "99号单体电压值";
+CM_ SG_ 1352 VBU_BMS_BattCellNum100Vol "100号单体电压值";
+CM_ SG_ 1353 VBU_BMS_BattCellNum101Vol "101号单体电压值";
+CM_ SG_ 1353 VBU_BMS_BattCellNum102Vol "102号单体电压值";
+CM_ SG_ 1353 VBU_BMS_BattCellNum103Vol "103号单体电压值";
+CM_ SG_ 1353 VBU_BMS_BattCellNum104Vol "104号单体电压值";
+CM_ SG_ 1354 VBU_BMS_BattCellNum105Vol "105号单体电压值";
+CM_ SG_ 1354 VBU_BMS_BattCellNum106Vol "106号单体电压值";
+CM_ SG_ 1354 VBU_BMS_BattCellNum107Vol "107号单体电压值";
+CM_ SG_ 1354 VBU_BMS_BattCellNum108Vol "108号单体电压值";
+CM_ SG_ 1377 VBU_MotorcoV "电机冷却液位电压差";
+CM_ SG_ 1377 VBU_BattcolV "电池冷却液位电压差";
+CM_ SG_ 1377 VBU_MotorLoopInputTemp "电机回路入口水温";
+CM_ SG_ 1377 VBU_APULoopOutputTemp "增程器回路出口水温(HEV)";
+CM_ SG_ 1377 VBU_IG1input "ON硬线输入";
+CM_ SG_ 1377 VBU_startinput "Start硬线输入";
+CM_ SG_ 1377 VBU_OBCwakeupVBU "OBC硬线唤醒VBU";
+CM_ SG_ 1377 VBUwakeupOBC "VBU硬线唤醒OBC";
+CM_ SG_ 1377 VBU_VCUwakeupDC_GCU "VCU硬线唤醒DC_GCU";
+CM_ SG_ 1377 VBUwakeupMCU "VBU硬线唤醒MCU";
+CM_ SG_ 1377 VBU_VacuumPumpRelay "真空泵继电器控制";
+CM_ SG_ 1377 VBU_WPTCRelay "WPTC继电器控制";
+CM_ SG_ 1377 VBU_EMSRelay "EMS继电器控制(HEV)";
+CM_ SG_ 1377 VBU_MotorPumpPWM "电机水泵输出占空比";
+CM_ SG_ 1377 VBU_BattPumpPWM "电池水泵输出占空比";
+CM_ SG_ 1424 VBU_BMS_BattSerialNumber "序列号
+GBT 34014-4.3.7";
+CM_ SG_ 1424 VBU_BMS_BattManuYear "电池生产年
+GBT 34014-4.3.6";
+CM_ SG_ 1424 VBU_BMS_BattManuMonth "电池生产月
+GBT 34014-4.3.6";
+CM_ SG_ 1424 VBU_BMS_BattManuDay "电池生产日
+GBT 34014-4.3.6";
+CM_ SG_ 1425 VBU_BMS_BattSupplierCode "电池厂商代码
+GBT 34014 附录A.1 ASCII码解析";
+CM_ SG_ 1425 VBU_BMS_ProductTypeCode "产品类型代码
+,GBT 34014 附录A.1ASCII码解析";
+CM_ SG_ 1425 VBU_BMS_BattTypeCode "电池类型代码
+GBT 34014 附录A.1ASCII码解析";
+CM_ SG_ 1425 VBU_BMS_BattSpecCode "电池规格代码
+GBT 34014 附录A.1ASCII码解析";
+CM_ SG_ 1426 VBU_BMS_BattRetrospectCode1 "电池追溯码1
+GBT 34014-4.3.5";
+CM_ SG_ 1426 VBU_BMS_BattRetrospectCode2 "电池追溯码2
+GBT 34014-4.3.5";
+CM_ SG_ 1427 VBU_BMS_BattProductionDate "电池生产日期";
+CM_ SG_ 1427 VBU_BMS_BattS_Num "电池序列号";
+CM_ SG_ 1427 VBU_BMS_BattRecycleCode "电池梯级利用代码";
+CM_ SG_ 1428 VBU_BMS_BattCodeLenth "可充电储能系统编码长度
+GBT 32960.3 T-6";
+CM_ SG_ 1428 VBU_BMS_PackSOE "电池剩余能量";
+CM_ SG_ 1428 VBU_BMS_Temp_ProbeNum "动力蓄电池温度探针总数
+GBT 32960.3 T-B.8";
+CM_ SG_ 1428 VBU_BMS_PackageTotalNum "电池包总数
+GBT 32960.3 T-B.6";
+CM_ SG_ 1428 VBU_BMS_CellTotalNum "单体蓄电池总数
+GBT 32960.3 T-B.6";
+CM_ SG_ 1504 VBU_BMS_CVS_CSCVersion_Supplier "CVS\CSC供应商代码（有天际定义，如A/B/C分别代表A点/B点/C点供应商）";
+CM_ SG_ 1504 VBU_BMS_BatteriesVersion_Supplier "电芯供应商代码（有天际定义，如A/B/C分别代表A点/B点/C点供应商）";
+CM_ SG_ 1505 VBU_SWVersion_Supplier "VBU软件供应商代码（有天际定义，如A/B/C分别代表A点/B点/C点供应商）";
+CM_ SG_ 1505 VBU_SWVersion_Main "VBU软件版本-大版本";
+CM_ SG_ 1505 VBU_SWVersion_Sub1 "VBU软件版本-小版本第一位";
+CM_ SG_ 1505 VBU_SWVersion_Sub2 "VBU软件版本-小版本第二位";
+CM_ SG_ 1505 VBU_HWVersion_Supplier "VBU硬件供应商代码（有天际定义，如A/B/C分别代表A点/B点/C点供应商）";
+CM_ SG_ 1505 VBU_HWVersion_Main "VBU硬件版本-大版本";
+CM_ SG_ 1505 VBU_HWVersion_Sub1 "VBU硬件版本-小版本第一位";
+CM_ SG_ 1505 VBU_HWVersion_Sub2 "VBU硬件版本-小版本第二位";
+CM_ SG_ 1505 VBU_SoftMainVersion_in "VBU软件主版本号（内部使用）";
+CM_ SG_ 1505 VBU_SoftSubVersion_in "VBU软件子版本号（内部使用）";
+CM_ SG_ 1505 VBU_SoftPhase_in "VBU软件阶段（内部使用）";
+CM_ SG_ 1505 VBU_SoftPhaseDescription_in "VBU软件阶段说明（内部使用）";
+CM_ SG_ 1520 VBU_BMS_BattTempSensorNum1 "1号温度探针温度值";
+CM_ SG_ 1520 VBU_BMS_BattTempSensorNum2 "2号温度探针温度值";
+CM_ SG_ 1520 VBU_BMS_BattTempSensorNum3 "3号温度探针温度值";
+CM_ SG_ 1520 VBU_BMS_BattTempSensorNum4 "4号温度探针温度值";
+CM_ SG_ 1520 VBU_BMS_BattTempSensorNum5 "5号温度探针温度值";
+CM_ SG_ 1520 VBU_BMS_BattTempSensorNum6 "6号温度探针温度值";
+CM_ SG_ 1520 VBU_BMS_BattTempSensorNum7 "7号温度探针温度值";
+CM_ SG_ 1520 VBU_BMS_BattTempSensorNum8 "8号温度探针温度值";
+CM_ SG_ 1521 VBU_BMS_BattTempSensorNum9 "9号温度探针温度值";
+CM_ SG_ 1521 VBU_BMS_BattTempSensorNum10 "10号温度探针温度值";
+CM_ SG_ 1521 VBU_BMS_BattTempSensorNum11 "11号温度探针温度值";
+CM_ SG_ 1521 VBU_BMS_BattTempSensorNum12 "12号温度探针温度值";
+CM_ SG_ 1521 VBU_BMS_BattTempSensorNum13 "13号温度探针温度值";
+CM_ SG_ 1521 VBU_BMS_BattTempSensorNum14 "14号温度探针温度值";
+CM_ SG_ 1521 VBU_BMS_BattTempSensorNum15 "15号温度探针温度值";
+CM_ SG_ 1521 VBU_BMS_BattTempSensorNum16 "16号温度探针温度值";
+CM_ SG_ 1522 VBU_BMS_BattTempSensorNum17 "17号温度探针温度值";
+CM_ SG_ 1522 VBU_BMS_BattTempSensorNum18 "18号温度探针温度值";
+CM_ SG_ 1522 VBU_BMS_BattTempSensorNum19 "19号温度探针温度值";
+CM_ SG_ 1522 VBU_BMS_BattTempSensorNum20 "20号温度探针温度值";
+CM_ SG_ 1522 VBU_BMS_BattTempSensorNum21 "21号温度探针温度值";
+CM_ SG_ 1522 VBU_BMS_BattTempSensorNum22 "22号温度探针温度值";
+CM_ SG_ 1522 VBU_BMS_BattTempSensorNum23 "23号温度探针温度值";
+CM_ SG_ 1522 VBU_BMS_BattTempSensorNum24 "24号温度探针温度值";
+CM_ SG_ 1523 VBU_BMS_BattTempSensorNum25 "25号温度探针温度值";
+CM_ SG_ 1523 VBU_BMS_BattTempSensorNum26 "26号温度探针温度值";
+CM_ SG_ 1523 VBU_BMS_BattTempSensorNum27 "27号温度探针温度值";
+CM_ SG_ 1523 VBU_BMS_BattTempSensorNum28 "28号温度探针温度值";
+CM_ SG_ 1523 VBU_BMS_BattTempSensorNum29 "29号温度探针温度值";
+CM_ SG_ 1523 VBU_BMS_BattTempSensorNum30 "30号温度探针温度值";
+CM_ SG_ 1523 VBU_BMS_BattTempSensorNum31 "31号温度探针温度值";
+CM_ SG_ 1523 VBU_BMS_BattTempSensorNum32 "32号温度探针温度值";
+CM_ SG_ 1524 VBU_BMS_BattTempSensorNum33 "33号温度探针温度值";
+CM_ SG_ 1524 VBU_BMS_BattTempSensorNum34 "34号温度探针温度值";
+CM_ SG_ 1524 VBU_BMS_BattTempSensorNum35 "35号温度探针温度值";
+CM_ SG_ 1524 VBU_BMS_BattTempSensorNum36 "36号温度探针温度值";
+CM_ SG_ 1524 VBU_BMS_BattTempSensorNum37 "37号温度探针温度值";
+CM_ SG_ 1524 VBU_BMS_BattTempSensorNum38 "38号温度探针温度值";
+CM_ SG_ 1524 VBU_BMS_BattTempSensorNum39 "39号温度探针温度值";
+CM_ SG_ 1524 VBU_BMS_BattTempSensorNum40 "40号温度探针温度值";
+CM_ SG_ 1525 VBU_BMS_BattTempSensorNum41 "41号温度探针温度值";
+CM_ SG_ 1525 VBU_BMS_BattTempSensorNum42 "42号温度探针温度值";
+CM_ SG_ 1525 VBU_BMS_BattTempSensorNum43 "43号温度探针温度值";
+CM_ SG_ 1525 VBU_BMS_BattTempSensorNum44 "44号温度探针温度值";
+CM_ SG_ 1525 VBU_BMS_BattTempSensorNum45 "45号温度探针温度值";
+CM_ SG_ 1525 VBU_BMS_BattTempSensorNum46 "46号温度探针温度值";
+CM_ SG_ 1525 VBU_BMS_BattTempSensorNum47 "47号温度探针温度值";
+CM_ SG_ 1525 VBU_BMS_BattTempSensorNum48 "48号温度探针温度值";
+CM_ SG_ 1526 VBU_BMS_BattTempSensorNum49 "49号温度探针温度值";
+CM_ SG_ 1526 VBU_BMS_BattTempSensorNum50 "50号温度探针温度值";
+CM_ SG_ 1526 VBU_BMS_BattTempSensorNum51 "51号温度探针温度值";
+CM_ SG_ 1526 VBU_BMS_BattTempSensorNum52 "52号温度探针温度值";
+CM_ SG_ 1526 VBU_BMS_BattTempSensorNum53 "53号温度探针温度值";
+CM_ SG_ 1526 VBU_BMS_BattTempSensorNum54 "54号温度探针温度值";
+CM_ SG_ 1526 VBU_BMS_BattTempSensorNum55 "55号温度探针温度值";
+CM_ SG_ 1526 VBU_BMS_BattTempSensorNum56 "56号温度探针温度值";
+CM_ SG_ 1527 VBU_BMS_BattTempSensorNum57 "57号温度探针温度值";
+CM_ SG_ 1527 VBU_BMS_BattTempSensorNum58 "58号温度探针温度值";
+CM_ SG_ 1527 VBU_BMS_BattTempSensorNum59 "59号温度探针温度值";
+CM_ SG_ 1527 VBU_BMS_BattTempSensorNum60 "60号温度探针温度值";
+CM_ SG_ 1527 VBU_BMS_BattTempSensorNum61 "61号温度探针温度值";
+CM_ SG_ 1527 VBU_BMS_BattTempSensorNum62 "62号温度探针温度值";
+CM_ SG_ 1527 VBU_BMS_BattTempSensorNum63 "63号温度探针温度值";
+CM_ SG_ 1527 VBU_BMS_BattTempSensorNum64 "64号温度探针温度值";
+CM_ SG_ 1528 VBU_BMS_BattTempSensorNum65 "65号温度探针温度值";
+CM_ SG_ 1528 VBU_BMS_BattTempSensorNum66 "66号温度探针温度值";
+CM_ SG_ 1528 VBU_BMS_BattTempSensorNum67 "67号温度探针温度值";
+CM_ SG_ 1528 VBU_BMS_BattTempSensorNum68 "68号温度探针温度值";
+CM_ SG_ 1528 VBU_BMS_BattTempSensorNum69 "69号温度探针温度值";
+CM_ SG_ 1528 VBU_BMS_BattTempSensorNum70 "70号温度探针温度值";
+CM_ SG_ 1528 VBU_BMS_BattTempSensorNum71 "71号温度探针温度值";
+CM_ SG_ 1528 VBU_BMS_BattTempSensorNum72 "72号温度探针温度值";
+CM_ SG_ 1793 VBU_WakeUpOBC "VBU唤醒OBC的信号，
+注意：此报文为事件性报文，需要时按照100ms周期发送，不需要时停止发送。";
+CM_ SG_ 2027 VBU_UDSDiag_Resp_0x7EB "VBU UDS诊断响应ID，数据位根据需求供应商可自定义";
+CM_ SG_ 791 TPCV1_Feedback_status "乘员舱比例阀故障状态(HEV)";
+CM_ SG_ 791 TPCV1_Feedback_opening "乘员舱比例阀的开度(HEV)";
+CM_ SG_ 791 TPCV1_ResponseError "乘员舱比例阀 LIN通讯错误(HEV)";
+CM_ SG_ 791 TPCV2_Feedback_status "动力系统比例阀故障状(HEV)";
+CM_ SG_ 791 TPCV2_Feedback_opening "态动力系统比例阀的开度(HEV)";
+CM_ SG_ 791 TPCV2_ResponseError "动力系统比例阀 LIN通讯错误(HEV)";
+CM_ SG_ 404 Checksum_0x194 "Checksum: IDMSB XOR IDLSB XOR Byte1 XOR Byte2 XOR Byte3 XOR Byte4 XOR Byte5 XOR Byte6 XOR Byte7";
+CM_ SG_ 404 PA_APA_DistanceValueLR_FL "左前长距离雷达探测障碍物距离值";
+CM_ SG_ 404 PA_APA_DistanceValueLR_FR "右前长距离雷达探测障碍物距离值";
+CM_ SG_ 404 PA_APA_DistanceValueSR_FL "左前短距离雷达探测障碍物距离值";
+CM_ SG_ 404 PA_APA_DistanceValueSR_FML "左中前短距离雷达探测障碍物距离值";
+CM_ SG_ 404 PA_APA_DistanceValueSR_FMR "右中前短距离雷达探测障碍物距离值";
+CM_ SG_ 404 PA_APA_DistanceValueSR_FR "右前短距离雷达探测障碍物距离值";
+CM_ SG_ 404 RollingCounter_0x194 "RollingCounter: used 4bit length signal and the arithmetic is increased from 0 to 15 by every message.";
+CM_ SG_ 405 Checksum_0x195 "Checksum: IDMSB XOR IDLSB XOR Byte1 XOR Byte2 XOR Byte3 XOR Byte4 XOR Byte5 XOR Byte6 XOR Byte7";
+CM_ SG_ 405 PA_APA_DistanceValueLR_RL "左后长距离雷达探测障碍物距离值（高配）";
+CM_ SG_ 405 PA_APA_DistanceValueLR_RR "右后长距离雷达探测障碍物距离值（高配）";
+CM_ SG_ 405 PA_APA_DistanceValueSR_RL "左后短距离雷达探测障碍物距离值（高配";
+CM_ SG_ 405 PA_APA_DistanceValueSR_RML "左中后短距离雷达探测障碍物距离值（高配）";
+CM_ SG_ 405 PA_APA_DistanceValueSR_RMR "右中后短距离雷达探测障碍物距离值（高配）";
+CM_ SG_ 405 PA_APA_DistanceValueSR_RR "右后短距离雷达探测障碍物距离值（高配）";
+CM_ SG_ 405 RollingCounter_0x195 "RollingCounter: used 4bit length signal and the arithmetic is increased from 0 to 15 by every message.";
+CM_ SG_ 401 Checksum_0x191 "Checksum: IDMSB XOR IDLSB XOR Byte1 XOR Byte2 XOR Byte3 XOR Byte4 XOR Byte5 XOR Byte6 XOR Byte7";
+CM_ SG_ 401 APS_VBU_BrakeFunctionMode "制动功能模式";
+CM_ SG_ 401 APS_VBU_BrakeModeSts "制动模式状态";
+CM_ SG_ 401 APS_VBU_Speed_Limitation "APS限速值";
+CM_ SG_ 401 APS_VBU_Target_Gear_Request "目标档位";
+CM_ SG_ 401 APS_VBU_APAFailed "APA反馈VCU的故障状态";
+CM_ SG_ 401 APS_VBU_FailureBrakeMode "刹车模式失效状态";
+CM_ SG_ 401 APS_VBU_Stop_Distance "停车距离";
+CM_ SG_ 401 APS_R_Gear_RequestTips "换入R档请求";
+CM_ SG_ 401 APS_VBU_Req_StraightOut "APS请求遥控直出或者直入的握手请求";
+CM_ SG_ 401 APS_VBU_Gear_Request "APS请求换挡";
+CM_ SG_ 401 APS_VBU_Req_StraightCtrol "APS请求遥控直出、直入或者停止命令";
+CM_ SG_ 401 RollingCounter_0x191 "RollingCounter: used 4bit length signal and the arithmetic is increased from 0 to 15 by every message.";
+CM_ SG_ 599 Checksum_0x257 "Checksum: IDMSB XOR IDLSB XOR Byte1 XOR Byte2 XOR Byte3 XOR Byte4 XOR Byte5 XOR Byte6 XOR Byte7";
+CM_ SG_ 599 AC_RemoteAC "空调远程控制请求";
+CM_ SG_ 599 AC_VBU_ComfortheatReqLvl "乘员舱加热请求等级(HEV)";
+CM_ SG_ 599 RollingCounter_0x257 "RollingCounter: used 4bit length signal and the arithmetic is increased from 0 to 15 by every message.";
+CM_ SG_ 596 AC_WindModeSts "当前吹风模式";
+CM_ SG_ 596 AC_OutTemperature "车外温度";
+CM_ SG_ 597 AC_VBU_FanPWMReq "冷却风扇PWM请求";
+CM_ SG_ 597 AC_VBU_APTCPwrReq "空气PTC请求功率（EV）";
+CM_ SG_ 597 AC_VBU_EACPwrReq "压缩机请求功率";
+CM_ SG_ 800 EAC_power "压缩机工作功率";
+CM_ SG_ 800 EAC_Status "Compressor state：压缩机状态位";
+CM_ SG_ 806 APTC_WorkSts "APTC工作状态（EV）";
+CM_ SG_ 806 APTC_WorkPower "APTC实际工作功率（EV）";
+CM_ SG_ 806 APTC_ErrorLevel "APTC故障等级（EV）";
+CM_ SG_ 582 MPC_LKS_LeftVisualization "Left line tracking status";
+CM_ SG_ 582 MPC_LKS_RightVisualization "Right line tracking status";
+CM_ SG_ 851 Checksum_0x353 "Checksum: IDMSB XOR IDLSB XOR Byte1 XOR Byte2 XOR Byte3 XOR Byte4 XOR Byte5 XOR Byte6 XOR Byte7";
+CM_ SG_ 851 TBOX_VBU_TimeCharge "定时充电请求信号";
+CM_ SG_ 851 TBOX_VBU_RemoteChrgLock "远程解锁电子锁";
+CM_ SG_ 851 TBOX_FOTA_mode "FOTA模式";
+CM_ SG_ 851 RollingCounter_0x353 "RollingCounter: used 4bit length signal and the arithmetic is increased from 0 to 15 by every message.";
+CM_ SG_ 289 Checksum_0x121 "Checksum: IDMSB XOR IDLSB XOR Byte1 XOR Byte2 XOR Byte3 XOR Byte4 XOR Byte5 XOR Byte6XOR Byte7";
+CM_ SG_ 289 ESP_VehicleSpeed "Current Vehicle Speed
+当前实际车速";
+CM_ SG_ 289 ESP_VehicleSpeed_Valid "Vehicle speed value valid
+车速有效";
+CM_ SG_ 289 ESP_OFF "ESP is diabled by pata（ESP off）";
+CM_ SG_ 289 ESP_ABS_Error "ABS_Fault: ESP system has detected a failure which does not allow a reliable ABS regulation and is therefore switched off";
+CM_ SG_ 289 ESP_ABS_Intervention "ABS control active - Indication that ESP system (especially ABS module) currently performs a brake intervention";
+CM_ SG_ 289 ESP_VDC_TCS_Error "ESP_Fault: VDC/TCS is switched off due to detected failure";
+CM_ SG_ 289 ESP_EBD_Error "EBD_Fault: ESP system has detected a heavy fault, which does not even allow a reliable electronic brake distribution and is therefore completely shut down";
+CM_ SG_ 289 ESP_VDC_Intervention "VDC controller active: Oversteering brake intervention or Understeering brake intervention";
+CM_ SG_ 289 ESP_TCS_Intervention "TCS controller active: Brake intervention or Engine torque reduction intervention";
+CM_ SG_ 289 ESP_EBD_Intervention "EBD control active - Indication that ESP system (especially EBD module) currently performs a brake intervention";
+CM_ SG_ 289 ESP_EPBFailstatus "EPB failure status";
+CM_ SG_ 289 ESP_EPBStatus "Indicating the status of EPB";
+CM_ SG_ 289 ESP_VehicleStop "Indicates if vehicle is in standstill (if more or equal to two wheels are standstill).
+Set to a desired state when standstill is surely reached.";
+CM_ SG_ 289 ESP_VehicleStop_Valid "Check the validity of the signal of VehicleStop.";
+CM_ SG_ 289 ESP_MasterCyPressureCmp "Master cylinder pressure
+Offset included";
+CM_ SG_ 289 ESP_MasterCyPressure_Valid "Indicating MasterCyPressure valid or not";
+CM_ SG_ 289 ESP_AVHActive "Indicates AVH in active or not";
+CM_ SG_ 289 ESP_HHCActive "Indicates HHCH in active or not";
+CM_ SG_ 289 RollingCounter_0x121 "RollingCounter: used 4bit length signal and the arithmetic is increased from 0 to 15 by every message.";
+CM_ SG_ 533 Checksum_0x215 "Checksum: IDMSB XOR IDLSB XOR Byte1 XOR Byte2 XOR Byte3 XOR Byte4 XOR Byte5 XOR Byte6 XOR Byte7";
+CM_ SG_ 533 ABS_WheelPulse_FL_Valid "Previous name: WheelPulse_FL_Valid: Means Indicating front left wheel pulse signal valid or not.";
+CM_ SG_ 533 ABS_WheelPulse_FR_Valid "Previous name: WheelPulse_FR_Valid: Means Indicating front left wheel pulse signal valid or not.";
+CM_ SG_ 533 ABS_WheelPulse_RL_Valid "Previous name: WheelPulse_RL_Valid: Means Indicating front left wheel pulse signal valid or not.";
+CM_ SG_ 533 ABS_WheelPulse_RR_Valid "Previous name: WheelPulse_RR_Valid: Means Indicating front left wheel pulse signal valid or not.";
+CM_ SG_ 533 ABS_WheelPulse_FL "Previous name: WheelPulse_FL, means Front left wheel pulse";
+CM_ SG_ 533 ABS_WheelPulse_FR "Previous name: WheelPulse_FR, means Front left wheel pulse";
+CM_ SG_ 533 ABS_WheelPulse_RL "Previous name: WheelPulse_RL, means Front left wheel pulse";
+CM_ SG_ 533 ABS_WheelPulse_RR "Previous name: WheelPulse_RR, means Front left wheel pulse";
+CM_ SG_ 533 RollingCounter_0x215 "RollingCounter: used 4bit length signal and the arithmetic is increased from 0 to 15 by every message.";
+CM_ SG_ 291 MCU_DC_linkVoltage "直流母线电压";
+CM_ SG_ 291 MCU_DC_linkCurrent "直流母线电流";
+CM_ SG_ 293 Checksum_0x125 "Checksum: IDMSB XOR IDLSB XOR Byte1 XOR Byte2 XOR Byte3 XOR Byte4 XOR Byte5 XOR Byte6XOR Byte7";
+CM_ SG_ 293 ESP_TorqueIncrease "Target increased engine torque (drag torque control)";
+CM_ SG_ 293 ESP_TorqueIncreaseSt "Target increased engine torque active";
+CM_ SG_ 293 ESP_TorqueReqFast "Target reduced engine torque (fast)";
+CM_ SG_ 293 ESP_TorqueReqFastSt "Engine torque reduction active（Fast）";
+CM_ SG_ 293 RollingCounter_0x125 "RollingCounter: used 4bit length signal and the arithmetic is increased from 0 to 15 by every message.";
+CM_ SG_ 293 ESC_Gear_Request "ESC_Gear_Request";
+CM_ SG_ 373 Checksum_0x175 "Checksum: IDMSB XOR IDLSB XOR Byte1 XOR Byte2 XOR Byte3 XOR Byte4 XOR Byte5 XOR Byte6XOR Byte7";
+CM_ SG_ 373 SAS_SteerWheelAngle "The current angle of the steering wheel（Positive, to left; Negative, to right）
+转向角度，左正右负";
+CM_ SG_ 373 SAS_SteerWheelRotSpd "The current rotation speed of the steering wheel.
+转向角速度";
+CM_ SG_ 373 SAS_SteerWheelRotSpdStatus "The status of SteerWheelRotSpd
+转向角速度有效性";
+CM_ SG_ 373 SAS_SASStsSnsr "the flag of  SAS status
+Punch:Steering angle status
+SAS硬件故障状态";
+CM_ SG_ 373 EPS_SteeringTorque "施加在方向盘上的驾驶员手力矩，左正右负
+Driver steering torque，left+/right-";
+CM_ SG_ 373 EPS_SteeringTorqueValid "Validation bit of torsion bar torque";
+CM_ SG_ 373 SAS_SASStsCal "The calibration status of SAS
+传感器标定状态";
+CM_ SG_ 373 Rolling_counter_0x175 "RollingCounter: used 4bit length signal and the arithmetic is increased from 0 to 15 by every message.";
+CM_ SG_ 392 DCDC_ErrorLevel "DCDC故障等级";
+CM_ SG_ 392 DCDC_stMode "stMode of DCDC
+DCDC工作模式";
+CM_ SG_ 392 DCDC_DischargeMode "DischargeMode of DCDC
+DCDC主动泄放状态";
+CM_ SG_ 392 DCDC_IdcLVBUrr "Low side current of DCDC
+DCDC低压输出电流";
+CM_ SG_ 392 DCDC_IdcHVBUrr "High side  current of DCDC
+DCDC高压输入电流";
+CM_ SG_ 392 DCDC_UdcLvVolt "Low side voltage of DCDC
+DCDC低压输出电压";
+CM_ SG_ 392 DCDC_UdcHvVolt "High side  voltage of DCDC
+DCDC高压输入电压";
+CM_ SG_ 528 ACU_CrashStatus "ACU output crash status";
+CM_ SG_ 528 ACU_DrvSeatBeltSWSts "Driver Buckle Switch status 
+主驾安全带未开关状态";
+CM_ SG_ 529 Checksum_0x211 "Checksum: IDMSB XOR IDLSB XOR Byte1 XOR Byte2 XOR Byte3 XOR Byte4 XOR Byte5 XOR Byte6XOR Byte7";
+CM_ SG_ 529 ABS_WheelSpeed_FL "Current wheel speed information of front left wheel.
+左前轮轮速";
+CM_ SG_ 529 ABS_WheelSpeed_FR "Current wheel speed information of front right wheel.
+右前轮轮速";
+CM_ SG_ 529 ABS_WheelSpeed_RL "Current wheel speed information of rear left wheel.
+左后轮轮速";
+CM_ SG_ 529 ABS_WheelSpeed_RR "Current wheel speed information of rear right wheel.
+右后轮轮速";
+CM_ SG_ 529 RollingCounter_0x211 "RollingCounter: used 4bit length signal and the arithmetic is increased from 0 to 15 by every message.";
+CM_ SG_ 529 ABS_WheelSpeed_FL_Valid "Front left wheel speed valid
+左前轮速有效";
+CM_ SG_ 529 ABS_WheelSpeed_FR_Valid "Front right wheel speed valid
+右前轮速有效";
+CM_ SG_ 529 ABS_WheelSpeed_RL_Valid "Rear left wheel speed valid 
+左后轮速有效";
+CM_ SG_ 529 ABS_WheelSpeed_RR_Valid "Rear right wheel speed valid
+右后轮速有效";
+CM_ SG_ 532 Checksum_0x214 "Checksum: IDMSB XOR IDLSB XOR Byte1 XOR Byte2 XOR Byte3 XOR Byte4 XOR Byte5 XOR Byte6XOR Byte7";
+CM_ SG_ 532 ESP_WheelDirection_FL "Front left wheel Moving direction";
+CM_ SG_ 532 ESP_WheelDirection_FL_Valid "Indicating front left wheel direction signal valid or not.";
+CM_ SG_ 532 ESP_WheelDirection_FR "Front right wheel  Moving direction";
+CM_ SG_ 532 ESP_WheelDirection_FR_Valid "Indicating front right wheel direction signal valid or not.";
+CM_ SG_ 532 ESP_WheelDirection_RL "Rear left wheel  Moving direction";
+CM_ SG_ 532 ESP_WheelDirection_RL_Valid "Indicating rear left wheel direction signal valid or not.";
+CM_ SG_ 532 ESP_WheelDirection_RR "Rear right wheel Moving direction";
+CM_ SG_ 532 ESP_WheelDirection_RR_Valid "Indicating rear right wheel direction signal valid or not.";
+CM_ SG_ 532 ESP_CDD_Intervention "Indicates CDD is active or not";
+CM_ SG_ 532 ESP_CDD_Available "Indicates CDD is available or not";
+CM_ SG_ 532 ESP_VLC_EngTrqReq "VLC engine Torque Request";
+CM_ SG_ 532 ESP_VLC_EngTrqReqActive "VLC engine Torque Request Active";
+CM_ SG_ 532 RollingCounter_0x214 "RollingCounter: used 4bit length signal and the arithmetic is increased from 0 to 15 by every message.";
+CM_ SG_ 532 ESP_VLC_Intervention "Indicates VLC is active or not";
+CM_ SG_ 532 ESP_VLC_Error "It means VLC is failed";
+CM_ SG_ 532 ESP_APA_CDD_active "ESC_APA_CDD_active";
+CM_ SG_ 579 Checksum_0x243 "Checksum: IDMSB XOR IDLSB XOR Byte1 XOR Byte2 XOR Byte3 XOR Byte4 XOR Byte5 XOR Byte6XOR Byte7";
+CM_ SG_ 579 ESP_LongAccSensor "vehicle longitudinal acceleration
+车辆纵向加速度";
+CM_ SG_ 579 ESP_LongAccSensorValid "vehicle longitudinal acceleration  value valid or not.
+车辆纵向加速度信号是否有效";
+CM_ SG_ 579 ESP_LaterAccSensor "vehicle lateral acceleration
+车辆横向加速度";
+CM_ SG_ 579 ESP_LaterAccSensorValid "vehicle lateral acceleration value valid or not.
+车辆横向加速度信号是否有效";
+CM_ SG_ 579 ESP_AEB_Intervention "Indicates AEB is active or not";
+CM_ SG_ 579 ESC_APA_LC_Status "ESC_APA_LC_Status";
+CM_ SG_ 579 RollingCounter_0x243 "RollingCounter: used 4bit length signal and the arithmetic is increased from 0 to 15 by every message.";
+CM_ SG_ 642 Checksum_0x282 "Checksum: IDMSB XOR IDLSB XOR Byte1 XOR Byte2 XOR Byte3 XOR Byte4 XOR Byte5 XOR Byte6XOR Byte7";
+CM_ SG_ 642 SCM_CC_Switch "定速巡航开启/关闭开关信号（低配）";
+CM_ SG_ 642 SCM_Res_Set_Switch "巡航Res+/Set-开关信号";
+CM_ SG_ 642 SCM_PRND_req "PRND档位请求";
+CM_ SG_ 642 Counter_0x282 "RollingCounter: used 4bit length signal and the arithmetic is increased from 0 to 15 by every message.";
+CM_ SG_ 734 HU_VBU_RemoteChrgLock "大屏解锁电子锁";
+CM_ SG_ 734 HU_ChargeDepthSet "充电深度设置";
+CM_ SG_ 734 HU_Onepedal "E-PEDAL模式设置信号";
+CM_ SG_ 734 HU_EnergyRecoveryPer "能量回收强度百分比";
+CM_ SG_ 734 HU_SpeedLimitSW "车速限制开关，默认关";
+CM_ SG_ 734 HU_LimitSpeedSet "开启功能时：
+设置范围：0~200KM/H
+设置的间隔：1km/h";
+CM_ SG_ 734 HU_DriveMode "驾驶模式";
+CM_ SG_ 734 HU_AccelerationModePer "加速模式百分比,范围：0-100%
+精度：1%";
+CM_ SG_ 734 HU_SubMileage_Reset "小计里程重置";
+CM_ SG_ 734 HU_DMS_SW "疲劳驾驶提醒开关";
+CM_ SG_ 734 HU_Refueling_Request "HU 加油请求(HEV)";
+CM_ SG_ 784 BCM_SystemPowerMode "整车电源状态
+vehicle Power Status";
+CM_ SG_ 784 BCM_AntiThelf_Sts "车辆设防状态";
+CM_ SG_ 784 BCM_DriverLock_Sts "驾驶侧门锁状态";
+CM_ SG_ 784 BCM_StartRequest "strart请求信号";
+CM_ SG_ 784 BCM_Hood_Sts "前舱盖状态";
+CM_ SG_ 784 BCM_PUSHMotorMal_controlSts "油箱锁电机控制故障(HEV)";
+CM_ SG_ 784 BCM_FL_Door_Sts "左前门开关状态";
+CM_ SG_ 784 BCM_FR_Door_Sts "右前门开关状态";
+CM_ SG_ 784 BCM_RL_Door_Sts "左后门开关状态";
+CM_ SG_ 784 BCM_RR_Door_Sts "右后门开关状态";
+CM_ SG_ 784 BCM_PUSH_Switc_Sts "PUSH 油箱锁微动开关状态(HEV)";
+CM_ SG_ 805 WPTC_Power "WPTC实际工作功率";
+CM_ SG_ 805 WPTC_PowerMaxLim "WPTC最大允许功率";
+CM_ SG_ 805 WPTC_RunSts "WPTC运行状态";
+CM_ SG_ 853 TBOX_TimeSyncSts "TBOX发送的仪表时间同步有效位";
+CM_ SG_ 853 TBOX_TimeSyncData_Year "TBOX发送的同步时间数据----年
+0x0-0x63: Year
+0x64-0x7F: Invalid";
+CM_ SG_ 853 TBOX_TimeSyncData_Month "TBOX发送的同步时间数据----月
+0x0: Invalid
+0x1-0xC: Month";
+CM_ SG_ 853 TBOX_TimeSyncData_Day "TBOX发送的同步时间数据----日
+0x0: Invalid
+0x01-0x1F: Day";
+CM_ SG_ 853 TBOX_TimeSyncData_Hour "ACM发送的同步时间数据----时
+0x0-0x17: Hour
+0x18-0x1F: Invalid";
+CM_ SG_ 853 TBOX_TimeSyncData_Minute "TBOX发送的同步时间数据----分
+0x0-0x3B: Minute
+0x3C-0x3F: Invalid";
+CM_ SG_ 853 TBOX_TimeSyncData_Second "TBOX发送的同步时间数据----秒
+0x00-0x3B: Second
+0x3C-0x3F: Invalid";
+CM_ SG_ 905 DCDC_TempAct "actual temperature of DCDC(for VBU pump control)
+DCDC实际温度（VBU水泵控制）";
+CM_ SG_ 928 ICM_ODOTotal "ODO 总里程";
+CM_ SG_ 928 ICM_SubMileage_Reset "小计里程重置";
+CM_ SG_ 1032 GW_PT_NM_DA "目标地址";
+CM_ SG_ 1032 GW_PT_NM_ALIVE "Alive报文";
+CM_ SG_ 1032 GW_PT_NM_RING "Ring报文";
+CM_ SG_ 1032 GW_PT_NM_LIMPHOME "Limphome报文";
+CM_ SG_ 1032 GW_PT_NM_SLEEP_Ind "睡眠标志位";
+CM_ SG_ 1032 GW_PT_NM_SLEEP_ACK "睡眠确认位";
+CM_ SG_ 1360 Checksum_0x550 "Checksum: IDMSB XOR IDLSB XOR Byte1 XOR Byte2 XOR Byte3 XOR Byte4 XOR Byte5 XOR Byte6XOR Byte7";
+CM_ SG_ 1360 OBC_ChrgOutputVolt "OBC output votage reported
+OBC输出电压";
+CM_ SG_ 1360 OBC_ChrgFailLevel "OBC fault class
+OBC故障等级";
+CM_ SG_ 1360 OBC_CCLineSts "CC signal connect status
+CC信号连接状态";
+CM_ SG_ 1360 OBC_ChrgSts "OBC state machine mode
+OBC 状态机";
+CM_ SG_ 1360 OBC_ChrgOutputCurr "OBC output current reported
+OBC输出电流";
+CM_ SG_ 1360 Rolling_counter_0x550 "RollingCounter: used 4bit length signal and the arithmetic is increased from 0 to 15 by every message.";
+CM_ SG_ 1360 OBC_S2Sts "S2 switch status
+S2开关状态";
+CM_ SG_ 1360 OBC_ChrgAllowedSts "OBC允许充电";
+CM_ SG_ 1378 MCU_MotoroffsetCalReq "电机角度自学习请求";
+CM_ SG_ 1552 OBC_CP_Duty "CP占空比";
+CM_ SG_ 1552 OBC_CC_Status "CC电阻值";
+CM_ SG_ 1553 OBC_CoolantPlateTemp "Coolant temperature reported
+冷却水温";
+CM_ SG_ 1555 OBC_MaxChrgOutpVolt "OBC maximum charging voltage
+OBC最大充电电压";
+CM_ SG_ 1555 OBC_MaxChrgOutpCur "OBC maximum charging current
+OBC最大充电电流";
+CM_ SG_ 1555 OBC_MaxChrgOutpPwr "OBC maximum charging power
+OBC最大充电功率";
+CM_ SG_ 1556 OBC_TempAct "actual temperature of OBC
+OBC实际温度";
+CM_ SG_ 1556 OBC_ChrgLockSts "E-lock status
+电子锁状态";
+CM_ SG_ 626 EMS_PSNotActiveTimeAccu "Propulsion System Not Active Time Accumulation
+驱动系统累计未激活时间(HEV)";
+CM_ SG_ 627 EMS_Fuellevel "油位信息(HEV)";
+CM_ SG_ 2019 VBU_UDSDiag_ReqPhsy_0x7E3 "VBU UDS诊断物理寻址ID，数据位根据需求供应商可自定义";
+CM_ SG_ 2015 UDSDiag_ReqFunc_0x7DF "整车UDS诊断功能寻址ID，数据位根据需求供应商可自定义";
+
+
+BA_DEF_ BO_  "NmMessage" ENUM "No","Yes";
+BA_DEF_ BO_  "DiagState" ENUM  "No","Yes";
+BA_DEF_ BO_  "DiagRequest" ENUM  "No","Yes";
+BA_DEF_ BO_  "DiagResponse" ENUM  "No","Yes";
+BA_DEF_ BO_  "GenMsgSendType" ENUM  "cyclic","Event","IfActive","CE","CA","NoMsgSendType";
+BA_DEF_ BO_  "GenMsgCycleTime" INT 0 0;
+BA_DEF_ SG_  "GenSigSendType" ENUM  "cyclic","OnChange","OnWrite","IfActive","OnChangeWithRepetition","OnWriteWithRepetition","IfActiveWithRepetition","NoSigSendType","OnChangeAndIfActive","OnChangeAndIfActiveWithRepetition","CA","CE","Event";
+BA_DEF_ SG_  "GenSigStartValue" INT 0 0;
+BA_DEF_ SG_  "GenSigInactiveValue" INT 0 0;
+BA_DEF_ BO_  "GenMsgCycleTimeFast" INT 0 0;
+BA_DEF_ BO_  "GenMsgNrOfRepetition" INT 0 0;
+BA_DEF_ BO_  "GenMsgDelayTime" INT 0 0;
+BA_DEF_  "DBName" STRING ;
+BA_DEF_ BU_  "NodeLayerModules" STRING ;
+BA_DEF_ SG_  "GenSigTimeoutValue" INT 0 1000000000;
+BA_DEF_ BO_  "GenMsgCycleTimeActive" INT 0 0;
+BA_DEF_ BU_  "ILUsed" ENUM  "No","Yes";
+BA_DEF_ BU_  "DiagStationAddress" HEX 0 255;
+BA_DEF_ BU_  "NmNode" ENUM  "Not","Yes";
+BA_DEF_ BU_  "NmStationAddress" HEX 0 65535;
+BA_DEF_ BU_  "NmCAN" INT 0 2;
+BA_DEF_  "Manufacturer" STRING ;
+BA_DEF_  "NmType" STRING ;
+BA_DEF_  "NmBaseAddress" HEX 0 2047;
+BA_DEF_  "NmMessageCount" INT 0 255;
+BA_DEF_ BO_  "_Cdb_Sc_CTm_FAW_v3_0" INT 0 0;
+BA_DEF_ BO_  "_Cdb_Sc_CTm_FAW_v2_3" INT 0 0;
+BA_DEF_ BO_  "_Cdb_Sc_CTm_FAW_v3_1" INT 0 0;
+BA_DEF_ BO_  "_Cdb_Sc_CTm_FAW_v2_2" INT 0 0;
+BA_DEF_ BO_  "_Cdb_Sc_CTm_FAW_v2_1" INT 0 0;
+BA_DEF_ BO_  "GenMsgILSupport" ENUM  "No","Yes";
+BA_DEF_ BO_  "GenMsgStartDelayTime" INT 0 65535;
+BA_DEF_  "BusType" STRING ;
+BA_DEF_DEF_  "NmMessage" "No";
+BA_DEF_DEF_  "DiagState" "No";
+BA_DEF_DEF_  "DiagRequest" "No";
+BA_DEF_DEF_  "DiagResponse" "No";
+BA_DEF_DEF_  "GenMsgSendType" "cyclic";
+BA_DEF_DEF_  "GenMsgCycleTime" 0;
+BA_DEF_DEF_  "GenSigSendType" "cyclic";
+BA_DEF_DEF_  "GenSigStartValue" 0;
+BA_DEF_DEF_  "GenSigInactiveValue" 0;
+BA_DEF_DEF_  "GenMsgCycleTimeFast" 0;
+BA_DEF_DEF_  "GenMsgNrOfRepetition" 0;
+BA_DEF_DEF_  "GenMsgDelayTime" 0;
+BA_DEF_DEF_  "DBName" "";
+BA_DEF_DEF_  "NodeLayerModules" "CANoeILNLVector.dll";
+BA_DEF_DEF_  "GenSigTimeoutValue" 0;
+BA_DEF_DEF_  "GenMsgCycleTimeActive" 0;
+BA_DEF_DEF_  "ILUsed" "No";
+BA_DEF_DEF_  "DiagStationAddress" 0;
+BA_DEF_DEF_  "NmNode" "Not";
+BA_DEF_DEF_  "NmStationAddress" 0;
+BA_DEF_DEF_  "NmCAN" 0;
+BA_DEF_DEF_  "Manufacturer" "";
+BA_DEF_DEF_  "NmType" "";
+BA_DEF_DEF_  "NmBaseAddress" 1024;
+BA_DEF_DEF_  "NmMessageCount" 128;
+BA_DEF_DEF_  "_Cdb_Sc_CTm_FAW_v3_0" 0;
+BA_DEF_DEF_  "_Cdb_Sc_CTm_FAW_v2_3" 0;
+BA_DEF_DEF_  "_Cdb_Sc_CTm_FAW_v3_1" 0;
+BA_DEF_DEF_  "_Cdb_Sc_CTm_FAW_v2_2" 0;
+BA_DEF_DEF_  "_Cdb_Sc_CTm_FAW_v2_1" 0;
+BA_DEF_DEF_  "GenMsgILSupport" "No";
+BA_DEF_DEF_  "GenMsgStartDelayTime" 0;
+BA_DEF_DEF_  "BusType" "CAN";
+BA_ "DBName" "IC321_PTCAN_CMatrix_V1.7_PT装车";
+BA_ "BusType" "CAN";
+BA_ "GenMsgCycleTime" BO_ 791 100;
+BA_ "GenMsgSendType" BO_ 811 1;
+BA_ "GenSigSendType" SG_ 811 VBU_WakeUpRMCU 12;
+BA_ "GenMsgCycleTime" BO_ 404 100;
+BA_ "GenMsgCycleTime" BO_ 405 100;
+BA_ "GenMsgCycleTime" BO_ 401 50;
+BA_ "GenMsgCycleTime" BO_ 599 100;
+BA_ "GenMsgCycleTime" BO_ 1323 100;
+BA_ "GenMsgCycleTime" BO_ 1325 100;
+BA_ "GenMsgCycleTime" BO_ 1326 100;
+BA_ "GenMsgCycleTime" BO_ 1327 100;
+BA_ "GenMsgCycleTime" BO_ 1379 100;
+BA_ "GenMsgCycleTime" BO_ 596 100;
+BA_ "GenMsgCycleTime" BO_ 597 100;
+BA_ "GenMsgCycleTime" BO_ 800 100;
+BA_ "GenMsgCycleTime" BO_ 806 100;
+BA_ "GenMsgCycleTime" BO_ 582 20;
+BA_ "GenMsgCycleTime" BO_ 851 100;
+BA_ "GenMsgCycleTime" BO_ 881 100;
+BA_ "GenMsgCycleTime" BO_ 882 100;
+BA_ "GenMsgCycleTime" BO_ 883 100;
+BA_ "GenMsgCycleTime" BO_ 154 100;
+BA_ "GenSigStartValue" SG_ 154 VBU_MCU_TrqReq 10000;
+BA_ "GenMsgCycleTime" BO_ 155 20;
+BA_ "GenSigStartValue" SG_ 155 VBU_DC_VoltageReq 120;
+BA_ "GenMsgCycleTime" BO_ 156 100;
+BA_ "GenSigStartValue" SG_ 156 VBU_TPCV1Control 20;
+BA_ "GenSigStartValue" SG_ 156 VBU_TPCV2Control 20;
+BA_ "GenMsgCycleTime" BO_ 157 100;
+BA_ "GenMsgCycleTime" BO_ 256 20;
+BA_ "GenMsgCycleTime" BO_ 258 20;
+BA_ "GenMsgCycleTime" BO_ 259 100;
+BA_ "GenMsgCycleTime" BO_ 261 100;
+BA_ "GenMsgCycleTime" BO_ 274 100;
+BA_ "GenMsgCycleTime" BO_ 277 100;
+BA_ "GenMsgCycleTime" BO_ 278 100;
+BA_ "GenMsgCycleTime" BO_ 276 100;
+BA_ "GenSigStartValue" SG_ 276 VBU_BMS_InputWaterTemp 255;
+BA_ "GenSigStartValue" SG_ 276 VBU_BMS_OutputWaterTemp 255;
+BA_ "GenMsgCycleTime" BO_ 279 100;
+BA_ "GenSigStartValue" SG_ 279 VBU_ActualPowerPer 100;
+BA_ "GenSigStartValue" SG_ 279 VBU_ExchangerInputWaterTemp 65;
+BA_ "GenMsgCycleTime" BO_ 289 20;
+BA_ "GenMsgCycleTime" BO_ 533 20;
+BA_ "GenMsgCycleTime" BO_ 291 100;
+BA_ "GenSigStartValue" SG_ 291 MCU_DC_linkVoltage 1022;
+BA_ "GenSigStartValue" SG_ 291 MCU_DC_linkCurrent 2046;
+BA_ "GenMsgCycleTime" BO_ 293 20;
+BA_ "GenSigStartValue" SG_ 293 ESP_TorqueIncrease 10000;
+BA_ "GenSigStartValue" SG_ 293 ESP_TorqueReqFast 10000;
+BA_ "GenMsgCycleTime" BO_ 320 20;
+BA_ "GenSigStartValue" SG_ 320 VBU_CurrentMotorTorq 10000;
+BA_ "GenSigStartValue" SG_ 320 VBU_MaxMotorTorque 10000;
+BA_ "GenSigStartValue" SG_ 320 VBU_MinMotorTorque 10000;
+BA_ "GenMsgCycleTime" BO_ 321 20;
+BA_ "GenSigStartValue" SG_ 321 VBU_DriverDemandTorq 10000;
+BA_ "GenMsgCycleTime" BO_ 322 20;
+BA_ "GenSigStartValue" SG_ 322 VBU_vacuumpumpsensorRelvalue 540;
+BA_ "GenSigStartValue" SG_ 322 VBU_MCU_MotorSpeed 65534;
+BA_ "GenMsgCycleTime" BO_ 336 20;
+BA_ "GenMsgCycleTime" BO_ 337 20;
+BA_ "GenMsgCycleTime" BO_ 373 10;
+BA_ "GenMsgCycleTime" BO_ 392 100;
+BA_ "GenMsgCycleTime" BO_ 528 10;
+BA_ "GenMsgCycleTime" BO_ 529 20;
+BA_ "GenMsgCycleTime" BO_ 532 20;
+BA_ "GenSigStartValue" SG_ 532 ESP_VLC_EngTrqReq 10000;
+BA_ "GenMsgCycleTime" BO_ 579 20;
+BA_ "GenMsgSendType" BO_ 642 3;
+BA_ "GenMsgCycleTime" BO_ 642 20;
+BA_ "GenSigSendType" SG_ 642 SCM_CC_Switch 1;
+BA_ "GenSigSendType" SG_ 642 SCM_Res_Set_Switch 1;
+BA_ "GenSigSendType" SG_ 642 SCM_PRND_req 1;
+BA_ "GenMsgSendType" BO_ 734 3;
+BA_ "GenMsgCycleTime" BO_ 734 100;
+BA_ "GenSigSendType" SG_ 734 HU_VBU_RemoteChrgLock 1;
+BA_ "GenSigSendType" SG_ 734 HU_ChargeDepthSet 1;
+BA_ "GenSigSendType" SG_ 734 HU_Onepedal 1;
+BA_ "GenSigSendType" SG_ 734 HU_EnergyRecoveryPer 1;
+BA_ "GenSigStartValue" SG_ 734 HU_EnergyRecoveryPer 127;
+BA_ "GenSigSendType" SG_ 734 HU_SpeedLimitSW 1;
+BA_ "GenSigSendType" SG_ 734 HU_LimitSpeedSet 1;
+BA_ "GenSigStartValue" SG_ 734 HU_LimitSpeedSet 255;
+BA_ "GenSigSendType" SG_ 734 HU_DriveMode 1;
+BA_ "GenSigSendType" SG_ 734 HU_AccelerationModePer 1;
+BA_ "GenSigStartValue" SG_ 734 HU_AccelerationModePer 127;
+BA_ "GenSigSendType" SG_ 734 HU_SubMileage_Reset 1;
+BA_ "GenSigSendType" SG_ 734 HU_DMS_SW 1;
+BA_ "GenSigSendType" SG_ 734 HU_Refueling_Request 1;
+BA_ "GenMsgCycleTime" BO_ 774 1000;
+BA_ "GenMsgCycleTime" BO_ 784 50;
+BA_ "GenMsgCycleTime" BO_ 805 100;
+BA_ "GenMsgCycleTime" BO_ 853 1000;
+BA_ "GenSigStartValue" SG_ 853 TBOX_TimeSyncData_Month 1;
+BA_ "GenSigStartValue" SG_ 853 TBOX_TimeSyncData_Day 1;
+BA_ "GenMsgCycleTime" BO_ 905 100;
+BA_ "GenSigStartValue" SG_ 905 DCDC_TempAct 40;
+BA_ "GenMsgSendType" BO_ 928 3;
+BA_ "GenMsgCycleTime" BO_ 928 100;
+BA_ "GenSigSendType" SG_ 928 ICM_SubMileage_Reset 1;
+BA_ "NmMessage" BO_ 1027 1;
+BA_ "GenMsgSendType" BO_ 1027 1;
+BA_ "GenSigSendType" SG_ 1027 VBU_NM_DA 1;
+BA_ "GenSigSendType" SG_ 1027 VBU_NM_ALIVE 1;
+BA_ "GenSigSendType" SG_ 1027 VBU_NM_RING 1;
+BA_ "GenSigSendType" SG_ 1027 VBU_NM_LIMPHOME 1;
+BA_ "GenSigSendType" SG_ 1027 VBU_NM_SLEEP_Ind 1;
+BA_ "GenSigSendType" SG_ 1027 VBU_NM_SLEEP_ACK 1;
+BA_ "NmMessage" BO_ 1032 1;
+BA_ "GenMsgSendType" BO_ 1032 1;
+BA_ "GenSigSendType" SG_ 1032 GW_PT_NM_DA 1;
+BA_ "GenSigSendType" SG_ 1032 GW_PT_NM_ALIVE 1;
+BA_ "GenSigSendType" SG_ 1032 GW_PT_NM_RING 1;
+BA_ "GenSigSendType" SG_ 1032 GW_PT_NM_LIMPHOME 1;
+BA_ "GenSigSendType" SG_ 1032 GW_PT_NM_SLEEP_Ind 1;
+BA_ "GenSigSendType" SG_ 1032 GW_PT_NM_SLEEP_ACK 1;
+BA_ "GenMsgCycleTime" BO_ 938 100;
+BA_ "GenMsgCycleTime" BO_ 1299 500;
+BA_ "GenSigStartValue" SG_ 1299 VBU_BMS_MaxTemp 255;
+BA_ "GenSigStartValue" SG_ 1299 VBU_BMS_MinTemp 255;
+BA_ "GenSigStartValue" SG_ 1299 VBU_BMS_BattTempDev 255;
+BA_ "GenSigStartValue" SG_ 1299 VBU_BMS_CCTemp1 255;
+BA_ "GenSigStartValue" SG_ 1299 VBU_BMS_CCTemp2 255;
+BA_ "GenMsgCycleTime" BO_ 1300 500;
+BA_ "GenMsgCycleTime" BO_ 1324 100;
+BA_ "GenMsgCycleTime" BO_ 1328 1000;
+BA_ "GenMsgCycleTime" BO_ 1329 1000;
+BA_ "GenMsgCycleTime" BO_ 1330 1000;
+BA_ "GenMsgCycleTime" BO_ 1331 1000;
+BA_ "GenMsgCycleTime" BO_ 1332 1000;
+BA_ "GenMsgCycleTime" BO_ 1333 1000;
+BA_ "GenMsgCycleTime" BO_ 1334 1000;
+BA_ "GenMsgCycleTime" BO_ 1335 1000;
+BA_ "GenMsgCycleTime" BO_ 1336 1000;
+BA_ "GenMsgCycleTime" BO_ 1337 1000;
+BA_ "GenMsgCycleTime" BO_ 1338 1000;
+BA_ "GenMsgCycleTime" BO_ 1339 1000;
+BA_ "GenMsgCycleTime" BO_ 1340 1000;
+BA_ "GenMsgCycleTime" BO_ 1341 1000;
+BA_ "GenMsgCycleTime" BO_ 1342 1000;
+BA_ "GenMsgCycleTime" BO_ 1343 1000;
+BA_ "GenMsgCycleTime" BO_ 1344 1000;
+BA_ "GenMsgCycleTime" BO_ 1345 1000;
+BA_ "GenMsgCycleTime" BO_ 1346 1000;
+BA_ "GenMsgCycleTime" BO_ 1347 1000;
+BA_ "GenMsgCycleTime" BO_ 1348 1000;
+BA_ "GenMsgCycleTime" BO_ 1349 1000;
+BA_ "GenMsgCycleTime" BO_ 1350 1000;
+BA_ "GenMsgCycleTime" BO_ 1351 1000;
+BA_ "GenMsgCycleTime" BO_ 1352 1000;
+BA_ "GenMsgCycleTime" BO_ 1353 1000;
+BA_ "GenMsgCycleTime" BO_ 1354 1000;
+BA_ "GenMsgCycleTime" BO_ 1360 200;
+BA_ "GenMsgCycleTime" BO_ 1377 100;
+BA_ "GenMsgCycleTime" BO_ 1378 100;
+BA_ "GenMsgCycleTime" BO_ 1424 5000;
+BA_ "GenSigStartValue" SG_ 1424 VBU_BMS_BattManuMonth 1;
+BA_ "GenSigStartValue" SG_ 1424 VBU_BMS_BattManuDay 1;
+BA_ "GenMsgCycleTime" BO_ 1425 5000;
+BA_ "GenMsgCycleTime" BO_ 1426 5000;
+BA_ "GenSigStartValue" SG_ 1426 VBU_BMS_BattRetrospectCode1 1;
+BA_ "GenSigStartValue" SG_ 1426 VBU_BMS_BattRetrospectCode2 1;
+BA_ "GenMsgCycleTime" BO_ 1427 5000;
+BA_ "GenSigStartValue" SG_ 1427 VBU_BMS_BattProductionDate 1;
+BA_ "GenSigStartValue" SG_ 1427 VBU_BMS_BattS_Num 1;
+BA_ "GenSigStartValue" SG_ 1427 VBU_BMS_BattRecycleCode 1;
+BA_ "GenMsgCycleTime" BO_ 1428 5000;
+BA_ "GenSigStartValue" SG_ 1428 VBU_BMS_BattCodeLenth 1;
+BA_ "GenMsgCycleTime" BO_ 1504 5000;
+BA_ "GenMsgCycleTime" BO_ 1505 5000;
+BA_ "GenMsgCycleTime" BO_ 1520 1000;
+BA_ "GenMsgCycleTime" BO_ 1521 1000;
+BA_ "GenMsgCycleTime" BO_ 1522 1000;
+BA_ "GenMsgCycleTime" BO_ 1523 1000;
+BA_ "GenMsgCycleTime" BO_ 1524 1000;
+BA_ "GenMsgCycleTime" BO_ 1525 1000;
+BA_ "GenMsgCycleTime" BO_ 1526 1000;
+BA_ "GenMsgCycleTime" BO_ 1527 1000;
+BA_ "GenMsgCycleTime" BO_ 1528 1000;
+BA_ "GenMsgCycleTime" BO_ 1552 100;
+BA_ "GenMsgCycleTime" BO_ 1553 100;
+BA_ "GenSigStartValue" SG_ 1553 OBC_CoolantPlateTemp 55;
+BA_ "GenMsgCycleTime" BO_ 1555 100;
+BA_ "GenMsgCycleTime" BO_ 1556 100;
+BA_ "GenSigStartValue" SG_ 1556 OBC_TempAct 40;
+BA_ "GenMsgCycleTime" BO_ 1793 100;
+BA_ "GenMsgCycleTime" BO_ 626 10;
+BA_ "GenMsgCycleTime" BO_ 627 100;
+BA_ "DiagState" BO_ 2019 1;
+BA_ "DiagResponse" BO_ 2019 1;
+BA_ "GenMsgSendType" BO_ 2019 1;
+BA_ "GenSigSendType" SG_ 2019 VBU_UDSDiag_ReqPhsy_0x7E3 1;
+BA_ "DiagState" BO_ 2027 1;
+BA_ "DiagResponse" BO_ 2027 1;
+BA_ "GenMsgSendType" BO_ 2027 1;
+BA_ "GenSigSendType" SG_ 2027 VBU_UDSDiag_Resp_0x7EB 1;
+BA_ "DiagState" BO_ 2015 1;
+BA_ "DiagResponse" BO_ 2015 1;
+BA_ "GenMsgSendType" BO_ 2015 1;
+BA_ "GenSigSendType" SG_ 2015 UDSDiag_ReqFunc_0x7DF 1;
+VAL_ 811 VBU_WakeUpRMCU 1 "唤醒" 0 "不唤醒" ;
+VAL_ 1379 VCU_FastCharge_A 1 "active" 0 "inactive" ;
+VAL_ 881 VBU_instantaneous_Energy 4095 "Invalid" ;
+VAL_ 881 VBU_instantaneous_EnergyUnit 1 "kwh/100km" 0 "KW" ;
+VAL_ 881 VBU_Maintenance_lights 1 "active" 0 "not active" ;
+VAL_ 881 VBU_trip 4095 "Invalid" ;
+VAL_ 881 VBU_ChargeIncreaseMileage 2047 "Invalid" ;
+VAL_ 882 VBU_SubtotalAverageEnergy 511 "Invalid" ;
+VAL_ 882 VBU_SubtotalEnergy 32767 "Invalid" ;
+VAL_ 882 VBU_Subtotaltime 32767 "Invalid" ;
+VAL_ 882 VBU_ChargeIncreaseMileageSpeed 2047 "Invalid" ;
+VAL_ 883 VBU_DST 4095 "Invalid" ;
+VAL_ 883 VBU_SingleMileageAverageEnergy 511 "Invalid" ;
+VAL_ 883 VBU_SingleMileageEnergy 32767 "Invalid" ;
+VAL_ 883 VBU_SingleMileagetime 32767 "Invalid" ;
+VAL_ 883 VBU_SlowChargeGunSt 3 "无效" 2 "插枪" 1 "未插枪" 0 "正在检测" ;
+VAL_ 883 VBU_FastChargeGunSt 3 "无效" 2 "插枪" 1 "未插枪" 0 "正在检测" ;
+VAL_ 154 VBU_ErrorLevel 7 "预留" 6 "预留" 5 "五级故障" 4 "四级故障" 3 "三级故障" 2 "二级故障" 1 "一级故障" 0 "无故障" ;
+VAL_ 154 VBU_MCU_WorkMode 7 "预留" 6 "EmgPark" 5 "HillHold" 4 "Discharge" 3 "Calibration mode" 2 "Speed mode" 1 "Torque mode" 0 "Disable" ;
+VAL_ 154 VBU_WarmUpCycleMet 1 "WarmUpCycle met" 0 "WarmUpCycle not met" ;
+VAL_ 154 VBU_MILReq 1 "MIL Lamp ON" 0 "no request" ;
+VAL_ 154 VBU_MCU_TrqReq 32767 "Invalid" ;
+VAL_ 154 VBU_MCU_SpdReq 65535 "Invalid" ;
+VAL_ 154 VBU_MotorOffsetCalCmd 255 "条件准备完成" 254 "其他" 9 "与ESP通信故障" 8 "与MCU通信故障" 7 "模式不正确" 6 "BMS discharge power out of range" 5 "ESP not disabled；" 4 "Vehicle Speed is not 0kph；（此处 车速 不能用电机 转速 计算 ）" 3 "Shift Position Not in Park or Neutral；" 2 "PT Not Ready；" 1 "VBU正在判断条件" 0 "无条件准备请求" ;
+VAL_ 155 VBU_DC_WorkMode 7 "预留" 6 "预留" 5 "预留" 4 "预留" 3 "预留" 2 "Discharge" 1 "Enable" 0 "Disable" ;
+VAL_ 155 VBU_WPTC_En 3 "Enable" 2 "Discharge" 1 "Reserved" 0 "Disable" ;
+VAL_ 155 VBU_WPTC_Request 3 "Reserved" 2 "Stop" 1 "Start" 0 "Default" ;
+VAL_ 155 VBU_OBC_RemoteCharge 1 "Active" 0 "Inactive" ;
+VAL_ 155 VBU_OBC_ChrgLock 3 "预留" 2 "lock" 1 "unlock" 0 "no request" ;
+VAL_ 155 VBU_TBOX_ChrgLockSts 7 "预留" 6 "预留" 5 "预留" 4 "解锁超时" 3 "解锁失败" 2 "正在解锁" 1 "unlock" 0 "Default" ;
+VAL_ 155 VBU_ACU_DrvSeatBeltSWSts 1 "VBU request ACU send Buckle on" 0 "default" ;
+VAL_ 155 VBU_OBC_ChrgEnable 7 "预留" 6 "预留" 5 "预留" 4 "预留" 3 "预留" 2 "预留" 1 "Enable" 0 "Disable" ;
+VAL_ 156 VBU_Cruise_Sts 3 "fault" 2 "active" 1 "ON" 0 "off" ;
+VAL_ 156 VBU_DriveInhibitAlarm 1 "Active" 0 "Inactive" ;
+VAL_ 156 VBU_EPB_FunctionSet 3 "Reserved" 2 "拉起" 1 "释放" 0 "Default" ;
+VAL_ 156 VBU_HU_ChrgLockSts 7 "预留" 6 "预留" 5 "预留" 4 "解锁超时" 3 "解锁失败" 2 "正在解锁" 1 "unlock" 0 "Default" ;
+VAL_ 156 VBU_SpeedLimitSWSts 1 "Limit" 0 "No Limit" ;
+VAL_ 156 VBU_DMS_Status 3 "非常疲劳" 2 "疲劳" 1 "清醒" 0 "OFF" ;
+VAL_ 156 VBU_DMS_SWStatus 1 "ON" 0 "OFF" ;
+VAL_ 156 VBU_IdleModeAct 1 "Active" 0 "No Active" ;
+VAL_ 156 VBU_LimitSpeedAlarm_L 1 "Active" 0 "No Active" ;
+VAL_ 156 VBU_LimitSpeedAlarm_V 1 "Active" 0 "No Active" ;
+VAL_ 156 VBU_TPCV1Control 63 "not used" 40 "level00" 0 "level0" ;
+VAL_ 156 VBU_TPCV2Control 63 "not used" 40 "level00" 0 "level0" ;
+VAL_ 157 VBU_AC_ComfortEAC_En 1 "Enable" 0 "Disable" ;
+VAL_ 157 VBU_RefuelingInfo 7 "Invalid" 6 "Reserved" 5 "Refueling completed" 4 "Please open the fuel cap" 3 "Refueling Inhibit–Please check the vehicle" 2 "Refueling Inhibit–Vehicle Condition not met" 1 "Wait for fuel lip open" 0 "Default" ;
+VAL_ 157 VBU_AC_BatCoolEAC_En 1 "Enable" 0 "Disable" ;
+VAL_ 157 VBU_AC_APTC_En 1 "Enable" 0 "Disable" ;
+VAL_ 157 VBU_RemoteACFeedback 15 "预留" 14 "预留" 13 "预留" 12 "预留" 11 "预留" 10 "预留" 9 "启动中" 8 "其他故障" 7 "启动太频繁" 6 "空调开启最大时间到" 5 "功率低" 4 "SOC过低" 3 "高压系统故障" 2 "本地状态" 1 "正在远程空调:" 0 "未开启" ;
+VAL_ 157 VBU_ComfortPumpError 1 "故障" 0 "无故障" ;
+VAL_ 157 VBU_ENGWVControl 1 "截止" 0 "打开" ;
+VAL_ 157 VBU_WPTCWVControl 1 "截止" 0 "打开" ;
+VAL_ 157 VBU_ENGWVFault 1 "故障" 0 "无故障" ;
+VAL_ 157 VBU_WPTCWVFault 1 "故障" 0 "无故障" ;
+VAL_ 157 VBU_FanSts 1 "故障" 0 "无故障" ;
+VAL_ 157 VBU_FuelLipOpenRemind 1 "Warning" 0 "No Warning" ;
+VAL_ 157 VBU_RefuelingSysErrorRemind 1 "Warning" 0 "No Warning" ;
+VAL_ 157 VCU_12VbatterySOHLow 1 "SOH Low" 0 "SOH Normal" ;
+VAL_ 157 VCU_LVSmartChrg_Status 3 "Reserved" 2 "LVSmartChargeFalut" 1 "LVSmartCharging" 0 "NoLVSmartCharge" ;
+VAL_ 157 VCU_SlowChargeLight 7 "充电故障" 6 "预约充电" 5 "充电未完成可拔枪" 4 "充电完成可拔枪" 3 "充电完成" 2 "充电中" 1 "正在启动交流充电" 0 "默认" ;
+VAL_ 157 VCU_FastChargeLight 7 "预留3" 6 "预留2" 5 "预留1" 4 "充电故障" 3 "充电完成" 2 "充电中" 1 "正在启动直流充电" 0 "默认" ;
+VAL_ 157 VBU_AC_ThermalReqLvl 15 "level15" 14 "level3" 13 "level3" 12 "level3" 11 "level3" 10 "level3" 9 "level3" 8 "level3" 7 "level3" 6 "level3" 5 "level3" 4 "level3" 3 "level3" 2 "level2" 1 "level1" 0 "no request" ;
+VAL_ 256 VBU_BMS_WaringLevel 7 "预留" 6 "预留" 5 "预留" 4 "预留" 3 "三级告警" 2 "二级告警" 1 "一级告警" 0 "无告警" ;
+VAL_ 256 VBU_BMS_RelayChrPos 3 "Fault （故障)" 2 "Close（闭合）" 1 "Open （断开）" 0 "Unknow" ;
+VAL_ 256 VBU_BMS_RelayNeg 3 "Fault （故障)" 2 "Close（闭合）" 1 "Open （断开）" 0 "Unknow" ;
+VAL_ 256 VBU_BMS_RelayPre 3 "Fault （故障)" 2 "Close（闭合）" 1 "Open （断开）" 0 "Unknow" ;
+VAL_ 256 VBU_BMS_RelayPos 3 "Fault （故障)" 2 "Close（闭合）" 1 "Open （断开）" 0 "Unknow" ;
+VAL_ 256 VBU_BMS_RelayChrNeg 3 "Fault （故障)" 2 "Close（闭合）" 1 "Open （断开）" 0 "Unknow" ;
+VAL_ 256 VBU_BMS_State 15 "预留" 14 "预留" 13 "预留" 12 "预留" 11 "预留" 10 "预留" 9 "预留" 8 "预留" 7 "预留" 6 "预留" 5 "Fast_Charging" 4 "Slow_Charging" 3 "DisCharging" 2 "Precharging" 1 "Standby" 0 "Initialazation" ;
+VAL_ 256 VBU_BMS_ChrFastState 3 "充电故障" 2 "充电结束" 1 "充电中" 0 "未充电" ;
+VAL_ 256 VBU_BMS_SPreCharging 3 "预充失败" 2 "预充完成" 1 "预充中" 0 "未预充" ;
+VAL_ 256 VBU_BMS_ChrSlowState 3 "充电故障" 2 "充电结束" 1 "充电中" 0 "未充电" ;
+VAL_ 258 VBU_BMS_ChrNegRelayEnable 1 "闭合" 0 "断开" ;
+VAL_ 258 VBU_BMS_ChrPosRelayEnable 1 "闭合" 0 "断开" ;
+VAL_ 258 VBU_BMS_PreRelayEnable 1 "闭合" 0 "断开" ;
+VAL_ 258 VBU_BMS_MainNegRelayEnable 1 "闭合" 0 "断开" ;
+VAL_ 258 VBU_BMS_MainPosRelayEnable 1 "闭合" 0 "断开" ;
+VAL_ 258 VBU_BMS_BalanceSts 1 "电池开启" 0 "电池关闭" ;
+VAL_ 261 VBU_BMS_ChrRequest 7 "预留" 6 "预留" 5 "预留" 4 "预留" 3 "预留" 2 "预留" 1 "Request" 0 "No Request" ;
+VAL_ 261 VBU_BMS_TotalEnergy 524287 "Invalid" ;
+VAL_ 278 VBU_BMS_CellOverVolWaring 3 "三级故障" 2 "二级故障" 1 "一级故障" 0 "Not fault" ;
+VAL_ 278 VBU_BMS_CellUnderVolWaring 3 "三级故障" 2 "二级故障" 1 "一级故障" 0 "Not fault" ;
+VAL_ 278 VBU_BMS_TempOverWaring 3 "三级故障" 2 "二级故障" 1 "一级故障" 0 "Not fault" ;
+VAL_ 278 VBU_BMS_TempUnderWaring 3 "三级故障" 2 "二级故障" 1 "一级故障" 0 "Not fault" ;
+VAL_ 278 VBU_BMS_CellVolDevWaring 3 "三级故障" 2 "二级故障" 1 "一级故障" 0 "Not fault" ;
+VAL_ 278 VBU_BMS_TempDveWaring 3 "三级故障" 2 "二级故障" 1 "一级故障" 0 "Not fault" ;
+VAL_ 278 VBU_BMS_BattOverVolWaring 3 "三级故障" 2 "二级故障" 1 "一级故障" 0 "Not fault" ;
+VAL_ 278 VBU_BMS_BattUnderVolWaring 3 "三级故障" 2 "二级故障" 1 "一级故障" 0 "Not fault" ;
+VAL_ 278 VBU_BMS_DCChargePlugTempOverHigh 1 "故障" 0 "正常" ;
+VAL_ 278 VBU_BMS_DisCharOverCurr 3 "三级故障" 2 "二级故障" 1 "一级故障" 0 "Not fault" ;
+VAL_ 278 VBU_BMS_RegenOverCurr 3 "三级故障" 2 "二级故障" 1 "一级故障" 0 "Not fault" ;
+VAL_ 278 VBU_BMS_InnerCANTimeout 1 "故障" 0 "正常" ;
+VAL_ 278 VBU_BMS_ISOWaring 3 "三级故障" 2 "二级故障" 1 "一级故障" 0 "Not fault" ;
+VAL_ 278 VBU_BMS_BCUHWFault 1 "故障" 0 "正常" ;
+VAL_ 278 VBU_BMS_NegRelayFault 3 "预留" 2 "断开" 1 "黏连" 0 "正常" ;
+VAL_ 278 VBU_BMS_PosRelayFault 3 "预留" 2 "断开" 1 "黏连" 0 "正常" ;
+VAL_ 278 VBU_BMS_PreRelayFault 3 "预留" 2 "断开" 1 "黏连" 0 "正常" ;
+VAL_ 278 VBU_BMS_CharPosRelayFault 3 "预留" 2 "断开" 1 "黏连" 0 "正常" ;
+VAL_ 278 VBU_BMS_CharNegRelayFault 3 "预留" 2 "断开" 1 "黏连" 0 "正常" ;
+VAL_ 278 VBU_BMS_BMUFault 1 "故障" 0 "正常" ;
+VAL_ 278 VBU_BMS_BattHVDisaccord 1 "故障" 0 "正常" ;
+VAL_ 278 VBU_BMS_CurrSensorFault 1 "故障" 0 "正常" ;
+VAL_ 278 VBU_BMS_SOClow 3 "三级故障" 2 "二级故障" 1 "一级故障" 0 "Not fault" ;
+VAL_ 278 VBU_BMS_Mismatch 1 "Mismatch" 0 "Match" ;
+VAL_ 278 VBU_BMS_SOCOverHigh 1 "SOC过高" 0 "SOC正常" ;
+VAL_ 278 VBU_BMS_BattOverCharge 1 "动力电池过充" 0 "正常" ;
+VAL_ 278 VBU_BMS_SOCSkip 1 "SOC跳变报警" 0 "正常" ;
+VAL_ 278 VBU_BMS_CGOverCurr 1 "过流" 0 "正常" ;
+VAL_ 278 VBU_BMS_LiquidLeak 1 "漏液" 0 "正常" ;
+VAL_ 278 VBU_BMS_ThermRunAway 1 "热失控" 0 "正常" ;
+VAL_ 278 VBU_BMS_Maintenance 3 "预留" 2 "预留" 1 "电池保养" 0 "正常" ;
+VAL_ 278 VBU_BMS_BusbarTempOverWaring 1 "过温" 0 "正常" ;
+VAL_ 278 VBU_BMS_batteryCutoff 1 "有故障" 0 "无故障" ;
+VAL_ 278 VBU_BMS_BatteryERROR 1 "有故障" 0 "无故障" ;
+VAL_ 276 VBU_BMS_InputWaterTemp 254 "无效" ;
+VAL_ 276 VBU_BMS_OutputWaterTemp 254 "无效" ;
+VAL_ 276 VBU_BMS_DisChargeSOPbuffer 255 "Invalid" ;
+VAL_ 279 VBU_ActualPowerPer 255 "invalid" ;
+VAL_ 279 VBU_thermalControlReq 7 "Reserved" 6 "Reserved" 5 "Reserved" 4 "Reserved" 3 "请求均温" 2 "请求冷却" 1 "请求加热" 0 "无请求" ;
+VAL_ 279 VBU_EnergyRegLimPer 127 "invalid" ;
+VAL_ 279 VBU_ExchangerInputWaterTemp 255 "invalid" ;
+VAL_ 279 VBU_EnergyDriveLimPer 127 "invalid" ;
+VAL_ 320 VBU_CurrentMotorTorq 32767 "Invalid" ;
+VAL_ 320 VBU_MaxMotorTorque 32767 "Invalid" ;
+VAL_ 320 VBU_MinMotorTorque 32767 "Invalid" ;
+VAL_ 321 VBU_DriverDemandTorq 32767 "Invalid" ;
+VAL_ 321 VBU_Onepedal 1 "开启" 0 "关闭" ;
+VAL_ 321 VBU_QECACC 7 "Reserved5" 6 "Reserved4" 5 "Reserved3" 4 "Reserved2" 3 "Reserved1" 2 "Power system failure" 1 "communication failure" 0 "no error" ;
+VAL_ 321 VBU_OnepedalSetEn 1 "允许" 0 "禁止" ;
+VAL_ 321 VBU_GearShiftInProgress 1 "Gear is shifting" 0 "Gear not shifting" ;
+VAL_ 321 VBU_ShiftInProgress_Status 1 "Invalid" 0 "Valid" ;
+VAL_ 321 VBU_AccelerationModePer 127 "Invalid" ;
+VAL_ 321 VBU_OverRide 1 "driver override" 0 "no override." ;
+VAL_ 321 VBU_DriveMode 7 "Reserved" 6 "Reserved" 5 "Reserved" 4 "Reserved" 3 "Advanced Mode" 2 "Sport" 1 "ECO" 0 "comfort" ;
+VAL_ 321 VBU_APA_LC_Availability 3 "保留" 2 "LongCtrl_AutomaticPark" 1 "LongCtrl_ParkEmergencyBrake" 0 "No_LongCtrl_Support" ;
+VAL_ 321 VBU_APA_LC_FailureSts 7 "ParkAssist_WithError" 6 "ParkAssist_Reserved" 5 "ParkAssist_Unexpected_GearIntervention" 4 "ParkAssist_Unexpected_Brake" 3 "ParkAssist_Unexpected_EPB_Action" 2 "ParkAssist_Unexpected_GearPosition" 1 "ParkAssist_Vehicle_block" 0 "ParkAssist_NoError" ;
+VAL_ 321 VBU_E_Pedalwarn 1 "active" 0 "no active" ;
+VAL_ 321 VBU_ChargeDepthwarn 1 "active" 0 "no active" ;
+VAL_ 321 VBU_APA_LC_Status 10 "LongCtrl_Error" 9 "LongCtrl_Active_ManeuverAccelerationAvoidance" 8 "LongCtrl_Active_ManeuverComfortBrake" 7 "LongCtrl_Active_ManeuverEmergencyBrake" 6 "LongCtrl_Active_RemoteParkOut" 5 "LongCtrl_Active_RemoteParkIn" 4 "LongCtrl_Active_AutomaticPark" 3 "LongCtrl_Active_ParkEmergencyBrake" 2 "LongCtrl_Active_ParkComfortBrake" 1 "LongCtrl_Standby" 0 "LongCtrl_Off" ;
+VAL_ 322 VBU_vacuumpumpsensorRelvalue 1023 "Invalid" ;
+VAL_ 322 VBU_MCU_MotorSpeed 65535 "Failure" 65534 "Init" ;
+VAL_ 336 VBU_GearLeverPos 7 "Invalid" 6 "Reserved" 5 "Reserved" 4 "Reserved" 3 "D" 2 "N" 1 "R" 0 "P" ;
+VAL_ 336 VBU_TortoiseLamp 1 "on" 0 "off" ;
+VAL_ 336 VBU_12VbatteryError 1 "Fault" 0 "No Fault" ;
+VAL_ 336 VBU_ReadySts 1 "Ready" 0 "Not Ready" ;
+VAL_ 336 VBU_MotorPumpError 1 "水泵故障" 0 "水泵无故障" ;
+VAL_ 336 VBU_VacuumSysFaultLamp 1 "on" 0 "off" ;
+VAL_ 336 VBU_GearP_EnterWarning 1 "on" 0 "off" ;
+VAL_ 336 VBU_VehicleSysFaultLamp 1 "Fault" 0 "No Fault" ;
+VAL_ 336 VBU_BattPumpError 1 "水泵故障" 0 "水泵无故障" ;
+VAL_ 336 VBU_DriveableAlarm 1 "Active" 0 "NotActive" ;
+VAL_ 336 VCU_GearFlashReq 3 "Reserved" 2 "request from EPB" 1 "request from SCM" 0 "No request" ;
+VAL_ 336 VBU_Mileage 1023 "Invalid" ;
+VAL_ 336 VBU_PowerConsumption 511 "Invalid" ;
+VAL_ 336 VBU_EnergyRecoveryMode 3 "自定义" 2 "预留" 1 "预留" 0 "默认模式" ;
+VAL_ 336 VBU_CloolantHighAlarm 1 "Alarm" 0 "Not Alarm" ;
+VAL_ 336 VBU_TBOX_SlowChargeSt 15 "预留" 14 "预留" 13 "预留" 12 "预留" 11 "预留" 10 "预留" 9 "启动中" 8 "电源档位不正确" 7 "未插枪" 6 "其他故障" 5 "启动太频繁" 4 "充电设备不满足充电条件" 3 "已充满" 2 "高压系统故障" 1 "正在充电" 0 "未充电" ;
+VAL_ 337 VBU_HVLock_ALL 3 "预留" 2 "高压断开" 1 "高压闭合" 0 "未检测" ;
+VAL_ 337 VBU_BrakeLampReq 1 "on" 0 "off" ;
+VAL_ 337 VBU_Intelligent_Charge_Sts 1 "开启" 0 "关闭" ;
+VAL_ 337 VCU_HVLock1 3 "预留" 2 "高压断开" 1 "高压闭合" 0 "未检测" ;
+VAL_ 337 VBU_UnlockFuelLid 1 "Requestunlock" 0 "Default" ;
+VAL_ 337 VBU_BrkSw_Sts 3 "Invalid" 2 "Reserved" 1 "Pressed" 0 "NotPressed" ;
+VAL_ 337 VBU_AccelPedalMalSts 3 "Reserved" 2 "Failed" 1 "Either of APS signals is failure or check error" 0 "Normal" ;
+VAL_ 337 VBU_BrkPed_Pos 255 "Invalid" ;
+VAL_ 337 VBU_AccSW_Sts 3 "Invalid" 2 "reserved" 1 "pressed" 0 "not pressed" ;
+VAL_ 337 VBU_AtmosphePressValue 63 "Invalid" ;
+VAL_ 337 VBU_AccPedPos 255 "Invalid" ;
+VAL_ 337 VBU_TargetGear 7 "Invalid" 6 "Reserved" 5 "Reserved" 4 "Reserved" 3 "D" 2 "N" 1 "R" 0 "P" ;
+VAL_ 337 VBU_APS_WorkStatus 22 "预留故障1" 21 "APS通讯故障" 20 "动力系统故障" 19 "人为介入停止" 18 "EPB释放超时" 17 "EPB故障" 16 "MCU反馈转速模式超时" 15 "分配给电机的功率不满足" 14 "车速不满足" 13 "MCU工作状态不满足" 12 "整车电源档位不满足" 11 "不在P档" 10 "VBU检测坡度不满足" 7 "正在脱手（由APS发起）" 6 "已激活状态:暂停" 5 "已激活状态:后退" 4 "已激活状态:前进" 3 "已激活状态:停止" 2 "正在握手" 1 "Standby待机状态" 0 "Init" ;
+VAL_ 337 VCU_HVLock2 3 "预留" 2 "高压断开" 1 "高压闭合" 0 "未检测" ;
+VAL_ 337 VCU_HVLock3 3 "预留" 2 "高压断开" 1 "高压闭合" 0 "未检测" ;
+VAL_ 1027 VBU_NM_ALIVE 1 "Active" 0 "Not active" ;
+VAL_ 1027 VBU_NM_RING 1 "Active" 0 "Not active" ;
+VAL_ 1027 VBU_NM_LIMPHOME 1 "Active" 0 "Not active" ;
+VAL_ 1027 VBU_NM_SLEEP_Ind 1 "Active" 0 "Not active" ;
+VAL_ 1027 VBU_NM_SLEEP_ACK 1 "Active" 0 "Not active" ;
+VAL_ 938 BST_ReachSOCsetting 1 "达到SOC设定值" 0 "未达到SOC设定值" ;
+VAL_ 938 BST_ReachBattVolset 1 "达到设定电压值" 0 "未达到设定电压值" ;
+VAL_ 938 BST_ReachCellVolset 1 "达到设定单体电压" 0 "未达到设定单体电压" ;
+VAL_ 938 BST_ISOFault 1 "绝缘故障" 0 "绝缘正常" ;
+VAL_ 938 BST_VBU_BMS_PCBOverTemp 1 "元器件过温" 0 "温度正常" ;
+VAL_ 938 BST_ChargeOverCurr 1 "充电电流过大" 0 "充电电流正常" ;
+VAL_ 938 BST_FastChaVolUnusual 1 "电压异常" 0 "电压正常" ;
+VAL_ 938 BST_FastChargerSTOP 1 "充电桩主动停止（收到CST报文）" 0 "正常" ;
+VAL_ 938 CST_ReachChargerSet 3 "reserved" 2 "不可信" 1 "达到充电机设定条件" 0 "正常" ;
+VAL_ 938 CST_ManualStop 3 "reserved" 2 "不可信" 1 "人工停止" 0 "正常" ;
+VAL_ 938 CST_FaultStop 3 "reserved" 2 "不可信" 1 "故障停止" 0 "正常" ;
+VAL_ 938 CST_BMSStop 3 "reserved" 2 "不可信" 1 "BMS主动停止" 0 "正常" ;
+VAL_ 938 CST_FastCharOverTemp 3 "reserved" 2 "不可信" 1 "充电桩过温" 0 "温度正常" ;
+VAL_ 938 CST_CharContorFault 3 "reserved" 2 "不可信" 1 "连接器故障" 0 "正常" ;
+VAL_ 938 CST_FastChaInOvTemp 3 "reserved" 2 "不可信" 1 "内部过温" 0 "内部温度正常" ;
+VAL_ 938 CST_EngNotTransfer 3 "reserved" 2 "不可信" 1 "电量不能传送" 0 "正常" ;
+VAL_ 938 CST_FastChaUrgentStop 3 "reserved" 2 "不可信" 1 "充电桩急停" 0 "正常" ;
+VAL_ 938 CST_OtherFault 2 "不可信" 1 "其他故障" 0 "正常" ;
+VAL_ 938 CST_CurrentMismatch 3 "reserved" 2 "不可信" 1 "电流不匹配" 0 "正常" ;
+VAL_ 938 CST_VoltageUnusual 3 "reserved" 2 "不可信" 1 "电压异常" 0 "正常" ;
+VAL_ 938 BEM_CRM_00_OverTim 1 "超时" 0 "正常" ;
+VAL_ 938 BEM_CRM_AA_OverTim 1 "超时" 0 "正常" ;
+VAL_ 938 BEM_CTSCML_OverTim 1 "超时" 0 "正常" ;
+VAL_ 938 BEM_CRO_OverTim 1 "超时" 0 "正常" ;
+VAL_ 938 BEM_CCS_OverTim 1 "超时" 0 "正常" ;
+VAL_ 938 BEM_CST_OverTim 1 "超时" 0 "正常" ;
+VAL_ 938 BEM_CSD_OverTim 1 "超时" 0 "正常" ;
+VAL_ 938 CEM_BRM_OverTim 1 "超时" 0 "正常" ;
+VAL_ 938 CEM_BCP_OverTim 1 "超时" 0 "正常" ;
+VAL_ 938 CEM_BRO_OverTim 1 "超时" 0 "正常" ;
+VAL_ 938 CEM_BCS_OverTim 1 "超时" 0 "正常" ;
+VAL_ 938 CEM_BCL_OverTim 1 "超时" 0 "正常" ;
+VAL_ 938 CEM_BST_OverTim 1 "超时" 0 "正常" ;
+VAL_ 938 CEM_BSD_OverTim 1 "超时" 0 "正常" ;
+VAL_ 938 VBU_BMS_ChargeSOPbuffer 255 "Invalid" ;
+VAL_ 1299 VBU_BMS_MaxTemp 254 "invalid" ;
+VAL_ 1299 VBU_BMS_MinTemp 254 "invalid" ;
+VAL_ 1299 VBU_BMS_BattTempDev 254 "invalid" ;
+VAL_ 1299 VBU_BMS_CCTemp1 254 "invalid" ;
+VAL_ 1299 VBU_BMS_CCTemp2 254 "invalid" ;
+VAL_ 1377 VBU_IG1input 1 "active" 0 "inactive" ;
+VAL_ 1377 VBU_startinput 1 "active" 0 "inactive" ;
+VAL_ 1377 VBU_OBCwakeupVBU 1 "active" 0 "inactive" ;
+VAL_ 1377 VBUwakeupOBC 1 "active" 0 "inactive" ;
+VAL_ 1377 VBU_VCUwakeupDC_GCU 1 "active" 0 "inactive" ;
+VAL_ 1377 VBUwakeupMCU 1 "active" 0 "inactive" ;
+VAL_ 1377 VBU_VacuumPumpRelay 1 "active" 0 "inactive" ;
+VAL_ 1377 VBU_WPTCRelay 1 "active" 0 "inactive" ;
+VAL_ 1377 VBU_EMSRelay 1 "active" 0 "inactive" ;
+VAL_ 1504 VBU_BMS_CVS_CSCVersion_Supplier 11 "B" 10 "A；" ;
+VAL_ 1504 VBU_BMS_BatteriesVersion_Supplier 11 "B" 10 "A；" ;
+VAL_ 791 TPCV1_Feedback_status 3 "not used" 2 "opening level error" 1 "communication format error" 0 "no error" ;
+VAL_ 791 TPCV1_Feedback_opening 63 "not used" 40 "level_100" 0 "level_0" ;
+VAL_ 791 TPCV1_ResponseError 1 "error/响应故障" 0 "normal/正常" ;
+VAL_ 791 TPCV2_Feedback_status 3 "not used" 2 "opening level error" 1 "communication format error" 0 "no error" ;
+VAL_ 791 TPCV2_Feedback_opening 63 "not used" 40 "level_100" 0 "level_0" ;
+VAL_ 791 TPCV2_ResponseError 1 "error/响应故障" 0 "normal/正常" ;
+VAL_ 404 PA_APA_DistanceValueLR_FL 255 "Invalid" 254 "no object was detected" 253 "Reserved" 252 "Reserved" 251 "Reserved" ;
+VAL_ 404 PA_APA_DistanceValueLR_FR 255 "Invalid" 254 "no object was detected" 253 "Reserved" 252 "Reserved" 251 "Reserved" ;
+VAL_ 404 PA_APA_DistanceValueSR_FL 127 "Invalid" 126 "no object was detected" ;
+VAL_ 404 PA_APA_DistanceValueSR_FML 127 "Invalid" 126 "no object was detected" ;
+VAL_ 404 PA_APA_DistanceValueSR_FMR 127 "Invalid" 126 "no object was detected" ;
+VAL_ 404 PA_APA_DistanceValueSR_FR 127 "Invalid" 126 "no object was detected" ;
+VAL_ 405 PA_APA_DistanceValueLR_RL 255 "Invalid" 254 "no object was detected" 253 "Reserved" 252 "Reserved" 251 "Reserved" ;
+VAL_ 405 PA_APA_DistanceValueLR_RR 255 "Invalid" 254 "no object was detected" 253 "Reserved" 252 "Reserved" 251 "Reserved" ;
+VAL_ 405 PA_APA_DistanceValueSR_RL 127 "Invalid" 126 "no object was detected" ;
+VAL_ 405 PA_APA_DistanceValueSR_RML 127 "Invalid" 126 "no object was detected" ;
+VAL_ 405 PA_APA_DistanceValueSR_RMR 127 "Invalid" 126 "no object was detected" ;
+VAL_ 405 PA_APA_DistanceValueSR_RR 127 "Invalid" 126 "no object was detected" ;
+VAL_ 401 APS_VBU_BrakeFunctionMode 15 "reserved" 14 "reserved" 13 "reserved" 12 "reserved" 11 "reserved" 10 "reserved" 9 "reserved" 8 "ParkAssist_ManeuverAccelerationAvoidance" 7 "ParkAssist_ManeuverComfortBrake" 6 "ParkAssist_ManeuverEmergencyBrake" 5 "预留" 4 "预留" 3 "ParkAssist_AutomaticPark" 2 "ParkAssist_ParkEmergencyBrake" 1 "ParkAssist_ParkComfortBrake" 0 "ParkAssist_NoSignal" ;
+VAL_ 401 APS_VBU_BrakeModeSts 7 "reserved" 6 "reserved" 5 "ParkAssist_Abort" 4 "ParkAssist_Suspend" 3 "ParkAssist_ManeuverFinished" 2 "ParkAssist_Active" 1 "ParkAssist_Standby" 0 "ParkAssist_Int" ;
+VAL_ 401 APS_VBU_Target_Gear_Request 7 "Reserved" 6 "Reserved" 5 "Reserved" 4 "APADrvDirRqVCU_DRIVE" 3 "APADrvDirRqVCU_NEUTRAL" 2 "APADrvDirRqVCU_Reverse" 1 "APADrvDirRqVCU_Park" 0 "APADrvDirRqVCU_Idle" ;
+VAL_ 401 APS_VBU_APAFailed 1 "APA Failure" 0 "Normal" ;
+VAL_ 401 APS_VBU_FailureBrakeMode 3 "ParkAssist_ Emergency" 2 "ParkAssist_Comfort" 1 "ParkAssist_Idle" 0 "ParkAssist_NoFailure" ;
+VAL_ 401 APS_R_Gear_RequestTips 3 "Reserved" 2 "RequestTips" 1 "NoRequestTips" 0 "Default" ;
+VAL_ 401 APS_VBU_Req_StraightOut 0 "NoRequest                                            0x1:RequestStraightOut" ;
+VAL_ 401 APS_VBU_Gear_Request 7 "reserved" 6 "reserved" 5 "reserved" 4 "APADrvDirRqVBU_Drive" 3 "APADrvDirRqVBU_Neutral" 2 "APADrvDirRqVBU_Reverse" 1 "APADrvDirRqVBU_Park" 0 "APADrvDirRqVBU_Idle" ;
+VAL_ 401 APS_VBU_Req_StraightCtrol 2 "Straight In 后退                               0x3:Reserved" 0 "STOP  停止                                        0x1:Straight Out  前进" ;
+VAL_ 599 AC_RemoteAC 7 "reserved" 6 "reserved" 5 "reserved" 4 "RemotDefrost" 3 "RemoteHot" 2 "RemoteCool:" 1 "RemoteVentilation" 0 "NoRequest:" ;
+VAL_ 599 AC_VBU_ComfortheatReqLvl 15 "level15" 3 "level3" 2 "level2" 1 "level1" 0 "no request" ;
+VAL_ 596 AC_WindModeSts 7 "reserved" 6 "reserved" 5 "Blow defrost" 4 "Blow face" 3 "Blow foot&defrost1" 2 "Blow foot" 1 "Blow face&foot" 0 "default" ;
+VAL_ 800 EAC_Status 3 "System fault" 2 "Active" 1 "Not active" 0 "initi" ;
+VAL_ 806 APTC_WorkSts 3 "Reserved" 2 "System fault" 1 "运行" 0 "关闭" ;
+VAL_ 806 APTC_ErrorLevel 3 "Level_3" 2 "Level_2" 1 "Level_1" 0 "No Error" ;
+VAL_ 582 MPC_LKS_LeftVisualization 7 "Reserved" 6 "Reserved" 5 "Reserved" 4 "intervention&warning" 3 "warning.警告" 2 "intervention；干预" 1 "line tracking；车道线跟踪" 0 "no display；" ;
+VAL_ 582 MPC_LKS_RightVisualization 7 "reserved" 6 "reserved" 5 "reserved" 4 "intervention&warning" 3 "warning.警告" 2 "intervention；干预" 1 "line tracking；车道线跟踪" 0 "no display；" ;
+VAL_ 851 TBOX_VBU_TimeCharge 3 "充电预约已到结束" 2 "充电预约未到结束" 1 "start" 0 "No request" ;
+VAL_ 851 TBOX_VBU_RemoteChrgLock 1 "unlock" 0 "no request" ;
+VAL_ 851 TBOX_FOTA_mode 1 "FOTA 非PT CAN节点" 0 "Default" ;
+VAL_ 289 ESP_VehicleSpeed_Valid 1 "Invalid" 0 "Valid" ;
+VAL_ 289 ESP_OFF 1 "On" 0 "Off" ;
+VAL_ 289 ESP_ABS_Error 1 "Failure" 0 "No failure" ;
+VAL_ 289 ESP_ABS_Intervention 1 "Active" 0 "Not active" ;
+VAL_ 289 ESP_VDC_TCS_Error 1 "On" 0 "Off" ;
+VAL_ 289 ESP_EBD_Error 1 "On" 0 "Off" ;
+VAL_ 289 ESP_VDC_Intervention 1 "Active" 0 "Not active" ;
+VAL_ 289 ESP_TCS_Intervention 1 "Active" 0 "Not active" ;
+VAL_ 289 ESP_EBD_Intervention 1 "Active" 0 "Not active" ;
+VAL_ 289 ESP_EPBFailstatus 1 "error in EPB" 0 "No error" ;
+VAL_ 289 ESP_EPBStatus 7 ":Reserved" 6 ":Reserved" 5 ":Reserved" 4 "Locking（卡钳正处于夹紧过程中" 3 "Releasing（卡钳正处于释放过程中）" 2 "Closed（卡钳处于夹紧状态）" 1 "Released（卡钳处于释放状态）" 0 "Undefined（未定义）" ;
+VAL_ 289 ESP_VehicleStop 1 "2 or more wheels are standstill" 0 "Vehicle is not standstill" ;
+VAL_ 289 ESP_VehicleStop_Valid 1 "Valid" 0 "Invalid" ;
+VAL_ 289 ESP_MasterCyPressure_Valid 1 "Valid" 0 "Invalid" ;
+VAL_ 289 ESP_AVHActive 1 "Active" 0 "Not active" ;
+VAL_ 289 ESP_HHCActive 1 "Active" 0 "Not active" ;
+VAL_ 533 ABS_WheelPulse_FL_Valid 1 "valid" 0 "not valid" ;
+VAL_ 533 ABS_WheelPulse_FR_Valid 1 "valid" 0 "not valid" ;
+VAL_ 533 ABS_WheelPulse_RL_Valid 1 "valid" 0 "not valid" ;
+VAL_ 533 ABS_WheelPulse_RR_Valid 1 "valid" 0 "not valid" ;
+VAL_ 291 MCU_DC_linkVoltage 1023 "Failure" 1022 "Init" ;
+VAL_ 291 MCU_DC_linkCurrent 2047 "Failure" 2046 "Init" ;
+VAL_ 293 ESP_TorqueIncrease 32767 "Invalid" ;
+VAL_ 293 ESP_TorqueIncreaseSt 1 "Active" 0 "Not active" ;
+VAL_ 293 ESP_TorqueReqFast 32767 "Invalid" ;
+VAL_ 293 ESP_TorqueReqFastSt 1 "Active" 0 "Not active" ;
+VAL_ 293 ESC_Gear_Request 4 "APADrvDirRqESP_Drive" 3 "APADrvDirRqESP_Neutral" 2 "APADrvDirRqESP_Reverse" 1 "APADrvDirRqESP_Park" 0 "APADrvDirRqESP_Idle" ;
+VAL_ 373 SAS_SteerWheelAngle 65535 "Invalid" ;
+VAL_ 373 SAS_SteerWheelRotSpdStatus 1 "Invalid" 0 "Valid" ;
+VAL_ 373 SAS_SASStsSnsr 1 "sensor value  valid" 0 "sensor value  Invalid" ;
+VAL_ 373 EPS_SteeringTorqueValid 1 "Invalid" 0 "Vaild" ;
+VAL_ 373 SAS_SASStsCal 1 "sensor calibrated" 0 "sensor not calibrated" ;
+VAL_ 392 DCDC_ErrorLevel 7 "Reserved" 6 "Reserved" 5 "Reserved" 4 "Reserved" 3 "三级故障" 2 "二级故障" 1 "一级故障" 0 "无故障" ;
+VAL_ 392 DCDC_stMode 7 "Reserved" 6 "Reserved" 5 "Reserved" 4 "Failure" 3 "Discharge" 2 "Buck" 1 "Standby" 0 "Init" ;
+VAL_ 392 DCDC_DischargeMode 3 "泄放失败" 2 "泄放完成" 1 "泄放中" 0 "未泄放" ;
+VAL_ 528 ACU_CrashStatus 1 "crash" 0 "no crash" ;
+VAL_ 528 ACU_DrvSeatBeltSWSts 1 "Buckle on" 0 "Buckle off" ;
+VAL_ 529 ABS_WheelSpeed_FL_Valid 1 "Invalid" 0 "Valid" ;
+VAL_ 529 ABS_WheelSpeed_FR_Valid 1 "Invalid" 0 "Valid" ;
+VAL_ 529 ABS_WheelSpeed_RL_Valid 1 "Invalid" 0 "Valid" ;
+VAL_ 529 ABS_WheelSpeed_RR_Valid 1 "Invalid" 0 "Valid" ;
+VAL_ 532 ESP_WheelDirection_FL 3 "Backward" 2 "Forward" 1 "Standstill" 0 "Undefined" ;
+VAL_ 532 ESP_WheelDirection_FL_Valid 1 "Valid" 0 "Invalid" ;
+VAL_ 532 ESP_WheelDirection_FR 3 "Backward" 2 "Forward" 1 "Standstill" 0 "Undefined" ;
+VAL_ 532 ESP_WheelDirection_FR_Valid 1 "Valid" 0 "Invalid" ;
+VAL_ 532 ESP_WheelDirection_RL 3 "Backward" 2 "Forward" 1 "Standstill" 0 "Undefined" ;
+VAL_ 532 ESP_WheelDirection_RL_Valid 1 "Valid" 0 "Invalid" ;
+VAL_ 532 ESP_WheelDirection_RR 3 "Backward" 2 "Forward" 1 "Standstill" 0 "Undefined" ;
+VAL_ 532 ESP_WheelDirection_RR_Valid 1 "Valid" 0 "Invalid" ;
+VAL_ 532 ESP_CDD_Intervention 1 "Active" 0 "Not active" ;
+VAL_ 532 ESP_CDD_Available 1 "Available" 0 "Not available" ;
+VAL_ 532 ESP_VLC_EngTrqReq 32767 "Invalid" ;
+VAL_ 532 ESP_VLC_EngTrqReqActive 1 "Active" 0 "Inactive" ;
+VAL_ 532 ESP_VLC_Intervention 1 "Active" 0 "Not active" ;
+VAL_ 532 ESP_VLC_Error 1 "Failure" 0 "No failure" ;
+VAL_ 532 ESP_APA_CDD_active 1 "Active" 0 "Not Active" ;
+VAL_ 579 ESP_LongAccSensorValid 1 "invalid" 0 "valid" ;
+VAL_ 579 ESP_LaterAccSensorValid 1 "invalid" 0 "valid" ;
+VAL_ 579 ESP_AEB_Intervention 1 "Active" 0 "Not active" ;
+VAL_ 579 ESC_APA_LC_Status 10 "LongCtrl_Error" 9 "LongCtrl_Active_ManeuverAccelerationAvoidance" 8 "LongCtrl_Active_ManeuverComfortBrake" 7 "LongCtrl_Active_ManeuverEmergencyBrake" 6 "LongCtrl_Active_RemoteParkOut" 5 "LongCtrl_Active_RemoteParkIn" 4 "LongCtrl_Active_AutomaticPark" 3 "LongCtrl_Active_ParkEmergencyBrake" 2 "LongCtrl_Active_ParkComfortBrake" 1 "LongCtrl_Standby" 0 "LongCtrl_Off" ;
+VAL_ 642 SCM_CC_Switch 3 "Invalid" 2 "CC on/off" 1 "CC Cancel" 0 "Neutral" ;
+VAL_ 642 SCM_Res_Set_Switch 3 "Invalid" 2 "SET/-" 1 "RES/+" 0 "Neutral" ;
+VAL_ 642 SCM_PRND_req 7 "Invalid" 6 "Reserved" 5 "Reserved" 4 "D" 3 "N" 2 "R" 1 "P" 0 "Default" ;
+VAL_ 734 HU_VBU_RemoteChrgLock 1 "unlock" 0 "no request" ;
+VAL_ 734 HU_ChargeDepthSet 3 "预留" 2 "长途旅行" 1 "日常行驶" 0 "default" ;
+VAL_ 734 HU_Onepedal 3 "Reserved" 2 "开启" 1 "关闭" 0 "default" ;
+VAL_ 734 HU_EnergyRecoveryPer 127 "default" ;
+VAL_ 734 HU_SpeedLimitSW 3 "reserved" 2 "Limit" 1 "No Limit" 0 "default" ;
+VAL_ 734 HU_LimitSpeedSet 255 "default" ;
+VAL_ 734 HU_DriveMode 7 "预留" 6 "预留" 5 "预留" 4 "Advanced Mode" 3 "Sport" 2 "ECO" 1 "comfort" 0 "default" ;
+VAL_ 734 HU_AccelerationModePer 127 "default" ;
+VAL_ 734 HU_SubMileage_Reset 1 "Reset" 0 "default" ;
+VAL_ 734 HU_DMS_SW 3 "reserved" 2 "开启" 1 "关闭" 0 "default" ;
+VAL_ 734 HU_Refueling_Request 1 "Refueling request" 0 "default" ;
+VAL_ 784 BCM_SystemPowerMode 3 "Ready" 2 "ON" 1 "ACC" 0 "OFF" ;
+VAL_ 784 BCM_AntiThelf_Sts 3 "Warning" 2 "Prearm" 1 "Arm" 0 "Disarm" ;
+VAL_ 784 BCM_DriverLock_Sts 3 "Invalid" 2 "Lock" 1 "Unlock" 0 "Default" ;
+VAL_ 784 BCM_StartRequest 1 "Request" 0 "No Request" ;
+VAL_ 784 BCM_Hood_Sts 3 "Invalid" 2 "Close" 1 "Open" 0 "Default" ;
+VAL_ 784 BCM_PUSHMotorMal_controlSts 1 "Abnormal" 0 "Normal" ;
+VAL_ 784 BCM_FL_Door_Sts 3 "Invalid" 2 "Close" 1 "Open" 0 "Default" ;
+VAL_ 784 BCM_FR_Door_Sts 3 "Invalid" 2 "Close" 1 "Open" 0 "Default" ;
+VAL_ 784 BCM_RL_Door_Sts 3 "Invalid" 2 "Close" 1 "Open" 0 "Default" ;
+VAL_ 784 BCM_RR_Door_Sts 3 "Invalid" 2 "Close" 1 "Open" 0 "Default" ;
+VAL_ 784 BCM_PUSH_Switc_Sts 3 "Invalid" 2 "Close" 1 "Open" 0 "Default" ;
+VAL_ 805 WPTC_RunSts 3 "预留" 2 "故障" 1 "运行" 0 "关闭" ;
+VAL_ 853 TBOX_TimeSyncSts 1 "start  sync" 0 "Default" ;
+VAL_ 928 ICM_ODOTotal 16777215 "Invalid" ;
+VAL_ 928 ICM_SubMileage_Reset 1 "Reset" 0 "default" ;
+VAL_ 1032 GW_PT_NM_ALIVE 1 "Active" 0 "Not active" ;
+VAL_ 1032 GW_PT_NM_RING 1 "Active" 0 "Not active" ;
+VAL_ 1032 GW_PT_NM_LIMPHOME 1 "Active" 0 "Not active" ;
+VAL_ 1032 GW_PT_NM_SLEEP_Ind 1 "Active" 0 "Not active" ;
+VAL_ 1032 GW_PT_NM_SLEEP_ACK 1 "Active" 0 "Not active" ;
+VAL_ 1360 OBC_ChrgFailLevel 7 "预留" 6 "预留" 5 "预留" 4 "预留" 3 "三级故障" 2 "二级故障" 1 "一级故障" 0 "无故障" ;
+VAL_ 1360 OBC_CCLineSts 1 "Connected" 0 "Not connected" ;
+VAL_ 1360 OBC_ChrgSts 7 "Reserved" 6 "Aftercharge" 5 "Shutdown" 4 "Failure" 3 "PowerActive" 2 "Standby" 1 "PreStart" 0 "Initialization" ;
+VAL_ 1360 OBC_S2Sts 1 "Closed" 0 "Opened" ;
+VAL_ 1360 OBC_ChrgAllowedSts 1 "Allowed" 0 "NotAllowed" ;
+VAL_ 1378 MCU_MotoroffsetCalReq 1 "True" 0 "False" ;
+VAL_ 1552 OBC_CC_Status 7 "预留" 6 "CC接地" 5 "100Ohm" 4 "220Ohm" 3 "680Ohm" 2 "1500Ohm" 1 "半连接" 0 "无连接" ;
+VAL_ 1556 OBC_ChrgLockSts 7 "预留" 6 "解锁失败" 5 "上锁失败" 4 "正在上锁" 3 "正在解锁" 2 "上锁" 1 "解锁" 0 "默认" ;
+VAL_ 626 EMS_PSNotActiveTimeAccu 65535 "Invalid" ;
+VAL_ 627 EMS_Fuellevel 255 "Invalid" ;
