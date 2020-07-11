@@ -95,7 +95,23 @@ class blfread():
 
 
     def parse_all(self):
-        pass
+        ch_max = max(self.intersection.keys(),
+                     key=(lambda x: self.intersection[x].size))
+        data_info = self.data_info[ch_max]
+        ids = self.intersection[ch_max]
+        self.parsed_data = {}
+        for msg_id in ids:
+            msg_p = {}
+            
+            idx = data_info[msg_id]
+            msg_p['time'] = self.raw_data[3][idx]
+            bb = self.raw_data[0][idx].astype(np.uint)
+            message = self.parser.message[msg_id]
+            # k: signal name,  v: signal info dict
+            for k, v in message['signal'].items():
+                msg_p[k] = eval(v['pycode'])
+            self.parsed_data[message['name']] = msg_p
+            
     
     
     def detect_channel(self):
@@ -124,6 +140,7 @@ class blfread():
         if (self.__dbc is not None) and (self.__blf is not None):
             self.parse_data()
             self.detect_channel()
+            self.parse_all()
     
 
 
