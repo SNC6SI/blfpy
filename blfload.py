@@ -65,7 +65,7 @@ class blfread():
         # print(info)
         d = blfpy.readFileData(self.__blf.encode('GBK'))
         if len(d[0])>0:
-            self.data = d
+            self.raw_data = d
 
 
     def parse_data(self):
@@ -79,13 +79,13 @@ class blfread():
         # 3: time
         # TODO: multiple blf data file
         self.data_info = {}
-        channels = np.unique(self.data[2])
+        channels = np.unique(self.raw_data[2])
         for ch in channels:
             ch_dict = {}
-            ch_idx = np.argwhere(self.data[2]==ch)
-            can_ids = np.unique(self.data[1][ch_idx])
+            ch_idx = np.argwhere(self.raw_data[2]==ch)
+            can_ids = np.unique(self.raw_data[1][ch_idx])
             for can_id in can_ids:
-                can_id_idx = np.argwhere(np.squeeze(self.data[1][ch_idx])==can_id)
+                can_id_idx = np.argwhere(np.squeeze(self.raw_data[1][ch_idx])==can_id)
                 ch_dict[can_id] = np.squeeze(can_id_idx)
             self.data_info[ch] = ch_dict
 
