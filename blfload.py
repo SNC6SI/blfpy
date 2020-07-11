@@ -87,7 +87,9 @@ class blfread():
             ch_idx = np.argwhere(self.raw_data[2]==ch)
             can_ids = np.unique(self.raw_data[1][ch_idx])
             for can_id in can_ids:
-                can_id_idx = np.argwhere(np.squeeze(self.raw_data[1][ch_idx])==can_id)
+                can_id_idx = \
+                    np.argwhere(np.logical_and(self.raw_data[1]==can_id,
+                                               self.raw_data[2]==ch))
                 ch_dict[can_id] = np.squeeze(can_id_idx)
             self.data_info[ch] = ch_dict
 
