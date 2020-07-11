@@ -80,18 +80,20 @@ class blfread():
         # 2: channel
         # 3: time
         # TODO: multiple blf data file
-        # self.data_info = {}
-        # channels = np.unique(self.raw_data[2])
-        # for ch in channels:
-        #     ch_dict = {}
-        #     ch_idx = np.argwhere(self.raw_data[2]==ch)
-        #     can_ids = np.unique(self.raw_data[1][ch_idx])
-        #     for can_id in can_ids:
-        #         can_id_idx = \
-        #             np.argwhere(np.logical_and(self.raw_data[1]==can_id,
-        #                                        self.raw_data[2]==ch))
-        #         ch_dict[can_id] = np.squeeze(can_id_idx)
-        #     self.data_info[ch] = ch_dict
+        '''
+        self.data_info = {}
+        channels = np.unique(self.raw_data[2])
+        for ch in channels:
+            ch_dict = {}
+            ch_idx = np.argwhere(self.raw_data[2]==ch)
+            can_ids = np.unique(self.raw_data[1][ch_idx])
+            for can_id in can_ids:
+                can_id_idx = \
+                    np.argwhere(np.logical_and(self.raw_data[1]==can_id,
+                                                self.raw_data[2]==ch))
+                ch_dict[can_id] = np.squeeze(can_id_idx)
+            self.data_info[ch] = ch_dict
+        '''
         self.data_info = {}
         channels = np.unique(self.raw_data[2])
         for ch in channels:
