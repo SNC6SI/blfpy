@@ -90,6 +90,24 @@ class blfread():
             self.data_info[ch] = ch_dict
 
 
+    def parse_all(self):
+        pass
+    
+    
+    def detect_channel(self):
+        # id from dbc
+        dbc_id = np.array(list(self.parser.message.keys()))
+        # channel and id in data
+        self.intersection = {}
+        for ch in self.data_info.keys():
+            ids = np.intersect1d(dbc_id, list(self.data_info[ch].keys()))
+            self.intersection[ch] = ids
+        '''
+        ch_max = max(self.intersection.keys(),
+                     key=(lambda x: self.intersection[x].size))
+        '''
+
+
     def save_data(self):
         pass
 
@@ -101,6 +119,7 @@ class blfread():
             self.unpack_data()
         if (self.__dbc is not None) and (self.__blf is not None):
             self.parse_data()
+            self.detect_channel()
     
 
 
