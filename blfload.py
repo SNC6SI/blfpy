@@ -55,6 +55,19 @@ class blfread():
         if blf is not None:
             self.__blf = blf
 
+
+    @property
+    def can(self):
+        if hasattr(self, 'parsed_data'):
+            return self.parsed_data
+        else:
+            return None
+
+
+    @can.setter
+    def can(self, value=None):
+        pass
+
     # =========================================================================
     # methods
     # =========================================================================
