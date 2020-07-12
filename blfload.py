@@ -70,11 +70,7 @@ class blfread():
             self.raw_data = d
 
 
-    def parse_data(self):
-        self.parse_interal_info()
-
-
-    def parse_interal_info(self):
+    def get_data_info(self):
         # 0: 8-bytes
         # 1: id
         # 2: channel
@@ -150,7 +146,7 @@ class blfread():
         if self.__blf is not None:
             self.unpack_data()
         if (self.__dbc is not None) and (self.__blf is not None):
-            self.parse_data()
+            self.get_data_info()
             self.detect_channel()
             self.parse_all()
     
