@@ -200,3 +200,5 @@ if __name__ == "__main__":
     bl.run_task()
     bl.plot(matlab.double(bl.can['VBU_BMS_0x100']['ctime'].tolist()),
             matlab.double( bl.can['VBU_BMS_0x100']['VBU_BMS_PackU'].tolist()))
+    bl.grid('on', nargout=0)
+    # bl.eng.exit()
