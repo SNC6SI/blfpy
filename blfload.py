@@ -5,9 +5,11 @@ Created on Fri Jul 10 11:23:44 2020
 @author: SNC6SI
 """
 
+import os
 import numpy as np
 from dbcparser import dbc2code
 import blfpy
+
 
 
 class blfread():
@@ -112,7 +114,7 @@ class blfread():
             msg_p = {}
             
             idx = data_info[msg_id]
-            msg_p['time'] = self.raw_data[3][idx]
+            msg_p['ctime'] = self.raw_data[3][idx]
             bb = self.raw_data[0][idx].astype(np.uint)
             message = self.parser.message[msg_id]
             # k: signal name,  v: signal info dict
@@ -136,8 +138,13 @@ class blfread():
         '''
 
 
-    def save_data(self):
-        pass
+    def save_data(self, mat_fn=None):
+        from scipy.io import savemat
+        if mat_fn is None:
+            p = os.path.abspath(self.blf)
+            mat_fn = ''.join((os.path.splitext(p)[0], '.mat'))
+            mdict = {'can': self.parsed_data}
+        savemat(mat_fn, mdict, long_field_names=True, do_compression=True)
 
 
     def run_task(self):
