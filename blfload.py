@@ -9,7 +9,7 @@ import os
 import numpy as np
 from dbcparser import dbc2code
 import blfpy
-
+import matlab.engine
 
 
 class blfread():
@@ -169,10 +169,34 @@ class blfread():
             self.get_data_info()
             self.detect_channel()
             self.parse_all()
-    
 
+
+    def __getattr__(self, attr):
+        # if not hasattr(self, 'eng'):
+        #     self.__matlab__()
+        if attr=='eng':
+            self.__matlab__()
+            return self.eng
+        else:
+            if hasattr(self.eng, attr):
+                return getattr(self.eng, attr)
+            else:
+                raise ValueError('There is no property: "%s".'%attr)
+
+
+    def __matlab__(self):
+        # hasattr will cause problem, if matlab was shut down
+        eng_rc = matlab.engine.find_matlab()
+        if len(eng_rc)==0:
+            eng = matlab.engine.start_matlab(option='-nodesktop')
+        else:
+            eng = matlab.engine.connect_matlab(eng_rc[0])
+        self.eng = eng
+        
 
 if __name__ == "__main__":
     bl = blfread(dbc='test/dbc/IC321_PTCAN_CMatrix_V1.7_PT装车_VBU.dbc',
                  blf='20200608_IC321_500_快充测试009.blf')
     bl.run_task()
+    bl.plot(matlab.double(bl.can['VBU_BMS_0x100']['ctime'].tolist()),
+            matlab.double( bl.can['VBU_BMS_0x100']['VBU_BMS_PackU'].tolist()))
