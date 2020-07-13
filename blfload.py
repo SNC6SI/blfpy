@@ -73,6 +73,17 @@ class blfread():
     # =========================================================================
     # methods
     # =========================================================================
+    def run_task(self):
+        if self.__dbc is not None:
+            self.collect_parser()
+        if self.__blf is not None:
+            self.unpack_data()
+        if (self.__dbc is not None) and (self.__blf is not None):
+            # channel => canid => index
+            self.get_data_info_default()
+            self.detect_channel()
+            self.parse_all()
+
 
     def collect_parser(self):
         self.parser = dbc2code(fn=self.__dbc)
@@ -119,6 +130,20 @@ class blfread():
             self.data_info[ch] = ch_dict
 
 
+    def detect_channel(self):
+        # id from dbc
+        dbc_id = np.array(list(self.parser.message.keys()))
+        # channel and id in data
+        self.intersection = {}
+        for ch in self.data_info.keys():
+            ids = np.intersect1d(dbc_id, list(self.data_info[ch].keys()))
+            self.intersection[ch] = ids
+        '''
+        ch_max = max(self.intersection.keys(),
+                     key=(lambda x: self.intersection[x].size))
+        '''
+
+
     def parse_all(self):
         ch_max = max(self.intersection.keys(),
                      key=(lambda x: self.intersection[x].size))
@@ -138,20 +163,6 @@ class blfread():
             self.parsed_data[message['name']] = msg_p
 
 
-    def detect_channel(self):
-        # id from dbc
-        dbc_id = np.array(list(self.parser.message.keys()))
-        # channel and id in data
-        self.intersection = {}
-        for ch in self.data_info.keys():
-            ids = np.intersect1d(dbc_id, list(self.data_info[ch].keys()))
-            self.intersection[ch] = ids
-        '''
-        ch_max = max(self.intersection.keys(),
-                     key=(lambda x: self.intersection[x].size))
-        '''
-
-
     def save_data(self, mat_fn=None):
         from scipy.io import savemat
         if mat_fn is None:
@@ -159,18 +170,6 @@ class blfread():
             mat_fn = ''.join((os.path.splitext(p)[0], '.mat'))
             mdict = {'can': self.parsed_data}
         savemat(mat_fn, mdict, long_field_names=True, do_compression=True)
-
-
-    def run_task(self):
-        if self.__dbc is not None:
-            self.collect_parser()
-        if self.__blf is not None:
-            self.unpack_data()
-        if (self.__dbc is not None) and (self.__blf is not None):
-            # channel => canid => index
-            self.get_data_info_default()
-            self.detect_channel()
-            self.parse_all()
 
 
     '''
