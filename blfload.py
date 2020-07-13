@@ -148,7 +148,7 @@ class blfload():
                 if msg_rc in msg.keys():
                     return msg[msg_rc]['canid'], msg[msg_rc]['name']
                 else:
-                    return None
+                    return None, None
             elif isinstance(msg_rc, str):
                 name_tmp = [x[0] for x in msg.items() if msg_rc==x[1]['name']]
                 if len(name_tmp)>0:
@@ -161,18 +161,20 @@ class blfload():
                 raise TypeError('Type: "%0" is not supported.' \
                                 .format(type(msg_rc)))
         # print(find_message_name(abc))
-        
         self.data_info = {}
         channels = np.unique(self.raw_data[2])
+        signals = {}
         for ch in channels:
             ch_dict = {}
             ch_idx = np.squeeze(np.argwhere(self.raw_data[2]==ch))
             for key in self.signals.keys():
-                can_id = find_message_name(key)
+                can_id, msg_name = find_message_name(key)
                 if can_id is not None:
                     can_id_idx = ch_idx[np.argwhere(self.raw_data[1][ch_idx]==can_id)]
                     ch_dict[can_id] = np.squeeze(can_id_idx)
+                    signals[msg_name] = self.signals[key]
             self.data_info[ch] = ch_dict
+            self.signals = signals
 
 
     def detect_channel(self):
@@ -250,7 +252,7 @@ if __name__ == "__main__":
                                     'VBU_BMS_State'],
                   'VBU_BMS_0x102': ['VBU_BMS_RealSOC',
                                     'VBU_BMS_PackDispSoc'],
-                  'VBU_BMS_0x513': ['VBU_BMS_MaxTemp',
+                  'VBU_BMS_0x519': ['VBU_BMS_MaxTemp',
                                     'VBU_BMS_MinTemp']}
     # channel = None
     bl.run_task()
