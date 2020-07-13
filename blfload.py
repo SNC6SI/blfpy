@@ -170,9 +170,10 @@ class blfload():
             for key in self.signals.keys():
                 can_id, msg_name = find_message_name(key)
                 if can_id is not None:
-                    can_id_idx = ch_idx[np.argwhere(self.raw_data[1][ch_idx]==can_id)]
-                    ch_dict[can_id] = np.squeeze(can_id_idx)
                     signals[msg_name] = self.signals[key]
+                    can_id_idx = ch_idx[np.argwhere(self.raw_data[1][ch_idx]==can_id)]
+                    if can_id_idx.size > 0:
+                        ch_dict[can_id] = np.squeeze(can_id_idx)
             self.data_info[ch] = ch_dict
             self.signals = signals
 
@@ -199,7 +200,6 @@ class blfload():
         self.parsed_data = {}
         for msg_id in ids:
             msg_p = {}
-            
             idx = data_info[msg_id]
             msg_p['ctime'] = self.raw_data[3][idx]
             bb = self.raw_data[0][idx].astype(np.uint)
@@ -254,6 +254,7 @@ if __name__ == "__main__":
                                     'VBU_BMS_PackDispSoc'],
                   'VBU_BMS_0x519': ['VBU_BMS_MaxTemp',
                                     'VBU_BMS_MinTemp']}
+    # del bl.signals
     # channel = None
     bl.run_task()
     # bl.plot(matlab.double(bl.can['VBU_BMS_0x100']['ctime'].tolist()),
