@@ -6,6 +6,7 @@ Created on Fri Jul 10 11:23:44 2020
 """
 
 import os
+import re
 import numpy as np
 from dbcparser import dbc2code
 import blfpy
@@ -15,13 +16,15 @@ import matlab.engine
 class blfread():
 
 
-    def __init__(self, dbc=None, blf=None):
+    def __init__(self, dbc=None, blf=None, signals=None):
         self.__dbc = None
         self.__blf = None
         if dbc is not None:
             self.__dbc = dbc
         if blf is not None:
             self.__blf = blf
+        if signals is not None:
+            self.signals = signals
 
 
     # =========================================================================
@@ -80,7 +83,13 @@ class blfread():
             self.unpack_data()
         if (self.__dbc is not None) and (self.__blf is not None):
             # channel => canid => index
-            self.get_data_info_default()
+            if hasattr(self, 'signals'):
+                if self.signals is not None:
+                    self.get_data_info_specified()
+                else:
+                    self.get_data_info_default()
+            else:
+                self.get_data_info_default()
             self.detect_channel()
             self.parse_all()
 
@@ -127,6 +136,41 @@ class blfread():
             for can_id in can_ids:
                 can_id_idx = ch_idx[np.argwhere(self.raw_data[1][ch_idx]==can_id)]
                 ch_dict[can_id] = np.squeeze(can_id_idx)
+            self.data_info[ch] = ch_dict
+
+
+    def get_data_info_specified(self):
+        # use closure maybe only for fun
+        msg = self.parser.message
+        def find_message_name(msg_rc):
+            if isinstance(msg_rc, int):
+                if msg_rc in msg.keys():
+                    return msg[msg_rc]['canid']
+                else:
+                    return None
+            elif isinstance(msg_rc, str):
+                name_tmp = [x[0] for x in msg.items() if msg_rc==x[1]['name']]
+                if len(name_tmp)>0:
+                    return name_tmp[0] # name_tmp is a list
+                else:
+                    pattern = '.*?(0x)?([0-9A-Fa-f]+).*'
+                    id_hex = re.findall(pattern, msg_rc)[0][1]
+                    return find_message_name(int(id_hex, 16))
+            else:
+                raise TypeError('Type: "%0" is not supported.' \
+                                .format(type(msg_rc)))
+        # print(find_message_name(abc))
+        
+        self.data_info = {}
+        channels = np.unique(self.raw_data[2])
+        for ch in channels:
+            ch_dict = {}
+            ch_idx = np.squeeze(np.argwhere(self.raw_data[2]==ch))
+            for key in self.signals.keys():
+                can_id = find_message_name(key)
+                if can_id is not None:
+                    can_id_idx = ch_idx[np.argwhere(self.raw_data[1][ch_idx]==can_id)]
+                    ch_dict[can_id] = np.squeeze(can_id_idx)
             self.data_info[ch] = ch_dict
 
 
@@ -200,6 +244,14 @@ class blfread():
 if __name__ == "__main__":
     bl = blfread(dbc='test/dbc/IC321_PTCAN_CMatrix_V1.7_PT装车_VBU.dbc',
                  blf='20200608_IC321_500_快充测试009.blf')
+    bl.signals = {'VBU_BMS_0x100': ['VBU_BMS_PackU',
+                                    'VBU_BMS_PackI',
+                                    'VBU_BMS_State'],
+                  'VBU_BMS_0x102': ['VBU_BMS_RealSOC',
+                                    'VBU_BMS_PackDispSoc'],
+                  'VBU_BMS_0x513': ['VBU_BMS_MaxTemp',
+                                    'VBU_BMS_MinTemp']}
+    # channel = None
     bl.run_task()
     # bl.plot(matlab.double(bl.can['VBU_BMS_0x100']['ctime'].tolist()),
     #         matlab.double( bl.can['VBU_BMS_0x100']['VBU_BMS_PackU'].tolist()))
