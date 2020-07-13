@@ -13,7 +13,8 @@ import matlab.engine
 
 
 class blfread():
-    
+
+
     def __init__(self, dbc=None, blf=None):
         self.__dbc = None
         self.__blf = None
@@ -38,6 +39,7 @@ class blfread():
     def dbc(self, dbc=None):
         if dbc is not None:
             self.__dbc = dbc
+
 
     # TODO: 
         # blf can be str or list of str
@@ -134,9 +136,8 @@ class blfread():
             for k, v in message['signal'].items():
                 msg_p[k] = eval(v['pycode'])
             self.parsed_data[message['name']] = msg_p
-            
-    
-    
+
+
     def detect_channel(self):
         # id from dbc
         dbc_id = np.array(list(self.parser.message.keys()))
@@ -171,6 +172,7 @@ class blfread():
             self.parse_all()
 
 
+    '''
     def __getattr__(self, attr):
         # if not hasattr(self, 'eng'):
         #     self.__matlab__()
@@ -192,13 +194,14 @@ class blfread():
         else:
             eng = matlab.engine.connect_matlab(eng_rc[0])
         self.eng = eng
-        
+    '''
+    
 
 if __name__ == "__main__":
     bl = blfread(dbc='test/dbc/IC321_PTCAN_CMatrix_V1.7_PT装车_VBU.dbc',
                  blf='20200608_IC321_500_快充测试009.blf')
     bl.run_task()
-    bl.plot(matlab.double(bl.can['VBU_BMS_0x100']['ctime'].tolist()),
-            matlab.double( bl.can['VBU_BMS_0x100']['VBU_BMS_PackU'].tolist()))
-    bl.grid('on', nargout=0)
+    # bl.plot(matlab.double(bl.can['VBU_BMS_0x100']['ctime'].tolist()),
+    #         matlab.double( bl.can['VBU_BMS_0x100']['VBU_BMS_PackU'].tolist()))
+    # bl.grid('on', nargout=0)
     # bl.eng.exit()
