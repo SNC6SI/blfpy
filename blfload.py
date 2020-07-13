@@ -170,12 +170,12 @@ class blfload():
             for key in self.signals.keys():
                 can_id, msg_name = find_message_name(key)
                 if can_id is not None:
-                    signals[msg_name] = self.signals[key]
+                    signals[can_id] = self.signals[key]
                     can_id_idx = ch_idx[np.argwhere(self.raw_data[1][ch_idx]==can_id)]
                     if can_id_idx.size > 0:
                         ch_dict[can_id] = np.squeeze(can_id_idx)
             self.data_info[ch] = ch_dict
-            self.signals = signals
+            self.signals_checked = signals
 
 
     def detect_channel(self):
@@ -206,7 +206,11 @@ class blfload():
             message = self.parser.message[msg_id]
             # k: signal name,  v: signal info dict
             for k, v in message['signal'].items():
-                msg_p[k] = eval(v['pycode'])
+                if hasattr(self, 'signals_checked'):
+                    if k in self.signals_checked[msg_id]:
+                        msg_p[k] = eval(v['pycode'])
+                else:
+                    msg_p[k] = eval(v['pycode'])
             self.parsed_data[message['name']] = msg_p
 
 
@@ -252,7 +256,7 @@ if __name__ == "__main__":
                                     'VBU_BMS_State'],
                   'VBU_BMS_0x102': ['VBU_BMS_RealSOC',
                                     'VBU_BMS_PackDispSoc'],
-                  'VBU_BMS_0x519': ['VBU_BMS_MaxTemp',
+                  'VBU_BMS_0x513': ['VBU_BMS_MaxTemp',
                                     'VBU_BMS_MinTemp']}
     # del bl.signals
     # channel = None
