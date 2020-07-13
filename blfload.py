@@ -143,15 +143,16 @@ class blfload():
         # use closure maybe only for fun
         msg = self.parser.message
         def find_message_name(msg_rc):
+            # tulpe (can_id, msg_name) shall be returned
             if isinstance(msg_rc, int):
                 if msg_rc in msg.keys():
-                    return msg[msg_rc]['canid']
+                    return msg[msg_rc]['canid'], msg[msg_rc]['name']
                 else:
                     return None
             elif isinstance(msg_rc, str):
                 name_tmp = [x[0] for x in msg.items() if msg_rc==x[1]['name']]
                 if len(name_tmp)>0:
-                    return name_tmp[0] # name_tmp is a list
+                    return name_tmp[0], msg[name_tmp[0]]['name'] # name_tmp is a list
                 else:
                     pattern = '.*?(0x)?([0-9A-Fa-f]+).*'
                     id_hex = re.findall(pattern, msg_rc)[0][1]
