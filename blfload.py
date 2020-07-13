@@ -13,7 +13,7 @@ import blfpy
 import matlab.engine
 
 
-class blfread():
+class blfload():
 
 
     def __init__(self, dbc=None, blf=None, signals=None):
@@ -242,7 +242,7 @@ class blfread():
     
 
 if __name__ == "__main__":
-    bl = blfread(dbc='test/dbc/IC321_PTCAN_CMatrix_V1.7_PT装车_VBU.dbc',
+    bl = blfload(dbc='test/dbc/IC321_PTCAN_CMatrix_V1.7_PT装车_VBU.dbc',
                  blf='20200608_IC321_500_快充测试009.blf')
     bl.signals = {'VBU_BMS_0x100': ['VBU_BMS_PackU',
                                     'VBU_BMS_PackI',
