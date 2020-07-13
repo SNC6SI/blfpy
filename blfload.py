@@ -91,7 +91,7 @@ class blfload():
             else:
                 self.get_data_info_default()
             self.detect_channel()
-            self.parse_all()
+            self.parse_data()
 
 
     def collect_parser(self):
@@ -188,7 +188,7 @@ class blfload():
         '''
 
 
-    def parse_all(self):
+    def parse_data(self):
         ch_max = max(self.intersection.keys(),
                      key=(lambda x: self.intersection[x].size))
         data_info = self.data_info[ch_max]
