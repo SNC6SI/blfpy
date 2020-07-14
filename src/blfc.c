@@ -244,26 +244,26 @@ PyObject* readData(PyObject* self, PyObject* args)
 
 
 
-static PyMethodDef blfpyMethods[] = {
+static PyMethodDef blfcMethods[] = {
     {"readFileInfo", (PyCFunction)readFileInfos, METH_VARARGS, 0},
     {"readFileData", (PyCFunction)readData, METH_VARARGS, 0},
     {NULL, NULL, 0, NULL}
 };
 
-static struct PyModuleDef blfpymodule = {
+static struct PyModuleDef blfcmodule = {
     PyModuleDef_HEAD_INIT,
-    "blfpy",   /* name of module */
+    "blfc",   /* name of module */
     "contact author for more info: snc6si@gmail.com", /* module documentation, may be NULL */
     -1,       /* size of per-interpreter state of the module,
                  or -1 if the module keeps state in global variables. */
-    blfpyMethods
+    blfcMethods
 };
 
 
 PyMODINIT_FUNC
-PyInit_blfpy(void)
+PyInit_blfc(void)
 {
     import_array();
     import_umath();
-    return PyModule_Create(&blfpymodule);
+    return PyModule_Create(&blfcmodule);
 }
