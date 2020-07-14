@@ -1,8 +1,8 @@
 ﻿build
 dist
 __pycache__
-/binlog.dll
-/*.pyd
+/test/binlog.dll
+/test/*.pyd
 *.blf
 MANIFEST
 *.mat
