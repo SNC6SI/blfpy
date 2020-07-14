@@ -8,8 +8,8 @@ Created on Fri Jul 10 11:23:44 2020
 import os
 import re
 import numpy as np
-from dbcparser import dbc2code
-import blfpy
+from .dbcparser import dbc2code
+from .blfc import readFileData
 import matlab.engine
 
 
@@ -100,9 +100,9 @@ class blfload():
 
 
     def unpack_data(self):
-        # info = blfpy.readFileInfo(self.__blf.encode('GBK'))
+        # info = blfc.readFileInfo(self.__blf.encode('GBK'))
         # print(info)
-        d = blfpy.readFileData(self.__blf.encode('GBK'))
+        d = readFileData(self.__blf.encode('GBK'))
         if len(d[0])>0:
             self.raw_data = d
 
