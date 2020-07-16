@@ -21,5 +21,5 @@ setup (name = 'blfc',
        description = 'blfpy c-extension for python',
        data_files = [os.path.join(os.getcwd(), 'src', 'binlog.dll')],
        packages=['blfpy'],
-       ext_modules = [blfc],
-       script_args = ['build', 'sdist', 'bdist'])
+       ext_modules = [blfc],)
+       # script_args = ['build', 'sdist', 'bdist'])
