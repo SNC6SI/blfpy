@@ -3,7 +3,7 @@
 
 
 # if 1
-PyObject* readFileInfos(PyObject* self, PyObject* args)
+PyObject* read_info(PyObject* self, PyObject* args)
 {
 
     HANDLE hFile;
@@ -69,7 +69,7 @@ PyObject* readFileInfos(PyObject* self, PyObject* args)
 }
 #endif
 
-PyObject* readData(PyObject* self, PyObject* args)
+PyObject* read_data(PyObject* self, PyObject* args)
 {
 
     char* cfileName;
@@ -245,17 +245,16 @@ PyObject* readData(PyObject* self, PyObject* args)
 
 
 static PyMethodDef blfcMethods[] = {
-    {"readFileInfo", (PyCFunction)readFileInfos, METH_VARARGS, 0},
-    {"readFileData", (PyCFunction)readData, METH_VARARGS, 0},
+    {"read_info", (PyCFunction)read_info, METH_VARARGS, 0},
+    {"read_data", (PyCFunction)read_data, METH_VARARGS, 0},
     {NULL, NULL, 0, NULL}
 };
 
 static struct PyModuleDef blfcmodule = {
     PyModuleDef_HEAD_INIT,
-    "blfc",   /* name of module */
-    "contact author for more info: snc6si@gmail.com", /* module documentation, may be NULL */
-    -1,       /* size of per-interpreter state of the module,
-                 or -1 if the module keeps state in global variables. */
+    "blfc",
+    "Shen, Chenghao <snc6si@gmail.com>", 
+    -1,
     blfcMethods
 };
 
