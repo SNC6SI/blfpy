@@ -9,8 +9,8 @@ import os
 import re
 import numpy as np
 from .dbcparser import dbc2code
-from .blfc import readFileData
-import matlab.engine
+from .blfc import read_data
+# import matlab.engine
 
 
 class blfload():
@@ -102,7 +102,7 @@ class blfload():
     def unpack_data(self):
         # info = blfc.readFileInfo(self.__blf.encode('GBK'))
         # print(info)
-        d = readFileData(self.__blf.encode('GBK'))
+        d = read_data(self.__blf.encode('GBK'))
         if len(d[0])>0:
             self.raw_data = d
 
