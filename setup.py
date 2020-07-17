@@ -4,12 +4,11 @@ import os
 
 
 blfc = Extension(name = 'blfpy.blfc',
+                 sources = [os.path.join(os.getcwd(), 'src', 'blfc.c')],
                  include_dirs = [os.path.join(sysconfig.get_python_lib(),
                                               'numpy', 'core', 'include')],
                  library_dirs = [os.path.join(os.getcwd(), 'src')],
-                 libraries = ['binlog'],
-                 sources = [os.path.join(os.getcwd(),
-                                         'src', 'blfc.c')])
+                 libraries = ['binlog'])
 
 setup (name = 'blfpy',
        version = '0.1.0',
