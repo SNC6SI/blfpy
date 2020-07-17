@@ -1,7 +1,6 @@
 ﻿build
 dist
 __pycache__
-/blfpy/binlog.dll
 *.pyd
 *.blf
 MANIFEST
