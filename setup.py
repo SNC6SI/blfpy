@@ -2,7 +2,8 @@ from setuptools import setup, Extension
 from distutils import sysconfig
 import os
 
-blfc = Extension('blfc',
+
+blfc = Extension(name = 'blfpy.blfc',
                  include_dirs = [os.path.join(sysconfig.get_python_lib(),
                                               'numpy', 'core', 'include'),
                                  os.path.join(os.getcwd(), 'src')],
@@ -11,7 +12,7 @@ blfc = Extension('blfc',
                  sources = [os.path.join(os.getcwd(),
                                          'src', 'blfc.c')])
 
-setup (name = 'blfc',
+setup (name = 'blfpy',
        version = '0.1.0',
        author = 'Shen, Chenghao',
        author_email='snc6si@gmail.com',
@@ -22,4 +23,4 @@ setup (name = 'blfc',
        data_files = [os.path.join(os.getcwd(), 'src', 'binlog.dll')],
        packages=['blfpy'],
        ext_modules = [blfc],)
-       # script_args = ['build', 'sdist', 'bdist'])
+       # script_args = ['build_ext --inplace', 'sdist', 'bdist_wheel'])
