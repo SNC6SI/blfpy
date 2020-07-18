@@ -20,6 +20,6 @@ setup (name = 'blfpy',
        description = 'blfpy c-extension for python',
        packages=['blfpy'],
        package_data = {'blfpy':['*.dll', '*.pyd']},
-       install_requires = ['numpy'],
+       install_requires = ['numpy', 'scipy'],
        ext_modules = [blfc],)
        # script_args = ['build_ext --inplace', 'sdist', 'bdist_wheel'])
