@@ -37,7 +37,6 @@ bl.dbc = 'PTCAN_CMatrix_V1.7_PT_VBU.dbc'
 bl.blf = '20200608_IC321_500_009.blf'
 ```
 - without signal selection, all the message in dbc will be parsed and returned
-<br/>
 - signals can be selected as follows in form of dict: 
 (signal selection can make parse much faster)
 
