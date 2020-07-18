@@ -11,8 +11,8 @@ blfpy-0.2.0-cp37-cp37m-win_amd64.whl (this one is for python 3.7)
 - Make the folder where whl file resides in the current folder
 - Both in pip or conda environment, type:
 
-```python
->>> pip install blfpy-0.2.0-cp37-cp37m-win_amd64.whl
+```shell
+pip install blfpy-0.2.0-cp37-cp37m-win_amd64.whl
 ```
 
 ## usage
@@ -27,32 +27,32 @@ from blfpy.blfload import blfload
 
 - create blfload object with arguments (dbc, blf)
 ```python
-bl = blfload(dbc='PTCAN_CMatrix_V1.7_PT_VBU.dbc',
-             blf='20200608_IC321_500_009.blf')
+>>> bl = blfload(dbc='PTCAN_CMatrix_V1.7_PT_VBU.dbc',
+                 blf='20200608_IC321_500_009.blf')
 ```
 - or create blf object without argument, and fill them afterwards
 ```python
-bl = blfload()
-bl.dbc = 'PTCAN_CMatrix_V1.7_PT_VBU.dbc'
-bl.blf = '20200608_IC321_500_009.blf'
+>>> bl = blfload()
+>>> bl.dbc = 'PTCAN_CMatrix_V1.7_PT_VBU.dbc'
+>>> bl.blf = '20200608_IC321_500_009.blf'
 ```
 - without signal selection, all the message in dbc will be parsed and returned
 - signals can be selected as follows in form of dict: 
 (signal selection can make parse much faster)
 
 ```python
-bl.signals = {'VBU_BMS_0x100': ['VBU_BMS_PackU',
-                                'VBU_BMS_PackI',
-                                'VBU_BMS_State'],
-              'VBU_BMS_0x102': ['VBU_BMS_RealSOC',
-                                'VBU_BMS_PackDispSoc'],
-              'VBU_BMS_0x513': ['VBU_BMS_MaxTemp',
-                                'VBU_BMS_MinTemp']}
+>>> bl.signals = {'VBU_BMS_0x100': ['VBU_BMS_PackU',
+                                    'VBU_BMS_PackI',
+                                    'VBU_BMS_State'],
+                  'VBU_BMS_0x102': ['VBU_BMS_RealSOC',
+                                    'VBU_BMS_PackDispSoc'],
+                  'VBU_BMS_0x513': ['VBU_BMS_MaxTemp',
+                                    'VBU_BMS_MinTemp']}
 ```
 - sava_data to mat-file (data format of matlab)
 - this method will be changed later for also save as mdf
 ```python
-bl.save_data()
+>>> bl.save_data()
 ```
 
 ## TODO
