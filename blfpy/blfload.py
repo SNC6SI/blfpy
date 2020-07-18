@@ -215,6 +215,7 @@ class blfload():
 
 
     def save_data(self, mat_fn=None):
+        # TODO: rewrite as a interface, will also save as mdf
         from scipy.io import savemat
         if mat_fn is None:
             p = os.path.abspath(self.blf)
