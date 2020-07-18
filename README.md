@@ -21,8 +21,8 @@ that you use it in conda environment.
 
 - import (better import numpy simultanously as well)
 ```python
-import numpy as np
-from blfpy.blfload import blfload
+>>> import numpy as np
+>>> from blfpy.blfload import blfload
 ```
 
 - create blfload object with arguments (dbc, blf)
