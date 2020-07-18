@@ -76,7 +76,7 @@ class blfload():
     # =========================================================================
     # methods
     # =========================================================================
-    def run_task(self):
+    def read(self):
         if self.__dbc is not None:
             self.collect_parser()
         if self.__blf is not None:
