@@ -24,6 +24,7 @@ PyObject* read_info(PyObject* self, PyObject* args)
     hFile = BLCreateFile(cfileName, GENERIC_READ);
     if (INVALID_HANDLE_VALUE == hFile)
     {
+        PyErr_SetString(PyExc_FileNotFoundError, "No such blf file or directory.");
         return NULL;
     }
     bSuccess = BLGetFileStatisticsEx(hFile, &statistics);
@@ -109,6 +110,7 @@ PyObject* read_data(PyObject* self, PyObject* args)
     hFile = BLCreateFile(cfileName, GENERIC_READ);
     if (INVALID_HANDLE_VALUE == hFile)
     {
+        PyErr_SetString(PyExc_FileNotFoundError, "No such blf file or directory.");
         return NULL;
     }
     bSuccess = BLGetFileStatisticsEx(hFile, &statistics);
