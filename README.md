@@ -58,4 +58,4 @@ that you use it in conda environment.
 ## TODO
 - save as mdf format
 - maybe or maybe not plot in Matlab
-- maybe or maybe not relevant scripts to use the parsed data
+- ~~maybe or maybe not relevant scripts to use the parsed data~~
