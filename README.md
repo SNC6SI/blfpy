@@ -15,6 +15,8 @@ blfpy-0.2.0-cp37-cp37m-win_amd64.whl (this one is for python 3.7)
 pip install blfpy-0.2.0-cp37-cp37m-win_amd64.whl
 ```
 
+- blfpy has these dependencies: numpy, scipy
+
 ## usage
 > Although you can use blfpy in pip environment, it is strongly recommended,
 that you use it in conda environment.
