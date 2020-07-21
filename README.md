@@ -51,6 +51,18 @@ that you use it in conda environment.
                   'VBU_BMS_0x513': ['VBU_BMS_MaxTemp',
                                     'VBU_BMS_MinTemp']}
 ```
+
+- call blfload.read method will invoke following functionalities:
+    - read infos from dbc
+    - extract data from blf
+    - determine which data will be parsed (default: all)
+    - detect channel: automatically make channel mapping from dbc-infos to data (will also be a user interface later)
+    - parse data and create a dict in python workspace
+
+```python
+>>> bl.read()
+```
+
 - sava_data to mat-file (data format of matlab)
 - this method will be changed later for also save as mdf
 ```python
