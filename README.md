@@ -32,7 +32,7 @@ that you use it in conda environment.
 >>> bl = blfload(dbc='PTCAN_CMatrix_V1.7_PT_VBU.dbc',
                  blf='20200608_IC321_500_009.blf')
 ```
-- or create blf object without argument, and fill them afterwards
+- or create blf object without arguments, and fill them afterwards
 ```python
 >>> bl = blfload()
 >>> bl.dbc = 'PTCAN_CMatrix_V1.7_PT_VBU.dbc'
@@ -40,7 +40,7 @@ that you use it in conda environment.
 ```
 - without signal selection, all the message in dbc will be parsed and returned
 - signals can be selected as follows in form of dict: 
-(signal selection can make parse much faster)
+(signal selection can make parsing phase much faster)
 
 ```python
 >>> bl.signals = {'VBU_BMS_0x100': ['VBU_BMS_PackU',
@@ -53,18 +53,18 @@ that you use it in conda environment.
 ```
 
 - call blfload.read method will invoke following functionalities:
-    - read infos from dbc
-    - extract data from blf
-    - determine which data will be parsed (default: all)
-    - detect channel: automatically make channel mapping from dbc-infos to data (will also be a user interface later)
-    - parse data and create a dict in python workspace
+    - READ infos from dbc
+    - EXTRACT raw data from blf
+    - DETERMINE which data will be parsed (default: all) and their indices in raw data
+    - DETECT channel: automatically make channel mapping from dbc-infos to data (will also be a user interface later)
+    - PARSE data and create a dict in python workspace
 
 ```python
 >>> bl.read()
 ```
 
 - sava_data to mat-file (data format of matlab)
-- this method will be changed later for also save as mdf
+- this method will be rewritten later, saving parsed data in mdf-format may be also useful
 ```python
 >>> bl.save_data()
 ```
