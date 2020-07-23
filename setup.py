@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Fri Jul 24 00:16:44 2020
+
+@author: SNC6SI: Shen,Chenghao <snc6si@gmail.com>
+"""
+
 from setuptools import setup, Extension
 from distutils import sysconfig
 import os

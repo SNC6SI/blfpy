@@ -1,3 +1,5 @@
+//@author: SNC6SI: Shen,Chenghao <snc6si@gmail.com>
+
 #define PY_SSIZE_T_CLEAN
 #include "include.h"
 

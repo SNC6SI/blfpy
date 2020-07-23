@@ -2,7 +2,7 @@
 """
 Created on Fri Jul 10 11:23:44 2020
 
-@author: SNC6SI
+@author: SNC6SI: Shen,Chenghao <snc6si@gmail.com>
 """
 
 import os
