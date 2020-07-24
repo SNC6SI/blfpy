@@ -202,7 +202,10 @@ class CCBLOCK:
             self.size_info = np.squeeze(d[p+44:p+46].view('>u2'))
             if self.formula_id==0:
                 self.parameters = np.squeeze(d[p+46:p+62].view('>f8'))
-            
+            elif self.formula_id==6 or self.formula_id==9:
+                self.parameters = np.squeeze(d[p+46:p+94].view('>f8'))
+            elif self.formula_id==7 or self.formula_id==8:
+                self.parameters = np.squeeze(d[p+46:p+102].view('>f8'))
             
         else:
             self.block_size = np.squeeze(d[p+2:p+4].view('<u2'))
@@ -213,6 +216,10 @@ class CCBLOCK:
             self.size_info = np.squeeze(d[p+44:p+46].view('<u2'))
             if self.formula_id==0:
                 self.parameters = np.squeeze(d[p+46:p+62].view('<f8'))
+            elif self.formula_id==6 or self.formula_id==9:
+                self.parameters = np.squeeze(d[p+46:p+94].view('<f8'))
+            elif self.formula_id==7 or self.formula_id==8:
+                self.parameters = np.squeeze(d[p+46:p+102].view('<f8'))
 
 
 
