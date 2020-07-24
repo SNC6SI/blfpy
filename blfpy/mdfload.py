@@ -41,13 +41,13 @@ class IDBLOCK:
         endian = self.default_byte_order.copy()
         if endian:
             self.default_floating_point_format = np.squeeze(data[p+26:p+28].view('>u2'))
-            self.version_number = np.squeeze(data[p+28:p+30].view('>u2'))
+            self.version = np.squeeze(data[p+28:p+30].view('>u2'))
             self.code_page_number = np.squeeze(data[p+30:p+32].view('>u2'))
             self.standard_flags = np.squeeze(data[p+60:p+62].view('>u2'))
             self.custom_flags = np.squeeze(data[p+62:p+64].view('>u2'))
         else:
             self.default_floating_point_format = np.squeeze(data[p+26:p+28].view('<u2'))
-            self.version_number = np.squeeze(data[p+28:p+30].view('<u2'))
+            self.version = np.squeeze(data[p+28:p+30].view('<u2'))
             self.code_page_number = np.squeeze(data[p+30:p+32].view('<u2'))
             self.standard_flags = np.squeeze(data[p+60:p+62].view('<u2'))
             self.custom_flags = np.squeeze(data[p+62:p+64].view('<u2'))
@@ -125,7 +125,7 @@ class CGBLOCK:
             self.p_tx_block = np.squeeze(d[p+12:p+16].view('>u4'))
             
             self.record_id = np.squeeze(d[p+16:p+18].view('>u2'))
-            self.num_channel_blocks = np.squeeze(d[p+18:p+20].view('>u2'))
+            self.num_cn_blocks = np.squeeze(d[p+18:p+20].view('>u2'))
             self.record_data_size = np.squeeze(d[p+20:p+22].view('>u2'))
             self.num_records = np.squeeze(d[p+22:p+26].view('>u4'))
             
@@ -136,7 +136,7 @@ class CGBLOCK:
             self.p_tx_block = np.squeeze(d[p+12:p+16].view('<u4'))
             
             self.record_id = np.squeeze(d[p+16:p+18].view('<u2'))
-            self.num_channel_blocks = np.squeeze(d[p+18:p+20].view('<u2'))
+            self.num_cn_blocks = np.squeeze(d[p+18:p+20].view('<u2'))
             self.record_data_size = np.squeeze(d[p+20:p+22].view('<u2'))
             self.num_records = np.squeeze(d[p+22:p+26].view('<u4'))
 
@@ -155,8 +155,8 @@ class CNBLOCK:
             self.p_cn_block = np.squeeze(d[p+4:p+8].view('>u4'))
             self.p_cc_block = np.squeeze(d[p+8:p+12].view('>u4'))
             self.p_tx_block = np.squeeze(d[p+20:p+24].view('>u4'))
-            # channel_type: 0=data, 1=time
-            self.channel_type = np.squeeze(d[p+24:p+26].view('>u2'))
+            # cn_type: 0=data, 1=time
+            self.cn_type = np.squeeze(d[p+24:p+26].view('>u2'))
             self.bit_start_pos = np.squeeze(d[p+186:p+188].view('>u2'))
             self.bit_length = np.squeeze(d[p+188:p+190].view('>u2'))
             self.signal_data_type = np.squeeze(d[p+190:p+192].view('>u2'))
@@ -172,8 +172,8 @@ class CNBLOCK:
             self.p_cn_block = np.squeeze(d[p+4:p+8].view('<u4'))
             self.p_cc_block = np.squeeze(d[p+8:p+12].view('<u4'))
             self.p_tx_block = np.squeeze(d[p+20:p+24].view('<u4'))
-            # channel_type: 0=data, 1=time
-            self.channel_type = np.squeeze(d[p+24:p+26].view('<u2'))
+            # cn_type: 0=data, 1=time
+            self.cn_type = np.squeeze(d[p+24:p+26].view('<u2'))
             self.bit_start_pos = np.squeeze(d[p+186:p+188].view('<u2'))
             self.bit_length = np.squeeze(d[p+188:p+190].view('<u2'))
             self.signal_data_type = np.squeeze(d[p+190:p+192].view('<u2'))
