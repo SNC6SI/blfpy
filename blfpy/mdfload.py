@@ -21,11 +21,11 @@ class mdfload:
         
         self.hdblock = HDBLOCK(self.data, self.endian)
         
-        self.dgblock = DGBLOCK(self.data, self.hdblock.p_dg_block, self.endian)
+        self.dgblock = DGBLOCK(self.data, self.endian, self.hdblock.p_dg_block)
         
-        self.cgblock = CGBLOCK(self.data, self.dgblock.p_cg_block, self.endian)
+        self.cgblock = CGBLOCK(self.data, self.endian, self.dgblock.p_cg_block)
         
-        self.cnblock = CNBLOCK(self.data, self.cgblock.p_cn_block, self.endian)
+        self.cnblock = CNBLOCK(self.data, self.endian, self.cgblock.p_cn_block)
     
 class IDBLOCK:
     
@@ -87,7 +87,7 @@ class HDBLOCK:
 
 class DGBLOCK:
     
-    def __init__(self, data, p, endian):
+    def __init__(self, data, endian, p):
         d = data
         
         self.block_type = d[p+0:p+2].tobytes().decode().strip()
@@ -107,7 +107,7 @@ class DGBLOCK:
 
 class CGBLOCK:
     
-    def __init__(self, data, p, endian):
+    def __init__(self, data, endian, p):
         d = data
         
         self.block_type = d[p+0:p+2].tobytes().decode().strip()
@@ -136,7 +136,8 @@ class CGBLOCK:
 
 
 class CNBLOCK:
-    def __init__(self, data, p, endian):
+
+    def __init__(self, data, endian, p):
         d = data
         
         self.block_type = d[p+0:p+2].tobytes().decode().strip()
