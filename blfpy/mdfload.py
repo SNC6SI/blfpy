@@ -125,8 +125,8 @@ class CGBLOCK:
             self.p_tx_block = np.squeeze(d[p+12:p+16].view('>u4'))
             
             self.record_id = np.squeeze(d[p+16:p+18].view('>u2'))
-            self.num_channels = np.squeeze(d[p+18:p+20].view('>u2'))
-            self.data_record_size = np.squeeze(d[p+20:p+22].view('>u2'))
+            self.num_channel_blocks = np.squeeze(d[p+18:p+20].view('>u2'))
+            self.record_data_size = np.squeeze(d[p+20:p+22].view('>u2'))
             self.num_records = np.squeeze(d[p+22:p+26].view('>u4'))
             
         else:
@@ -136,8 +136,8 @@ class CGBLOCK:
             self.p_tx_block = np.squeeze(d[p+12:p+16].view('<u4'))
             
             self.record_id = np.squeeze(d[p+16:p+18].view('<u2'))
-            self.num_channels = np.squeeze(d[p+18:p+20].view('<u2'))
-            self.data_record_size = np.squeeze(d[p+20:p+22].view('<u2'))
+            self.num_channel_blocks = np.squeeze(d[p+18:p+20].view('<u2'))
+            self.record_data_size = np.squeeze(d[p+20:p+22].view('<u2'))
             self.num_records = np.squeeze(d[p+22:p+26].view('<u4'))
 
 
