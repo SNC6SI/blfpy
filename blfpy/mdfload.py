@@ -26,6 +26,8 @@ class mdfload:
         self.cgblock = CGBLOCK(self.data, self.endian, self.dgblock.p_cg_block)
         
         self.cnblock = CNBLOCK(self.data, self.endian, self.cgblock.p_cn_block)
+        
+        self.ccblock = CCBLOCK(self.data, self.endian, self.cnblock.p_cc_block)
     
 class IDBLOCK:
     
@@ -181,7 +183,36 @@ class CNBLOCK:
             self.sample_rate = np.squeeze(d[p+210:p+218].view('<f8'))
             self.p_unique_name = np.squeeze(d[p+218:p+222].view('<u4'))
             self.byte_offset = np.squeeze(d[p+226:p+228].view('<u2'))
-
+            
+            
+class CCBLOCK:
+    
+    def __init__(self, data, endian, p):
+        d = data
+        
+        self.block_type = d[p+0:p+2].tobytes().decode().strip()
+        self.phy_unit = d[p+22:p+42].tobytes().decode().strip()
+        
+        if endian:
+            self.block_size = np.squeeze(d[p+2:p+4].view('>u2'))
+            self.bool_value_range = np.squeeze(d[p+4:p+6].view('>u2'))
+            self.min_value_range = np.squeeze(d[p+6:p+14].view('>f8'))
+            self.max_value_range = np.squeeze(d[p+14:p+22].view('>f8'))
+            self.formula_id = np.squeeze(d[p+42:p+44].view('>u2'))
+            self.size_info = np.squeeze(d[p+44:p+46].view('>u2'))
+            if self.formula_id==0:
+                self.parameters = np.squeeze(d[p+46:p+62].view('>f8'))
+            
+            
+        else:
+            self.block_size = np.squeeze(d[p+2:p+4].view('<u2'))
+            self.bool_value_range = np.squeeze(d[p+4:p+6].view('<u2'))
+            self.min_value_range = np.squeeze(d[p+6:p+14].view('<f8'))
+            self.max_value_range = np.squeeze(d[p+14:p+22].view('<f8'))
+            self.formula_id = np.squeeze(d[p+42:p+44].view('<u2'))
+            self.size_info = np.squeeze(d[p+44:p+46].view('<u2'))
+            if self.formula_id==0:
+                self.parameters = np.squeeze(d[p+46:p+62].view('<f8'))
 
 
 
