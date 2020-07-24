@@ -30,6 +30,10 @@ class mdfload:
         self.ccblock = CCBLOCK(self.data, self.endian, self.cnblock.p_cc_block)
     
 class IDBLOCK:
+    """
+    useful infos:
+        - version
+    """
     
     def __init__(self, data):
         p = 0
@@ -58,6 +62,11 @@ class IDBLOCK:
 
 
 class HDBLOCK:
+    """
+    useful infos:
+        - p_dg_block
+        - num_dg_blocks
+    """
     
     def __init__(self, data, endian):
         p = 64
@@ -88,6 +97,13 @@ class HDBLOCK:
 
 
 class DGBLOCK:
+    """
+    useful infos:
+        - p_dg_block
+        - p_cg_block
+        - num_cg_blocks
+        ? num_record_ids
+    """
     
     def __init__(self, data, endian, p):
         d = data
@@ -112,6 +128,16 @@ class DGBLOCK:
 
 
 class CGBLOCK:
+    """
+    useful infos:
+        - p_cg_block
+        - p_cn_block
+        - num_cn_blocks
+        ? record_id
+        ? num_record_ids
+        - record_data_size
+        - num_records
+    """
     
     def __init__(self, data, endian, p):
         d = data
@@ -142,6 +168,22 @@ class CGBLOCK:
 
 
 class CNBLOCK:
+    """
+    useful infos:
+        - signal_name
+        - signal_description
+        - signal_data_type
+        - sample_rate
+        
+        - p_cn_block
+        - p_cc_block
+        
+        - cn_type
+        
+        - bit_start_pos
+        - bit_length
+        - byte_offset
+    """
 
     def __init__(self, data, endian, p):
         d = data
@@ -186,6 +228,12 @@ class CNBLOCK:
             
             
 class CCBLOCK:
+    """
+    useful infos:
+        - phy_unit
+        - formula_id
+        - parameters
+    """
     
     def __init__(self, data, endian, p):
         d = data
