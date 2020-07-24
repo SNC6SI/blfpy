@@ -97,12 +97,16 @@ class DGBLOCK:
             self.p_dg_block = np.squeeze(d[p+4:p+8].view('>u4'))
             self.p_cg_block = np.squeeze(d[p+8:p+12].view('>u4'))
             self.p_d_record = np.squeeze(d[p+16:p+20].view('>u4'))
+            self.num_cg_blocks = np.squeeze(d[p+20:p+22].view('>u2'))
+            self.num_record_ids = np.squeeze(d[p+22:p+24].view('>u2'))
             
         else:
             self.block_size = np.squeeze(d[p+2:p+4].view('<u2'))
             self.p_dg_block = np.squeeze(d[p+4:p+8].view('<u4'))
             self.p_cg_block = np.squeeze(d[p+8:p+12].view('<u4'))
             self.p_d_record = np.squeeze(d[p+16:p+20].view('<u4'))
+            self.num_cg_blocks = np.squeeze(d[p+20:p+22].view('<u2'))
+            self.num_record_ids = np.squeeze(d[p+22:p+24].view('<u2'))
 
 
 class CGBLOCK:
