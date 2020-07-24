@@ -157,8 +157,8 @@ class CNBLOCK:
             self.p_tx_block = np.squeeze(d[p+20:p+24].view('>u4'))
             # channel_type: 0=data, 1=time
             self.channel_type = np.squeeze(d[p+24:p+26].view('>u2'))
-            self.bit_pos = np.squeeze(d[p+186:p+188].view('>u2'))
-            self.num_bits = np.squeeze(d[p+188:p+190].view('>u2'))
+            self.bit_start_pos = np.squeeze(d[p+186:p+188].view('>u2'))
+            self.bit_length = np.squeeze(d[p+188:p+190].view('>u2'))
             self.signal_data_type = np.squeeze(d[p+190:p+192].view('>u2'))
             self.bool_value_range = np.squeeze(d[p+192:p+194].view('>u2'))
             # if bool==false, maybe not to implement these value ranges
@@ -174,8 +174,8 @@ class CNBLOCK:
             self.p_tx_block = np.squeeze(d[p+20:p+24].view('<u4'))
             # channel_type: 0=data, 1=time
             self.channel_type = np.squeeze(d[p+24:p+26].view('<u2'))
-            self.bit_pos = np.squeeze(d[p+186:p+188].view('<u2'))
-            self.num_bits = np.squeeze(d[p+188:p+190].view('<u2'))
+            self.bit_start_pos = np.squeeze(d[p+186:p+188].view('<u2'))
+            self.bit_length = np.squeeze(d[p+188:p+190].view('<u2'))
             self.signal_data_type = np.squeeze(d[p+190:p+192].view('<u2'))
             self.bool_value_range = np.squeeze(d[p+192:p+194].view('<u2'))
             self.min_value_range = np.squeeze(d[p+194:p+202].view('<f8'))
