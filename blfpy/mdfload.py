@@ -149,7 +149,7 @@ class CGBLOCK:
         - num_cn_blocks
         ? record_id
         ? num_record_ids
-        - record_data_size
+        - record_size
         - num_records
     """
     
@@ -165,7 +165,7 @@ class CGBLOCK:
         
         self.record_id = np.squeeze(d[p+16:p+18].view(E+'u2'))
         self.num_cn_blocks = np.squeeze(d[p+18:p+20].view(E+'u2'))
-        self.record_data_size = np.squeeze(d[p+20:p+22].view(E+'u2'))
+        self.record_size = np.squeeze(d[p+20:p+22].view(E+'u2'))
         self.num_records = np.squeeze(d[p+22:p+26].view(E+'u4'))
 
 
