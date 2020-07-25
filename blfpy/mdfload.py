@@ -212,7 +212,7 @@ class CNBLOCK:
         
         - cn_type
         
-        - bit_start_pos
+        - bit_start
         - bit_length
         - byte_offset
     """
@@ -236,7 +236,7 @@ class CNBLOCK:
         self.p_tx_block = np.squeeze(d[p+20:p+24].view(E+'u4'))
         # cn_type: 0=data, 1=time
         self.cn_type = np.squeeze(d[p+24:p+26].view(E+'u2'))
-        self.bit_start_pos = np.squeeze(d[p+186:p+188].view(E+'u2'))
+        self.bit_start = np.squeeze(d[p+186:p+188].view(E+'u2'))
         self.bit_length = np.squeeze(d[p+188:p+190].view(E+'u2'))
         self.signal_data_type = np.squeeze(d[p+190:p+192].view(E+'u2'))
         self.bool_value_range = np.squeeze(d[p+192:p+194].view(E+'u2'))
