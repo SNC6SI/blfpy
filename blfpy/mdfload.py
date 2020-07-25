@@ -43,18 +43,18 @@ class IDBLOCK:
         self.program_identifier = d[p+16:p+24].tobytes().decode().strip()
         self.default_byte_order = np.squeeze(d[p+24:p+26].view('u2'))
         endian = self.default_byte_order.copy()
+        
         if endian:
-            self.default_floating_point_format = np.squeeze(data[p+26:p+28].view('>u2'))
-            self.version = np.squeeze(data[p+28:p+30].view('>u2'))
-            self.code_page_number = np.squeeze(data[p+30:p+32].view('>u2'))
-            self.standard_flags = np.squeeze(data[p+60:p+62].view('>u2'))
-            self.custom_flags = np.squeeze(data[p+62:p+64].view('>u2'))
+            pre = '>'
         else:
-            self.default_floating_point_format = np.squeeze(data[p+26:p+28].view('<u2'))
-            self.version = np.squeeze(data[p+28:p+30].view('<u2'))
-            self.code_page_number = np.squeeze(data[p+30:p+32].view('<u2'))
-            self.standard_flags = np.squeeze(data[p+60:p+62].view('<u2'))
-            self.custom_flags = np.squeeze(data[p+62:p+64].view('<u2'))
+            pre = '<'
+
+        self.default_floating_point_format = np.squeeze(data[p+26:p+28].view(pre+'u2'))
+        self.version = np.squeeze(data[p+28:p+30].view(pre+'u2'))
+        self.code_page_number = np.squeeze(data[p+30:p+32].view(pre+'u2'))
+        self.standard_flags = np.squeeze(data[p+60:p+62].view(pre+'u2'))
+        self.custom_flags = np.squeeze(data[p+62:p+64].view(pre+'u2'))
+
     
     @property
     def endian(self):
@@ -82,18 +82,15 @@ class HDBLOCK:
         self.subject_name = d[p+132:p+164].tobytes().decode().strip()
         
         if endian:
-            self.block_size = np.squeeze(d[p+2:p+4].view('>u2'))
-            self.p_dg_block = np.squeeze(d[p+4:p+8].view('>u4'))
-            self.p_tx_block = np.squeeze(d[p+8:p+12].view('>u4'))
-            self.p_pr_block = np.squeeze(d[p+12:p+16].view('>u4'))
-            self.num_dg_blocks = np.squeeze(d[p+16:p+18].view('>u2'))
-            
+            pre = '>'
         else:
-            self.block_size = np.squeeze(d[p+2:p+4].view('<u2'))
-            self.p_dg_block = np.squeeze(d[p+4:p+8].view('<u4'))
-            self.p_tx_block = np.squeeze(d[p+8:p+12].view('<u4'))
-            self.p_pr_block = np.squeeze(d[p+12:p+16].view('<u4'))
-            self.num_dg_blocks = np.squeeze(d[p+16:p+18].view('<u2'))
+            pre = '<'
+        
+        self.block_size = np.squeeze(d[p+2:p+4].view(pre+'u2'))
+        self.p_dg_block = np.squeeze(d[p+4:p+8].view(pre+'u4'))
+        self.p_tx_block = np.squeeze(d[p+8:p+12].view(pre+'u4'))
+        self.p_pr_block = np.squeeze(d[p+12:p+16].view(pre+'u4'))
+        self.num_dg_blocks = np.squeeze(d[p+16:p+18].view(pre+'u2'))
 
 
 class DGBLOCK:
@@ -111,21 +108,17 @@ class DGBLOCK:
         self.block_type = d[p+0:p+2].tobytes().decode().strip()
         
         if endian:
-            self.block_size = np.squeeze(d[p+2:p+4].view('>u2'))
-            self.p_dg_block = np.squeeze(d[p+4:p+8].view('>u4'))
-            self.p_cg_block = np.squeeze(d[p+8:p+12].view('>u4'))
-            self.p_d_record = np.squeeze(d[p+16:p+20].view('>u4'))
-            self.num_cg_blocks = np.squeeze(d[p+20:p+22].view('>u2'))
-            self.num_record_ids = np.squeeze(d[p+22:p+24].view('>u2'))
-            
+            pre = '>'
         else:
-            self.block_size = np.squeeze(d[p+2:p+4].view('<u2'))
-            self.p_dg_block = np.squeeze(d[p+4:p+8].view('<u4'))
-            self.p_cg_block = np.squeeze(d[p+8:p+12].view('<u4'))
-            self.p_d_record = np.squeeze(d[p+16:p+20].view('<u4'))
-            self.num_cg_blocks = np.squeeze(d[p+20:p+22].view('<u2'))
-            self.num_record_ids = np.squeeze(d[p+22:p+24].view('<u2'))
-
+            pre = '<'
+        
+        self.block_size = np.squeeze(d[p+2:p+4].view(pre+'u2'))
+        self.p_dg_block = np.squeeze(d[p+4:p+8].view(pre+'u4'))
+        self.p_cg_block = np.squeeze(d[p+8:p+12].view(pre+'u4'))
+        self.p_d_record = np.squeeze(d[p+16:p+20].view(pre+'u4'))
+        self.num_cg_blocks = np.squeeze(d[p+20:p+22].view(pre+'u2'))
+        self.num_record_ids = np.squeeze(d[p+22:p+24].view(pre+'u2'))
+            
 
 class CGBLOCK:
     """
@@ -145,26 +138,19 @@ class CGBLOCK:
         self.block_type = d[p+0:p+2].tobytes().decode().strip()
         
         if endian:
-            self.block_size = np.squeeze(d[p+2:p+4].view('>u2'))
-            self.p_cg_block = np.squeeze(d[p+4:p+8].view('>u4'))
-            self.p_cn_block = np.squeeze(d[p+8:p+12].view('>u4'))
-            self.p_tx_block = np.squeeze(d[p+12:p+16].view('>u4'))
-            
-            self.record_id = np.squeeze(d[p+16:p+18].view('>u2'))
-            self.num_cn_blocks = np.squeeze(d[p+18:p+20].view('>u2'))
-            self.record_data_size = np.squeeze(d[p+20:p+22].view('>u2'))
-            self.num_records = np.squeeze(d[p+22:p+26].view('>u4'))
-            
+            pre = '>'
         else:
-            self.block_size = np.squeeze(d[p+2:p+4].view('<u2'))
-            self.p_cg_block = np.squeeze(d[p+4:p+8].view('<u4'))
-            self.p_cn_block = np.squeeze(d[p+8:p+12].view('<u4'))
-            self.p_tx_block = np.squeeze(d[p+12:p+16].view('<u4'))
-            
-            self.record_id = np.squeeze(d[p+16:p+18].view('<u2'))
-            self.num_cn_blocks = np.squeeze(d[p+18:p+20].view('<u2'))
-            self.record_data_size = np.squeeze(d[p+20:p+22].view('<u2'))
-            self.num_records = np.squeeze(d[p+22:p+26].view('<u4'))
+            pre = '<'
+
+        self.block_size = np.squeeze(d[p+2:p+4].view(pre+'u2'))
+        self.p_cg_block = np.squeeze(d[p+4:p+8].view(pre+'u4'))
+        self.p_cn_block = np.squeeze(d[p+8:p+12].view(pre+'u4'))
+        self.p_tx_block = np.squeeze(d[p+12:p+16].view(pre+'u4'))
+        
+        self.record_id = np.squeeze(d[p+16:p+18].view(pre+'u2'))
+        self.num_cn_blocks = np.squeeze(d[p+18:p+20].view(pre+'u2'))
+        self.record_data_size = np.squeeze(d[p+20:p+22].view(pre+'u2'))
+        self.num_records = np.squeeze(d[p+22:p+26].view(pre+'u4'))
 
 
 class CNBLOCK:
@@ -193,38 +179,27 @@ class CNBLOCK:
         self.signal_description = d[p+58:p+186].tobytes().decode().strip()
         
         if endian:
-            self.block_size = np.squeeze(d[p+2:p+4].view('>u2'))
-            self.p_cn_block = np.squeeze(d[p+4:p+8].view('>u4'))
-            self.p_cc_block = np.squeeze(d[p+8:p+12].view('>u4'))
-            self.p_tx_block = np.squeeze(d[p+20:p+24].view('>u4'))
-            # cn_type: 0=data, 1=time
-            self.cn_type = np.squeeze(d[p+24:p+26].view('>u2'))
-            self.bit_start_pos = np.squeeze(d[p+186:p+188].view('>u2'))
-            self.bit_length = np.squeeze(d[p+188:p+190].view('>u2'))
-            self.signal_data_type = np.squeeze(d[p+190:p+192].view('>u2'))
-            self.bool_value_range = np.squeeze(d[p+192:p+194].view('>u2'))
-            # if bool==false, maybe not to implement these value ranges
-            self.min_value_range = np.squeeze(d[p+194:p+202].view('>f8'))
-            self.max_value_range = np.squeeze(d[p+202:p+210].view('>f8'))
-            self.sample_rate = np.squeeze(d[p+210:p+218].view('>f8'))
-            self.p_unique_name = np.squeeze(d[p+218:p+222].view('>u4'))
-            self.byte_offset = np.squeeze(d[p+226:p+228].view('>u2'))
+            pre = '>'
         else:
-            self.block_size = np.squeeze(d[p+2:p+4].view('<u2'))
-            self.p_cn_block = np.squeeze(d[p+4:p+8].view('<u4'))
-            self.p_cc_block = np.squeeze(d[p+8:p+12].view('<u4'))
-            self.p_tx_block = np.squeeze(d[p+20:p+24].view('<u4'))
-            # cn_type: 0=data, 1=time
-            self.cn_type = np.squeeze(d[p+24:p+26].view('<u2'))
-            self.bit_start_pos = np.squeeze(d[p+186:p+188].view('<u2'))
-            self.bit_length = np.squeeze(d[p+188:p+190].view('<u2'))
-            self.signal_data_type = np.squeeze(d[p+190:p+192].view('<u2'))
-            self.bool_value_range = np.squeeze(d[p+192:p+194].view('<u2'))
-            self.min_value_range = np.squeeze(d[p+194:p+202].view('<f8'))
-            self.max_value_range = np.squeeze(d[p+202:p+210].view('<f8'))
-            self.sample_rate = np.squeeze(d[p+210:p+218].view('<f8'))
-            self.p_unique_name = np.squeeze(d[p+218:p+222].view('<u4'))
-            self.byte_offset = np.squeeze(d[p+226:p+228].view('<u2'))
+            pre = '<'
+            
+        self.block_size = np.squeeze(d[p+2:p+4].view(pre+'u2'))
+        self.p_cn_block = np.squeeze(d[p+4:p+8].view(pre+'u4'))
+        self.p_cc_block = np.squeeze(d[p+8:p+12].view(pre+'u4'))
+        self.p_tx_block = np.squeeze(d[p+20:p+24].view(pre+'u4'))
+        # cn_type: 0=data, 1=time
+        self.cn_type = np.squeeze(d[p+24:p+26].view(pre+'u2'))
+        self.bit_start_pos = np.squeeze(d[p+186:p+188].view(pre+'u2'))
+        self.bit_length = np.squeeze(d[p+188:p+190].view(pre+'u2'))
+        self.signal_data_type = np.squeeze(d[p+190:p+192].view(pre+'u2'))
+        self.bool_value_range = np.squeeze(d[p+192:p+194].view(pre+'u2'))
+        # if bool==false, maybe not to implement these value ranges
+        self.min_value_range = np.squeeze(d[p+194:p+202].view(pre+'f8'))
+        self.max_value_range = np.squeeze(d[p+202:p+210].view(pre+'f8'))
+        self.sample_rate = np.squeeze(d[p+210:p+218].view(pre+'f8'))
+        self.p_unique_name = np.squeeze(d[p+218:p+222].view(pre+'u4'))
+        self.byte_offset = np.squeeze(d[p+226:p+228].view(pre+'u2'))
+
             
             
 class CCBLOCK:
@@ -242,33 +217,22 @@ class CCBLOCK:
         self.phy_unit = d[p+22:p+42].tobytes().decode().strip()
         
         if endian:
-            self.block_size = np.squeeze(d[p+2:p+4].view('>u2'))
-            self.bool_value_range = np.squeeze(d[p+4:p+6].view('>u2'))
-            self.min_value_range = np.squeeze(d[p+6:p+14].view('>f8'))
-            self.max_value_range = np.squeeze(d[p+14:p+22].view('>f8'))
-            self.formula_id = np.squeeze(d[p+42:p+44].view('>u2'))
-            self.size_info = np.squeeze(d[p+44:p+46].view('>u2'))
-            if self.formula_id==0:
-                self.parameters = np.squeeze(d[p+46:p+62].view('>f8'))
-            elif self.formula_id==6 or self.formula_id==9:
-                self.parameters = np.squeeze(d[p+46:p+94].view('>f8'))
-            elif self.formula_id==7 or self.formula_id==8:
-                self.parameters = np.squeeze(d[p+46:p+102].view('>f8'))
-            
+            pre = '>'
         else:
-            self.block_size = np.squeeze(d[p+2:p+4].view('<u2'))
-            self.bool_value_range = np.squeeze(d[p+4:p+6].view('<u2'))
-            self.min_value_range = np.squeeze(d[p+6:p+14].view('<f8'))
-            self.max_value_range = np.squeeze(d[p+14:p+22].view('<f8'))
-            self.formula_id = np.squeeze(d[p+42:p+44].view('<u2'))
-            self.size_info = np.squeeze(d[p+44:p+46].view('<u2'))
-            if self.formula_id==0:
-                self.parameters = np.squeeze(d[p+46:p+62].view('<f8'))
-            elif self.formula_id==6 or self.formula_id==9:
-                self.parameters = np.squeeze(d[p+46:p+94].view('<f8'))
-            elif self.formula_id==7 or self.formula_id==8:
-                self.parameters = np.squeeze(d[p+46:p+102].view('<f8'))
-
+            pre = '<'
+            
+        self.block_size = np.squeeze(d[p+2:p+4].view(pre+'u2'))
+        self.bool_value_range = np.squeeze(d[p+4:p+6].view(pre+'u2'))
+        self.min_value_range = np.squeeze(d[p+6:p+14].view(pre+'f8'))
+        self.max_value_range = np.squeeze(d[p+14:p+22].view(pre+'f8'))
+        self.formula_id = np.squeeze(d[p+42:p+44].view(pre+'u2'))
+        self.size_info = np.squeeze(d[p+44:p+46].view(pre+'u2'))
+        if self.formula_id==0:
+            self.parameters = np.squeeze(d[p+46:p+62].view(pre+'f8'))
+        elif self.formula_id==6 or self.formula_id==9:
+            self.parameters = np.squeeze(d[p+46:p+94].view(pre+'f8'))
+        elif self.formula_id==7 or self.formula_id==8:
+            self.parameters = np.squeeze(d[p+46:p+102].view(pre+'f8'))
 
 
 if __name__ == "__main__":
