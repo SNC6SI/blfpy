@@ -70,10 +70,15 @@ class mdfload:
                                               cgblock.num_records)
                 
 
-        
-        # self.ccblock = CCBLOCK(self.data, self.endian, self.cnblock.p_cc_block)
+        # CC
+        for dgblock in self.dgblocks:
+             for cgblock in dgblock.cgblocks:
+                 for cnblock in cgblock.cnblocks:
+                     cnblock.ccblock = \
+                         CCBLOCK(self.data, self.endian, cnblock.p_cc_block)
+                 
 
-    
+
 class IDBLOCK:
     """
     useful infos:
