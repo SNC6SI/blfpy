@@ -2,7 +2,7 @@
 """
 Created on Fri Jul 24 00:16:44 2020
 
-@author: SNC6SI: Shen,Chenghao <snc6si@gmail.com>
+@author: SNC6SI: Shen, Chenghao <snc6si@gmail.com>
 """
 
 from setuptools import setup, Extension

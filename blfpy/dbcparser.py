@@ -2,7 +2,7 @@
 """
 Created on Wed Jul  1 11:06:39 2020
 
-@author: SNC6SI: Shen,Chenghao <snc6si@gmail.com>
+@author: SNC6SI: Shen, Chenghao <snc6si@gmail.com>
 """
 
 import re
