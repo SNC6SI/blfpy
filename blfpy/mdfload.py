@@ -58,6 +58,18 @@ class mdfload:
                     cnblocks += [cnblock]
                 cgblock.cnblocks = cnblocks
 
+
+        # DR
+        for dgblock in self.dgblocks:
+            for cgblock in dgblock.cgblocks:
+                if dgblock.num_record_ids==0:
+                    dgblock.data_records = DR(self.data,
+                                              dgblock.num_record_ids,
+                                              dgblock.p_d_record,
+                                              cgblock.record_size,
+                                              cgblock.num_records)
+                
+
         
         # self.ccblock = CCBLOCK(self.data, self.endian, self.cnblock.p_cc_block)
 
@@ -139,6 +151,19 @@ class DGBLOCK:
         self.p_d_record = np.squeeze(d[p+16:p+20].view(E+'u4'))
         self.num_cg_blocks = np.squeeze(d[p+20:p+22].view(E+'u2'))
         self.num_record_ids = np.squeeze(d[p+22:p+24].view(E+'u2'))
+
+
+# DATARECORDS
+class DR:
+    
+    def __init__(self, data, record_id, p, s, n):
+        # p: p_d_record
+        # s: record_size
+        # n: num_records
+        d = data
+        if record_id==0:
+            self.mat = d[p:p+s*n].reshape((n,s))
+        
             
 
 class CGBLOCK:
