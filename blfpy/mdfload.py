@@ -261,7 +261,13 @@ class CCBLOCK:
         d = data
         
         self.block_type = d[p+0:p+2].tobytes().decode().strip()
-        self.phy_unit = d[p+22:p+42].tobytes().decode().strip()
+        try:
+            self.phy_unit = d[p+22:p+42].tobytes()\
+                    .rstrip('\x00')\
+                    .rsplit(b'\r\n')[0]\
+                    .decode().strip()
+        except:
+            self.phy_unit = ''
 
         self.block_size = np.squeeze(d[p+2:p+4].view(E+'u2'))
         self.bool_value_range = np.squeeze(d[p+4:p+6].view(E+'u2'))
