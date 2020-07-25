@@ -176,7 +176,13 @@ class CNBLOCK:
         
         self.block_type = d[p+0:p+2].tobytes().decode().strip()
         self.signal_name = d[p+26:p+58].tobytes().decode().strip()
-        self.signal_description = d[p+58:p+186].tobytes().decode().strip()
+        try:
+            self.signal_description = d[p+58:p+186].tobytes()\
+                        .rstrip('\x00')\
+                        .rsplit(b'\r\n')[0]\
+                        .decode(encoding='utf-8').strip()
+        except:
+            self.signal_description = ''
         
         if endian:
             pre = '>'
