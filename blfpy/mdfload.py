@@ -4,6 +4,8 @@ Created on Wed Jul 22 23:49:28 2020
 
 @author: SNC6SI: Shen,Chenghao <snc6si@gmail.com>
 """
+
+import math
 import numpy as np
 
 class mdfload:
@@ -76,8 +78,27 @@ class mdfload:
                  for cnblock in cgblock.cnblocks:
                      cnblock.ccblock = \
                          CCBLOCK(self.data, self.endian, cnblock.p_cc_block)
-                 
+                         
+        # raw
+        for dgblock in self.dgblocks:
+            bb = dgblock.records.mat
+            for cgblock in dgblock.cgblocks:
+                for cnblock in cgblock.cnblocks:
+                    byte_start = cnblock.byte_offset + \
+                                 math.floor(cnblock.bit_start/8)
+                    byte_end = cnblock.byte_offset + \
+                        math.ceil((cnblock.bit_start + cnblock.bit_length)/8)
+                    byte_length = byte_end-byte_start
+                    if byte_length<=8:
+                        view = self.endian + 'u' + str(2**(math.ceil(math.log2(byte_length))))
+                        raw = bb[:, byte_start:byte_end].copy().view(view)
+                        raw = (raw>>(cnblock.bit_start%8))&np.uint64((2**cnblock.bit_length-1))
+                    else:
+                        raw = bb[:, byte_start:byte_end].copy()
+                    cnblock.raw = raw
 
+
+        # phy
 
 class IDBLOCK:
     """
