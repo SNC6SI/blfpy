@@ -63,9 +63,9 @@ class mdfload:
         for dgblock in self.dgblocks:
             for cgblock in dgblock.cgblocks:
                 if dgblock.num_record_ids==0:
-                    dgblock.data_records = DR(self.data,
+                    dgblock.records = DR(self.data,
                                               dgblock.num_record_ids,
-                                              dgblock.p_d_record,
+                                              dgblock.p_records,
                                               cgblock.record_size,
                                               cgblock.num_records)
                 
@@ -153,7 +153,7 @@ class DGBLOCK:
         self.block_size = np.squeeze(d[p+2:p+4].view(E+'u2'))
         self.p_dg_block = np.squeeze(d[p+4:p+8].view(E+'u4'))
         self.p_cg_block = np.squeeze(d[p+8:p+12].view(E+'u4'))
-        self.p_d_record = np.squeeze(d[p+16:p+20].view(E+'u4'))
+        self.p_records = np.squeeze(d[p+16:p+20].view(E+'u4'))
         self.num_cg_blocks = np.squeeze(d[p+20:p+22].view(E+'u2'))
         self.num_record_ids = np.squeeze(d[p+22:p+24].view(E+'u2'))
 
@@ -162,7 +162,7 @@ class DGBLOCK:
 class DR:
     
     def __init__(self, data, record_id, p, s, n):
-        # p: p_d_record
+        # p: p_records
         # s: record_size
         # n: num_records
         d = data
