@@ -19,7 +19,7 @@ class mdfload:
         self.data = np.fromfile(self.mdf, dtype=np.uint8)
         
         self.idblock = IDBLOCK(self.data)
-        if self.idblock.default_byte_order:
+        if self.idblock.endian:
             self.endian = '>'
         else:
             self.endian = '<'
