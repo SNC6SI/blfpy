@@ -464,7 +464,7 @@ class CCBLOCK:
         except:
             self.phy_unit = ''
         if len(post):
-            self.parameters = parameters
+            self.parameters = unpack(fmt_, parameters)
         else:
             self.parameters = ''
 
