@@ -5,6 +5,7 @@ Created on Wed Jul 22 23:49:28 2020
 @author: SNC6SI: Shen,Chenghao <snc6si@gmail.com>
 """
 
+from struct import unpack, calcsize
 import math
 import numpy as np
 
@@ -25,7 +26,8 @@ class mdfload:
             self.endian = '<'
         
         self.hdblock = HDBLOCK(self.data, self.endian)
-        
+
+
         # DG
         if self.hdblock.num_dg_blocks:
             self.dgblocks = []
@@ -48,7 +50,8 @@ class mdfload:
                     cgblock = CGBLOCK(self.data, self.endian, cgblock.p_cg_block)
                     cgblocks += [cgblock]
                 dgblock.cgblocks = cgblocks
-                
+
+
         # CN
         for dgblock in self.dgblocks:
             for cgblock in dgblock.cgblocks:
@@ -70,15 +73,17 @@ class mdfload:
                                               dgblock.p_records,
                                               cgblock.record_size,
                                               cgblock.num_records)
-                
+
 
         # CC
         for dgblock in self.dgblocks:
              for cgblock in dgblock.cgblocks:
                  for cnblock in cgblock.cnblocks:
+                     # print(cnblock.signal_name)
                      cnblock.ccblock = \
                          CCBLOCK(self.data, self.endian, cnblock.p_cc_block)
-                         
+
+
         # raw
         for dgblock in self.dgblocks:
             bb = dgblock.records.mat
@@ -105,29 +110,45 @@ class IDBLOCK:
     useful infos:
         - version
     """
-    
+
     def __init__(self, data):
         p = 0
         d = data
-        self.file_identifier = d[p+0:p+8].tobytes().decode().strip()
-        self.format_identifier = d[p+8:p+16].tobytes().decode().strip()
-        self.program_identifier = d[p+16:p+24].tobytes().decode().strip()
-        self.default_byte_order = np.squeeze(d[p+24:p+26].view('u2'))
-        if self.default_byte_order:
+        
+        self.byte_order = np.squeeze(d[p+24:p+26].view('u2'))
+        if self.byte_order:
             E = '>'
         else:
             E = '<'
+            
+        fmt = E + '8s8s8sHHH'
+        size = calcsize(fmt)
+        
+        file_identifier, \
+        format_identifier, \
+        program_identifier, \
+        _, \
+        floating_point_format, \
+        version = unpack(fmt, d[p:p+size].tobytes())
+            
+        self.file_identifier = file_identifier.decode().rstrip('\x00')
+        self.format_identifier = format_identifier.decode().rstrip('\x00')
+        self.program_identifier = program_identifier.decode().rstrip('\x00')
+        self.floating_point_format = floating_point_format
+        self.version = version
+        
+        '''
+        following properties are not used in version 3.00
+        comment them for now
+        '''
+        # self.code_page_number = np.squeeze(data[p+30:p+32].view(E+'u2'))
+        # self.standard_flags = np.squeeze(data[p+60:p+62].view(E+'u2'))
+        # self.custom_flags = np.squeeze(data[p+62:p+64].view(E+'u2'))
 
-        self.default_floating_point_format = np.squeeze(data[p+26:p+28].view(E+'u2'))
-        self.version = np.squeeze(data[p+28:p+30].view(E+'u2'))
-        self.code_page_number = np.squeeze(data[p+30:p+32].view(E+'u2'))
-        self.standard_flags = np.squeeze(data[p+60:p+62].view(E+'u2'))
-        self.custom_flags = np.squeeze(data[p+62:p+64].view(E+'u2'))
 
-    
     @property
     def endian(self):
-        return self.default_byte_order
+        return self.byte_order
 
 
 class HDBLOCK:
@@ -141,20 +162,34 @@ class HDBLOCK:
         p = 64
         d = data # +208 for 3.30 and is not implemented
         
-        self.block_type = d[p+0:p+2].tobytes().decode().strip()
+        fmt = E + '2sHIIIH10s8s32s32s32s32s'
+        size = calcsize(fmt)
+
+        block_type, \
+        block_size, \
+        p_dg_block, \
+        p_tx_block, \
+        p_pr_block, \
+        num_dg_blocks, \
+        record_date, \
+        record_time, \
+        author_name, \
+        org_dept_name, \
+        project_name, \
+        subject_name = unpack(fmt, d[p:p+size].tobytes())
         
-        self.record_date = d[p+18:p+28].tobytes().decode() # DD:MM:YYYY
-        self.record_time = d[p+28:p+36].tobytes().decode() # HH:MM:SS
-        self.author_name = d[p+36:p+68].tobytes().decode().strip()
-        self.org_dept_name = d[p+68:p+100].tobytes().decode().strip()
-        self.project_name = d[p+100:p+132].tobytes().decode().strip()
-        self.subject_name = d[p+132:p+164].tobytes().decode().strip()
-        
-        self.block_size = np.squeeze(d[p+2:p+4].view(E+'u2'))
-        self.p_dg_block = np.squeeze(d[p+4:p+8].view(E+'u4'))
-        self.p_tx_block = np.squeeze(d[p+8:p+12].view(E+'u4'))
-        self.p_pr_block = np.squeeze(d[p+12:p+16].view(E+'u4'))
-        self.num_dg_blocks = np.squeeze(d[p+16:p+18].view(E+'u2'))
+        self.block_type = block_type.decode().rstrip('\x00')
+        self.block_size = block_size
+        self.p_dg_block = p_dg_block
+        self.p_tx_block = p_tx_block
+        self.p_pr_block = p_pr_block
+        self.num_dg_blocks = num_dg_blocks
+        self.record_date = record_date.decode() # DD:MM:YYYY
+        self.record_time = record_time.decode() # HH:MM:SS
+        self.author_name = author_name.decode().rstrip('\x00')
+        self.org_dept_name = org_dept_name.decode().rstrip('\x00')
+        self.project_name = project_name.decode().rstrip('\x00')
+        self.subject_name = subject_name.decode().rstrip('\x00')
 
 
 class DGBLOCK:
@@ -169,14 +204,25 @@ class DGBLOCK:
     def __init__(self, data, E, p):
         d = data
         
-        self.block_type = d[p+0:p+2].tobytes().decode().strip()
+        fmt = E + '2sHIIIIHH'
+        size = calcsize(fmt)
+        
+        block_type, \
+        block_size, \
+        p_dg_block, \
+        p_cg_block, \
+        _, \
+        p_records, \
+        num_cg_blocks, \
+        num_record_ids = unpack(fmt, d[p:p+size].tobytes())
 
-        self.block_size = np.squeeze(d[p+2:p+4].view(E+'u2'))
-        self.p_dg_block = np.squeeze(d[p+4:p+8].view(E+'u4'))
-        self.p_cg_block = np.squeeze(d[p+8:p+12].view(E+'u4'))
-        self.p_records = np.squeeze(d[p+16:p+20].view(E+'u4'))
-        self.num_cg_blocks = np.squeeze(d[p+20:p+22].view(E+'u2'))
-        self.num_record_ids = np.squeeze(d[p+22:p+24].view(E+'u2'))
+        self.block_type = block_type.decode().rstrip('\x00')
+        self.block_size = block_size
+        self.p_dg_block = p_dg_block
+        self.p_cg_block = p_cg_block
+        self.p_records = p_records
+        self.num_cg_blocks = num_cg_blocks
+        self.num_record_ids = num_record_ids
 
 
 # DATARECORDS
@@ -207,17 +253,28 @@ class CGBLOCK:
     def __init__(self, data, E, p):
         d = data
         
-        self.block_type = d[p+0:p+2].tobytes().decode().strip()
-
-        self.block_size = np.squeeze(d[p+2:p+4].view(E+'u2'))
-        self.p_cg_block = np.squeeze(d[p+4:p+8].view(E+'u4'))
-        self.p_cn_block = np.squeeze(d[p+8:p+12].view(E+'u4'))
-        self.p_tx_block = np.squeeze(d[p+12:p+16].view(E+'u4'))
+        fmt = E + '2sHIIIHHHI'
+        size = calcsize(fmt)
         
-        self.record_id = np.squeeze(d[p+16:p+18].view(E+'u2'))
-        self.num_cn_blocks = np.squeeze(d[p+18:p+20].view(E+'u2'))
-        self.record_size = np.squeeze(d[p+20:p+22].view(E+'u2'))
-        self.num_records = np.squeeze(d[p+22:p+26].view(E+'u4'))
+        block_type, \
+        block_size, \
+        p_cg_block, \
+        p_cn_block, \
+        p_tx_block, \
+        record_id, \
+        num_cn_blocks, \
+        record_size, \
+        num_records = unpack(fmt, d[p:p+size].tobytes())
+        
+        self.block_type = block_type.decode().rstrip('\x00')
+        self.block_size = block_size
+        self.p_cg_block = p_cg_block
+        self.p_cn_block = p_cn_block
+        self.p_tx_block = p_tx_block
+        self.record_id = record_id
+        self.num_cn_blocks = num_cn_blocks
+        self.record_size = record_size
+        self.num_records = num_records
 
 
 class CNBLOCK:
@@ -241,35 +298,54 @@ class CNBLOCK:
     def __init__(self, data, E, p):
         d = data
         
-        self.block_type = d[p+0:p+2].tobytes().decode().strip()
-        self.signal_name = d[p+26:p+58].tobytes().decode().strip()
+        fmt = E + '2sHIIIIIH32s128sHHHHdddIIH'
+        size = calcsize(fmt)
+        
+        block_type, \
+        block_size, \
+        p_cn_block, \
+        p_cc_block, \
+        _, \
+        _, \
+        p_tx_block, \
+        cn_type, \
+        signal_name, \
+        signal_description, \
+        bit_start, \
+        bit_length, \
+        signal_data_type, \
+        bool_value_range, \
+        min_value_range, \
+        max_value_range, \
+        sample_rate, \
+        p_unique_name, \
+        _, \
+        byte_offset = unpack(fmt, d[p:p+size].tobytes())
+        
+        self.block_type = block_type.decode().rstrip('\x00')
+        self.block_size = block_size
+        self.p_cn_block = p_cn_block
+        self.p_cc_block = p_cc_block
+        self.p_tx_block = p_tx_block
+        # cn_type: 0=data, 1=time
+        self.cn_type = cn_type
+        self.signal_name = signal_name.decode().rstrip('\x00')
         try:
-            self.signal_description = d[p+58:p+186].tobytes()\
-                        .rstrip('\x00')\
-                        .rsplit(b'\r\n')[0]\
-                        .decode(encoding='utf-8').strip()
+            self.signal_description = signal_description.rstrip('\x00') \
+                                      .rsplit(b'\r\n')[0].decode()
         except:
             self.signal_description = ''
-            
-        self.block_size = np.squeeze(d[p+2:p+4].view(E+'u2'))
-        self.p_cn_block = np.squeeze(d[p+4:p+8].view(E+'u4'))
-        self.p_cc_block = np.squeeze(d[p+8:p+12].view(E+'u4'))
-        self.p_tx_block = np.squeeze(d[p+20:p+24].view(E+'u4'))
-        # cn_type: 0=data, 1=time
-        self.cn_type = np.squeeze(d[p+24:p+26].view(E+'u2'))
-        self.bit_start = np.squeeze(d[p+186:p+188].view(E+'u2'))
-        self.bit_length = np.squeeze(d[p+188:p+190].view(E+'u2'))
-        self.signal_data_type = np.squeeze(d[p+190:p+192].view(E+'u2'))
-        self.bool_value_range = np.squeeze(d[p+192:p+194].view(E+'u2'))
-        # if bool==false, maybe not to implement these value ranges
-        self.min_value_range = np.squeeze(d[p+194:p+202].view(E+'f8'))
-        self.max_value_range = np.squeeze(d[p+202:p+210].view(E+'f8'))
-        self.sample_rate = np.squeeze(d[p+210:p+218].view(E+'f8'))
-        self.p_unique_name = np.squeeze(d[p+218:p+222].view(E+'u4'))
-        self.byte_offset = np.squeeze(d[p+226:p+228].view(E+'u2'))
+        self.bit_start = bit_start
+        self.bit_length = bit_length
+        self.signal_data_type = signal_data_type
+        self.bool_value_range = bool_value_range
+        self.min_value_range = min_value_range
+        self.max_value_range = max_value_range
+        self.sample_rate = sample_rate
+        self.p_unique_name = p_unique_name
+        self.byte_offset = byte_offset
 
-            
-            
+
 class CCBLOCK:
     """
     useful infos:
@@ -280,28 +356,117 @@ class CCBLOCK:
     
     def __init__(self, data, E, p):
         d = data
+
+        self.formula_id = np.squeeze(d[p+42:p+44].view(E+'u2'))
+        self.num_value_pairs = np.squeeze(d[p+44:p+46].view(E+'u2'))
+
+        # 0: parametric, linear
+        if self.formula_id==0:
+            post = str(2 * 8) + 's'
+            fmt_ = 'd' * 2
+
+        # 1: tabular with interpolation
+        elif self.formula_id==1:
+            post = str(2 * self.num_value_pairs.tolist() * 8) + 's'
+            fmt_ = 'd' * 2 * self.num_value_pairs.tolist()
+
+        # 2: tabular
+        elif self.formula_id==2:
+            post = str(2 * self.num_value_pairs * 8) + 's'
+            fmt_ = 'd' * 2 * self.num_value_pairs.tolist()
+
+        # 6: polynomial function
+        elif self.formula_id==6:
+            post = str(6 * 8) + 's'
+            fmt_ = 'd' * 6
+
+        # 7: exponential function
+        elif self.formula_id==7:
+            post = str(7 * 8) + 's'
+            fmt_ = 'd' * 7
+
+        # 8: logarithmic function
+        elif self.formula_id==8:
+            post = str(7 * 8) + 's'
+            fmt_ = 'd' * 7
+
+        # 9: ASAP2 Rational conversion formula
+        elif self.formula_id==9:
+            post = str(6 * 8) + 's'
+            fmt_ = 'd' * 6
+            
+        # 10: ASAM-MCD2 Text formula
+        elif self.formula_id==10:
+            post = '256s'
+            fmt_ = '256s'
+
+        # 11: ASAM-MCD2 Text Table, (COMPU_VTAB)
+        elif self.formula_id==11:
+            post = str(40 * self.num_value_pairs.tolist()) + 's'
+            fmt_ = 'd32s' * self.num_value_pairs.tolist()
+
+        # 12: ASAM-MCD2 Text Range Table (COMPU_VTAB_RANGE)
+        elif self.formula_id==12:
+            post = str(20 * (self.num_value_pairs.tolist() + 1)) + 's'
+            fmt_ = 'ddI' * (self.num_value_pairs.tolist() + 1)
+
+        # 132: Date (Based on 7 Byte Date data structure)
+        elif self.formula_id==132:
+            post = '7s'
+            fmt_ = 'H5c'
+
+        # 133: time (Based on 6 Byte Time data structure)
+        elif self.formula_id==133:
+            post = '6s'
+            fmt_ = 'IH'
+
+        elif self.formula_id==65535:
+            post = ''
+            fmt_ = ''
+        else:
+            raise ValueError('formula_id: %u does not exist.'%self.formula_id)
+
+        # print(post)
+        fmt = E + '2sHHdd20sHH' + post
+        size = calcsize(fmt)
+        # print(fmt)
+        # print(size)
+        # print(len(post))
         
-        self.block_type = d[p+0:p+2].tobytes().decode().strip()
+        if len(post):
+            block_type, \
+            block_size, \
+            bool_value_range, \
+            min_value_range, \
+            max_value_range, \
+            phy_unit, \
+            _, \
+            _, \
+            parameters = unpack(fmt, d[p:p+size].tobytes())
+        else:
+            block_type, \
+            block_size, \
+            bool_value_range, \
+            min_value_range, \
+            max_value_range, \
+            phy_unit, \
+            _, \
+            _ = unpack(fmt, d[p:p+size].tobytes())
+
+        self.block_type = block_type.decode().rstrip('\x00')
+        self.block_size = block_size
+        self.bool_value_range = bool_value_range
+        self.min_value_range = min_value_range
+        self.max_value_range = max_value_range
         try:
-            self.phy_unit = d[p+22:p+42].tobytes()\
-                    .rstrip('\x00')\
-                    .rsplit(b'\r\n')[0]\
-                    .decode().strip()
+            self.phy_unit = phy_unit.rstrip('\x00') \
+                                    .rsplit(b'\r\n')[0].decode()
         except:
             self.phy_unit = ''
-
-        self.block_size = np.squeeze(d[p+2:p+4].view(E+'u2'))
-        self.bool_value_range = np.squeeze(d[p+4:p+6].view(E+'u2'))
-        self.min_value_range = np.squeeze(d[p+6:p+14].view(E+'f8'))
-        self.max_value_range = np.squeeze(d[p+14:p+22].view(E+'f8'))
-        self.formula_id = np.squeeze(d[p+42:p+44].view(E+'u2'))
-        self.size_info = np.squeeze(d[p+44:p+46].view(E+'u2'))
-        if self.formula_id==0:
-            self.parameters = np.squeeze(d[p+46:p+62].view(E+'f8'))
-        elif self.formula_id==6 or self.formula_id==9:
-            self.parameters = np.squeeze(d[p+46:p+94].view(E+'f8'))
-        elif self.formula_id==7 or self.formula_id==8:
-            self.parameters = np.squeeze(d[p+46:p+102].view(E+'f8'))
+        if len(post):
+            self.parameters = parameters
+        else:
+            self.parameters = ''
 
 
 if __name__ == "__main__":
