@@ -117,10 +117,8 @@ class mdfload:
                     f_id = cnblock.ccblock.formula_id
                     param = cnblock.ccblock.parameters
                     if f_id==11:
-                        # print(cnblock.ccblock.formula_id)
-                        # print(param)
-                        print("param" in locals())
-                        # print(cnblock.ccblock.pycode)
+                        cnblock.ccblock.pycode = \
+                            cnblock.ccblock.pycode.replace("param", param.__repr__())
                     value = eval(cnblock.ccblock.pycode)
                     cnblock.value = value
 
@@ -455,7 +453,7 @@ class CCBLOCK:
                   str(self.num_value_pairs)+\
                  ', 2).T[1,:].tolist()))'
             # pycode = "np.array(list(map(lambda x,par: (par[x]), raw, param)))"
-            pycode = "np.array([param[k] for k in raw])"
+            pycode = "[param[k] for k in np.squeeze(raw).tolist()]"
             # print(pycode)
             # pycode = "np.array(list(map(param, raw)))"
 
