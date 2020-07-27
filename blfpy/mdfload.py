@@ -86,6 +86,11 @@ class mdfload:
 
         # raw
         for dgblock in self.dgblocks:
+            '''
+            pay attention:
+            - bb, when merge these loops
+            - record id is now not considered yet
+            '''
             bb = dgblock.records.mat
             for cgblock in dgblock.cgblocks:
                 for cnblock in cgblock.cnblocks:
