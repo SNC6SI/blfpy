@@ -8,6 +8,7 @@ Created on Wed Jul 22 23:49:28 2020
 from struct import unpack, calcsize
 import math
 import numpy as np
+from scipy import interpolate
 
 class mdfload:
     
@@ -109,6 +110,20 @@ class mdfload:
 
 
         # phy
+        for dgblock in self.dgblocks:
+            for cgblock in dgblock.cgblocks:
+                for cnblock in cgblock.cnblocks:
+                    raw = cnblock.raw
+                    f_id = cnblock.ccblock.formula_id
+                    param = cnblock.ccblock.parameters
+                    if f_id==11:
+                        # print(cnblock.ccblock.formula_id)
+                        # print(param)
+                        print("param" in locals())
+                        # print(cnblock.ccblock.pycode)
+                    value = eval(cnblock.ccblock.pycode)
+                    cnblock.value = value
+
 
 class IDBLOCK:
     """
@@ -365,69 +380,115 @@ class CCBLOCK:
         self.formula_id = np.squeeze(d[p+42:p+44].view(E+'u2'))
         self.num_value_pairs = np.squeeze(d[p+44:p+46].view(E+'u2'))
 
+        # cf: conversion formula
         # 0: parametric, linear
         if self.formula_id==0:
             post = str(2 * 8) + 's'
             fmt_ = 'd' * 2
+            cf = ''
+            pycode = "raw*param[1]+param[0]" 
 
         # 1: tabular with interpolation
         elif self.formula_id==1:
             post = str(2 * self.num_value_pairs.tolist() * 8) + 's'
             fmt_ = 'd' * 2 * self.num_value_pairs.tolist()
+            cf = 'parameter.reshape(' + \
+                 str(self.num_value_pairs) + \
+                 ', 2).T'
+            pycode = "np.interp(raw, param[0,:], param[1,:])"
 
         # 2: tabular
         elif self.formula_id==2:
             post = str(2 * self.num_value_pairs * 8) + 's'
             fmt_ = 'd' * 2 * self.num_value_pairs.tolist()
+            cf = 'parameter.reshape(' + \
+                 str(self.num_value_pairs) + \
+                 ', 2).T'
+            pycode = "interpolate.interp1d(param[0,:], param[1,:], kind='nearest')(raw)"
 
         # 6: polynomial function
         elif self.formula_id==6:
             post = str(6 * 8) + 's'
             fmt_ = 'd' * 6
+            cf = ''
+            pycode = "(param[1]-param[3]*(raw-param[4]-param[5]))/(param[2]*(raw-param[4]-param[5])-param[0])"
 
         # 7: exponential function
         elif self.formula_id==7:
             post = str(7 * 8) + 's'
             fmt_ = 'd' * 7
+            cf = ''
+            pycode = ''
+            print("7: exponential function is not implemented.")
 
         # 8: logarithmic function
         elif self.formula_id==8:
             post = str(7 * 8) + 's'
             fmt_ = 'd' * 7
+            cf = ''
+            pycode = ''
+            print("8: exponential function is not implemented.")
 
         # 9: ASAP2 Rational conversion formula
         elif self.formula_id==9:
             post = str(6 * 8) + 's'
             fmt_ = 'd' * 6
-            
+            cf = ''
+            pycode = ''
+            print("9: ASAP2 Rational conversion formula is not implemented.")
+
         # 10: ASAM-MCD2 Text formula
         elif self.formula_id==10:
             post = '256s'
             fmt_ = '256s'
+            cf = ''
+            pycode = ''
+            print("10: ASAP2 Text formula is not implemented.")
 
         # 11: ASAM-MCD2 Text Table, (COMPU_VTAB)
         elif self.formula_id==11:
             post = str(40 * self.num_value_pairs.tolist()) + 's'
             fmt_ = 'd32s' * self.num_value_pairs.tolist()
+            cf = 'dict(zip(np.array(parameters).reshape('+\
+                  str(self.num_value_pairs)+\
+                 ', 2).T[0,:].astype("float").astype("int").tolist(),np.array(parameters).reshape('+\
+                  str(self.num_value_pairs)+\
+                 ', 2).T[1,:].tolist()))'
+            # pycode = "np.array(list(map(lambda x,par: (par[x]), raw, param)))"
+            pycode = "np.array([param[k] for k in raw])"
+            # print(pycode)
+            # pycode = "np.array(list(map(param, raw)))"
+
+            # print("11: ASAM-MCD2 Text Table is not implemented.")
 
         # 12: ASAM-MCD2 Text Range Table (COMPU_VTAB_RANGE)
         elif self.formula_id==12:
             post = str(20 * (self.num_value_pairs.tolist() + 1)) + 's'
             fmt_ = 'ddI' * (self.num_value_pairs.tolist() + 1)
+            cf = ''
+            print("12: ASAM-MCD2 Text Range Table is not implemented.")
 
         # 132: Date (Based on 7 Byte Date data structure)
         elif self.formula_id==132:
             post = '7s'
             fmt_ = 'H5c'
+            cf = ''
+            pycode = ''
+            print("132: Date is not implemented.")
 
         # 133: time (Based on 6 Byte Time data structure)
         elif self.formula_id==133:
             post = '6s'
             fmt_ = 'IH'
+            cf = ''
+            pycode = ''
+            print("133: time is not implemented.")
 
         elif self.formula_id==65535:
             post = ''
             fmt_ = ''
+            cf = ''
+            pycode = 'raw'
         else:
             raise ValueError('formula_id: %u does not exist.'%self.formula_id)
 
@@ -465,9 +526,14 @@ class CCBLOCK:
         except:
             self.phy_unit = ''
         if len(post):
-            self.parameters = unpack(fmt_, parameters)
+            parameters = unpack(fmt_, parameters)
         else:
-            self.parameters = ''
+            parameters = ''
+        if len(cf):
+            parameters = eval(cf)
+            
+        self.parameters = parameters
+        self.pycode = pycode
 
 
 if __name__ == "__main__":
