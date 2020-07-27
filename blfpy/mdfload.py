@@ -426,12 +426,8 @@ class CCBLOCK:
         else:
             raise ValueError('formula_id: %u does not exist.'%self.formula_id)
 
-        # print(post)
         fmt = E + '2sHHdd20sHH' + post
         size = calcsize(fmt)
-        # print(fmt)
-        # print(size)
-        # print(len(post))
         
         if len(post):
             block_type, \
