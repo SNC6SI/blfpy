@@ -261,7 +261,7 @@ if __name__ == "__main__":
                                     'VBU_BMS_MinTemp']}
     # del bl.signals
     # channel = None
-    bl.run_task()
+    bl.read()
     # bl.plot(matlab.double(bl.can['VBU_BMS_0x100']['ctime'].tolist()),
     #         matlab.double( bl.can['VBU_BMS_0x100']['VBU_BMS_PackU'].tolist()))
     # bl.grid('on', nargout=0)
