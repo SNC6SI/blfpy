@@ -116,9 +116,6 @@ class mdfload:
                     raw = cnblock.raw
                     f_id = cnblock.ccblock.formula_id
                     param = cnblock.ccblock.parameters
-                    if f_id==11:
-                        cnblock.ccblock.pycode = \
-                            cnblock.ccblock.pycode.replace("param", param.__repr__())
                     value = eval(cnblock.ccblock.pycode)
                     cnblock.value = value
 
@@ -529,6 +526,8 @@ class CCBLOCK:
             parameters = ''
         if len(cf):
             parameters = eval(cf)
+        if self.formula_id==11:
+            pycode = pycode.replace("param", parameters.__repr__())
             
         self.parameters = parameters
         self.pycode = pycode
