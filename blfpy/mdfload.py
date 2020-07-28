@@ -6,6 +6,7 @@ Created on Wed Jul 22 23:49:28 2020
 """
 
 from struct import unpack, calcsize
+import warnings
 import math
 import numpy as np
 from scipy import interpolate
@@ -151,6 +152,9 @@ class IDBLOCK:
         self.program_identifier = program_identifier.decode().rstrip('\x00')
         self.floating_point_format = floating_point_format
         self.version = version
+        
+        if self.version!=300:
+            warnings.warn('Only MDF version 3.00 is supported.', UserWarning)
         
         '''
         following properties are not used in version 3.00
