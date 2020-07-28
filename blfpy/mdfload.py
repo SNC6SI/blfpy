@@ -101,10 +101,32 @@ class mdfload:
                     byte_end = cnblock.byte_offset + \
                         math.ceil((cnblock.bit_start + cnblock.bit_length)/8)
                     byte_length = byte_end-byte_start
+                    
+                    # dt: data type
+                    # dl: data length
                     if byte_length<=8:
+                        if cnblock.signal_data_type==0:
+                            dt = 'u'
+                            dl = str(2**(math.ceil(math.log2(byte_length))))
+                        elif cnblock.signal_data_type==1:
+                            dt = 'i'
+                            dl = str(2**(math.ceil(math.log2(byte_length))))
+                        elif cnblock.signal_data_type==2:
+                            dt = 'f'
+                            dl = '4'
+                        elif cnblock.signal_data_type==3:
+                            dt = 'f'
+                            dl = '8'
+                        else:
+                            raise ValueError('data_type:%u for signal %s is not supported.'% \
+                                             (cnblock.signal_data_type, cnblock.signal_name))
                         view = self.endian + 'u' + str(2**(math.ceil(math.log2(byte_length))))
                         raw = bb[:, byte_start:byte_end].copy().view(view)
                         raw = (raw>>(cnblock.bit_start%8))&np.uint64((2**cnblock.bit_length-1))
+
+                        view = self.endian + dt + dl
+                        raw = bb[:, byte_start:byte_end].copy().view(view)
+                        
                     else:
                         raw = bb[:, byte_start:byte_end].copy()
                     cnblock.raw = raw
