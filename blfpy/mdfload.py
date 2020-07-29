@@ -32,22 +32,18 @@ class mdfload:
 
         # DG
         if self.hdblock.num_dg_blocks:
-            self.dgblocks = []
             dgblock = DGBLOCK(self.data, self.endian, self.hdblock.p_dg_block)
-            self.dgblocks += [dgblock]
+            self.dgblocks = [dgblock]
             while dgblock.p_dg_block:
                 dgblock = DGBLOCK(self.data, self.endian, dgblock.p_dg_block)
                 self.dgblocks += [dgblock]
-        
-        # print("num_dg_blocks in hdblock: %u\nnum_dg_blocks read: %u" % \
-        #        (self.hdblock.num_dg_blocks, len(self.dgblocks)))
-            
+
+
         # CG
         for dgblock in self.dgblocks:
             if dgblock.num_cg_blocks:
-                cgblocks = []
                 cgblock = CGBLOCK(self.data, self.endian, dgblock.p_cg_block)
-                cgblocks += [cgblock]
+                cgblocks = [cgblock]
                 while cgblock.p_cg_block:
                     cgblock = CGBLOCK(self.data, self.endian, cgblock.p_cg_block)
                     cgblocks += [cgblock]
@@ -57,9 +53,8 @@ class mdfload:
         # CN
         for dgblock in self.dgblocks:
             for cgblock in dgblock.cgblocks:
-                cnblocks = []
                 cnblock = CNBLOCK(self.data, self.endian, cgblock.p_cn_block)
-                cnblocks += [cnblock]
+                cnblocks = [cnblock]
                 while cnblock.p_cn_block:
                     cnblock = CNBLOCK(self.data, self.endian, cnblock.p_cn_block)
                     cnblocks += [cnblock]
