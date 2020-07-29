@@ -96,7 +96,7 @@ class blfload():
 
     def collect_parser(self):
         self.parser = dbc2code(fn=self.__dbc)
-        self.parser.do_parse()
+        self.parser.get_parser()
 
 
     def unpack_data(self):
