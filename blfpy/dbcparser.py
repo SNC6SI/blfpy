@@ -31,7 +31,6 @@ class dbc2code():
         for BO in self.BO_txt_blks:
             lines = BO.split('\n')
             BO_dict = self.BO_RE.match(lines[0]).groupdict()
-            canid = BO_dict['canid']
             BO_dict['canid'] = int(BO_dict['canid'])
             BO_dict['canid_hex'] = format(BO_dict['canid'], 'X')
             SG_dicts = {}
