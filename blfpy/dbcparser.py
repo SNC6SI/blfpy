@@ -26,18 +26,6 @@ class dbc2code():
                 self.dbc_raw = f.read()
 
 
-    def _get_enum(self):
-        val_raw = self.VAL_RE.findall(self.dbc_raw)
-        self.enums = {}
-        for val in val_raw:
-            canid = int(val[0])
-            signal = val[1]
-            enum = dict(self.VAL_INTERN_RE.findall(val[2]))
-            if canid not in self.enums.keys():
-                self.enums[canid] = {}
-            self.enums[canid][signal] = enum
-
-
     def get_parser(self):
         self.BO_blks = self.BO_Blk_RE.findall(self.dbc_raw)
         self._get_enum()
@@ -158,6 +146,18 @@ class dbc2code():
         if offset:
             SGalgostr = SGalgostr + '+' + str(offset)
         return SGalgostr
+
+
+    def _get_enum(self):
+        val_raw = self.VAL_RE.findall(self.dbc_raw)
+        self.enums = {}
+        for val in val_raw:
+            canid = int(val[0])
+            signal = val[1]
+            enum = dict(self.VAL_INTERN_RE.findall(val[2]))
+            if canid not in self.enums.keys():
+                self.enums[canid] = {}
+            self.enums[canid][signal] = enum
 
 
 
