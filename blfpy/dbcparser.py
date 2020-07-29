@@ -38,7 +38,9 @@ class dbc2code():
             if canid not in self.enums.keys():
                 self.enums[canid] = {}
             self.enums[canid][signal] = enum
+
     def get_parser(self):
+        self.get_enum()
         self.message = {}
         for BO in self.BO_txt_blks:
             lines = BO.split('\n')
@@ -57,6 +59,10 @@ class dbc2code():
                     # involke parse method
                     SG_dict['sigmat'] = self.parser_internal_info2matrix(SG_dict)
                     SG_dict['pycode'] = self.parser_internal_matrix2py(SG_dict)
+                    # enum
+                    if BO_dict['canid'] in self.enums.keys():
+                        if SG_dict['name'] in self.enums[BO_dict['canid']].keys():
+                            SG_dict['enum'] = self.enums[BO_dict['canid']][SG_dict['name']]
                     # 
                     SG_dicts[SG_dict['name']] = SG_dict
             BO_dict['signal'] = SG_dicts
