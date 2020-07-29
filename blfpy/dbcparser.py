@@ -15,6 +15,8 @@ class dbc2code():
         self.Blk_RE = re.compile(r'BO_ \d+ [a-zA-Z].+?\n\n', re.DOTALL)
         self.BO_RE = re.compile(r"BO_ (?P<canid>\d+) (?P<name>\w+)")
         self.SG_RE = re.compile(r"\s*SG_ (?P<name>\w+) : (?P<start>\d+)\|(?P<length>\d+)@(?P<endian>[01])\+? \((?P<gain>\d+(\.\d*)?),(?P<offset>-?\d+(\.\d*)?)\)")
+        self.VAL_RE = re.compile(r'VAL_ (\d+) (\w+) ((?:\d+ ".+?")+?) ;')
+        self.VAL_INTERN_RE = re.compile(r'(\d+) "(.*?)"')
         self.bitmatrix = np.flip(np.arange(64).reshape(8, 8), 1).reshape(64,)
         self.bb = 'bb'
         if fn is None:
@@ -26,6 +28,16 @@ class dbc2code():
     def get_BO_txt(self):
         self.BO_txt_blks = self.Blk_RE.findall(self.dbc_raw)
 
+    def get_enum(self):
+        val_raw = self.VAL_RE.findall(self.dbc_raw)
+        self.enums = {}
+        for val in val_raw:
+            canid = int(val[0])
+            signal = val[1]
+            enum = dict(self.VAL_INTERN_RE.findall(val[2]))
+            if canid not in self.enums.keys():
+                self.enums[canid] = {}
+            self.enums[canid][signal] = enum
     def get_parser(self):
         self.message = {}
         for BO in self.BO_txt_blks:
