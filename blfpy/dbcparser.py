@@ -26,9 +26,7 @@ class dbc2code():
                 self.dbc_raw = f.read()
 
 
-
-
-    def get_enum(self):
+    def _get_enum(self):
         val_raw = self.VAL_RE.findall(self.dbc_raw)
         self.enums = {}
         for val in val_raw:
@@ -41,8 +39,8 @@ class dbc2code():
 
 
     def get_parser(self):
-        self.get_enum()
         self.BO_blks = self.BO_Blk_RE.findall(self.dbc_raw)
+        self._get_enum()
         self.message = {}
         for BO in self.BO_blks:
             lines = BO.split('\n')
@@ -59,8 +57,8 @@ class dbc2code():
                     SG_dict['gain'] = float(SG_dict['gain'])
                     SG_dict['offset'] = float(SG_dict['offset'])
                     # involke parse method
-                    SG_dict['sigmat'] = self.parser_internal_info2matrix(SG_dict)
-                    SG_dict['pycode'] = self.parser_internal_matrix2py(SG_dict)
+                    SG_dict['sigmat'] = self._parser_internal_info2matrix(SG_dict)
+                    SG_dict['pycode'] = self._parser_internal_matrix2py(SG_dict)
                     # enum
                     if BO_dict['canid'] in self.enums.keys():
                         if SG_dict['name'] in self.enums[BO_dict['canid']].keys():
@@ -71,7 +69,7 @@ class dbc2code():
             self.message[BO_dict['canid']] = BO_dict
 
 
-    def parser_internal_info2matrix(self, info):
+    def _parser_internal_info2matrix(self, info):
         if not info['endian']:
             # motorola
             bitend_idx = np.argwhere(self.bitmatrix==info['start'])
@@ -135,7 +133,7 @@ class dbc2code():
         return sigmat
 
 
-    def parser_internal_matrix2py(self, SG_dict):
+    def _parser_internal_matrix2py(self, SG_dict):
         sigmat = SG_dict['sigmat']
         gain = SG_dict['gain']
         offset = SG_dict['offset']
@@ -160,7 +158,6 @@ class dbc2code():
         if offset:
             SGalgostr = SGalgostr + '+' + str(offset)
         return SGalgostr
-
 
 
 
