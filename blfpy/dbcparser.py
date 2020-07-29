@@ -12,7 +12,7 @@ import numpy as np
 class dbc2code():
 
     def __init__(self, fn=None):
-        self.Blk_RE = re.compile(r'BO_ \d+ [a-zA-Z].+?\n\n', re.DOTALL)
+        self.BO_Blk_RE = re.compile(r'BO_ \d+ [a-zA-Z].+?\n\n', re.DOTALL)
         self.BO_RE = re.compile(r"BO_ (?P<canid>\d+) (?P<name>\w+)")
         self.SG_RE = re.compile(r"\s*SG_ (?P<name>\w+) : (?P<start>\d+)\|(?P<length>\d+)@(?P<endian>[01])\+? \((?P<gain>\d+(\.\d*)?),(?P<offset>-?\d+(\.\d*)?)\)")
         self.VAL_RE = re.compile(r'VAL_ (\d+) (\w+) ((?:\d+ ".+?")+?) ;')
@@ -26,8 +26,6 @@ class dbc2code():
                 self.dbc_raw = f.read()
 
 
-    def get_BO_txt(self):
-        self.BO_txt_blks = self.Blk_RE.findall(self.dbc_raw)
 
 
     def get_enum(self):
@@ -44,8 +42,9 @@ class dbc2code():
 
     def get_parser(self):
         self.get_enum()
+        self.BO_blks = self.BO_Blk_RE.findall(self.dbc_raw)
         self.message = {}
-        for BO in self.BO_txt_blks:
+        for BO in self.BO_blks:
             lines = BO.split('\n')
             BO_dict = self.BO_RE.match(lines[0]).groupdict()
             BO_dict['canid'] = int(BO_dict['canid'])
@@ -163,11 +162,8 @@ class dbc2code():
         return SGalgostr
 
 
-    def do_parse(self):
-        self.get_BO_txt()
-        self.get_parser()
 
 
 if __name__ == "__main__":
     dbc = dbc2code(fn="test/dbc/IC321_PTCAN_CMatrix_V1.7_PT装车_VBU.dbc")
-    dbc.do_parse()
+    dbc.get_parser()
