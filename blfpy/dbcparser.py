@@ -10,7 +10,7 @@ import math
 import numpy as np
 
 class dbc2code():
-    
+
     def __init__(self, fn=None):
         self.Blk_RE = re.compile(r'BO_ \d+ [a-zA-Z].+?\n\n', re.DOTALL)
         self.BO_RE = re.compile(r"BO_ (?P<canid>\d+) (?P<name>\w+)")
@@ -25,8 +25,10 @@ class dbc2code():
             with open(fn, 'rt', encoding='GBK') as f:
                 self.dbc_raw = f.read()
 
+
     def get_BO_txt(self):
         self.BO_txt_blks = self.Blk_RE.findall(self.dbc_raw)
+
 
     def get_enum(self):
         val_raw = self.VAL_RE.findall(self.dbc_raw)
@@ -38,6 +40,7 @@ class dbc2code():
             if canid not in self.enums.keys():
                 self.enums[canid] = {}
             self.enums[canid][signal] = enum
+
 
     def get_parser(self):
         self.get_enum()
