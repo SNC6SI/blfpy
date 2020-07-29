@@ -149,5 +149,5 @@ class dbc2code():
 
 
 if __name__ == "__main__":
-    dbc = dbc2code(fn="test/dbc/ME7_PTCAN_CMatrix_190815_PVS.dbc")
+    dbc = dbc2code(fn="test/dbc/IC321_PTCAN_CMatrix_V1.7_PT装车_VBU.dbc")
     dbc.do_parse()
