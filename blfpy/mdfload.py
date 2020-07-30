@@ -12,7 +12,7 @@ import numpy as np
 from scipy import interpolate
 
 class mdfload:
-    
+
     def __init__(self, mdf=None):
         if mdf is not None:
             self.mdf = mdf
@@ -138,26 +138,34 @@ class mdfload:
                     cnblock.value = value
 
 
-        def _read_post(self):
-            self.parsed_data = {}
-            for dgblock in self.dgblocks:
-                for cgblock in dgblock.cgblocks:
-                    #
-                    time = None
-                    # loop 1: find time
-                    for cnblock in cgblock.cnblocks:
-                        # cn_type 0:data, 1:time
-                        if cnblock.cn_type==0:
-                            continue
-                        else:
-                            time = cnblock.value
-                            break
-                    # if time is not found, skip this CG
-                    if time is None:
+        self._read_post()
+
+
+    def _read_post(self):
+        self.parsed_data = {}
+        for dgblock in self.dgblocks:
+            for cgblock in dgblock.cgblocks:
+                #
+                time = None
+                # loop 1: find time
+                for cnblock in cgblock.cnblocks:
+                    # cn_type 0:data, 1:time
+                    if cnblock.cn_type==0:
                         continue
-                    # loop 2: get data
-                    for cnblock in cgblock.cnblocks:
-                        pass
+                    else:
+                        time = cnblock.value
+                        break
+                # if time is not found, skip this CG
+                if time is None:
+                    continue
+                # loop 2: get data
+                for cnblock in cgblock.cnblocks:
+                    signal = {}
+                    signal_name = cnblock.signal_name
+                    signal['raw'] = cnblock.raw
+                    signal['value'] = cnblock.value
+                    signal['time'] = time
+                    self.parsed_data[signal_name] = signal
 
 
 class IDBLOCK:
