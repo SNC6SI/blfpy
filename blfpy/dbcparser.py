@@ -11,14 +11,16 @@ import numpy as np
 
 class dbc2code():
 
+    __BO_Blk_RE = re.compile(r'BO_ \d+ [a-zA-Z].+?\n\n', re.DOTALL)
+    __BO_RE = re.compile(r"BO_ (?P<canid>\d+) (?P<name>\w+)")
+    __SG_RE = re.compile(r"\s*SG_ (?P<name>\w+) : (?P<start>\d+)\|(?P<length>\d+)@(?P<endian>[01])\+? \((?P<gain>\d+(\.\d*)?),(?P<offset>-?\d+(\.\d*)?)\)")
+    __VAL_RE = re.compile(r'VAL_ (\d+) (\w+) ((?:\d+ ".+?")+?) ;')
+    __VAL_INTERN_RE = re.compile(r'(\d+) "(.*?)"')
+    __BITMATRIX = np.flip(np.arange(64).reshape(8, 8), 1).reshape(64,)
+    __BB = 'bb'
+
+
     def __init__(self, fn=None):
-        self.BO_Blk_RE = re.compile(r'BO_ \d+ [a-zA-Z].+?\n\n', re.DOTALL)
-        self.BO_RE = re.compile(r"BO_ (?P<canid>\d+) (?P<name>\w+)")
-        self.SG_RE = re.compile(r"\s*SG_ (?P<name>\w+) : (?P<start>\d+)\|(?P<length>\d+)@(?P<endian>[01])\+? \((?P<gain>\d+(\.\d*)?),(?P<offset>-?\d+(\.\d*)?)\)")
-        self.VAL_RE = re.compile(r'VAL_ (\d+) (\w+) ((?:\d+ ".+?")+?) ;')
-        self.VAL_INTERN_RE = re.compile(r'(\d+) "(.*?)"')
-        self.bitmatrix = np.flip(np.arange(64).reshape(8, 8), 1).reshape(64,)
-        self.bb = 'bb'
         if fn is None:
             self.dbc_raw = None
         else:
@@ -27,18 +29,18 @@ class dbc2code():
 
 
     def get_parser(self):
-        self.BO_blks = self.BO_Blk_RE.findall(self.dbc_raw)
+        self.BO_blks = self.__BO_Blk_RE.findall(self.dbc_raw)
         self._get_enum()
         self.message = {}
         for BO in self.BO_blks:
             lines = BO.split('\n')
-            BO_dict = self.BO_RE.match(lines[0]).groupdict()
+            BO_dict = self.__BO_RE.match(lines[0]).groupdict()
             BO_dict['canid'] = int(BO_dict['canid'])
             BO_dict['canid_hex'] = format(BO_dict['canid'], 'X')
             SG_dicts = {}
             for SG in lines[1:]:
                 if len(SG) > 0:
-                    SG_dict = self.SG_RE.match(SG).groupdict()
+                    SG_dict = self.__SG_RE.match(SG).groupdict()
                     SG_dict['start'] = int(SG_dict['start'])
                     SG_dict['length'] = int(SG_dict['length'])
                     SG_dict['endian'] = int(SG_dict['endian'])
@@ -60,12 +62,12 @@ class dbc2code():
     def _parser_internal_info2matrix(self, info):
         if not info['endian']:
             # motorola
-            bitend_idx = np.argwhere(self.bitmatrix==info['start'])
+            bitend_idx = np.argwhere(self.__BITMATRIX==info['start'])
             bitstart_idx = bitend_idx + info['length'] - 1
         else:
             # intel
-            bitstart_idx = np.argwhere(self.bitmatrix==info['start'])
-            bitend_idx = np.argwhere(self.bitmatrix==(info['start']+info['length']-1))
+            bitstart_idx = np.argwhere(self.__BITMATRIX==info['start'])
+            bitend_idx = np.argwhere(self.__BITMATRIX==(info['start']+info['length']-1))
         
         bitend_bytepos = math.floor(bitend_idx/8)
         bitstart_bytepos = math.floor(bitstart_idx/8)
@@ -131,9 +133,7 @@ class dbc2code():
         for j in range(loopnum):
             if j > 0:
                 SGalgostr = ' + ' + SGalgostr
-            # be care b[1,:], ':' for column is not used for a single 8 bytes
-            s = self.bb + '[:,' + str(sigmat[j, 0]) + ']'
-            # s = self.bb + '[' + str(sigmat[j, 0]) + ']'
+            s = self.__BB + '[:,' + str(sigmat[j, 0]) + ']'
             s =  '(' + s + '>>' + str(sigmat[j, 1]) + ')'
             s = '(' + s + '&(' + str(2**sigmat[j, 3]-1) + '))'
             if sigmat[j, 4]:
@@ -149,12 +149,12 @@ class dbc2code():
 
 
     def _get_enum(self):
-        val_raw = self.VAL_RE.findall(self.dbc_raw)
+        val_raw = self.__VAL_RE.findall(self.dbc_raw)
         self.enums = {}
         for val in val_raw:
             canid = int(val[0])
             signal = val[1]
-            enum = dict(self.VAL_INTERN_RE.findall(val[2]))
+            enum = dict(self.__VAL_INTERN_RE.findall(val[2]))
             if canid not in self.enums.keys():
                 self.enums[canid] = {}
             self.enums[canid][signal] = enum
