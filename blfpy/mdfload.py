@@ -138,6 +138,28 @@ class mdfload:
                     cnblock.value = value
 
 
+        def _read_post(self):
+            self.parsed_data = {}
+            for dgblock in self.dgblocks:
+                for cgblock in dgblock.cgblocks:
+                    #
+                    time = None
+                    # loop 1: find time
+                    for cnblock in cgblock.cnblocks:
+                        # cn_type 0:data, 1:time
+                        if cnblock.cn_type==0:
+                            continue
+                        else:
+                            time = cnblock.value
+                            break
+                    # if time is not found, skip this CG
+                    if time is None:
+                        continue
+                    # loop 2: get data
+                    for cnblock in cgblock.cnblocks:
+                        pass
+
+
 class IDBLOCK:
     """
     useful infos:
