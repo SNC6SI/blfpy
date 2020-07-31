@@ -598,8 +598,8 @@ class  mdfwrite():
     internally.
     """
 
-    def __init__(self, bl=None):
-        pass
+    def __init__(self, blf=None):
+        self.blf = blf
 
 
     class IDBLOCK():
@@ -607,7 +607,6 @@ class  mdfwrite():
         # E stands for endian, 1: big endian, motorola
 
         def __init__(self, E):
-
             fmt = E + '8s8s8sHHHH32s'
 
             file_identifier = b'MDF     '
@@ -640,8 +639,41 @@ class  mdfwrite():
 
 
     class HDBLOCK():
-        pass
 
+        def __init__(self, E):
+            fmt = E + '2sHIIIH10s8s32s32s32s32s'
+            size = calcsize(fmt)
+
+            block_type = b'HD'
+            block_size = size
+            p_dg_block = 0
+            p_tx_block = 0
+            p_pr_block = 0
+            num_dg_blocks = len(self.bl.can)
+            record_date, \
+            record_time, \
+            author_name, \
+            org_dept_name, \
+            project_name, \
+            subject_name = unpack(fmt, d[p:p+size].tobytes())
+
+            self.block_type = block_type.decode().rstrip('\x00')
+            self.block_size = block_size
+            self.p_dg_block = p_dg_block
+            self.p_tx_block = p_tx_block
+            self.p_pr_block = p_pr_block
+            self.num_dg_blocks = num_dg_blocks
+            self.record_date = record_date.decode() # DD:MM:YYYY
+            self.record_time = record_time.decode() # HH:MM:SS
+            self.author_name = author_name.decode().rstrip('\x00')
+            self.org_dept_name = org_dept_name.decode().rstrip('\x00')
+            self.project_name = project_name.decode().rstrip('\x00')
+            self.subject_name = subject_name.decode().rstrip('\x00')
+
+
+        def set_p_dg_block(self, p):
+            # TODO maybe data type
+            self.d[4:8] = p
 
     class DGBLOCK():
         pass
