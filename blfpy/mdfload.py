@@ -598,13 +598,45 @@ class  mdfwrite():
     internally.
     """
 
-
     def __init__(self, bl=None):
         pass
 
 
     class IDBLOCK():
-        pass
+
+        # E stands for endian, 1: big endian, motorola
+
+        def __init__(self, E):
+
+            fmt = E + '8s8s8sHHHH32s'
+
+            file_identifier = b'MDF     '
+            format_identifier = b'3.00    '
+            program_identifier = b'blfpy   '
+    
+            if E == '>':
+                endian = 1
+            elif E == '<':
+                endian = 0
+            else:
+                raise ValueError
+    
+            endian = 1
+            floating_point_format = 0
+            version = 300
+            reserved_1 = 0
+            reserved_2 = b''
+    
+            d = pack(fmt,
+                     file_identifier,
+                     format_identifier,
+                     program_identifier,
+                     endian,
+                     floating_point_format,
+                     version,
+                     reserved_1,
+                     reserved_2)
+            self.d = np.frombuffer(d, dtype=np.uint8)
 
 
     class HDBLOCK():
