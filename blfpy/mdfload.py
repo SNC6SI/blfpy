@@ -5,7 +5,7 @@ Created on Wed Jul 22 23:49:28 2020
 @author: SNC6SI: Shen,Chenghao <snc6si@gmail.com>
 """
 
-from struct import unpack, calcsize
+from struct import unpack, pack, calcsize
 import warnings
 import math
 import re
