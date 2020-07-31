@@ -8,10 +8,13 @@ Created on Wed Jul 22 23:49:28 2020
 from struct import unpack, calcsize
 import warnings
 import math
+import re
 import numpy as np
 from scipy import interpolate
 
 class mdfload:
+
+    __SIGNAME_RE = re.compile(r'(\w+)\\?.*')
 
     def __init__(self, mdf=None):
         if mdf is not None:
@@ -161,9 +164,11 @@ class mdfload:
                 # loop 2: get data
                 for cnblock in cgblock.cnblocks:
                     signal = {}
-                    signal_name = cnblock.signal_name
                     if cnblock.signal_name=='time':
                         continue
+                    else:
+                        signal_name = \
+                            self.__SIGNAME_RE.findall(cnblock.signal_name)[0]
                     signal['raw'] = cnblock.raw
                     signal['value'] = cnblock.value
                     signal['time'] = time
