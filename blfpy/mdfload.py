@@ -162,6 +162,8 @@ class mdfload:
                 for cnblock in cgblock.cnblocks:
                     signal = {}
                     signal_name = cnblock.signal_name
+                    if cnblock.signal_name=='time':
+                        continue
                     signal['raw'] = cnblock.raw
                     signal['value'] = cnblock.value
                     signal['time'] = time
