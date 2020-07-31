@@ -22,17 +22,17 @@ class dbc2code():
 
     def __init__(self, fn=None):
         if fn is None:
-            self.dbc_raw = None
+            self.__dbc_raw = None
         else:
             with open(fn, 'rt', encoding='GBK') as f:
-                self.dbc_raw = f.read()
+                self.__dbc_raw = f.read()
 
 
     def get_parser(self):
-        self.BO_blks = self.__BO_Blk_RE.findall(self.dbc_raw)
+        self.__BO_blks = self.__BO_Blk_RE.findall(self.__dbc_raw)
         self._get_enum()
         self.message = {}
-        for BO in self.BO_blks:
+        for BO in self.__BO_blks:
             lines = BO.split('\n')
             BO_dict = self.__BO_RE.match(lines[0]).groupdict()
             BO_dict['canid'] = int(BO_dict['canid'])
@@ -149,7 +149,7 @@ class dbc2code():
 
 
     def _get_enum(self):
-        val_raw = self.__VAL_RE.findall(self.dbc_raw)
+        val_raw = self.__VAL_RE.findall(self.__dbc_raw)
         self.enums = {}
         for val in val_raw:
             canid = int(val[0])
