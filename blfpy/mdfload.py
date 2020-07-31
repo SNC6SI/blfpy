@@ -592,6 +592,45 @@ class mdfread:
             self.pycode = pycode
 
 
+class  mdfwrite():
+    """
+    class mdfwrite is so designed, that it will be only invoked by blfload
+    internally.
+    """
+
+
+    def __init__(self, bl=None):
+        pass
+
+
+    class IDBLOCK():
+        pass
+
+
+    class HDBLOCK():
+        pass
+
+
+    class DGBLOCK():
+        pass
+
+
+    class CGBLOCK():
+        pass
+
+
+    class CNBLOCK():
+        pass
+
+
+    class CCBLOCK():
+        pass
+
+
+    class DR():
+        pass
+
+
 if __name__ == "__main__":
     mdf_file = r'../test/2020-07-17_19_IC321_HEV150_SW2.2.4_C2.2.1_FCH_NoreqI_01.dat'
     # np.byte is an alias of np.int8, shall use np.uint8 instead
