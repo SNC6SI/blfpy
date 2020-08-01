@@ -61,17 +61,17 @@ class blfload():
             self.__blf = blf
 
 
-    @property
-    def can(self):
-        if hasattr(self, 'parsed_data'):
-            return self.parsed_data
-        else:
-            return None
+    # @property
+    # def can(self):
+    #     if hasattr(self, 'parsed_data'):
+    #         return self.parsed_data
+    #     else:
+    #         return None
 
 
-    @can.setter
-    def can(self, value=None):
-        pass
+    # @can.setter
+    # def can(self, value=None):
+    #     pass
 
     # =========================================================================
     # methods
@@ -94,7 +94,7 @@ class blfload():
             self.detect_channel()
             self.parse_data()
             # return
-            return self.can
+            return self.parsed_data
 
 
     def collect_parser(self):
