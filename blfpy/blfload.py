@@ -214,14 +214,23 @@ class blfload():
             self.parsed_data[message['name']] = msg_p
 
 
-    def save_data(self, mat_fn=None):
+    def save_data(self, file_name=None, file_format='mat'):
         # TODO: rewrite as a interface, will also save as mdf
-        from scipy.io import savemat
-        if mat_fn is None:
+        # default file_name
+        if file_name is None:
             p = os.path.abspath(self.blf)
-            mat_fn = ''.join((os.path.splitext(p)[0], '.mat'))
+            file_name = ''.join((os.path.splitext(p)[0], '.mat'))
+        if file_format=='mat':
             mdict = {'can': self.parsed_data}
-        savemat(mat_fn, mdict, long_field_names=True, do_compression=True)
+            from scipy.io import savemat
+            savemat(file_name,
+                    mdict,
+                    long_field_names=True,
+                    do_compression=True)
+        elif file_format=='mdf':
+            pass
+        else:
+            raise ValueError(f"\"{file_format}\" is not supported.")
 
 
     '''
