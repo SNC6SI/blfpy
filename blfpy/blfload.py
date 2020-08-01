@@ -92,6 +92,8 @@ class blfload():
                 self.get_data_info_default()
             self.detect_channel()
             self.parse_data()
+            # return
+            return self.can
 
 
     def collect_parser(self):
