@@ -640,7 +640,7 @@ class  mdfwrite():
 
     class HDBLOCK():
 
-        def __init__(self, E):
+        def __init__(self, E, bl):
             fmt = E + '2sHIIIH10s8s32s32s32s32s'
             size = calcsize(fmt)
 
@@ -649,26 +649,41 @@ class  mdfwrite():
             p_dg_block = 0
             p_tx_block = 0
             p_pr_block = 0
-            num_dg_blocks = len(self.bl.can)
-            record_date, \
-            record_time, \
-            author_name, \
-            org_dept_name, \
-            project_name, \
-            subject_name = unpack(fmt, d[p:p+size].tobytes())
+            num_dg_blocks = len(bl.parsed_data)
+            #
+            pattern = r'(?P<Y>\d+)/' + \
+                      r'(?P<m>\d+)/' + \
+                      r'(?P<d>\d+)/\s+' + \
+                      r'(?P<H>\d+):' + \
+                      r'(?P<M>\d+):' + \
+                      r'(?P<S>)\d+'
+            dt = re.match(pattern, bl.blf_info['mMeasurementStartTime'])\
+                .groupdict()
+            record_date = f"{dt['d']:>02}:" + \
+                          f"{dt['m']:>02}:" + \
+                          f"{dt['Y']:>04}"
+            record_time = f"{dt['H']:>02}:" + \
+                          f"{dt['M']:>02}:" + \
+                          f"{dt['S']:>02}"
+            author_name = b''
+            org_dept_name = b''
+            project_name = b''
+            subject_name = b''
 
-            self.block_type = block_type.decode().rstrip('\x00')
-            self.block_size = block_size
-            self.p_dg_block = p_dg_block
-            self.p_tx_block = p_tx_block
-            self.p_pr_block = p_pr_block
-            self.num_dg_blocks = num_dg_blocks
-            self.record_date = record_date.decode() # DD:MM:YYYY
-            self.record_time = record_time.decode() # HH:MM:SS
-            self.author_name = author_name.decode().rstrip('\x00')
-            self.org_dept_name = org_dept_name.decode().rstrip('\x00')
-            self.project_name = project_name.decode().rstrip('\x00')
-            self.subject_name = subject_name.decode().rstrip('\x00')
+            d = pack(fmt,
+                     block_type,
+                     block_size,
+                     p_dg_block,
+                     p_tx_block,
+                     p_pr_block,
+                     num_dg_blocks,
+                     record_date.encode(),
+                     record_time.encode(),
+                     author_name,
+                     org_dept_name,
+                     project_name,
+                     subject_name)
+            self.d = np.frombuffer(d, dtype=np.uint8)
 
 
         def set_p_dg_block(self, p):
