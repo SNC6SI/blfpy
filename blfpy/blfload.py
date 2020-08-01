@@ -9,7 +9,7 @@ import os
 import re
 import numpy as np
 from .dbcparser import dbc2code
-from .blfc import read_data
+from .blfc import read_info, read_data
 # import matlab.engine
 
 
@@ -80,6 +80,7 @@ class blfload():
         if self.__dbc is not None:
             self.collect_parser()
         if self.__blf is not None:
+            self.get_info()
             self.unpack_data()
         if (self.__dbc is not None) and (self.__blf is not None):
             # channel => canid => index
@@ -101,9 +102,11 @@ class blfload():
         self.parser.get_parser()
 
 
+    def get_info(self):
+        self.blf_info = read_info(self.__blf.encode('GBK'))
+
+
     def unpack_data(self):
-        # info = blfc.readFileInfo(self.__blf.encode('GBK'))
-        # print(info)
         d = read_data(self.__blf.encode('GBK'))
         if len(d[0])>0:
             self.raw_data = d
