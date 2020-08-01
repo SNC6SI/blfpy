@@ -85,11 +85,11 @@ class blfload():
             # channel => canid => index
             if hasattr(self, 'signals'):
                 if self.signals is not None:
-                    self.get_data_info_specified()
+                    self.get_data_index_specified()
                 else:
-                    self.get_data_info_default()
+                    self.get_data_index_default()
             else:
-                self.get_data_info_default()
+                self.get_data_index_default()
             self.detect_channel()
             self.parse_data()
             # return
@@ -109,14 +109,14 @@ class blfload():
             self.raw_data = d
 
 
-    def get_data_info_default(self):
+    def get_data_index_default(self):
         # 0: 8-bytes
         # 1: id
         # 2: channel
         # 3: time
         # TODO: multiple blf data file
         '''
-        self.data_info = {}
+        self.data_index = {}
         channels = np.unique(self.raw_data[2])
         for ch in channels:
             ch_dict = {}
@@ -127,9 +127,9 @@ class blfload():
                     np.argwhere(np.logical_and(self.raw_data[1]==can_id,
                                                 self.raw_data[2]==ch))
                 ch_dict[can_id] = np.squeeze(can_id_idx)
-            self.data_info[ch] = ch_dict
+            self.data_index[ch] = ch_dict
         '''
-        self.data_info = {}
+        self.data_index = {}
         channels = np.unique(self.raw_data[2])
         for ch in channels:
             ch_dict = {}
@@ -138,10 +138,10 @@ class blfload():
             for can_id in can_ids:
                 can_id_idx = ch_idx[np.argwhere(self.raw_data[1][ch_idx]==can_id)]
                 ch_dict[can_id] = np.squeeze(can_id_idx)
-            self.data_info[ch] = ch_dict
+            self.data_index[ch] = ch_dict
 
 
-    def get_data_info_specified(self):
+    def get_data_index_specified(self):
         # use closure maybe only for fun
         msg = self.parser.message
         def find_message_name(msg_rc):
@@ -163,7 +163,7 @@ class blfload():
                 raise TypeError('Type: "%0" is not supported.' \
                                 .format(type(msg_rc)))
         # print(find_message_name(abc))
-        self.data_info = {}
+        self.data_index = {}
         channels = np.unique(self.raw_data[2])
         signals = {}
         for ch in channels:
@@ -176,7 +176,7 @@ class blfload():
                     can_id_idx = ch_idx[np.argwhere(self.raw_data[1][ch_idx]==can_id)]
                     if can_id_idx.size > 0:
                         ch_dict[can_id] = np.squeeze(can_id_idx)
-            self.data_info[ch] = ch_dict
+            self.data_index[ch] = ch_dict
             self.signals_checked = signals
 
 
@@ -185,8 +185,8 @@ class blfload():
         dbc_id = np.array(list(self.parser.message.keys()))
         # channel and id in data
         self.intersection = {}
-        for ch in self.data_info.keys():
-            ids = np.intersect1d(dbc_id, list(self.data_info[ch].keys()))
+        for ch in self.data_index.keys():
+            ids = np.intersect1d(dbc_id, list(self.data_index[ch].keys()))
             self.intersection[ch] = ids
         '''
         ch_max = max(self.intersection.keys(),
@@ -197,12 +197,12 @@ class blfload():
     def parse_data(self):
         ch_max = max(self.intersection.keys(),
                      key=(lambda x: self.intersection[x].size))
-        data_info = self.data_info[ch_max]
+        data_index = self.data_index[ch_max]
         ids = self.intersection[ch_max]
         self.parsed_data = {}
         for msg_id in ids:
             msg_p = {}
-            idx = data_info[msg_id]
+            idx = data_index[msg_id]
             msg_p['ctime'] = self.raw_data[3][idx]
             bb = self.raw_data[0][idx].astype(np.uint)
             message = self.parser.message[msg_id]
