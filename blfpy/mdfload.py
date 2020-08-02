@@ -603,6 +603,10 @@ class  mdfwrite():
         self.blf = blf
 
 
+    def write(self):
+        pass
+
+
     class IDBLOCK():
 
         # E stands for endian, 1: big endian, motorola
