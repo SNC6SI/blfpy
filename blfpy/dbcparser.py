@@ -16,6 +16,7 @@ class dbc2code():
     __SG_RE = re.compile(r"\s*SG_ (?P<name>\w+) : (?P<start>\d+)\|(?P<length>\d+)@(?P<endian>[01])\+? \((?P<gain>\d+(\.\d*)?),(?P<offset>-?\d+(\.\d*)?)\)")
     __VAL_RE = re.compile(r'VAL_ (\d+) (\w+) ((?:\d+ ".+?")+?) ;')
     __VAL_INTERN_RE = re.compile(r'(\d+) "(.*?)"')
+    __BA_GenMsgCycleTime_RE = re.compile(r'BA_ "GenMsgCycleTime" BO_ (\d+) (\d+);')
     __BITMATRIX = np.flip(np.arange(64).reshape(8, 8), 1).reshape(64,)
     __BB = 'bb'
 
@@ -31,6 +32,7 @@ class dbc2code():
     def get_parser(self):
         self.__BO_blks = self.__BO_Blk_RE.findall(self.__dbc_raw)
         self._get_enum()
+        self._get_GenMsgCycleTime()
         self.message = {}
         for BO in self.__BO_blks:
             lines = BO.split('\n')
@@ -158,6 +160,14 @@ class dbc2code():
             if canid not in self.enums.keys():
                 self.enums[canid] = {}
             self.enums[canid][signal] = enum
+
+
+    def _get_GenMsgCycleTime(self):
+        cycle_time_canid_str = \
+            self.__BA_GenMsgCycleTime_RE.findall(self.__dbc_raw)
+        cycle_times_canid_dec = list(map(lambda x: [int(x[0]), x[1]],
+                                         cycle_time_canid_str))
+        self.GenMsgCycleTime = dict(cycle_times_canid_dec)
 
 
 
