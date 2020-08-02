@@ -165,7 +165,7 @@ class dbc2code():
     def _get_GenMsgCycleTime(self):
         cycle_time_canid_str = \
             self.__BA_GenMsgCycleTime_RE.findall(self.__dbc_raw)
-        cycle_times_canid_dec = list(map(lambda x: [int(x[0]), x[1]],
+        cycle_times_canid_dec = list(map(lambda x: [int(x[0]), int(x[1])],
                                          cycle_time_canid_str))
         self.GenMsgCycleTime = dict(cycle_times_canid_dec)
 
