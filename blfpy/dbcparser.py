@@ -39,6 +39,10 @@ class dbc2code():
             BO_dict = self.__BO_RE.match(lines[0]).groupdict()
             BO_dict['canid'] = int(BO_dict['canid'])
             BO_dict['canid_hex'] = format(BO_dict['canid'], 'X')
+            if BO_dict['canid'] in self.GenMsgCycleTime.keys():
+                BO_dict['period'] = self.GenMsgCycleTime[BO_dict['canid']]
+            else:
+                BO_dict['period'] = None
             SG_dicts = {}
             for SG in lines[1:]:
                 if len(SG) > 0:
