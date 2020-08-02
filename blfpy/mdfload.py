@@ -724,7 +724,39 @@ class  mdfwrite():
 
 
     class CGBLOCK():
-        pass
+
+        def __init__(self, E, bl):
+            # TODO: at constructing
+            # num_cn_blocks: num of signals
+            # num_records: num of samples of one signal
+            self.fmt = E + '2sHIIIHHHI'
+
+            self.block_type = b'CG'
+            self.block_size = calcsize(self.fmt)
+            self.p_cg_block = 0
+            self.p_cn_block = 0
+            self.p_tx_block = 0
+            self.record_id = 0
+            self.num_cn_blocks = 0
+            self.record_size = 16 # 8 for time in float64, 8 for 8 bytes data
+            self.num_records = 0
+
+            self.build()
+
+
+        def build(self):
+            d = pack(self.fmt,
+                     self.block_type,
+                     self.block_size,
+                     self.p_cg_block,
+                     self.p_cn_block,
+                     self.p_tx_block,
+                     self.record_id,
+                     self.num_cn_blocks,
+                     self.record_size,
+                     self.num_records)
+            self.d = np.frombuffer(d, dtype=np.uint8)
+            return self.d
 
 
     class CNBLOCK():
