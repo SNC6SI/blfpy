@@ -691,7 +691,36 @@ class  mdfwrite():
             self.d[4:8] = p
 
     class DGBLOCK():
-        pass
+
+        def __init__(self, E, bl):
+            self.fmt = E + '2sHIIIIHHI'
+
+            self.block_type = b'DG'
+            self.block_size = calcsize(self.fmt)
+            self.p_dg_block = 0
+            self.p_cg_block = 0
+            self.reserved_1 = 0
+            self.p_records = 0
+            self.num_cg_blocks = 1
+            self.num_record_ids = 0
+            self.reserved_2 = 0
+
+            self.build()
+
+
+    def build(self):
+            d = pack(self.fmt,
+                     self.block_type,
+                     self.block_size,
+                     self.p_dg_block,
+                     self.p_cg_block,
+                     self.reserved_1,
+                     self.p_records,
+                     self.num_cg_blocks,
+                     self.num_record_ids,
+                     self.reserved_2)
+            self.d = np.frombuffer(d, dtype=np.uint8)
+            return self.d
 
 
     class CGBLOCK():
