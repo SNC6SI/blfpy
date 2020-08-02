@@ -766,7 +766,58 @@ class  mdfwrite():
 
 
     class CNBLOCK():
-        pass
+
+        def __init__(self, E, bl):
+            self.fmt = E + '2sHIIIIIH32s128sHHHHdddIIH'
+            
+            self.block_type = b'CN'
+            self.block_size = calcsize(self.fmt)
+            self.p_cn_block = 0
+            self.p_cc_block = 0
+            self.reserved_1 = 0
+            self.reserved_2 = 0
+            self.p_tx_block = 0
+            self.cn_type = 0 # 0: data, 1: time
+            self.signal_name = b''
+            self.signal_description = b''
+            self.bit_start = 0
+            self.bit_length = 0
+            self.signal_data_type = 0 # 0:U, 1: S, 2: f32, 3: f64
+            self.bool_value_range = 0
+            self.min_value_range = 0
+            self.max_value_range = 0
+            self.sample_rate = 0
+            self.p_unique_name = 0
+            self.p_tx_block_1 = 0
+            self.byte_offset = 0
+
+            self.build()
+
+
+        def build(self):
+            d = pack(self.fmt,
+                     self.block_type,
+                     self.block_size,
+                     self.p_cn_block,
+                     self.p_cc_block,
+                     self.reserved_1,
+                     self.reserved_2,
+                     self.p_tx_block,
+                     self.cn_type,
+                     self.signal_name,
+                     self.signal_description,
+                     self.bit_start,
+                     self.bit_length,
+                     self.signal_data_type,
+                     self.bool_value_range,
+                     self.min_value_range,
+                     self.max_value_range,
+                     self.sample_rate,
+                     self.p_unique_name,
+                     self.p_tx_block_1,
+                     self.byte_offset)
+            self.d = np.frombuffer(d, dtype=np.uint8)
+            return self.d
 
 
     class CCBLOCK():
