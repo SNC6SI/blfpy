@@ -592,6 +592,7 @@ class mdfread:
             self.pycode = pycode
 
 
+
 class  mdfwrite():
     """
     class mdfwrite is so designed, that it will be only invoked by blfload
@@ -607,49 +608,53 @@ class  mdfwrite():
         # E stands for endian, 1: big endian, motorola
 
         def __init__(self, E):
-            fmt = E + '8s8s8sHHHH32s'
+            self.fmt = E + '8s8s8sHHHH32s'
 
-            file_identifier = b'MDF     '
-            format_identifier = b'3.00    '
-            program_identifier = b'blfpy   '
+            self.file_identifier = b'MDF     '
+            self.format_identifier = b'3.00    '
+            self.program_identifier = b'blfpy   '
     
             if E == '>':
-                endian = 1
+                self.endian = 1
             elif E == '<':
-                endian = 0
+                self.endian = 0
             else:
                 raise ValueError
-    
-            endian = 1
-            floating_point_format = 0
-            version = 300
-            reserved_1 = 0
-            reserved_2 = b''
-    
-            d = pack(fmt,
-                     file_identifier,
-                     format_identifier,
-                     program_identifier,
-                     endian,
-                     floating_point_format,
-                     version,
-                     reserved_1,
-                     reserved_2)
+
+            self.endian = 1
+            self.floating_point_format = 0
+            self.version = 300
+            self.reserved_1 = 0
+            self.reserved_2 = b''
+
+            self.build()
+
+
+    def build(self):
+            d = pack(self.fmt,
+                     self.file_identifier,
+                     self.format_identifier,
+                     self.program_identifier,
+                     self.endian,
+                     self.floating_point_format,
+                     self.version,
+                     self.reserved_1,
+                     self.reserved_2)
             self.d = np.frombuffer(d, dtype=np.uint8)
+            return self.d
 
 
     class HDBLOCK():
 
         def __init__(self, E, bl):
-            fmt = E + '2sHIIIH10s8s32s32s32s32s'
-            size = calcsize(fmt)
+            self.fmt = E + '2sHIIIH10s8s32s32s32s32s'
 
-            block_type = b'HD'
-            block_size = size
-            p_dg_block = 0
-            p_tx_block = 0
-            p_pr_block = 0
-            num_dg_blocks = len(bl.parsed_data)
+            self.block_type = b'HD'
+            self.block_size = calcsize(self.fmt)
+            self.p_dg_block = 0
+            self.p_tx_block = 0
+            self.p_pr_block = 0
+            self.num_dg_blocks = len(bl.parsed_data)
             #
             pattern = r'(?P<Y>\d+)/' + \
                       r'(?P<m>\d+)/' + \
@@ -659,36 +664,37 @@ class  mdfwrite():
                       r'(?P<S>)\d+'
             dt = re.match(pattern, bl.blf_info['mMeasurementStartTime'])\
                 .groupdict()
-            record_date = f"{dt['d']:>02}:" + \
-                          f"{dt['m']:>02}:" + \
-                          f"{dt['Y']:>04}"
-            record_time = f"{dt['H']:>02}:" + \
-                          f"{dt['M']:>02}:" + \
-                          f"{dt['S']:>02}"
-            author_name = b''
-            org_dept_name = b''
-            project_name = b''
-            subject_name = b''
+            self.record_date = f"{dt['d']:>02}:" + \
+                               f"{dt['m']:>02}:" + \
+                               f"{dt['Y']:>04}"
+            self.record_time = f"{dt['H']:>02}:" + \
+                               f"{dt['M']:>02}:" + \
+                               f"{dt['S']:>02}"
+            self.author_name = b''
+            self.org_dept_name = b''
+            self.project_name = b''
+            self.subject_name = b''
 
-            d = pack(fmt,
-                     block_type,
-                     block_size,
-                     p_dg_block,
-                     p_tx_block,
-                     p_pr_block,
-                     num_dg_blocks,
-                     record_date.encode(),
-                     record_time.encode(),
-                     author_name,
-                     org_dept_name,
-                     project_name,
-                     subject_name)
+            self.build()
+
+
+    def build(self):
+            d = pack(self.fmt,
+                     self.block_type,
+                     self.block_size,
+                     self.p_dg_block,
+                     self.p_tx_block,
+                     self.p_pr_block,
+                     self.num_dg_blocks,
+                     self.record_date.encode(),
+                     self.record_time.encode(),
+                     self.author_name,
+                     self.org_dept_name,
+                     self.project_name,
+                     self.subject_name)
             self.d = np.frombuffer(d, dtype=np.uint8)
+            return self.d
 
-
-        def set_p_dg_block(self, p):
-            # TODO maybe data type
-            self.d[4:8] = p
 
     class DGBLOCK():
 
