@@ -821,7 +821,48 @@ class  mdfwrite():
 
 
     class CCBLOCK():
-        pass
+        def __init__(self, E, formula_id, enums={}):
+            self.block_type = b'CC'
+            self.block_size = calcsize(self.fmt)
+            self.bool_value_range = 0
+            self.min_value_range = 0
+            self.max_value_range = 0
+            self.phy_unit = 0
+            self.formula_id = formula_id
+            if formula_id==0:
+                self.num_value_pairs = 0
+                self.parameters = [0.0, 1.0]
+                self.post = 'dd'
+            elif formula_id==11:
+                if len(enums):
+                    self.parameters = []
+                    for k,v in enums:
+                        self.parameters += [float(k), v.encode()]
+                    self.post = 'd32s' * len(self.num_value_pairs)
+                else:
+                    raise \
+                        ValueError(f"\"enums\" is empty.")
+            else:
+                raise \
+                    ValueError(f"formula_id \"{formula_id}\" is not supported.")
+            self.E = E
+            self.fmt = self.E + '2sHHdd20sHH' + self.post
+            self.build()
+
+
+        def build(self):
+            d = pack(self.fmt,
+                     self.block_type,
+                     self.block_size,
+                     self.bool_value_range,
+                     self.min_value_range,
+                     self.max_value_range,
+                     self.phy_unit,
+                     self.formula_id,
+                     self.num_value_pairs,
+                     self.parameters)
+            self.d = np.frombuffer(d, dtype=np.uint8)
+            return self.d
 
 
     class DR():
