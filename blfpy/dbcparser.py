@@ -13,10 +13,17 @@ class dbc2code():
 
     __BO_Blk_RE = re.compile(r'BO_ \d+ [a-zA-Z].+?\n\n', re.DOTALL)
     __BO_RE = re.compile(r"BO_ (?P<canid>\d+) (?P<name>\w+)")
-    __SG_RE = re.compile(r"\s*SG_ (?P<name>\w+) : (?P<start>\d+)\|(?P<length>\d+)@(?P<endian>[01])\+? \((?P<gain>\d+(\.\d*)?),(?P<offset>-?\d+(\.\d*)?)\)")
+    __SG_RE = re.compile(r"\s*SG_ " + \
+                         r"(?P<name>\w+) : " + \
+                         r"(?P<start>\d+)\|" + \
+                         r"(?P<length>\d+)@" + \
+                         r"(?P<endian>[01])\+? \(" + \
+                         r"(?P<gain>\d+(\.\d*)?)," + \
+                         r"(?P<offset>-?\d+(\.\d*)?)\)")
     __VAL_RE = re.compile(r'VAL_ (\d+) (\w+) ((?:\d+ ".+?")+?) ;')
     __VAL_INTERN_RE = re.compile(r'(\d+) "(.*?)"')
-    __BA_GenMsgCycleTime_RE = re.compile(r'BA_ "GenMsgCycleTime" BO_ (\d+) (\d+);')
+    __BA_GenMsgCycleTime_RE = re.compile(r"BA_ \"GenMsgCycleTime\" BO_ " + \
+                                         r"(\d+) (\d+);")
     __BITMATRIX = np.flip(np.arange(64).reshape(8, 8), 1).reshape(64,)
     __BB = 'bb'
 
@@ -53,12 +60,16 @@ class dbc2code():
                     SG_dict['gain'] = float(SG_dict['gain'])
                     SG_dict['offset'] = float(SG_dict['offset'])
                     # involke parse method
-                    SG_dict['sigmat'] = self._parser_internal_info2matrix(SG_dict)
-                    SG_dict['pycode'] = self._parser_internal_matrix2py(SG_dict)
+                    SG_dict['sigmat'] = \
+                        self._parser_internal_info2matrix(SG_dict)
+                    SG_dict['pycode'] = \
+                        self._parser_internal_matrix2py(SG_dict)
                     # enum
                     if BO_dict['canid'] in self.enums.keys():
-                        if SG_dict['name'] in self.enums[BO_dict['canid']].keys():
-                            SG_dict['enum'] = self.enums[BO_dict['canid']][SG_dict['name']]
+                        if SG_dict['name'] in \
+                            self.enums[BO_dict['canid']].keys():
+                            SG_dict['enum'] = \
+                                self.enums[BO_dict['canid']][SG_dict['name']]
                     # 
                     SG_dicts[SG_dict['name']] = SG_dict
             BO_dict['signal'] = SG_dicts
@@ -73,7 +84,8 @@ class dbc2code():
         else:
             # intel
             bitstart_idx = np.argwhere(self.__BITMATRIX==info['start'])
-            bitend_idx = np.argwhere(self.__BITMATRIX==(info['start']+info['length']-1))
+            bitend_idx = \
+                np.argwhere(self.__BITMATRIX==(info['start']+info['length']-1))
         
         bitend_bytepos = math.floor(bitend_idx/8)
         bitstart_bytepos = math.floor(bitstart_idx/8)
