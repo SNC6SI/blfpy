@@ -30,7 +30,11 @@ class mdfread:
             self.endian = '>'
         else:
             self.endian = '<'
-        
+        self.pointer = {'dg':[],
+                        'cg':[],
+                        'cn':[],
+                        'cc':[],
+                        'dt':[]}
         self.hdblock = self.HDBLOCK(self.data, self.endian)
 
 
@@ -38,7 +42,9 @@ class mdfread:
         if self.hdblock.num_dg_blocks:
             dgblock = self.DGBLOCK(self.data, self.endian, self.hdblock.p_dg_block)
             self.dgblocks = [dgblock]
+            self.pointer['dg'] += [self.hdblock.p_dg_block]
             while dgblock.p_dg_block:
+                self.pointer['dg'] += [dgblock.p_dg_block]
                 dgblock = self.DGBLOCK(self.data, self.endian, dgblock.p_dg_block)
                 self.dgblocks += [dgblock]
 
@@ -48,7 +54,9 @@ class mdfread:
             if dgblock.num_cg_blocks:
                 cgblock = self.CGBLOCK(self.data, self.endian, dgblock.p_cg_block)
                 cgblocks = [cgblock]
+                self.pointer['cg'] += [dgblock.p_cg_block]
                 while cgblock.p_cg_block:
+                    self.pointer['cg'] += [dgblock.p_cg_block]
                     cgblock = self.CGBLOCK(self.data, self.endian, cgblock.p_cg_block)
                     cgblocks += [cgblock]
                 dgblock.cgblocks = cgblocks
@@ -59,7 +67,9 @@ class mdfread:
             for cgblock in dgblock.cgblocks:
                 cnblock = self.CNBLOCK(self.data, self.endian, cgblock.p_cn_block)
                 cnblocks = [cnblock]
+                self.pointer['cn'] += [cgblock.p_cn_block]
                 while cnblock.p_cn_block:
+                    self.pointer['cn'] += [cnblock.p_cn_block]
                     cnblock = self.CNBLOCK(self.data, self.endian, cnblock.p_cn_block)
                     cnblocks += [cnblock]
                 cgblock.cnblocks = cnblocks
@@ -74,6 +84,7 @@ class mdfread:
                                               dgblock.p_records,
                                               cgblock.record_size,
                                               cgblock.num_records)
+                    self.pointer['dt'] += [dgblock.p_records]
 
 
         # CC
@@ -83,6 +94,7 @@ class mdfread:
                      # print(cnblock.signal_name)
                      cnblock.ccblock = \
                          self.CCBLOCK(self.data, self.endian, cnblock.p_cc_block)
+                     self.pointer['cc'] += [cnblock.p_cc_block]
 
 
         # raw
@@ -142,7 +154,16 @@ class mdfread:
                     cnblock.value = value
 
 
+        self.__read_post_pointer()
         self.__read_post_parsed_data()
+
+
+    def __read_post_pointer(self):
+        self.pointer['dg'].sort()
+        self.pointer['cg'].sort()
+        self.pointer['cn'].sort()
+        self.pointer['cc'].sort()
+        self.pointer['dt'].sort()
 
 
     def __read_post_parsed_data(self):
