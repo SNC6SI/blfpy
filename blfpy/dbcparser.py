@@ -39,8 +39,8 @@ class dbc2code():
             BO_dict = self.__BO_RE.match(lines[0]).groupdict()
             BO_dict['canid'] = int(BO_dict['canid'])
             BO_dict['canid_hex'] = format(BO_dict['canid'], 'X')
-            if BO_dict['canid'] in self.GenMsgCycleTime.keys():
-                BO_dict['period'] = self.GenMsgCycleTime[BO_dict['canid']]
+            if BO_dict['canid'] in self.periods.keys():
+                BO_dict['period'] = self.periods[BO_dict['canid']]
             else:
                 BO_dict['period'] = None
             SG_dicts = {}
@@ -171,7 +171,7 @@ class dbc2code():
             self.__BA_GenMsgCycleTime_RE.findall(self.__dbc_raw)
         cycle_times_canid_dec = list(map(lambda x: [int(x[0]), int(x[1])],
                                          cycle_time_canid_str))
-        self.GenMsgCycleTime = dict(cycle_times_canid_dec)
+        self.periods = dict(cycle_times_canid_dec)
 
 
 
