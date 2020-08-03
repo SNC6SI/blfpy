@@ -796,7 +796,8 @@ class  mdfwrite():
 
     class CNBLOCK():
 
-        def __init__(self, E, bl):
+        def __init__(self, E, info, time_flg, bm, period):
+            # bm: BITMATRIX
             self.fmt = E + '2sHIIIIIH32s128sHHHHdddIIH'
             
             self.block_type = b'CN'
@@ -806,16 +807,29 @@ class  mdfwrite():
             self.reserved_1 = 0
             self.reserved_2 = 0
             self.p_tx_block = 0
-            self.cn_type = 0 # 0: data, 1: time
-            self.signal_name = b''
+            if time_flg:
+                self.cn_type = 1 # 0: data, 1: time
+            else:
+                self.cn_type = 0
             self.signal_description = b''
-            self.bit_start = 0
-            self.bit_length = 0
-            self.signal_data_type = 0 # 0:U, 1: S, 2: f32, 3: f64
+            if time_flg:
+                self.signal_name = b'time'
+                self.bit_start = 63 # motorola
+                self.bit_length = 64
+                self.signal_data_type = 3 # 0:U, 1: S, 2: f32, 3: f64
+            else:
+                self.signal_name = info['name'].encode()
+                self.bit_start = \
+                    int(bm[np.argwhere(bm==info['start']) + info['length']-1])
+                self.bit_length = info['length']
+                self.signal_data_type = 0
             self.bool_value_range = 0
             self.min_value_range = 0
             self.max_value_range = 0
-            self.sample_rate = 0
+            if period!=0:
+                self.sample_rate = 1/period # second
+            else:
+                self.sample_rate = 0
             self.p_unique_name = 0
             self.p_tx_block_1 = 0
             self.byte_offset = 0
