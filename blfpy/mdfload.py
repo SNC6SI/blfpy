@@ -624,8 +624,12 @@ class  mdfwrite():
         self.blf = blf
 
 
-    def write(self):
-        pass
+    def write(self, bl):
+        self.cc = []
+        message = bl.message
+        for canid, msg in message.items():
+            for signal, info in msg['signal'].items():
+                self.cc += [self.CCBLOCK('>', info)]
 
 
     class IDBLOCK():
