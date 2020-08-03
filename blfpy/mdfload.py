@@ -838,7 +838,7 @@ class  mdfwrite():
             else:
                 self.signal_name = info['name'].encode()
                 self.bit_start = \
-                    int(bm[np.argwhere(bm==info['start']) + info['length']-1])
+                    int(bm[np.argwhere(bm==info['start']) + info['length']-1])+64
                 self.bit_length = info['length']
                 self.signal_data_type = 0
             self.bool_value_range = 0
