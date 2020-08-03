@@ -619,17 +619,35 @@ class  mdfwrite():
     class mdfwrite is so designed, that it will be only invoked by blfload
     internally.
     """
+    __BITMATRIX = np.flip(np.arange(64).reshape(8, 8), 1).reshape(64,)
 
     def __init__(self, blf=None):
         self.blf = blf
 
 
     def write(self, bl):
+        # cc
+        endian = '>'
         self.cc = []
+        self.cn = []
         message = bl.message
         for canid, msg in message.items():
+            period = msg['period']
+            if period is None:
+                period = 0
+            self.cn += [self.CNBLOCK(endian,
+                                     None,
+                                     True,
+                                     None,
+                                     period)]
             for signal, info in msg['signal'].items():
-                self.cc += [self.CCBLOCK('>', info)]
+                self.cc += [self.CCBLOCK(endian, info)]
+                self.cn += [self.CNBLOCK(endian,
+                                         info,
+                                         False,
+                                         self.__BITMATRIX,
+                                         period)]
+
 
 
     class IDBLOCK():
