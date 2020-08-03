@@ -846,24 +846,28 @@ class  mdfwrite():
 
 
     class CCBLOCK():
-        def __init__(self, E, formula_id, enums={}):
+        def __init__(self, E, info):
             self.block_type = b'CC'
-            self.block_size = calcsize(self.fmt)
-            self.bool_value_range = 0
-            self.min_value_range = 0
-            self.max_value_range = 0
-            self.phy_unit = 0
+            self.bool_value_range = 1
+            self.min_value_range = info['phymin']
+            self.max_value_range = info['phymax']
+            self.phy_unit = info['unit'].encode()
+            if 'enum' in info.keys():
+                formula_id = 11
+            else:
+                formula_id = 0
             self.formula_id = formula_id
             if formula_id==0:
                 self.num_value_pairs = 0
                 self.parameters = [0.0, 1.0]
                 self.post = 'dd'
             elif formula_id==11:
-                if len(enums):
+                if len(info['enum']):
                     self.parameters = []
-                    for k,v in enums:
+                    self.num_value_pairs = len(info['enum'])
+                    for k,v in info['enum'].items():
                         self.parameters += [float(k), v.encode()]
-                    self.post = 'd32s' * len(self.num_value_pairs)
+                    self.post = 'd32s' * self.num_value_pairs
                 else:
                     raise \
                         ValueError(f"\"enums\" is empty.")
@@ -872,6 +876,7 @@ class  mdfwrite():
                     ValueError(f"formula_id \"{formula_id}\" is not supported.")
             self.E = E
             self.fmt = self.E + '2sHHdd20sHH' + self.post
+            self.block_size = calcsize(self.fmt)
             self.build()
 
 
@@ -885,7 +890,7 @@ class  mdfwrite():
                      self.phy_unit,
                      self.formula_id,
                      self.num_value_pairs,
-                     self.parameters)
+                     *self.parameters)
             self.d = np.frombuffer(d, dtype=np.uint8)
             return self.d
 
