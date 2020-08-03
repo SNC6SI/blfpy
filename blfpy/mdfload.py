@@ -621,16 +621,16 @@ class  mdfwrite():
     """
     __BITMATRIX = np.flip(np.arange(64).reshape(8, 8), 1).reshape(64,)
 
-    def __init__(self, blf=None):
-        self.blf = blf
+    def __init__(self, bl=None):
+        self.bl = bl
 
 
-    def write(self, bl):
+    def write(self):
         # cc
         endian = '>'
         self.cc = []
         self.cn = []
-        message = bl.message
+        message = self.bl.parser.message
         for canid, msg in message.items():
             period = msg['period']
             if period is None:

@@ -233,7 +233,9 @@ class blfload():
                     long_field_names=True,
                     do_compression=True)
         elif file_format=='mdf':
-            pass
+            from .mdfload import mdfwrite
+            self.w = mdfwrite(self)
+            self.w.write()
         else:
             raise ValueError(f"\"{file_format}\" is not supported.")
 
