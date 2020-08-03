@@ -142,10 +142,10 @@ class mdfread:
                     cnblock.value = value
 
 
-        self.__read_post()
+        self.__read_post_parsed_data()
 
 
-    def __read_post(self):
+    def __read_post_parsed_data(self):
         self.parsed_data = {}
         for dgblock in self.dgblocks:
             for cgblock in dgblock.cgblocks:
