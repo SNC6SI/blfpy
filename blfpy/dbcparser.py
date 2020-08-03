@@ -19,7 +19,11 @@ class dbc2code():
                          r"(?P<length>\d+)@" + \
                          r"(?P<endian>[01])\+? \(" + \
                          r"(?P<gain>\d+(\.\d*)?)," + \
-                         r"(?P<offset>-?\d+(\.\d*)?)\)")
+                         r"(?P<offset>-?\d+(\.\d*)?)\) \[" + \
+                         r"(?P<phymin>-?\d+(\.\d*)?)\|" + \
+                         r"(?P<phymax>-?\d+(\.\d*)?)\] \"" + \
+                         r"(?P<unit>.*?)\"  " + \
+                         r"(?P<reciever>.*)")
     __VAL_RE = re.compile(r'VAL_ (\d+) (\w+) ((?:\d+ ".+?")+?) ;')
     __VAL_INTERN_RE = re.compile(r'(\d+) "(.*?)"')
     __BA_GenMsgCycleTime_RE = re.compile(r"BA_ \"GenMsgCycleTime\" BO_ " + \
@@ -59,6 +63,9 @@ class dbc2code():
                     SG_dict['endian'] = int(SG_dict['endian'])
                     SG_dict['gain'] = float(SG_dict['gain'])
                     SG_dict['offset'] = float(SG_dict['offset'])
+                    SG_dict['phymin'] = float(SG_dict['phymin'])
+                    SG_dict['phymax'] = float(SG_dict['phymax'])
+                    SG_dict['reciever'] = SG_dict['reciever'].split(',')
                     # involke parse method
                     SG_dict['sigmat'] = \
                         self._parser_internal_info2matrix(SG_dict)
