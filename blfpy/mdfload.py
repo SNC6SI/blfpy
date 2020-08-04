@@ -703,7 +703,7 @@ class  mdfwrite():
             self.p_dg_block = 0
             self.p_tx_block = 0
             self.p_pr_block = 0
-            self.num_dg_blocks = len(bl.parsed_data)
+            self.num_dg_blocks = len(bl.data_index[bl.channel])
             #
             pattern = r'(?P<Y>\d+)/' + \
                       r'(?P<m>\d+)/' + \
