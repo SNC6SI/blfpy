@@ -945,8 +945,8 @@ if __name__ == "__main__":
 
 
     # write
-    from dbcparser import dbc2code
-    dbc = dbc2code(fn="../test/dbc/IC321_PTCAN_CMatrix_V1.7_PT装车_VBU.dbc")
-    dbc.get_parser()
-    w = mdfwrite()
-    w.write(dbc)
+    # from dbcparser import dbc2code
+    # dbc = dbc2code(fn="../test/dbc/IC321_PTCAN_CMatrix_V1.7_PT装车_VBU.dbc")
+    # dbc.get_parser()
+    # w = mdfwrite()
+    # w.write(dbc)
