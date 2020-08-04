@@ -628,25 +628,31 @@ class  mdfwrite():
     def write(self):
         # cc
         endian = '>'
-        self.cc = []
+        self.dg = []
+        self.cg = []
         self.cn = []
+        self.cc = []
         message = self.bl.parser.message
         for canid, msg in message.items():
             period = msg['period']
             if period is None:
                 period = 0
+            # time
             self.cn += [self.CNBLOCK(endian,
                                      None,
                                      True,
                                      None,
                                      period)]
             for signal, info in msg['signal'].items():
+                # data
                 self.cc += [self.CCBLOCK(endian, info)]
                 self.cn += [self.CNBLOCK(endian,
                                          info,
                                          False,
                                          self.__BITMATRIX,
                                          period)]
+            self.cg += [self.CGBLOCK(endian, canid, self.bl)]
+            self.dg += [self.DGBLOCK(endian)]
 
 
 
