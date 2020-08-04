@@ -679,18 +679,18 @@ class  mdfwrite():
             self.build()
 
 
-    def build(self):
-            d = pack(self.fmt,
-                     self.file_identifier,
-                     self.format_identifier,
-                     self.program_identifier,
-                     self.endian,
-                     self.floating_point_format,
-                     self.version,
-                     self.reserved_1,
-                     self.reserved_2)
-            self.d = np.frombuffer(d, dtype=np.uint8)
-            return self.d
+        def build(self):
+                d = pack(self.fmt,
+                         self.file_identifier,
+                         self.format_identifier,
+                         self.program_identifier,
+                         self.endian,
+                         self.floating_point_format,
+                         self.version,
+                         self.reserved_1,
+                         self.reserved_2)
+                self.d = np.frombuffer(d, dtype=np.uint8)
+                return self.d
 
 
     class HDBLOCK():
@@ -727,22 +727,22 @@ class  mdfwrite():
             self.p_this = 64
 
 
-    def build(self):
-            d = pack(self.fmt,
-                     self.block_type,
-                     self.block_size,
-                     self.p_dg_block,
-                     self.p_tx_block,
-                     self.p_pr_block,
-                     self.num_dg_blocks,
-                     self.record_date.encode(),
-                     self.record_time.encode(),
-                     self.author_name,
-                     self.org_dept_name,
-                     self.project_name,
-                     self.subject_name)
-            self.d = np.frombuffer(d, dtype=np.uint8)
-            return self.d
+        def build(self):
+                d = pack(self.fmt,
+                         self.block_type,
+                         self.block_size,
+                         self.p_dg_block,
+                         self.p_tx_block,
+                         self.p_pr_block,
+                         self.num_dg_blocks,
+                         self.record_date.encode(),
+                         self.record_time.encode(),
+                         self.author_name,
+                         self.org_dept_name,
+                         self.project_name,
+                         self.subject_name)
+                self.d = np.frombuffer(d, dtype=np.uint8)
+                return self.d
 
 
     class DGBLOCK():
