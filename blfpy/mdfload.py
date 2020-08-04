@@ -634,23 +634,64 @@ class  mdfwrite():
         self.cg = []
         self.cn = []
         self.cc = []
-        message = self.bl.parser.message
-        for canid, msg in message.items():
+        self.cc_dict = {}
+
+        self.id = self.IDBLOCK(endian)
+        self.hd = self.HDBLOCK(endian, self.bl)
+        self.p = self.hd.p_this + self.hd.block_size
+
+        # cc
+        for canid, msg in self.bl.parser.message.items():
+            cc_local_dict = {}
+            cc = self.CCBLOCK(endian, None, True)
+            cc.p_this = self.p
+            self.p += cc.block_size
+            self.cc += [cc]
+            cc_local_dict['time'] = cc
+            for signal, info in msg['signal'].items():
+                cc = self.CCBLOCK(endian, info, False)
+                cc.p_this = self.p
+                self.p += cc.block_size
+                self.cc += [cc]
+                cc_local_dict[signal] = cc
+            self.cc_dict[canid] = cc_local_dict
+        self.p_dg = self.p
+
+        # cn
+        for canid, msg in self.bl.parser.message.items():
             period = msg['period']
             if period is None:
                 period = 0
+            cn = self.CNBLOCK(endian, None, True, None, period)
+            cn.p_cc_block = self.cc_dict[canid]['time'].p_this
+            cn.p_this = self.p
+            p_cn_first = cn.p_this
+            self.p += cn.block_size
+            cn.p_cn_block = self.p
+            self.cn += [cn]
             for signal, info in msg['signal'].items():
-                # data
-                # cc
-                
-                self.cc += [self.CCBLOCK(endian, info, False)]
-                self.cn += [self.CNBLOCK(endian, info, False, self.__BITMATRIX,
-                                         period)]
-            # time
-            self.cc += [self.CCBLOCK(endian, None, True)]
-            self.cn += [self.CNBLOCK(endian, None, True, None, period)]
-            self.cg += [self.CGBLOCK(endian, canid, self.bl)]
-            self.dg += [self.DGBLOCK(endian)]
+                cn = self.CNBLOCK(endian, info, False, self.__BITMATRIX, period)
+                cn.p_cc_block = self.cc_dict[canid][signal].p_this
+                cn.p_this = self.p
+                self.p = cn.p_this + cn.block_size
+                cn.p_cn_block = self.p
+                self.cn += [cn]
+            cn.p_cn_block = 0 # no next
+            # cg
+            cg = self.CGBLOCK(endian, canid, self.bl)
+            cg.p_cn_block = p_cn_first
+            cg.p_this = self.p
+            self.p += cg.block_size
+            self.cg += [cg]
+            # dg
+            dg = self.DGBLOCK(endian)
+            dg.p_cg_block = cg.p_this
+            if not len(self.dg):
+                self.p_dg += len(self.cc)*self.__CN_BLOCK_SIZE + \
+                    len(self.bl.parser.message)*self.__CG_BLOCK_SIZE
+            dg.p_this = self.p_dg
+            self.p_dg += dg.block_size
+            self.dg += [dg]
 
 
 
