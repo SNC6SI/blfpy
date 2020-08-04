@@ -778,7 +778,7 @@ class  mdfwrite():
 
     class CGBLOCK():
 
-        def __init__(self, E, bl):
+        def __init__(self, E, canid, bl):
             # TODO: at constructing
             # num_cn_blocks: num of signals
             # num_records: num of samples of one signal
@@ -790,9 +790,9 @@ class  mdfwrite():
             self.p_cn_block = 0
             self.p_tx_block = 0
             self.record_id = 0
-            self.num_cn_blocks = 0
+            self.num_cn_blocks = len(bl.parser.message[canid])
             self.record_size = 16 # 8 for time in float64, 8 for 8 bytes data
-            self.num_records = 0
+            self.num_records = len(bl.data_index[bl.channel][canid])
 
             self.build()
 
