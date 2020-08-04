@@ -727,8 +727,8 @@ class  mdfwrite():
             self.org_dept_name = b''
             self.project_name = b''
             self.subject_name = b''
-
-            self.build()
+            #
+            self.p_this = 64
 
 
     def build(self):
@@ -751,7 +751,7 @@ class  mdfwrite():
 
     class DGBLOCK():
 
-        def __init__(self, E, bl):
+        def __init__(self, E):
             self.fmt = E + '2sHIIIIHHI'
 
             self.block_type = b'DG'
@@ -763,23 +763,23 @@ class  mdfwrite():
             self.num_cg_blocks = 1
             self.num_record_ids = 0
             self.reserved_2 = 0
+            #
+            self.p_this = 0
 
-            self.build()
 
-
-    def build(self):
-            d = pack(self.fmt,
-                     self.block_type,
-                     self.block_size,
-                     self.p_dg_block,
-                     self.p_cg_block,
-                     self.reserved_1,
-                     self.p_records,
-                     self.num_cg_blocks,
-                     self.num_record_ids,
-                     self.reserved_2)
-            self.d = np.frombuffer(d, dtype=np.uint8)
-            return self.d
+        def build(self):
+                d = pack(self.fmt,
+                         self.block_type,
+                         self.block_size,
+                         self.p_dg_block,
+                         self.p_cg_block,
+                         self.reserved_1,
+                         self.p_records,
+                         self.num_cg_blocks,
+                         self.num_record_ids,
+                         self.reserved_2)
+                self.d = np.frombuffer(d, dtype=np.uint8)
+                return self.d
 
 
     class CGBLOCK():
@@ -798,9 +798,12 @@ class  mdfwrite():
             self.record_id = 0
             self.num_cn_blocks = len(bl.parser.message[canid])
             self.record_size = 16 # 8 for time in float64, 8 for 8 bytes data
-            self.num_records = len(bl.data_index[bl.channel][canid])
-
-            self.build()
+            try:
+                self.num_records = len(bl.data_index[bl.channel][canid])
+            except: # known KeyError if data of canid does not exist
+                self.num_records = 0
+            #
+            self.p_this = 0
 
 
         def build(self):
@@ -857,8 +860,8 @@ class  mdfwrite():
             self.p_unique_name = 0
             self.p_tx_block_1 = 0
             self.byte_offset = 0
-
-            self.build()
+            #
+            self.p_this = 0
 
 
         def build(self):
