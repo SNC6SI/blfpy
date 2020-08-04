@@ -850,7 +850,7 @@ class  mdfwrite():
             self.min_value_range = 0
             self.max_value_range = 0
             if period!=0:
-                self.sample_rate = 1/period # second
+                self.sample_rate = period/1000 # second
             else:
                 self.sample_rate = 0
             self.p_unique_name = 0
