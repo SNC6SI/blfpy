@@ -191,17 +191,15 @@ class blfload():
         for ch in self.data_index.keys():
             ids = np.intersect1d(dbc_id, list(self.data_index[ch].keys()))
             self.intersection[ch] = ids
-        '''
-        ch_max = max(self.intersection.keys(),
-                     key=(lambda x: self.intersection[x].size))
-        '''
+        # channel needs to be an interface for scalability
 
 
     def parse_data(self):
-        ch_max = max(self.intersection.keys(),
-                     key=(lambda x: self.intersection[x].size))
-        data_index = self.data_index[ch_max]
-        ids = self.intersection[ch_max]
+        # TODO: multi-channel data
+        self.channel = max(self.intersection.keys(),
+                           key=(lambda x: self.intersection[x].size))
+        data_index = self.data_index[self.channel]
+        ids = self.intersection[self.channel]
         self.parsed_data = {}
         for msg_id in ids:
             msg_p = {}
