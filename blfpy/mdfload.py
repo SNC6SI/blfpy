@@ -887,6 +887,7 @@ class  mdfwrite():
 
 
     class CCBLOCK():
+
         def __init__(self, E, info, time_flg):
             self.block_type = b'CC'
             if time_flg:
