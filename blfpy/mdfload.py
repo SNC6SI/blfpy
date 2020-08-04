@@ -620,6 +620,8 @@ class  mdfwrite():
     internally.
     """
     __BITMATRIX = np.flip(np.arange(64).reshape(8, 8), 1).reshape(64,)
+    __CG_BLOCK_SIZE = 26
+    __CN_BLOCK_SIZE = 228
 
     def __init__(self, bl=None):
         self.bl = bl
