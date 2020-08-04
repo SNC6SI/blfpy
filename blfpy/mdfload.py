@@ -637,20 +637,16 @@ class  mdfwrite():
             period = msg['period']
             if period is None:
                 period = 0
-            # time
-            self.cn += [self.CNBLOCK(endian,
-                                     None,
-                                     True,
-                                     None,
-                                     period)]
             for signal, info in msg['signal'].items():
                 # data
-                self.cc += [self.CCBLOCK(endian, info)]
-                self.cn += [self.CNBLOCK(endian,
-                                         info,
-                                         False,
-                                         self.__BITMATRIX,
+                # cc
+                
+                self.cc += [self.CCBLOCK(endian, info, False)]
+                self.cn += [self.CNBLOCK(endian, info, False, self.__BITMATRIX,
                                          period)]
+            # time
+            self.cc += [self.CCBLOCK(endian, None, True)]
+            self.cn += [self.CNBLOCK(endian, None, True, None, period)]
             self.cg += [self.CGBLOCK(endian, canid, self.bl)]
             self.dg += [self.DGBLOCK(endian)]
 
@@ -891,17 +887,25 @@ class  mdfwrite():
 
 
     class CCBLOCK():
-        def __init__(self, E, info):
+        def __init__(self, E, info, time_flg):
             self.block_type = b'CC'
-            self.bool_value_range = 1
-            self.min_value_range = info['phymin']
-            self.max_value_range = info['phymax']
-            self.phy_unit = info['unit'].encode()
+            if time_flg:
+                self.bool_value_range = 1
+                self.min_value_range = info['phymin']
+                self.max_value_range = info['phymax']
+                self.phy_unit = b's'
+            else:
+                self.bool_value_range = 1
+                self.min_value_range = info['phymin']
+                self.max_value_range = info['phymax']
+                self.phy_unit = info['unit'].encode()
+
             if 'enum' in info.keys():
                 formula_id = 11
             else:
                 formula_id = 0
             self.formula_id = formula_id
+            
             if formula_id==0:
                 self.num_value_pairs = 0
                 self.parameters = [0.0, 1.0]
