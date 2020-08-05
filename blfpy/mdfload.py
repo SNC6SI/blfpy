@@ -459,14 +459,14 @@ class mdfread:
             # 0: parametric, linear
             if self.formula_id==0:
                 post = str(2 * 8) + 's'
-                fmt_ = 'd' * 2
+                fmt_ =  E + 'd' * 2
                 cf = ''
                 pycode = "raw*param[1]+param[0]" 
     
             # 1: tabular with interpolation
             elif self.formula_id==1:
                 post = str(2 * self.num_value_pairs.tolist() * 8) + 's'
-                fmt_ = 'd' * 2 * self.num_value_pairs.tolist()
+                fmt_ = E + 'd' * 2 * self.num_value_pairs.tolist()
                 cf = 'parameter.reshape(' + \
                      str(self.num_value_pairs) + \
                      ', 2).T'
@@ -475,7 +475,7 @@ class mdfread:
             # 2: tabular
             elif self.formula_id==2:
                 post = str(2 * self.num_value_pairs * 8) + 's'
-                fmt_ = 'd' * 2 * self.num_value_pairs.tolist()
+                fmt_ = E + 'd' * 2 * self.num_value_pairs.tolist()
                 cf = 'parameter.reshape(' + \
                      str(self.num_value_pairs) + \
                      ', 2).T'
@@ -484,14 +484,14 @@ class mdfread:
             # 6: polynomial function
             elif self.formula_id==6:
                 post = str(6 * 8) + 's'
-                fmt_ = 'd' * 6
+                fmt_ = E + 'd' * 6
                 cf = ''
                 pycode = "(param[1]-param[3]*(raw-param[4]-param[5]))/(param[2]*(raw-param[4]-param[5])-param[0])"
     
             # 7: exponential function
             elif self.formula_id==7:
                 post = str(7 * 8) + 's'
-                fmt_ = 'd' * 7
+                fmt_ = E + 'd' * 7
                 cf = ''
                 pycode = ''
                 print("7: exponential function is not implemented.")
@@ -499,7 +499,7 @@ class mdfread:
             # 8: logarithmic function
             elif self.formula_id==8:
                 post = str(7 * 8) + 's'
-                fmt_ = 'd' * 7
+                fmt_ = E + 'd' * 7
                 cf = ''
                 pycode = ''
                 print("8: exponential function is not implemented.")
@@ -507,7 +507,7 @@ class mdfread:
             # 9: ASAP2 Rational conversion formula
             elif self.formula_id==9:
                 post = str(6 * 8) + 's'
-                fmt_ = 'd' * 6
+                fmt_ = E + 'd' * 6
                 cf = ''
                 pycode = ''
                 print("9: ASAP2 Rational conversion formula is not implemented.")
@@ -515,7 +515,7 @@ class mdfread:
             # 10: ASAM-MCD2 Text formula
             elif self.formula_id==10:
                 post = '256s'
-                fmt_ = '256s'
+                fmt_ = E + '256s'
                 cf = ''
                 pycode = ''
                 print("10: ASAP2 Text formula is not implemented.")
@@ -523,7 +523,7 @@ class mdfread:
             # 11: ASAM-MCD2 Text Table, (COMPU_VTAB)
             elif self.formula_id==11:
                 post = str(40 * self.num_value_pairs.tolist()) + 's'
-                fmt_ = 'd32s' * self.num_value_pairs.tolist()
+                fmt_ = E + 'd32s' * self.num_value_pairs.tolist()
                 cf = 'dict(zip(np.array(parameters).reshape('+\
                       str(self.num_value_pairs)+\
                      ', 2).T[0,:].astype("float").astype("int").tolist(),np.array(parameters).reshape('+\
@@ -539,14 +539,14 @@ class mdfread:
             # 12: ASAM-MCD2 Text Range Table (COMPU_VTAB_RANGE)
             elif self.formula_id==12:
                 post = str(20 * (self.num_value_pairs.tolist() + 1)) + 's'
-                fmt_ = 'ddI' * (self.num_value_pairs.tolist() + 1)
+                fmt_ = E + 'ddI' * (self.num_value_pairs.tolist() + 1)
                 cf = ''
                 print("12: ASAM-MCD2 Text Range Table is not implemented.")
     
             # 132: Date (Based on 7 Byte Date data structure)
             elif self.formula_id==132:
                 post = '7s'
-                fmt_ = 'H5c'
+                fmt_ = E + 'H5c'
                 cf = ''
                 pycode = ''
                 print("132: Date is not implemented.")
@@ -554,7 +554,7 @@ class mdfread:
             # 133: time (Based on 6 Byte Time data structure)
             elif self.formula_id==133:
                 post = '6s'
-                fmt_ = 'IH'
+                fmt_ = E + 'IH'
                 cf = ''
                 pycode = ''
                 print("133: time is not implemented.")
