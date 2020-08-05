@@ -221,7 +221,7 @@ class blfload():
                     si = eval(v['pycode_raw2si'])
                     msg_s[k] = si
                     msg_p[k] = eval(v['pycode_si2phy'])
-            self.si_data[message['name']] = msg_s
+            self.si_data[msg_id] = msg_s
             self.parsed_data[message['name']] = msg_p
 
 
