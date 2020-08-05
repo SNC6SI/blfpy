@@ -704,22 +704,41 @@ class  mdfwrite():
             period = msg['period']
             if period is None:
                 period = 0
-            cn = self.CNBLOCK(endian, None, True, None, period)
+            bit_start_this = 0
+            cn = self.CNBLOCK(endian, None, True, period, bit_start_this)
+            bit_start_this += 64
             cn.p_cc_block = self.cc_dict[canid]['time'].p_this
             cn.p_this = self.p
             p_cn_first = cn.p_this
             self.p += cn.block_size
             cn.p_cn_block = self.p
             self.cn += [cn]
-            one_pack = {}
+            cn_pack = {'onebyte':[], 'mehrbyte':[]}
             for signal, info in msg['signal'].items():
-                cn = self.CNBLOCK(endian, info, False, period, bit_start_this)
-                cn.p_cc_block = self.cc_dict[canid][signal].p_this
-                cn.p_this = self.p
-                self.p = cn.p_this + cn.block_size
-                cn.p_cn_block = self.p
-                self.cn += [cn]
+                if info['length']==1:
+                    cn_pack['onebyte'].append(signal)
+                else:
+                    cn_pack['mehrbyte'].append(signal)
+            for signal, info in msg['signal'].items():
+                if signal in cn_pack['mehrbyte']:
+                    cn = self.CNBLOCK(endian, info, False, period, bit_start_this)
+                    bit_start_this += cn.bit_length
+                    cn.p_cc_block = self.cc_dict[canid][signal].p_this
+                    cn.p_this = self.p
+                    self.p = cn.p_this + cn.block_size
+                    cn.p_cn_block = self.p
+                    self.cn += [cn]
+            for signal, info in msg['signal'].items():
+                if signal in cn_pack['onebyte']:
+                    cn = self.CNBLOCK(endian, info, False, period, bit_start_this)
+                    bit_start_this += cn.bit_length
+                    cn.p_cc_block = self.cc_dict[canid][signal].p_this
+                    cn.p_this = self.p
+                    self.p = cn.p_this + cn.block_size
+                    cn.p_cn_block = self.p
+                    self.cn += [cn]
             cn.p_cn_block = 0 # no next
+            self.cn_pack[canid] = {cn_pack}
             # cg
             cg = self.CGBLOCK(endian, canid, self.bl)
             cg.p_cn_block = p_cn_first
