@@ -727,6 +727,8 @@ class  mdfwrite():
             self.version = 300
             self.reserved_1 = 0
             self.reserved_2 = b''
+            #
+            self.p_this = 0
 
             self.build()
 
