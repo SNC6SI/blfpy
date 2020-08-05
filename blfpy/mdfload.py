@@ -993,7 +993,22 @@ class  mdfwrite():
 
 
     class DT():
-        pass
+
+        def __init__(self, E, canid, bl):
+            data_index = bl.data_index[bl.channel]
+            try:
+                idx = data_index[canid]
+            except:
+                self.data = None
+                self.length = 0
+                return None
+            time = bl.raw_data[3][idx]
+            time = time.reshape(time.shape[0], 1).view(E+'u1')
+            bb = bl.raw_data[0][idx].astype(np.uint8)
+            data = np.concatenate((time, bb), axis=1)
+            data.reshape(1, data.size)
+            self.data = data
+            self.length = data.size
 
 
 if __name__ == "__main__":
