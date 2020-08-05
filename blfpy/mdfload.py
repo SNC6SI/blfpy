@@ -75,11 +75,11 @@ class mdfread:
                 cgblock.cnblocks = cnblocks
 
 
-        # DR
+        # DT
         for dgblock in self.dgblocks:
             for cgblock in dgblock.cgblocks:
                 if dgblock.num_record_ids==0:
-                    dgblock.records = self.DR(self.data,
+                    dgblock.records = self.DT(self.data,
                                               dgblock.num_record_ids,
                                               dgblock.p_records,
                                               cgblock.record_size,
@@ -321,7 +321,7 @@ class mdfread:
 
 
     # DATARECORDS
-    class DR:
+    class DT:
         
         def __init__(self, data, record_id, p, s, n):
             # p: p_records
@@ -988,7 +988,7 @@ class  mdfwrite():
             return self.d
 
 
-    class DR():
+    class DT():
         pass
 
 
