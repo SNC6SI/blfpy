@@ -759,7 +759,7 @@ class  mdfwrite():
 
         # dt
         for dg in self.dg:
-            dt = self.DT(endian, dg.canid, self.bl)
+            dt = self.DT(endian, dg.canid, self.bl, self.cn_pack)
             dt.p_this = self.p
             if dt.d is None:
                 dg.p_records = 0
@@ -1112,19 +1112,41 @@ class  mdfwrite():
 
     class DT():
 
-        def __init__(self, E, canid, bl):
+        def __init__(self, E, canid, bl, cn_pack):
             self.p_this = 0
-            data_index = bl.data_index[bl.channel]
-            try:
-                idx = data_index[canid]
-            except:
-                self.d = None
-                self.block_size = 0
-                return None
-            time = bl.raw_data[3][idx]
-            time = time.reshape(time.shape[0], 1).view(E+'u1')
+            si = bl.si_data[canid]
+            # time
+            time = si['ctime']
+            time = time.reshape(time.shape[0], 1).view(E+'f8')
+            data = time
+            #
+            msg = bl.parser.message[canid]['signal']
+            for signal in cn_pack['mehrbyte']:
+                info = msg[signal]
+                if info['length'] == 1:
+                    byte_length = 1
+                elif (info['length'] > 1) and (info['length'] <= 8):
+                    byte_length = 1
+                elif (info['length'] > 8) and (info['length'] <= 16):
+                    byte_length = 2
+                elif (info['length'] > 16) and (info['length'] <= 32):
+                    byte_length = 4
+                elif (info['length'] > 32) and (info['length'] <= 64):
+                    byte_length = 8
+                else:
+                    raise ValueError
+                byte_length_str = str(byte_length)
+                bb = si[signal].view(E + 'u' + byte_length_str)
+                data = np.concatenate((data, bb), axis=1)
+            
+            
+            
+            
+            
+            
+            
             bb = bl.raw_data[0][idx].astype(np.uint8)
-            data = np.concatenate((time, bb), axis=1)
+            
             data = data.reshape(1, data.size)
             self.d = data
             self.block_size = data.size
