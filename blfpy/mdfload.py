@@ -1038,7 +1038,9 @@ class  mdfwrite():
                 self.min_value_range = info['phymin']
                 self.max_value_range = info['phymax']
                 self.phy_unit = info['unit'].encode()
-                if 'enum' in info.keys():
+                if ('enum' in info.keys()) \
+                    and info['offset'] == 0 \
+                    and info['gain'] == 1:
                     formula_id = 11
                 else:
                     formula_id = 0
@@ -1067,7 +1069,6 @@ class  mdfwrite():
             self.E = E
             self.fmt = self.E + '2sHHdd20sHH' + self.post
             self.block_size = calcsize(self.fmt)
-            self.build()
 
 
         def build(self):
