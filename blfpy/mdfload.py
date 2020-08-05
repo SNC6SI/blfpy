@@ -158,8 +158,8 @@ class mdfread:
                         raw = raw.view(view)
                         raw = (raw>>(bit_end%8))&np.uint64((2**cnblock.bit_length-1))
 
-                        # view = self.endian + dt + dl
-                        # raw = bb[:, byte_start:byte_end+1].copy().view(view)
+                        view = self.endian + dt + dl
+                        raw = raw.view(view)
                         
                     else:
                         raw = bb[:, byte_start:byte_end+1].copy()
