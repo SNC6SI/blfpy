@@ -634,6 +634,7 @@ class  mdfwrite():
         self.cg = []
         self.cn = []
         self.cc = []
+        self.dt = []
         self.cc_dict = {}
 
         self.id = self.IDBLOCK(endian)
@@ -695,6 +696,12 @@ class  mdfwrite():
         self.hd.p_dg_block = self.dg[0].p_this
 
         # dt
+        for dg in self.dg:
+            dt = self.DT(endian, dg.canid, self.bl)
+            dg.p_records = self.p
+            self.p += dt.length
+            self.dt += [dt]
+
 
 
     class IDBLOCK():
