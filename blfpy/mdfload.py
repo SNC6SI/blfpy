@@ -655,7 +655,6 @@ class  mdfwrite():
                 self.cc += [cc]
                 cc_local_dict[signal] = cc
             self.cc_dict[canid] = cc_local_dict
-        self.p_dg = self.p
 
         # cn
         for canid, msg in self.bl.parser.message.items():
@@ -683,16 +682,19 @@ class  mdfwrite():
             cg.p_this = self.p
             self.p += cg.block_size
             self.cg += [cg]
-            # dg
-            dg = self.DGBLOCK(endian)
-            dg.p_cg_block = cg.p_this
-            if not len(self.dg):
-                self.p_dg += len(self.cc)*self.__CN_BLOCK_SIZE + \
-                    len(self.bl.parser.message)*self.__CG_BLOCK_SIZE
-            dg.p_this = self.p_dg
-            self.p_dg += dg.block_size
-            self.dg += [dg]
 
+        # dg
+        for cg in self.cg:
+            dg = self.DGBLOCK(endian, cg.canid)
+            dg.p_cg_block = cg.p_this
+            dg.p_this = self.p
+            self.p += dg.block_size
+            dg.p_dg_block = self.p
+            self.dg += [dg]
+        dg.p_dg_block = 0
+        self.hd.p_dg_block = self.dg[0].p_this
+
+        # dt
 
 
     class IDBLOCK():
@@ -790,7 +792,7 @@ class  mdfwrite():
 
     class DGBLOCK():
 
-        def __init__(self, E):
+        def __init__(self, E, canid):
             self.fmt = E + '2sHIIIIHHI'
 
             self.block_type = b'DG'
@@ -804,6 +806,7 @@ class  mdfwrite():
             self.reserved_2 = 0
             #
             self.p_this = 0
+            self.canid = canid
 
 
         def build(self):
@@ -843,6 +846,7 @@ class  mdfwrite():
                 self.num_records = 0
             #
             self.p_this = 0
+            self.canid = canid
 
 
         def build(self):
