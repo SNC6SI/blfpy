@@ -127,9 +127,9 @@ class mdfread:
                             byte_end = 7
                             byte_length = 8
                     # bit_end = cnblock.bit_start - cnblock.bit_length + 1
-                    print(cnblock.signal_name)
-                    print(cnblock.bit_start, cnblock.bit_length)
-                    print(byte_start, byte_end, byte_length)
+                    # print(cnblock.signal_name)
+                    # print(cnblock.bit_start, cnblock.bit_length)
+                    # print(byte_start, byte_end, byte_length)
                     # dt: data type
                     # dl: data length
                     if byte_length<=8:
@@ -173,10 +173,10 @@ class mdfread:
                     raw = cnblock.raw
                     f_id = cnblock.ccblock.formula_id
                     param = cnblock.ccblock.parameters
-                    print(cnblock.signal_name)
                     try:
                         value = eval(cnblock.ccblock.pycode)
                     except KeyError:
+                        # print(cnblock.signal_name)
                         value = raw
                     cnblock.value = value
 
