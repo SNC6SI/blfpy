@@ -111,9 +111,9 @@ class mdfread:
                     byte_start = cnblock.byte_offset + \
                                  math.floor(cnblock.bit_start/8)
                     if self.endian == '<':
-                        byte_end = cnblock.byte_offset + \
-                            math.ceil((cnblock.bit_start + cnblock.bit_length - 1)/8)
-                        byte_length = byte_end - byte_start
+                        bit_end = cnblock.bit_start + cnblock.bit_length - 1
+                        byte_end = cnblock.byte_offset + math.floor(bit_end/8)
+                        byte_length = byte_end - byte_start + 1
                     else:
                         if cnblock.bit_start>63:
                             bit_end = \
@@ -153,10 +153,17 @@ class mdfread:
                             raise ValueError('data_type:%u for signal %s is not supported.'% \
                                              (cnblock.signal_data_type, cnblock.signal_name))
                         pad = np.zeros((bb.shape[0], l-byte_length), dtype=np.uint8)
-                        raw = np.concatenate((pad, bb[:, byte_start:byte_end+1].copy()), axis=1)
+                        if self.endian == '<':
+                            raw = np.concatenate((bb[:, byte_start:byte_end+1].copy(), pad), axis=1)
+                        else:
+                            raw = np.concatenate((pad, bb[:, byte_start:byte_end+1].copy()), axis=1)
                         view = self.endian + 'u' + dl
+                        print(cnblock.signal_name)
                         raw = raw.view(view)
-                        raw = (raw>>(bit_end%8))&np.uint64((2**cnblock.bit_length-1))
+                        if self.endian == '<':
+                            raw = (raw>>((bit_end+1)%8))&np.uint64((2**cnblock.bit_length-1))
+                        else:
+                            raw = (raw>>(bit_end%8))&np.uint64((2**cnblock.bit_length-1))
 
                         view = self.endian + dt + dl
                         raw = raw.view(view)
