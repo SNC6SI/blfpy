@@ -710,7 +710,7 @@ class  mdfwrite():
         self.build()
 
     def build(self):
-        self.data = np.zeros(self.p)
+        self.data = np.zeros(self.p, dtype=np.uint8)
         # id
         self.data[self.id.p_this:self.id.p_this+self.id.block_size] = \
             self.id.d
