@@ -206,8 +206,9 @@ class blfload():
             msg_s = {}
             msg_p = {}
             idx = data_index[msg_id]
-            msg_s['ctime'] = self.raw_data[3][idx]
-            msg_p['ctime'] = self.raw_data[3][idx]
+            t = self.raw_data[3][idx]
+            msg_p['ctime'] = t
+            msg_s['ctime'] = t.reshape(t.shape[0], 1)
             bb = self.raw_data[0][idx].astype(np.uint)
             message = self.parser.message[msg_id]
             # k: signal name,  v: signal info dict
@@ -215,11 +216,11 @@ class blfload():
                 if hasattr(self, 'signals_checked'):
                     if k in self.signals_checked[msg_id]:
                         si = eval(v['pycode_raw2si'])
-                        msg_s[k] = si
+                        msg_s[k] = si.reshape(si.shape[0], 1)
                         msg_p[k] = eval(v['pycode_si2phy'])
                 else:
                     si = eval(v['pycode_raw2si'])
-                    msg_s[k] = si
+                    msg_s[k] = si.reshape(si.shape[0], 1)
                     msg_p[k] = eval(v['pycode_si2phy'])
             self.si_data[msg_id] = msg_s
             self.parsed_data[message['name']] = msg_p
