@@ -15,6 +15,7 @@ from scipy import interpolate
 
 class mdfread:
 
+    BITMATRIX = np.flip(np.arange(64).reshape(8, 8), 1).reshape(64,)
     __SIGNAME_RE = re.compile(r'(\w+)\\?.*')
 
     def __init__(self, mdf=None):
@@ -109,37 +110,59 @@ class mdfread:
                 for cnblock in cgblock.cnblocks:
                     byte_start = cnblock.byte_offset + \
                                  math.floor(cnblock.bit_start/8)
-                    byte_end = cnblock.byte_offset + \
-                        math.ceil((cnblock.bit_start + cnblock.bit_length)/8)
-                    byte_length = byte_end-byte_start
-                    
+                    if self.endian == '<':
+                        byte_end = cnblock.byte_offset + \
+                            math.ceil((cnblock.bit_start + cnblock.bit_length - 1)/8)
+                        byte_length = byte_end - byte_start
+                    else:
+                        if cnblock.bit_start>63:
+                            bit_end = \
+                                int(self.BITMATRIX[np.argwhere(self.BITMATRIX==(cnblock.bit_start-64)) + \
+                                                   cnblock.bit_length-1]) + 64
+                            byte_end = cnblock.byte_offset + math.floor(bit_end/8)
+                            byte_length = byte_end - byte_start + 1
+                        else:
+                            byte_start = 0
+                            bit_end = cnblock.bit_start - cnblock.bit_length + 1
+                            byte_end = 7
+                            byte_length = 8
+                    # bit_end = cnblock.bit_start - cnblock.bit_length + 1
+                    print(cnblock.signal_name)
+                    print(cnblock.bit_start, cnblock.bit_length)
+                    print(byte_start, byte_end, byte_length)
                     # dt: data type
                     # dl: data length
                     if byte_length<=8:
                         if cnblock.signal_data_type==0:
                             dt = 'u'
-                            dl = str(2**(math.ceil(math.log2(byte_length))))
+                            l = 2**(math.ceil(math.log2(byte_length)))
+                            dl = str(l)
                         elif cnblock.signal_data_type==1:
                             dt = 'i'
-                            dl = str(2**(math.ceil(math.log2(byte_length))))
+                            l = 2**(math.ceil(math.log2(byte_length)))
+                            dl = str(l)
                         elif cnblock.signal_data_type==2:
                             dt = 'f'
-                            dl = '4'
+                            l = 4
+                            dl = str(l)
                         elif cnblock.signal_data_type==3:
                             dt = 'f'
-                            dl = '8'
+                            l = 8
+                            dl = str(l)
                         else:
                             raise ValueError('data_type:%u for signal %s is not supported.'% \
                                              (cnblock.signal_data_type, cnblock.signal_name))
-                        view = self.endian + 'u' + str(2**(math.ceil(math.log2(byte_length))))
-                        raw = bb[:, byte_start:byte_end].copy().view(view)
-                        raw = (raw>>(cnblock.bit_start%8))&np.uint64((2**cnblock.bit_length-1))
+                        pad = np.zeros((bb.shape[0], l-byte_length), dtype=np.uint8)
+                        raw = np.concatenate((pad, bb[:, byte_start:byte_end+1].copy()), axis=1)
+                        view = self.endian + 'u' + dl
+                        raw = raw.view(view)
+                        raw = (raw>>(bit_end%8))&np.uint64((2**cnblock.bit_length-1))
 
-                        view = self.endian + dt + dl
-                        raw = bb[:, byte_start:byte_end].copy().view(view)
+                        # view = self.endian + dt + dl
+                        # raw = bb[:, byte_start:byte_end+1].copy().view(view)
                         
                     else:
-                        raw = bb[:, byte_start:byte_end].copy()
+                        raw = bb[:, byte_start:byte_end+1].copy()
                     cnblock.raw = raw
 
 
@@ -150,7 +173,11 @@ class mdfread:
                     raw = cnblock.raw
                     f_id = cnblock.ccblock.formula_id
                     param = cnblock.ccblock.parameters
-                    value = eval(cnblock.ccblock.pycode)
+                    print(cnblock.signal_name)
+                    try:
+                        value = eval(cnblock.ccblock.pycode)
+                    except KeyError:
+                        value = raw
                     cnblock.value = value
 
 
