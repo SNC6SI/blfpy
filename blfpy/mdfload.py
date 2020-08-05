@@ -667,7 +667,7 @@ class  mdfwrite():
 
     def write(self):
         # cc
-        endian = '>'
+        endian = '<'
         self.dg = []
         self.cg = []
         self.cn = []
