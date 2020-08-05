@@ -201,9 +201,12 @@ class blfload():
         data_index = self.data_index[self.channel]
         ids = self.intersection[self.channel]
         self.parsed_data = {}
+        self.si_data = {}
         for msg_id in ids:
+            msg_s = {}
             msg_p = {}
             idx = data_index[msg_id]
+            msg_s['ctime'] = self.raw_data[3][idx]
             msg_p['ctime'] = self.raw_data[3][idx]
             bb = self.raw_data[0][idx].astype(np.uint)
             message = self.parser.message[msg_id]
@@ -211,9 +214,14 @@ class blfload():
             for k, v in message['signal'].items():
                 if hasattr(self, 'signals_checked'):
                     if k in self.signals_checked[msg_id]:
-                        msg_p[k] = eval(v['pycode'])
+                        si = eval(v['pycode_raw2si'])
+                        msg_s[k] = si
+                        msg_p[k] = eval(v['pycode_si2phy'])
                 else:
-                    msg_p[k] = eval(v['pycode'])
+                    si = eval(v['pycode_raw2si'])
+                    msg_s[k] = si
+                    msg_p[k] = eval(v['pycode_si2phy'])
+            self.si_data[message['name']] = msg_s
             self.parsed_data[message['name']] = msg_p
 
 

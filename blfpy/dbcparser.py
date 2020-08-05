@@ -69,7 +69,8 @@ class dbc2code():
                     # involke parse method
                     SG_dict['sigmat'] = \
                         self._parser_internal_info2matrix(SG_dict)
-                    SG_dict['pycode'] = \
+                    SG_dict['pycode_raw2si'], \
+                    SG_dict['pycode_si2phy'] = \
                         self._parser_internal_matrix2py(SG_dict)
                     # enum
                     if BO_dict['canid'] in self.enums.keys():
@@ -154,23 +155,25 @@ class dbc2code():
         offset = SG_dict['offset']
         # unpack
         loopnum = sigmat.shape[0]
-        SGalgostr = ''
+        si = ''
         for j in range(loopnum):
             if j > 0:
-                SGalgostr = ' + ' + SGalgostr
+                si = ' + ' + si
             s = self.__BB + '[:,' + str(sigmat[j, 0]) + ']'
             s =  '(' + s + '>>' + str(sigmat[j, 1]) + ')'
             s = '(' + s + '&(' + str(2**sigmat[j, 3]-1) + '))'
             if sigmat[j, 4]:
                 s = '(' + str(2**sigmat[j, 4]) + ')*' + s
-            SGalgostr = s + SGalgostr
-        SGalgostr = '(' + SGalgostr + ')'
+            si = s + si
+        si = '(' + si + ')'
         # gain offset
         if gain!=1:
-            SGalgostr = SGalgostr + '*' + str(gain)
+            phy = 'si *' + str(gain)
+        else:
+            phy = 'si'
         if offset:
-            SGalgostr = SGalgostr + '+' + str(offset)
-        return SGalgostr
+            phy += '+' + str(offset)
+        return si, phy
 
 
     def _get_enum(self):
