@@ -946,7 +946,7 @@ class  mdfwrite():
 
     class CNBLOCK():
 
-        def __init__(self, E, info, time_flg, bm, period):
+        def __init__(self, E, info, time_flg, bm, period, bit_start_this):
             # bm: BITMATRIX
             self.fmt = E + '2sHIIIIIH32s128sHHHHdddIIH'
             
@@ -964,16 +964,24 @@ class  mdfwrite():
             self.signal_description = b''
             if time_flg:
                 self.signal_name = b'time'
-                self.bit_start = 63 # motorola
+                self.bit_start = bit_start_this
                 self.bit_length = 64
                 self.signal_data_type = 3 # 0:U, 1: S, 2: f32, 3: f64
             else:
                 self.signal_name = info['name'].encode()
-                self.bit_start = \
-                    info['start']  + 64
-                    # int(info['start'] + info['length'] - 1) + 64
-                    # int(bm[np.argwhere(bm==info['start']) + info['length']-1])+64
-                self.bit_length = info['length']
+                if info['length'] == 1:
+                    self.bit_length = 1
+                elif (info['length'] > 1) and (info['length'] <= 8):
+                    self.bit_length = 8
+                elif (info['length'] > 8) and (info['length'] <= 16):
+                    self.bit_length = 16
+                elif (info['length'] > 16) and (info['length'] <= 32):
+                    self.bit_length = 32
+                elif (info['length'] > 32) and (info['length'] <= 64):
+                    self.bit_length = 64
+                else:
+                    raise ValueError
+                self.bit_start = bit_start_this
                 self.signal_data_type = 0
             self.bool_value_range = 0
             self.min_value_range = 0
