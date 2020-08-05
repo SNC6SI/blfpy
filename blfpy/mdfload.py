@@ -137,18 +137,22 @@ class mdfread:
                             dt = 'u'
                             l = 2**(math.ceil(math.log2(byte_length)))
                             dl = str(l)
+                            pre = ''
                         elif cnblock.signal_data_type==1:
                             dt = 'i'
                             l = 2**(math.ceil(math.log2(byte_length)))
                             dl = str(l)
+                            pre = ''
                         elif cnblock.signal_data_type==2:
                             dt = 'f'
                             l = 4
                             dl = str(l)
+                            pre = self.endian
                         elif cnblock.signal_data_type==3:
                             dt = 'f'
                             l = 8
                             dl = str(l)
+                            pre = self.endian
                         else:
                             raise ValueError('data_type:%u for signal %s is not supported.'% \
                                              (cnblock.signal_data_type, cnblock.signal_name))
@@ -158,14 +162,14 @@ class mdfread:
                         else:
                             raw = np.concatenate((pad, bb[:, byte_start:byte_end+1].copy()), axis=1)
                         view = self.endian + 'u' + dl
-                        print(cnblock.signal_name)
+                        # print(cnblock.signal_name)
                         raw = raw.view(view)
                         if self.endian == '<':
                             raw = (raw>>((bit_end+1)%8))&np.uint64((2**cnblock.bit_length-1))
                         else:
                             raw = (raw>>(bit_end%8))&np.uint64((2**cnblock.bit_length-1))
-
-                        view = self.endian + dt + dl
+                        # endian shall not be implemented twice for u
+                        view = pre + dt + dl
                         raw = raw.view(view)
                         
                     else:
