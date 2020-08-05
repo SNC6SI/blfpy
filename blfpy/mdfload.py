@@ -657,7 +657,6 @@ class  mdfwrite():
     class mdfwrite is so designed, that it will be only invoked by blfload
     internally.
     """
-    __BITMATRIX = np.flip(np.arange(64).reshape(8, 8), 1).reshape(64,)
     __CG_BLOCK_SIZE = 26
     __CN_BLOCK_SIZE = 228
 
@@ -712,8 +711,9 @@ class  mdfwrite():
             self.p += cn.block_size
             cn.p_cn_block = self.p
             self.cn += [cn]
+            one_pack = {}
             for signal, info in msg['signal'].items():
-                cn = self.CNBLOCK(endian, info, False, self.__BITMATRIX, period)
+                cn = self.CNBLOCK(endian, info, False, period, bit_start_this)
                 cn.p_cc_block = self.cc_dict[canid][signal].p_this
                 cn.p_this = self.p
                 self.p = cn.p_this + cn.block_size
@@ -951,7 +951,7 @@ class  mdfwrite():
 
     class CNBLOCK():
 
-        def __init__(self, E, info, time_flg, bm, period, bit_start_this):
+        def __init__(self, E, info, time_flg, period, bit_start_this):
             # bm: BITMATRIX
             self.fmt = E + '2sHIIIIIH32s128sHHHHdddIIH'
             
