@@ -1037,8 +1037,11 @@ class  mdfwrite():
 
             self.formula_id = formula_id
             if formula_id==0:
-                self.num_value_pairs = 0
-                self.parameters = [0.0, 1.0]
+                self.num_value_pairs = 2
+                if info is None:
+                    self.parameters = [0.0, 1.0]
+                else:
+                    self.parameters = [info['offset'], info['gain']]
                 self.post = 'dd'
             elif formula_id==11:
                 if len(info['enum']):
