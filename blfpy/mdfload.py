@@ -718,6 +718,7 @@ class  mdfwrite():
             self.file_identifier = b'MDF     '
             self.format_identifier = b'3.00    '
             self.program_identifier = b'blfpy   '
+            self.block_size = 64
     
             if E == '>':
                 self.endian = 1
