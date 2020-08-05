@@ -679,8 +679,11 @@ class  mdfwrite():
         self.hd = self.HDBLOCK(endian, self.bl)
         self.p = self.hd.p_this + self.hd.block_size
 
+        message = self.bl.parser.message
+        canids = self.bl.intersection[self.bl.channel]
         # cc
-        for canid, msg in self.bl.parser.message.items():
+        for canid in canids:
+            msg = message[canid]
             cc_local_dict = {}
             cc = self.CCBLOCK(endian, None, True)
             cc.p_this = self.p
@@ -696,7 +699,9 @@ class  mdfwrite():
             self.cc_dict[canid] = cc_local_dict
 
         # cn
-        for canid, msg in self.bl.parser.message.items():
+        self.cn_pack = {}
+        for canid in canids:
+            msg = message[canid]
             period = msg['period']
             if period is None:
                 period = 0
