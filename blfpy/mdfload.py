@@ -698,8 +698,12 @@ class  mdfwrite():
         # dt
         for dg in self.dg:
             dt = self.DT(endian, dg.canid, self.bl)
-            dg.p_records = self.p
-            self.p += dt.length
+            dt.p_this = self.p
+            if dt.d is None:
+                dg.p_records = 0
+            else:
+                dg.p_records = self.p
+            self.p += dt.block_size
             self.dt += [dt]
 
 
