@@ -707,6 +707,34 @@ class  mdfwrite():
             self.dt += [dt]
 
 
+        self.build()
+
+    def build(self):
+        self.data = np.zeros(self.p)
+        # id
+        self.data[self.id.p_this:self.id.p_this+self.id.block_size] = \
+            self.id.d
+        # hd
+        self.hd.build()
+        self.data[self.hd.p_this:self.hd.p_this+self.hd.block_size] = \
+            self.hd.d
+        # cc
+        for cc in self.cc:
+            cc.build()
+            self.data[cc.p_this:cc.p_this+cc.block_size] = cc.d
+        for cn in self.cn:
+            cn.build()
+            self.data[cn.p_this:cn.p_this+cn.block_size] = cn.d
+        for cg in self.cg:
+            cg.build()
+            self.data[cg.p_this:cg.p_this+cg.block_size] = cg.d
+        for dg in self.dg:
+            dg.build()
+            self.data[dg.p_this:dg.p_this+dg.block_size] = dg.d
+        for dt in self.dt:
+            if dt.d is not None:
+                self.data[dt.p_this:dt.p_this+dt.block_size] = dt.d
+
 
     class IDBLOCK():
 
