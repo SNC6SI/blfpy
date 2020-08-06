@@ -738,7 +738,7 @@ class  mdfwrite():
                     cn.p_cn_block = self.p
                     self.cn += [cn]
             cn.p_cn_block = 0 # no next
-            self.cn_pack[canid] = {cn_pack}
+            self.cn_pack[canid] = cn_pack
             # cg
             cg = self.CGBLOCK(endian, canid, self.bl)
             cg.p_cn_block = p_cn_first
