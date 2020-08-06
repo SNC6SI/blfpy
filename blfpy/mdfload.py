@@ -1119,7 +1119,6 @@ class  mdfwrite():
             data = time
             #
             msg = bl.parser.message[canid]['signal']
-            print(canid)
             for signal in cn_pack[canid]['mehrbyte']:
                 info = msg[signal]
                 if info['length'] == 1:
@@ -1137,12 +1136,12 @@ class  mdfwrite():
                 bb = si[signal].view('u1')[:, :byte_length]
                 data = np.concatenate((data, bb), axis=1)
             byte_cnt = 0
-            bb = np.zeros(time.shape, dtype=np.uint32)
+            bb = np.zeros((time.shape[0],1), dtype=np.uint32)
             for signal in cn_pack[canid]['onebyte']:
                 if byte_cnt == 8:
-                    data = np.concatenate((data, bb.view('u1')[:, 0]), axis=1)
+                    data = np.concatenate((data, bb.view('u1')[:, :1]), axis=1)
                     byte_cnt = 0
-                    bb = np.zeros(time.shape, dtype=np.uint32)
+                    bb = np.zeros((time.shape[0],1), dtype=np.uint32)
                 bb += (si[signal] << byte_cnt) 
                 byte_cnt += 1
 
