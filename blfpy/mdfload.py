@@ -795,7 +795,7 @@ class  mdfwrite():
             self.data[dg.p_this:dg.p_this+dg.block_size] = dg.d
         for dt in self.dt:
             if dt.d is not None:
-                self.data[dt.p_this:dt.p_this+dt.block_size] = dt.d
+                self.data[dt.p_this:dt.p_this+dt.block_size] = np.ravel(dt.d)
 
 
     class IDBLOCK():
