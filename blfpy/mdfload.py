@@ -941,7 +941,7 @@ class  mdfwrite():
             self.p_cn_block = 0
             self.p_tx_block = 0
             self.record_id = 0
-            self.num_cn_blocks = len(bl.parser.message[canid])
+            self.num_cn_blocks = len(bl.parser.message[canid]) + 1
             self.record_size = 16 # 8 for time in float64, 8 for 8 bytes data
             try:
                 self.num_records = len(bl.data_index[bl.channel][canid])
