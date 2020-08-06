@@ -741,6 +741,7 @@ class  mdfwrite():
             self.cn_pack[canid] = cn_pack
             # cg
             cg = self.CGBLOCK(endian, canid, self.bl)
+            cg.record_size = math.ceil(bit_start_this/8)
             cg.p_cn_block = p_cn_first
             cg.p_this = self.p
             self.p += cg.block_size
@@ -942,7 +943,7 @@ class  mdfwrite():
             self.p_tx_block = 0
             self.record_id = 0
             self.num_cn_blocks = len(bl.parser.message[canid]) + 1
-            self.record_size = 16 # 8 for time in float64, 8 for 8 bytes data
+            self.record_size = 0
             try:
                 self.num_records = len(bl.data_index[bl.channel][canid])
             except: # known KeyError if data of canid does not exist
