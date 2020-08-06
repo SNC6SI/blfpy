@@ -817,7 +817,6 @@ class  mdfwrite():
             else:
                 raise ValueError
 
-            self.endian = 1
             self.floating_point_format = 0
             self.version = 300
             self.reserved_1 = 0
