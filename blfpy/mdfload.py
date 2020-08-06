@@ -1077,10 +1077,10 @@ class  mdfwrite():
             elif formula_id==11:
                 if len(info['enum']):
                     self.parameters = []
-                    self.num_value_pairs = len(info['enum'])
+                    self.num_value_pairs = len(info['enum']) * 2
                     for k,v in info['enum'].items():
                         self.parameters += [float(k), v.encode()]
-                    self.post = 'd32s' * self.num_value_pairs
+                    self.post = 'd32s' * len(info['enum'])
                 else:
                     raise \
                         ValueError(f"\"enums\" is empty.")
