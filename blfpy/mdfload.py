@@ -1136,15 +1136,19 @@ class  mdfwrite():
                     raise ValueError
                 bb = si[signal].view('u1')[:, :byte_length]
                 data = np.concatenate((data, bb), axis=1)
-            byte_cnt = 0
+            bit_cnt = 0
             bb = np.zeros((time.shape[0],1), dtype=np.uint32)
             for signal in cn_pack[canid]['onebyte']:
-                if byte_cnt == 8:
+                # concat and reset
+                if bit_cnt == 8:
                     data = np.concatenate((data, bb.view('u1')[:, :1]), axis=1)
-                    byte_cnt = 0
+                    bit_cnt = 0
                     bb = np.zeros((time.shape[0],1), dtype=np.uint32)
-                bb += (si[signal] << byte_cnt) 
-                byte_cnt += 1
+                # offset
+                bb += (si[signal] << bit_cnt) 
+                bit_cnt += 1
+            if bit_cnt != 0:
+                data = np.concatenate((data, bb.view('u1')[:, :1]), axis=1)
 
             self.d = data
             self.block_size = data.size
