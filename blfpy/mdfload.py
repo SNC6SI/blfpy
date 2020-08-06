@@ -1115,11 +1115,12 @@ class  mdfwrite():
             si = bl.si_data[canid]
             # time
             time = si['ctime']
-            time = time.reshape(time.shape[0], 1).view(E+'f8')
+            time = time.reshape(time.shape[0], 1).view('u1')
             data = time
             #
             msg = bl.parser.message[canid]['signal']
-            for signal in cn_pack['mehrbyte']:
+            print(canid)
+            for signal in cn_pack[canid]['mehrbyte']:
                 info = msg[signal]
                 if info['length'] == 1:
                     byte_length = 1
@@ -1133,19 +1134,18 @@ class  mdfwrite():
                     byte_length = 8
                 else:
                     raise ValueError
-                byte_length_str = str(byte_length)
-                bb = si[signal].view(E + 'u' + byte_length_str)
+                bb = si[signal].view('u1')[:, :byte_length]
                 data = np.concatenate((data, bb), axis=1)
-            
-            
-            
-            
-            
-            
-            
-            bb = bl.raw_data[0][idx].astype(np.uint8)
-            
-            data = data.reshape(1, data.size)
+            byte_cnt = 0
+            bb = np.zeros(time.shape, dtype=np.uint32)
+            for signal in cn_pack[canid]['onebyte']:
+                if byte_cnt == 8:
+                    data = np.concatenate((data, bb.view('u1')[:, 0]), axis=1)
+                    byte_cnt = 0
+                    bb = np.zeros(time.shape, dtype=np.uint32)
+                bb += (si[signal] << byte_cnt) 
+                byte_cnt += 1
+
             self.d = data
             self.block_size = data.size
 
