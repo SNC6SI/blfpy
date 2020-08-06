@@ -981,17 +981,15 @@ class  mdfwrite():
             self.reserved_1 = 0
             self.reserved_2 = 0
             self.p_tx_block = 0
-            if time_flg:
-                self.cn_type = 1 # 0: data, 1: time
-            else:
-                self.cn_type = 0
             self.signal_description = b''
             if time_flg:
+                self.cn_type = 1 # 0: data, 1: time
                 self.signal_name = b'time'
                 self.bit_start = bit_start_this
                 self.bit_length = 64
                 self.signal_data_type = 3 # 0:U, 1: S, 2: f32, 3: f64
             else:
+                self.cn_type = 0
                 self.signal_name = info['name'].encode()
                 if info['length'] == 1:
                     self.bit_length = 1
