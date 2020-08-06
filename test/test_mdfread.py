@@ -13,6 +13,7 @@ from blfpy.mdfload import mdfread
 
 
 if __name__ == "__main__":
-    mdf_file = r'abc4.dat'
+    # mdf_file = r'abc6.dat'
+    mdf_file = r'test/2020-07-17_19_IC321_HEV150_SW2.2.4_C2.2.1_FCH_NoreqI_01.dat'
     m = mdfread(mdf=mdf_file)
     m.read() 
