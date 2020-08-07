@@ -32,3 +32,4 @@ if __name__ == "__main__":
 
 
     bl.save_data(file_format='mdf')
+    bl.w.data.tofile('abc16.dat')
