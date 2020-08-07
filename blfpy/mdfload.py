@@ -1060,7 +1060,7 @@ class  mdfwrite():
                 self.bool_value_range = 1
                 self.min_value_range = info['phymin']
                 self.max_value_range = info['phymax']
-                self.phy_unit = info['unit'].encode()
+                self.phy_unit = info['unit'].encode(encoding='GBK')
                 if ('enum' in info.keys()) \
                     and info['offset'] == 0 \
                     and info['gain'] == 1:
@@ -1081,7 +1081,7 @@ class  mdfwrite():
                     self.parameters = []
                     self.num_value_pairs = len(info['enum']) * 2
                     for k,v in info['enum'].items():
-                        self.parameters += [float(k), v.encode()]
+                        self.parameters += [float(k), v.encode(encoding='GBK')]
                     self.post = 'd32s' * len(info['enum'])
                 else:
                     raise \
