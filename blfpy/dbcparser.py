@@ -202,12 +202,25 @@ class dbc2code():
         else:
             import copy
             message = copy.deepcopy(self.message)
-            for k, v in message.items():
-                for kk, vv in v['signal'].items():
-                    del vv['sigmat']
-                    del vv['pycode_raw2si']
-                    del vv['pycode_si2phy']
-            return message
+            if level == 'message':
+                for k in message.keys():
+                    message[k] = ''
+                return message
+            elif level == 'signal':
+                for k, v in message.items():
+                    message[k] = list(v['signal'].keys())
+                return message
+            elif level == 'all':
+                for k, v in message.items():
+                    for kk, vv in v['signal'].items():
+                        del vv['sigmat']
+                        del vv['pycode_raw2si']
+                        del vv['pycode_si2phy']
+                        if 'enum' in vv.keys():
+                            del vv['enum']
+                return message
+            else:
+                return None
 
 
 
