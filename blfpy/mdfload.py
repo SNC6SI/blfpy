@@ -456,7 +456,7 @@ class mdfread:
             p_cc_block, \
             _, \
             _, \
-            p_tx_block, \
+            p_tx_channel_comment, \
             cn_type, \
             signal_name, \
             signal_description, \
@@ -467,15 +467,17 @@ class mdfread:
             min_value_range, \
             max_value_range, \
             sample_rate, \
-            p_unique_name, \
-            _, \
+            p_tx_long_signal_name, \
+            p_tx_display_name, \
             byte_offset = unpack(fmt, d[p:p+size].tobytes())
             
             self.block_type = block_type.decode().rstrip('\x00')
             self.block_size = block_size
             self.p_cn_block = p_cn_block
             self.p_cc_block = p_cc_block
-            self.p_tx_block = p_tx_block
+            self.p_tx_block = p_tx_channel_comment
+            self.p_tx_long_signal_name = p_tx_long_signal_name
+            self.p_tx_display_name = p_tx_display_name
             # cn_type: 0=data, 1=time
             self.cn_type = cn_type
             self.signal_name = signal_name.decode().rstrip('\x00')
@@ -491,7 +493,6 @@ class mdfread:
             self.min_value_range = min_value_range
             self.max_value_range = max_value_range
             self.sample_rate = sample_rate
-            self.p_unique_name = p_unique_name
             self.byte_offset = byte_offset
 
 
