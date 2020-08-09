@@ -370,6 +370,22 @@ class mdfread:
                 self.mat = d[p:p+s*n].reshape((n,s))
         
             
+    class TXBLOCK:
+
+        def __init__(self, data, E, p):
+            d = data
+
+            block_size = d[p:p+2].view(E+'U2')
+            text_size = block_size - 4
+            fmt = E + f'2sH{text_size}s'
+            size = calcsize(fmt)
+            block_type, \
+            _, \
+            text = unpack(fmt, d[p:p+size].tobytes())
+
+            self.block_type = block_type.decode().rstrip('\x00')
+            self.block_size = block_size
+            self.text = text.decode().rstrip('\x00')
 
     class CGBLOCK:
         """
