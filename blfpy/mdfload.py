@@ -290,7 +290,7 @@ class mdfread:
             - p_dg_block
             - num_dg_blocks
         """
-        
+
         def __init__(self, data, E):
             p = 64
             d = data # +208 for 3.30 and is not implemented
@@ -336,10 +336,10 @@ class mdfread:
         
         def __init__(self, data, E, p):
             d = data
-            
+
             fmt = E + '2sHIIIIHH'
             size = calcsize(fmt)
-            
+
             block_type, \
             block_size, \
             p_dg_block, \
@@ -348,7 +348,7 @@ class mdfread:
             p_records, \
             num_cg_blocks, \
             num_record_ids = unpack(fmt, d[p:p+size].tobytes())
-    
+
             self.block_type = block_type.decode().rstrip('\x00')
             self.block_size = block_size
             self.p_dg_block = p_dg_block
@@ -360,7 +360,7 @@ class mdfread:
 
     # DATARECORDS
     class DT:
-        
+
         def __init__(self, data, record_id, p, s, n):
             # p: p_records
             # s: record_size
@@ -368,8 +368,8 @@ class mdfread:
             d = data
             if record_id==0:
                 self.mat = d[p:p+s*n].reshape((n,s))
-        
-            
+
+
     class TXBLOCK:
 
         def __init__(self, data, E, p):
@@ -386,6 +386,7 @@ class mdfread:
             self.block_type = block_type.decode().rstrip('\x00')
             self.block_size = block_size
             self.text = text.decode().rstrip('\x00')
+
 
     class CGBLOCK:
         """
@@ -666,6 +667,17 @@ class mdfread:
                 
             self.parameters = parameters
             self.pycode = pycode
+
+
+
+
+
+
+###############################################################################
+
+
+
+
 
 
 
