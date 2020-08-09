@@ -375,8 +375,9 @@ class mdfread:
         def __init__(self, data, E, p):
             d = data
 
-            block_size = d[p:p+2].view(E+'U2')
-            text_size = block_size - 4
+            block_size = d[p:p+2].copy().view(E+'u2')
+            print(d[p:p+2])
+            text_size = int(block_size - 4)
             fmt = E + f'2sH{text_size}s'
             size = calcsize(fmt)
             block_type, \
@@ -385,7 +386,7 @@ class mdfread:
 
             self.block_type = block_type.decode().rstrip('\x00')
             self.block_size = block_size
-            self.text = text.decode().rstrip('\x00')
+            self.text = text.decode("utf8","ignore").rstrip('\x00')
 
 
     class CGBLOCK:
