@@ -64,15 +64,24 @@ class mdfread:
 
 
         # CN
+        self.tx_channel_comment = []
+        self.tx_long_signal_name = []
+        self.tx_display_name = []
         for dgblock in self.dgblocks:
             for cgblock in dgblock.cgblocks:
                 cnblock = self.CNBLOCK(self.data, self.endian, cgblock.p_cn_block)
                 cnblocks = [cnblock]
+                self.tx_channel_comment += [self.TXBLOCK(self.data, self.endian, cnblock.p_tx_channel_comment)]
+                self.tx_long_signal_name += [self.TXBLOCK(self.data, self.endian, cnblock.p_tx_long_signal_name)]
+                self.tx_display_name += [self.TXBLOCK(self.data, self.endian, cnblock.p_tx_display_name)]
                 self.pointer['cn'] += [cgblock.p_cn_block]
                 while cnblock.p_cn_block:
                     self.pointer['cn'] += [cnblock.p_cn_block]
                     cnblock = self.CNBLOCK(self.data, self.endian, cnblock.p_cn_block)
                     cnblocks += [cnblock]
+                    self.tx_channel_comment += [self.TXBLOCK(self.data, self.endian, cnblock.p_tx_channel_comment)]
+                    self.tx_long_signal_name += [self.TXBLOCK(self.data, self.endian, cnblock.p_tx_long_signal_name)]
+                    self.tx_display_name += [self.TXBLOCK(self.data, self.endian, cnblock.p_tx_display_name)]
                 cgblock.cnblocks = cnblocks
 
 
