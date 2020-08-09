@@ -20,9 +20,9 @@ class dbc2code():
                          r"(?P<endian>[01])\+? \(" + \
                          r"(?P<gain>\d+(\.\d*)?)," + \
                          r"(?P<offset>-?\d+(\.\d*)?)\) \[" + \
-                         r"(?P<phymin>-?\d+(\.\d*)?)\|" + \
-                         r"(?P<phymax>-?\d+(\.\d*)?)\] \"" + \
-                         r"(?P<unit>.*?)\"  " + \
+                         r"(?P<phymin>-?\d+(\.\d*)?(E\+\d+)?)\|" + \
+                         r"(?P<phymax>-?\d+(\.\d*)?(E\+\d+)?)\] \"" + \
+                         r"(?P<unit>.*?)\"\s+" + \
                          r"(?P<reciever>.*)")
     __VAL_RE = re.compile(r'VAL_ (\d+) (\w+) ((?:\d+ ".+?")+?) ;')
     __VAL_INTERN_RE = re.compile(r'(\d+) "(.*?)"')
