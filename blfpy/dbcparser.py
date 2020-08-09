@@ -196,6 +196,20 @@ class dbc2code():
         self.periods = dict(cycle_times_canid_dec)
 
 
+    def to_dict(self, level='signal'):
+        if not hasattr(self, 'message'):
+            return None
+        else:
+            import copy
+            message = copy.deepcopy(self.message)
+            for k, v in message.items():
+                for kk, vv in v['signal'].items():
+                    del vv['sigmat']
+                    del vv['pycode_raw2si']
+                    del vv['pycode_si2phy']
+            return message
+
+
 
 if __name__ == "__main__":
     dbc = dbc2code(fn="test/dbc/IC321_PTCAN_CMatrix_V1.7_PT装车_VBU.dbc")
