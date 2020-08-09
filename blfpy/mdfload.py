@@ -476,7 +476,7 @@ class mdfread:
             self.block_size = block_size
             self.p_cn_block = p_cn_block
             self.p_cc_block = p_cc_block
-            self.p_tx_block = p_tx_channel_comment
+            self.p_tx_channel_comment = p_tx_channel_comment
             self.p_tx_long_signal_name = p_tx_long_signal_name
             self.p_tx_display_name = p_tx_display_name
             # cn_type: 0=data, 1=time
