@@ -247,6 +247,18 @@ class mdfread:
                     self.parsed_data[signal_name] = signal
 
 
+    def to_blf(self, blf=None, dbc=None):
+        if dbc is None:
+            pass
+        else:
+            from dbcparser import dbc2code
+            self.parser = dbc2code(fn=dbc)
+            self.parser.get_parser()
+            message_in_dbc = self.parser.get_message_name()
+        for tx in self.tx_cg_comment:
+            pass
+
+
     class IDBLOCK:
         """
         useful infos:
@@ -1210,3 +1222,4 @@ if __name__ == "__main__":
     # dbc.get_parser()
     # w = mdfwrite()
     # w.write(dbc)
+    m.to_blf(dbc='../test/dbc/IC321_PTCAN_CMatrix_V1.7_PT装车_VBU.dbc')
