@@ -51,15 +51,18 @@ class mdfread:
 
 
         # CG
+        self.tx_cg_comment = []
         for dgblock in self.dgblocks:
             if dgblock.num_cg_blocks:
                 cgblock = self.CGBLOCK(self.data, self.endian, dgblock.p_cg_block)
                 cgblocks = [cgblock]
+                self.tx_cg_comment += [self.TXBLOCK(self.data, self.endian, cgblock.p_tx_cg_comment)]
                 self.pointer['cg'] += [dgblock.p_cg_block]
                 while cgblock.p_cg_block:
                     self.pointer['cg'] += [dgblock.p_cg_block]
                     cgblock = self.CGBLOCK(self.data, self.endian, cgblock.p_cg_block)
                     cgblocks += [cgblock]
+                    self.tx_cg_comment += [self.TXBLOCK(self.data, self.endian, cgblock.p_tx_cg_comment)]
                 dgblock.cgblocks = cgblocks
 
 
@@ -384,8 +387,7 @@ class mdfread:
         def __init__(self, data, E, p):
             d = data
 
-            block_size = d[p:p+2].copy().view(E+'u2')
-            print(d[p:p+2])
+            block_size = d[p+2:p+4].copy().view(E+'u2')
             text_size = int(block_size - 4)
             fmt = E + f'2sH{text_size}s'
             size = calcsize(fmt)
@@ -395,7 +397,7 @@ class mdfread:
 
             self.block_type = block_type.decode().rstrip('\x00')
             self.block_size = block_size
-            self.text = text.decode("utf8","ignore").rstrip('\x00')
+            self.text = text.decode(encoding='GBK').rstrip('\x00')
 
 
     class CGBLOCK:
@@ -420,7 +422,7 @@ class mdfread:
             block_size, \
             p_cg_block, \
             p_cn_block, \
-            p_tx_block, \
+            p_tx_cg_comment, \
             record_id, \
             num_cn_blocks, \
             record_size, \
@@ -430,7 +432,7 @@ class mdfread:
             self.block_size = block_size
             self.p_cg_block = p_cg_block
             self.p_cn_block = p_cn_block
-            self.p_tx_block = p_tx_block
+            self.p_tx_cg_comment = p_tx_cg_comment
             self.record_id = record_id
             self.num_cn_blocks = num_cn_blocks
             self.record_size = record_size
