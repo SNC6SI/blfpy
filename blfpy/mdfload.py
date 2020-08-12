@@ -723,7 +723,7 @@ class  mdfwrite():
         self.bl = bl
 
 
-    def write(self):
+    def write(self, file_name):
         # cc
         endian = '<'
         self.dg = []
@@ -828,8 +828,8 @@ class  mdfwrite():
             self.p += dt.block_size
             self.dt += [dt]
 
-
         self.build()
+        self.data.tofile(file_name)
 
     def build(self):
         self.data = np.zeros(self.p, dtype=np.uint8)
@@ -1228,4 +1228,5 @@ if __name__ == "__main__":
     # dbc.get_parser()
     # w = mdfwrite()
     # w.write(dbc)
-    m.save_data(dbc='../test/dbc/IC321_PTCAN_CMatrix_V1.7_PT装车_VBU.dbc')
+    m.save_data(file_format='mat',
+                dbc='../test/dbc/IC321_PTCAN_CMatrix_V1.7_PT装车_VBU.dbc')

@@ -231,18 +231,20 @@ class blfload():
         # default file_name
         if file_name is None:
             p = os.path.abspath(self.blf)
-            file_name = ''.join((os.path.splitext(p)[0], '.mat'))
+            file_name_pre = os.path.splitext(p)[0]
         if file_format=='mat':
-            mdict = {'can': self.parsed_data}
+            file_name = ''.join((file_name_pre, '.mat'))
             from scipy.io import savemat
+            mdict = {'can': self.parsed_data}
             savemat(file_name,
                     mdict,
                     long_field_names=True,
                     do_compression=True)
         elif file_format=='mdf' or file_format=='dat':
+            file_name = ''.join((file_name_pre, '.dat'))
             from .mdfload import mdfwrite
             self.w = mdfwrite(self)
-            self.w.write()
+            self.w.write(file_name)
         else:
             raise ValueError(f"\"{file_format}\" is not supported.")
 
