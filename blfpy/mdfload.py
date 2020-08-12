@@ -247,8 +247,7 @@ class mdfread:
                     self.parsed_data[signal_name] = signal
 
 
-    def to_blf(self, blf=None, dbc=None):
-        if dbc is None:
+    def save_data(self, file_name=None, file_format='mat', dbc=None):
             pass
         else:
             from dbcparser import dbc2code
@@ -1222,4 +1221,4 @@ if __name__ == "__main__":
     # dbc.get_parser()
     # w = mdfwrite()
     # w.write(dbc)
-    m.to_blf(dbc='../test/dbc/IC321_PTCAN_CMatrix_V1.7_PT装车_VBU.dbc')
+    m.save_data(dbc='../test/dbc/IC321_PTCAN_CMatrix_V1.7_PT装车_VBU.dbc')
