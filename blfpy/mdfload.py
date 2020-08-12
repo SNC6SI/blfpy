@@ -8,6 +8,7 @@ Created on Wed Jul 22 23:49:28 2020
 from struct import unpack, pack, calcsize
 import warnings
 import math
+import os
 import re
 import numpy as np
 from scipy import interpolate
@@ -248,10 +249,21 @@ class mdfread:
 
 
     def save_data(self, file_name=None, file_format='mat', dbc=None):
+        if file_name is None:
+            p = os.path.abspath(self.mdf)
+            file_name_pre = os.path.splitext(p)[0]
         if file_format=='mat':
-            # save as matlab mat-format
-            pass
+            if not file_name.endswith('.mat'):
+                file_name = ''.join((file_name_pre, '.mat'))
+            from scipy.io import savemat
+            mdict = {'mdf': self.parsed_data}
+            savemat(file_name,
+                    mdict,
+                    long_field_names=True,
+                    do_compression=True)
         elif file_format=='blf':
+            if not file_name.endswith('.blf'):
+                file_name = ''.join((file_name_pre, '.blf'))
             if dbc is None:
                 raise FileNotFoundError("\"dbc\" must be specified.")
             else:
