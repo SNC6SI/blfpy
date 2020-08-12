@@ -239,7 +239,7 @@ class blfload():
                     mdict,
                     long_field_names=True,
                     do_compression=True)
-        elif file_format=='mdf':
+        elif file_format=='mdf' or file_format=='dat':
             from .mdfload import mdfwrite
             self.w = mdfwrite(self)
             self.w.write()
