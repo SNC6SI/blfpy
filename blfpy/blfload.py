@@ -233,7 +233,8 @@ class blfload():
             p = os.path.abspath(self.blf)
             file_name_pre = os.path.splitext(p)[0]
         if file_format=='mat':
-            file_name = ''.join((file_name_pre, '.mat'))
+            if not file_name.endswith('.mat'):
+                file_name = ''.join((file_name_pre, '.mat'))
             from scipy.io import savemat
             mdict = {'can': self.parsed_data}
             savemat(file_name,
@@ -241,7 +242,8 @@ class blfload():
                     long_field_names=True,
                     do_compression=True)
         elif file_format=='mdf' or file_format=='dat':
-            file_name = ''.join((file_name_pre, '.dat'))
+            if not file_name.endswith('.dat'):
+                file_name = ''.join((file_name_pre, '.dat'))
             from .mdfload import mdfwrite
             self.w = mdfwrite(self)
             self.w.write(file_name)
