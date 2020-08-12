@@ -248,14 +248,21 @@ class mdfread:
 
 
     def save_data(self, file_name=None, file_format='mat', dbc=None):
+        if file_format=='mat':
+            # save as matlab mat-format
             pass
+        elif file_format=='blf':
+            if dbc is None:
+                raise FileNotFoundError("\"dbc\" must be specified.")
+            else:
+                from dbcparser import dbc2code
+                self.parser = dbc2code(fn=dbc)
+                self.parser.get_parser()
+                message_in_dbc = self.parser.get_message_name()
+                for tx in self.tx_cg_comment:
+                    pass
         else:
-            from dbcparser import dbc2code
-            self.parser = dbc2code(fn=dbc)
-            self.parser.get_parser()
-            message_in_dbc = self.parser.get_message_name()
-        for tx in self.tx_cg_comment:
-            pass
+            raise ValueError(f"\"{file_format}\" is not supported.")
 
 
     class IDBLOCK:
