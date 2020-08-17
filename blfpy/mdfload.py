@@ -253,7 +253,7 @@ class mdfread:
             p = os.path.abspath(self.mdf)
             file_name_pre = os.path.splitext(p)[0]
         if file_format=='mat':
-            if not file_name.endswith('.mat'):
+            if not file_name_pre.endswith('.mat'):
                 file_name = ''.join((file_name_pre, '.mat'))
             from scipy.io import savemat
             mdict = {'mdf': self.parsed_data}
@@ -262,7 +262,7 @@ class mdfread:
                     long_field_names=True,
                     do_compression=True)
         elif file_format=='blf':
-            if not file_name.endswith('.blf'):
+            if not file_name_pre.endswith('.blf'):
                 file_name = ''.join((file_name_pre, '.blf'))
             if dbc is None:
                 raise FileNotFoundError("\"dbc\" must be specified.")
