@@ -58,12 +58,14 @@ class mdfread:
                 cgblock = self.CGBLOCK(self.data, self.endian, dgblock.p_cg_block)
                 cgblocks = [cgblock]
                 self.tx_cg_comment += [self.TXBLOCK(self.data, self.endian, cgblock.p_tx_cg_comment)]
+                cgblock.name = self.tx_cg_comment[-1].text
                 self.pointer['cg'] += [dgblock.p_cg_block]
                 while cgblock.p_cg_block:
                     self.pointer['cg'] += [dgblock.p_cg_block]
                     cgblock = self.CGBLOCK(self.data, self.endian, cgblock.p_cg_block)
                     cgblocks += [cgblock]
                     self.tx_cg_comment += [self.TXBLOCK(self.data, self.endian, cgblock.p_tx_cg_comment)]
+                    cgblock.name = self.tx_cg_comment[-1].text
                 dgblock.cgblocks = cgblocks
 
 
@@ -467,6 +469,7 @@ class mdfread:
             self.num_cn_blocks = num_cn_blocks
             self.record_size = record_size
             self.num_records = num_records
+            self.name = ''
 
 
     class CNBLOCK:
@@ -1240,5 +1243,5 @@ if __name__ == "__main__":
     # dbc.get_parser()
     # w = mdfwrite()
     # w.write(dbc)
-    m.save_data(file_format='mat',
-                dbc='../test/dbc/IC321_PTCAN_CMatrix_V1.7_PT装车_VBU.dbc')
+    # m.save_data(file_format='mat',
+    #             dbc='../test/dbc/IC321_PTCAN_CMatrix_V1.7_PT装车_VBU.dbc')
