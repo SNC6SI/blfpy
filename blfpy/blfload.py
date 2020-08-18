@@ -274,22 +274,3 @@ class blfload():
             eng = matlab.engine.connect_matlab(eng_rc[0])
         self.eng = eng
     '''
-    
-
-if __name__ == "__main__":
-    bl = blfload(dbc='test/dbc/IC321_PTCAN_CMatrix_V1.7_PT装车_VBU.dbc',
-                 blf='20200608_IC321_500_快充测试009.blf')
-    bl.signals = {'VBU_BMS_0x100': ['VBU_BMS_PackU',
-                                    'VBU_BMS_PackI',
-                                    'VBU_BMS_State'],
-                  'VBU_BMS_0x102': ['VBU_BMS_RealSOC',
-                                    'VBU_BMS_PackDispSoc'],
-                  'VBU_BMS_0x513': ['VBU_BMS_MaxTemp',
-                                    'VBU_BMS_MinTemp']}
-    # del bl.signals
-    # channel = None
-    bl.read()
-    # bl.plot(matlab.double(bl.can['VBU_BMS_0x100']['ctime'].tolist()),
-    #         matlab.double( bl.can['VBU_BMS_0x100']['VBU_BMS_PackU'].tolist()))
-    # bl.grid('on', nargout=0)
-    # bl.eng.exit()
