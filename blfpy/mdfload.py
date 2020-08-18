@@ -88,6 +88,8 @@ class mdfread:
                 cnblock.channel_comment = tx_channel_comment.text
                 cnblock.long_signal_name = tx_long_signal_name.text
                 cnblock.display_name = tx_display_name.text
+                cn_name = self.__SIGNAME_RE.findall(cnblock.long_signal_name)[0]
+                cgblock.cn_names += [cn_name]
                 self.pointer['cn'] += [cgblock.p_cn_block]
                 while cnblock.p_cn_block:
                     self.pointer['cn'] += [cnblock.p_cn_block]
@@ -102,6 +104,8 @@ class mdfread:
                     cnblock.channel_comment = tx_channel_comment.text
                     cnblock.long_signal_name = tx_long_signal_name.text
                     cnblock.display_name = tx_display_name.text
+                    cn_name = self.__SIGNAME_RE.findall(cnblock.long_signal_name)[0]
+                    cgblock.cn_names += [cn_name]
                 cgblock.cnblocks = cnblocks
 
 
@@ -286,11 +290,47 @@ class mdfread:
                 from dbcparser import dbc2code
                 self.parser = dbc2code(fn=dbc)
                 self.parser.get_parser()
-                message_in_dbc = self.parser.get_message_name()
-                for tx in self.tx_cg_comment:
-                    pass
+                mapping_name2id = self.parser.get_name_canid_mapping()
+                self.__save_data_internal_prepare_data(mapping_name2id)
         else:
             raise ValueError(f"\"{file_format}\" is not supported.")
+
+
+    def __save_data_internal_prepare_data(self, mapping_name2id):
+        self.bb_dict = {}
+        for dgblock in self.dgblocks:
+            for cgblock in dgblock.cgblocks:
+                if cgblock.name in mapping_name2id.keys():
+                    canid = mapping_name2id[cgblock.name]
+                    byte = np.zeros((cgblock.num_records, 8), dtype=np.uint8)
+                    # print(canid)
+                    msg = self.parser.message[canid]
+                    for signal in msg['signal'].keys():
+                        if signal in cgblock.cn_names:
+                            idx = cgblock.cn_names.index(signal)
+                            cnblock = cgblock.cnblocks[idx]
+                            s2exec = f"{msg['mapping_s2v'][signal]}=cnblock.raw"
+                        else:
+                            s2exec = f"{msg['mapping_s2v'][signal]}=" + \
+                                      "np.zeros((cgblock.num_records, 1), dtype=np.uint8)"
+                        exec(s2exec)
+                    for cnblock in cgblock.cnblocks:
+                        if cnblock.cn_type==1: # 1 for time
+                            time = cnblock.raw
+                            break
+                    for i, item in enumerate(msg['mat_raw2pack']):
+                        if len(item):
+                            byte[:,i] = np.squeeze(eval(item))
+                    for vv in msg['mapping_v2s'].keys():
+                        exec(f'del {vv}')
+                else:
+                    continue
+                # f: filling
+                canid_f = np.ones((cgblock.num_records, 1), dtype=np.uint32) * canid
+                channel_f = np.ones((cgblock.num_records, 1), dtype=np.uint16)
+                self.bb_dict[canid] = [byte, canid_f, channel_f, time]
+                        
+                        
 
 
     class IDBLOCK:
@@ -484,6 +524,7 @@ class mdfread:
             self.record_size = record_size
             self.num_records = num_records
             self.name = ''
+            self.cn_names = []
 
 
     class CNBLOCK:
@@ -1262,3 +1303,5 @@ if __name__ == "__main__":
     # w.write(dbc)
     # m.save_data(file_format='mat',
     #             dbc='../test/dbc/IC321_PTCAN_CMatrix_V1.7_PT装车_VBU.dbc')
+    m.save_data(file_format='blf',
+                dbc='../test/dbc/IC321_PTCAN_CMatrix_V1.7_PT装车_VBU.dbc')
