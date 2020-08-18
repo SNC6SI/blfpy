@@ -244,13 +244,93 @@ PyObject* read_data(PyObject* self, PyObject* args)
 
     return arglist;
 }
-    
+
+
+PyObject * write_data(PyObject *self, PyObject *args) {
+    HANDLE hFile;
+    SYSTEMTIME systemTime;
+    BOOL bSuccess;
+    char* cfileName;
+    Py_ssize_t len;
+    PyObject * O_data, * O_id, * O_channel, * O_time;
+    npy_intp* pdim_data, * pdim_id, * pdim_channel, * pdim_time;
+    npy_int len_message[4], len_min, i,j;
+    VBLCANMessage2 message;
+    npy_ubyte* data;
+    npy_uint32* id;
+    npy_uint16* channel;
+    npy_double* time;
+    char a;
+
+    if (!PyArg_ParseTuple(args, "s#(OOOO)", &cfileName, &len, &O_data, &O_id, &O_channel, &O_time))
+        return NULL;
+    pdim_data = PyArray_SHAPE(O_data);
+    pdim_id = PyArray_SHAPE(O_id);
+    pdim_channel = PyArray_SHAPE(O_channel);
+    pdim_time = PyArray_SHAPE(O_time);
+    len_message[0] = pdim_data[0];
+    len_message[1] = pdim_id[0];
+    len_message[2] = pdim_channel[0];
+    len_message[3] = pdim_time[0];
+    len_min = len_message[0];
+    for (i = 1; i < 4; i++) {
+        if (len_message[i] < len_min) {
+            len_min = len_message[i];
+        }
+    }
+
+    data = (npy_ubyte*)PyArray_DATA((PyArrayObject*)O_data);
+    id = (npy_uint32*)PyArray_DATA((PyArrayObject*)O_id);
+    channel = (npy_uint16*)PyArray_DATA((PyArrayObject*)O_channel);
+    time = (npy_double*)PyArray_DATA((PyArrayObject*)O_time);
+
+    hFile = BLCreateFile(cfileName, GENERIC_WRITE);
+    if (INVALID_HANDLE_VALUE == hFile)
+    {
+        return -1;
+    }
+    bSuccess = BLSetApplication(hFile, BL_APPID_UNKNOWN, 1, 0, 0);
+    GetSystemTime(&systemTime);
+    bSuccess = bSuccess && BLSetMeasurementStartTime(hFile, &systemTime);
+    bSuccess = bSuccess && BLSetWriteOptions(hFile, 6, 0);
+    if (bSuccess) {
+        memset(&message, 0, sizeof(VBLCANMessage2));
+
+        message.mHeader.mBase.mSignature = BL_OBJ_SIGNATURE;
+        message.mHeader.mBase.mHeaderSize = sizeof(message.mHeader);
+        message.mHeader.mBase.mHeaderVersion = 1;
+        message.mHeader.mBase.mObjectSize = sizeof(VBLCANMessage);
+        message.mHeader.mBase.mObjectType = BL_OBJ_TYPE_CAN_MESSAGE;
+        message.mHeader.mObjectFlags = BL_OBJ_FLAG_TIME_ONE_NANS;
+    }
+    for (i = 0; i < len_min; i++) {
+
+
+        message.mHeader.mObjectTimeStamp = (npy_ulonglong)((*(time+i)) * 1000000000);
+        message.mChannel = *(channel+i);
+        message.mFlags = CAN_MSG_FLAGS(0, 0);
+        message.mDLC = 8;
+        message.mID = *(id+i);
+        for (j = 0; j < 8; j++)
+        {
+            message.mData[j] = *(data + (i << 3) + j);
+        }
+
+        bSuccess = BLWriteObject(hFile, &message.mHeader.mBase);
+    }
+    if (!BLCloseHandle(hFile))
+    {
+        return -1;
+    }
+    Py_RETURN_NONE;
+}
 
 
 
 static PyMethodDef blfcMethods[] = {
     {"read_info", (PyCFunction)read_info, METH_VARARGS, 0},
     {"read_data", (PyCFunction)read_data, METH_VARARGS, 0},
+    {"write_data", (PyCFunction)write_data, METH_VARARGS, 0},
     {NULL, NULL, 0, NULL}
 };
 
