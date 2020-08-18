@@ -158,10 +158,10 @@ class dbc2code():
         return sigmat
 
 
-    def _parser_internal_matrix2py(self, SG_dict):
-        sigmat = SG_dict['sigmat']
-        gain = SG_dict['gain']
-        offset = SG_dict['offset']
+    def _parser_internal_matrix2py(self, info):
+        sigmat = info['sigmat']
+        gain = info['gain']
+        offset = info['offset']
         # unpack
         loopnum = sigmat.shape[0]
         si = ''
