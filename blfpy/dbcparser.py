@@ -81,6 +81,15 @@ class dbc2code():
                     # 
                     SG_dicts[SG_dict['name']] = SG_dict
             BO_dict['signal'] = SG_dicts
+            # map
+            mapping_v2s = {}
+            mapping_s2v = {}
+            for i, name in enumerate(BO_dict['signal'].keys()):
+                v = f'v{i}'
+                mapping_v2s[v] = name
+                mapping_s2v[name] = v
+            BO_dict['mapping_v2s'] = mapping_v2s
+            BO_dict['mapping_s2v'] = mapping_s2v
             self.message[BO_dict['canid']] = BO_dict
 
 
