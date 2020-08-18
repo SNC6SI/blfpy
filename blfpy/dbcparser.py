@@ -93,6 +93,22 @@ class dbc2code():
                 mapping_s2v[name] = v
             BO_dict['mapping_v2s'] = mapping_v2s
             BO_dict['mapping_s2v'] = mapping_s2v
+            # merge
+            mat_raw2pack = [[]] * 8
+            for k, v in BO_dict['signal'].items():
+                for i, s in enumerate(v['mat_raw2bytes']):
+                    if len(s):
+                        # find rep str
+                        rep = BO_dict['mapping_s2v'][v['name']]
+                        # do rep
+                        ss = re.sub('rr', rep, s)
+                        # merge
+                        if len(mat_raw2pack[i]):
+                            ss = f" + {ss}"
+                            mat_raw2pack[i] += ss
+                        else:
+                            mat_raw2pack[i] = ss
+            BO_dict['mat_raw2pack'] = mat_raw2pack
             self.message[BO_dict['canid']] = BO_dict
 
 
