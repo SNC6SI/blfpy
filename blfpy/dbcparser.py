@@ -72,6 +72,9 @@ class dbc2code():
                     SG_dict['pycode_raw2si'], \
                     SG_dict['pycode_si2phy'] = \
                         self._parser_internal_matrix2py(SG_dict)
+                    SG_dict['mat_value2bytes'], \
+                    SG_dict['mat_raw2bytes'] = \
+                        self._parser_internal_pack(SG_dict)
                     # enum
                     if BO_dict['canid'] in self.enums.keys():
                         if SG_dict['name'] in \
@@ -183,6 +186,19 @@ class dbc2code():
         if offset:
             phy += '+' + str(offset)
         return si, phy
+
+
+    def _parser_internal_pack(self, info):
+        # mat_value2bytes = [''] * 8
+        mat_value2bytes = 0
+        mat_raw2bytes = [''] * 8
+        rr = "rr"
+        mat = info['sigmat']
+        loopnum = mat.shape[0]
+        for i in range(loopnum):
+            mat_raw2bytes[mat[i,0]] = \
+                f"((rr>>{mat[i,4]})&{2**mat[i,3]-1})<<{mat[i,1]}"
+        return mat_value2bytes, mat_raw2bytes
 
 
     def _get_enum(self):
