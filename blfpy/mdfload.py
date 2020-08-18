@@ -298,6 +298,11 @@ class mdfread:
 
     def __save_data_internal_prepare_data(self, mapping_name2id):
         self.bb_dict = {}
+        self.data_byte = []
+        self.data_canid = []
+        self.data_channel = []
+        self.data_time = []
+        self.data2blf = []
         for dgblock in self.dgblocks:
             for cgblock in dgblock.cgblocks:
                 if cgblock.name in mapping_name2id.keys():
@@ -329,8 +334,19 @@ class mdfread:
                 canid_f = np.ones((cgblock.num_records, 1), dtype=np.uint32) * canid
                 channel_f = np.ones((cgblock.num_records, 1), dtype=np.uint16)
                 self.bb_dict[canid] = [byte, canid_f, channel_f, time]
-                        
-                        
+                self.data_byte += [byte]
+                self.data_canid += [canid_f]
+                self.data_channel += [channel_f]
+                self.data_time += [time]
+        self.data2blf += [np.concatenate(self.data_byte, axis=0)]
+        self.data2blf += [np.squeeze(np.concatenate(self.data_canid, axis=0))]
+        self.data2blf += [np.squeeze(np.concatenate(self.data_channel, axis=0))]
+        self.data2blf += [np.squeeze(np.concatenate(self.data_time, axis=0))]
+        self.idx = np.argsort(self.data2blf[3])
+        self.data2blf[0] = self.data2blf[0].take(self.idx, axis=0)
+        self.data2blf[1] = self.data2blf[1].take(self.idx, axis=0)
+        self.data2blf[2] = self.data2blf[2].take(self.idx, axis=0)
+        self.data2blf[3] = self.data2blf[3].take(self.idx, axis=0)
 
 
     class IDBLOCK:
