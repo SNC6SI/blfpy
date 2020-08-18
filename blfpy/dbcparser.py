@@ -264,8 +264,11 @@ class dbc2code():
                 return None
 
 
-    def get_message_name(self):
-        return list(map(lambda x: x[1]['name'], self.message.items()))
+    def get_name_canid_mapping(self):
+        mapping = {}
+        for k, v in self.message.items():
+            mapping[v['name']] = v['canid']
+        return mapping
 
 
 if __name__ == "__main__":
