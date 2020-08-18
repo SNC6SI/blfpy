@@ -80,6 +80,9 @@ class mdfread:
                 self.tx_channel_comment += [self.TXBLOCK(self.data, self.endian, cnblock.p_tx_channel_comment)]
                 self.tx_long_signal_name += [self.TXBLOCK(self.data, self.endian, cnblock.p_tx_long_signal_name)]
                 self.tx_display_name += [self.TXBLOCK(self.data, self.endian, cnblock.p_tx_display_name)]
+                cnblock.channel_comment = self.tx_channel_comment[-1].text
+                cnblock.long_signal_name = self.tx_long_signal_name[-1].text
+                cnblock.display_name = self.tx_display_name[-1].text
                 self.pointer['cn'] += [cgblock.p_cn_block]
                 while cnblock.p_cn_block:
                     self.pointer['cn'] += [cnblock.p_cn_block]
@@ -88,6 +91,9 @@ class mdfread:
                     self.tx_channel_comment += [self.TXBLOCK(self.data, self.endian, cnblock.p_tx_channel_comment)]
                     self.tx_long_signal_name += [self.TXBLOCK(self.data, self.endian, cnblock.p_tx_long_signal_name)]
                     self.tx_display_name += [self.TXBLOCK(self.data, self.endian, cnblock.p_tx_display_name)]
+                    cnblock.channel_comment = self.tx_channel_comment[-1].text
+                    cnblock.long_signal_name = self.tx_long_signal_name[-1].text
+                    cnblock.display_name = self.tx_display_name[-1].text
                 cgblock.cnblocks = cnblocks
 
 
@@ -524,6 +530,9 @@ class mdfread:
             self.p_tx_channel_comment = p_tx_channel_comment
             self.p_tx_long_signal_name = p_tx_long_signal_name
             self.p_tx_display_name = p_tx_display_name
+            self.channel_comment = ''
+            self.long_signal_name = ''
+            self.display_name = ''
             # cn_type: 0=data, 1=time
             self.cn_type = cn_type
             self.signal_name = signal_name.decode().rstrip('\x00')
