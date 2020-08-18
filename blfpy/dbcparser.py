@@ -269,9 +269,3 @@ class dbc2code():
         for k, v in self.message.items():
             mapping[v['name']] = v['canid']
         return mapping
-
-
-if __name__ == "__main__":
-    dbc = dbc2code(fn="test/dbc/IC321_PTCAN_CMatrix_V1.7_PT装车_VBU.dbc")
-    dbc.get_parser()
-    message_name = dbc.get_message_name()
