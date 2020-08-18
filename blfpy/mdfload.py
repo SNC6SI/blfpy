@@ -227,7 +227,8 @@ class mdfread:
 
 
         self.__read_post_pointer()
-        self.__read_post_parsed_data()
+        # self.__read_post_parsed_data()
+        self.__read_post_parsed_data_hierachical()
 
 
     def __read_post_pointer(self):
@@ -269,6 +270,24 @@ class mdfread:
                     self.parsed_data[signal_name] = signal
 
 
+    def __read_post_parsed_data_hierachical(self):
+        self.parsed_data_hierachical = {}
+        for dgblock in self.dgblocks:
+            for cgblock in dgblock.cgblocks:
+                message = {}
+                for cnblock in cgblock.cnblocks:
+                    signal = {}
+                    if cnblock.signal_name == 'time':
+                        message['time'] = cnblock.raw
+                    else:
+                        signal_name = \
+                            self.__SIGNAME_RE.findall(cnblock.long_signal_name)[0]
+                        signal['raw'] = cnblock.raw
+                        signal['value'] = cnblock.value
+                        message[signal_name] = signal
+            self.parsed_data_hierachical[cgblock.name] = message
+
+
     def save_data(self, file_name=None, file_format='mat', dbc=None):
         if file_name is None:
             p = os.path.abspath(self.mdf)
@@ -277,7 +296,7 @@ class mdfread:
             if not file_name_pre.endswith('.mat'):
                 file_name = ''.join((file_name_pre, '.mat'))
             from scipy.io import savemat
-            mdict = {'mdf': self.parsed_data}
+            mdict = {'mdf': self.parsed_data_hierachical}
             savemat(file_name,
                     mdict,
                     long_field_names=True,
