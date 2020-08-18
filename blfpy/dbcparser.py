@@ -104,7 +104,7 @@ class dbc2code():
                         ss = re.sub('rr', rep, s)
                         # merge
                         if len(mat_raw2pack[i]):
-                            ss = f" + {ss}"
+                            ss = f" | {ss}"
                             mat_raw2pack[i] += ss
                         else:
                             mat_raw2pack[i] = ss
