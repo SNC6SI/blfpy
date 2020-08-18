@@ -14,6 +14,9 @@ from blfpy.mdfload import mdfread
 
 if __name__ == "__main__":
     # mdf_file = r'abc6.dat'
-    mdf_file = r'test/2020-07-17_19_IC321_HEV150_SW2.2.4_C2.2.1_FCH_NoreqI_01.dat'
+    mdf_file = r'../test/2020-07-17_19_IC321_HEV150_SW2.2.4_C2.2.1_FCH_NoreqI_01.dat'
     m = mdfread(mdf=mdf_file)
-    m.read() 
+    m.read()
+    m.save_data(file_format='mat')
+    m.save_data(file_format='blf',
+                dbc='../test/dbc/IC321_PTCAN_CMatrix_V1.7_PT装车_VBU.dbc')
