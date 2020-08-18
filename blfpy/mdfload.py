@@ -12,6 +12,7 @@ import os
 import re
 import numpy as np
 from scipy import interpolate
+from blfc import write_data
 
 
 class mdfread:
@@ -292,6 +293,7 @@ class mdfread:
                 self.parser.get_parser()
                 mapping_name2id = self.parser.get_name_canid_mapping()
                 self.__save_data_internal_prepare_data(mapping_name2id)
+                write_data(file_name, self.data2blf)
         else:
             raise ValueError(f"\"{file_format}\" is not supported.")
 
