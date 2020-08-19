@@ -118,11 +118,11 @@ class dbc2code():
                         # do rep
                         ss = re.sub('rr', rep, s)
                         # merge
-                        if len(mat_raw2pack[i]):
+                        if len(mat_value2pack[i]):
                             ss = f" | {ss}"
-                            mat_raw2pack[i] += ss
+                            mat_value2pack[i] += ss
                         else:
-                            mat_raw2pack[i] = ss
+                            mat_value2pack[i] = ss
             BO_dict['mat_raw2pack'] = mat_raw2pack
             BO_dict['mat_value2pack'] = mat_value2pack
             self.message[BO_dict['canid']] = BO_dict
@@ -229,14 +229,14 @@ class dbc2code():
         loopnum = mat.shape[0]
         for i in range(loopnum):
             mat_raw2bytes[mat[i,0]] = \
-                f"((rr>>{mat[i,4]})&{2**mat[i,3]-1})<<{mat[i,1]}"
+                f"(({rr}>>{mat[i,4]})&{2**mat[i,3]-1})<<{mat[i,1]}"
         # from value
         rr = f"((rr-{(info['offset'])})/{info['gain']})"
         mat = info['sigmat']
         loopnum = mat.shape[0]
         for i in range(loopnum):
             mat_value2bytes[mat[i,0]] = \
-                f"((rr>>{mat[i,4]})&{2**mat[i,3]-1})<<{mat[i,1]}"
+                f"(({rr}>>{mat[i,4]})&{2**mat[i,3]-1})<<{mat[i,1]}"
         return mat_value2bytes, mat_raw2bytes
 
 
