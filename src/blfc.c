@@ -248,10 +248,11 @@ PyObject* read_data(PyObject* self, PyObject* args)
 
 PyObject * write_data(PyObject *self, PyObject *args) {
     HANDLE hFile;
-    SYSTEMTIME systemTime;
+    SYSTEMTIME record_time;
     BOOL bSuccess;
     char* cfileName;
     Py_ssize_t len;
+    PyObject * rec_time_input, * rec_time_item;
     PyObject * O_data, * O_id, * O_channel, * O_time;
     npy_intp* pdim_data, * pdim_id, * pdim_channel, * pdim_time;
     npy_int len_message[4], len_min, i,j;
@@ -262,7 +263,7 @@ PyObject * write_data(PyObject *self, PyObject *args) {
     npy_double* time;
     char a;
 
-    if (!PyArg_ParseTuple(args, "s#(OOOO)", &cfileName, &len, &O_data, &O_id, &O_channel, &O_time))
+    if (!PyArg_ParseTuple(args, "s#(OOOO)O", &cfileName, &len, &O_data, &O_id, &O_channel, &O_time, &rec_time_input))
         return NULL;
     pdim_data = PyArray_SHAPE(O_data);
     pdim_id = PyArray_SHAPE(O_id);
@@ -290,8 +291,31 @@ PyObject * write_data(PyObject *self, PyObject *args) {
         return -1;
     }
     bSuccess = BLSetApplication(hFile, BL_APPID_UNKNOWN, 1, 0, 0);
-    GetSystemTime(&systemTime);
-    bSuccess = bSuccess && BLSetMeasurementStartTime(hFile, &systemTime);
+    //GetSystemTime(&systemTime);
+    rec_time_item = PyDict_GetItemString(rec_time_input, "year");
+    record_time.wYear = (WORD)PyLong_AsLong(rec_time_item);
+
+    rec_time_item = PyDict_GetItemString(rec_time_input, "month");
+    record_time.wMonth = (WORD)PyLong_AsLong(rec_time_item);
+
+    rec_time_item = PyDict_GetItemString(rec_time_input, "weekday");
+    record_time.wDayOfWeek = (WORD)PyLong_AsLong(rec_time_item);
+
+    rec_time_item = PyDict_GetItemString(rec_time_input, "day");
+    record_time.wDay = (WORD)PyLong_AsLong(rec_time_item);
+
+    rec_time_item = PyDict_GetItemString(rec_time_input, "hour");
+    record_time.wHour = (WORD)PyLong_AsLong(rec_time_item);
+
+    rec_time_item = PyDict_GetItemString(rec_time_input, "minute");
+    record_time.wMinute = (WORD)PyLong_AsLong(rec_time_item);
+
+    rec_time_item = PyDict_GetItemString(rec_time_input, "second");
+    record_time.wSecond = (WORD)PyLong_AsLong(rec_time_item);
+
+    record_time.wMilliseconds = 0U;
+
+    bSuccess = bSuccess && BLSetMeasurementStartTime(hFile, &record_time);
     bSuccess = bSuccess && BLSetWriteOptions(hFile, 6, 0);
     if (bSuccess) {
         memset(&message, 0, sizeof(VBLCANMessage2));
