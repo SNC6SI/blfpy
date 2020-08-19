@@ -19,6 +19,7 @@ class mdfread:
 
     BITMATRIX = np.flip(np.arange(64).reshape(8, 8), 1).reshape(64,)
     __SIGNAME_RE = re.compile(r'(\w+)\\?.*')
+    __MSGNAME_RE = re.compile(r'[a-zA-Z_]+')
 
     def __init__(self, mdf=None):
         if mdf is not None:
@@ -285,7 +286,10 @@ class mdfread:
                         signal['raw'] = cnblock.raw
                         signal['value'] = cnblock.value
                         message[signal_name] = signal
-            self.parsed_data_hierachical[cgblock.name] = message
+                message_name = cgblock.name
+                if self.__MSGNAME_RE.match(message_name) is None:
+                    message_name = f"mdf_{message_name}"
+            self.parsed_data_hierachical[message_name] = message
 
 
     def save_data(self, file_name=None, file_format='mat', dbc=None):
