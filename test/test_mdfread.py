@@ -7,7 +7,7 @@ Created on Wed Aug  5 11:33:00 2020
 import os
 import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-import numpy
+import numpy as np
 from blfpy.mdfload import mdfread
 
 
