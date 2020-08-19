@@ -79,8 +79,8 @@ that you use it in conda environment.
 
 **mdf as original**
 
-- similar to blf, the procedure is as following
-    - in order to convert to blf, a communication protocol(dbc-file) must be specified
+- similar to blf, the procedure is as follows
+- in order to convert loaded mdf to blf, a communication protocol(dbc-file) must be specified
 ```python
 >>> mdf_file = r'../test/2020-07-17_19_IC321_HEV150_SW2.2.4_C2.2.1_FCH_NoreqI_01.dat'
 >>> m = mdfread(mdf=mdf_file)
