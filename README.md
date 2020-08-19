@@ -1,25 +1,33 @@
 # blfpy
 > A tool for better automating CAN-data proccessing in python
 - read communication protocol in dbc-format
-- read can messges in blf
-- convert them to structured data
-- save structured data as matlab/mdf format
+- read data from blf and mdf(only version 3.00 is tested)
+- convert data to structured data
+- save structured data as matlab(mat) format
+
+**additonal**
+- convert blf to mdf for fun
+- convert mdf to blf for sharing data to colleagues who are not familiar with mdf viewer
 
 ## setup
 - You will have a distributed version with its name like: 
-blfpy-0.2.0-cp37-cp37m-win_amd64.whl (this one is for python 3.7)
+blfpy-x.x.x-cp37-cp37m-win_amd64.whl (this one is for python 3.7)
 - Make the folder where whl file resides in the current folder
 - Both in pip or conda environment, type:
 
 ```shell
-pip install blfpy-0.2.0-cp37-cp37m-win_amd64.whl
+pip install blfpy-x.x.x-cp37-cp37m-win_amd64.whl
 ```
 
-- blfpy has these dependencies: numpy, scipy
+- blfpy has these third party dependencies: numpy, scipy
+- blfpy for following python version is provided: 3.7, 3.8
+
 
 ## usage
 > Although you can use blfpy in pip environment, it is strongly recommended,
 that you use it in conda environment.
+
+**blf as original**
 
 - import (better import numpy simultanously as well)
 ```python
@@ -63,13 +71,26 @@ that you use it in conda environment.
 >>> bl.read()
 ```
 
-- sava_data to mat-file (data format of matlab)
-- this method will be rewritten later, saving parsed data in mdf-format may be also useful
+- sava_data to mat-file or mdf-file
+- if filename is omitted, the saved file will have the save basename of the original file
 ```python
->>> bl.save_data()
+>>> bl.save_data(filename='None'/'xxx', file_format='mat'/'mdf')
 ```
 
+**mdf as original**
+
+- similar to blf, the procedure is as following
+    - in order to convert to blf, a communication protocol(dbc-file) must be specified
+```python
+>>> mdf_file = r'../test/2020-07-17_19_IC321_HEV150_SW2.2.4_C2.2.1_FCH_NoreqI_01.dat'
+>>> m = mdfread(mdf=mdf_file)
+>>> m.read()
+>>> m.save_data(file_format='mat')
+>>> m.save_data(file_format='blf',
+                dbc='../test/dbc/IC321_PTCAN_CMatrix_V1.7_PT装车_VBU.dbc')
+```
+
+
 ## TODO
-- save as mdf format
 - maybe or maybe not plot in Matlab
-- ~~maybe or maybe not relevant scripts to use the parsed data~~
+
