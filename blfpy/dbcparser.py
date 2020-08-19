@@ -93,7 +93,7 @@ class dbc2code():
                 mapping_s2v[name] = v
             BO_dict['mapping_v2s'] = mapping_v2s
             BO_dict['mapping_s2v'] = mapping_s2v
-            # merge
+            # merge raw
             mat_raw2pack = [[]] * 8
             for k, v in BO_dict['signal'].items():
                 for i, s in enumerate(v['mat_raw2bytes']):
@@ -108,7 +108,23 @@ class dbc2code():
                             mat_raw2pack[i] += ss
                         else:
                             mat_raw2pack[i] = ss
+            # merge value
+            mat_value2pack = [[]] * 8
+            for k, v in BO_dict['signal'].items():
+                for i, s in enumerate(v['mat_value2bytes']):
+                    if len(s):
+                        # find rep str
+                        rep = BO_dict['mapping_s2v'][v['name']]
+                        # do rep
+                        ss = re.sub('rr', rep, s)
+                        # merge
+                        if len(mat_raw2pack[i]):
+                            ss = f" | {ss}"
+                            mat_raw2pack[i] += ss
+                        else:
+                            mat_raw2pack[i] = ss
             BO_dict['mat_raw2pack'] = mat_raw2pack
+            BO_dict['mat_value2pack'] = mat_value2pack
             self.message[BO_dict['canid']] = BO_dict
 
 
@@ -205,14 +221,21 @@ class dbc2code():
 
 
     def _parser_internal_pack(self, info):
-        # mat_value2bytes = [''] * 8
-        mat_value2bytes = 0
         mat_raw2bytes = [''] * 8
+        mat_value2bytes = [''] * 8
+        # from raw
         rr = "rr"
         mat = info['sigmat']
         loopnum = mat.shape[0]
         for i in range(loopnum):
             mat_raw2bytes[mat[i,0]] = \
+                f"((rr>>{mat[i,4]})&{2**mat[i,3]-1})<<{mat[i,1]}"
+        # from value
+        rr = f"((rr-{(info['offset'])})/{info['gain']})"
+        mat = info['sigmat']
+        loopnum = mat.shape[0]
+        for i in range(loopnum):
+            mat_value2bytes[mat[i,0]] = \
                 f"((rr>>{mat[i,4]})&{2**mat[i,3]-1})<<{mat[i,1]}"
         return mat_value2bytes, mat_raw2bytes
 
