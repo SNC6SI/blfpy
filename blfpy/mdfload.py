@@ -10,6 +10,7 @@ import warnings
 import math
 import os
 import re
+from datetime import datetime
 import numpy as np
 from scipy import interpolate
 from .blfc import write_data
@@ -462,6 +463,24 @@ class mdfread:
             self.org_dept_name = org_dept_name.decode().rstrip('\x00')
             self.project_name = project_name.decode().rstrip('\x00')
             self.subject_name = subject_name.decode().rstrip('\x00')
+
+            record_date_dict = re.match(r'(?P<day>\d+):' + \
+                                             r'(?P<month>\d+):' + \
+                                             r'(?P<year>\d+)',
+                                             self.record_date).groupdict()
+            record_time_dict = re.match(r'(?P<hour>\d+):' + \
+                                             r'(?P<minute>\d+):' + \
+                                             r'(?P<second>\d+)',
+                                             self.record_time).groupdict()
+            record_date_dict['day'] = int(record_date_dict['day'])
+            record_date_dict['month'] = int(record_date_dict['month'])
+            record_date_dict['year'] = int(record_date_dict['year'])
+            record_time_dict['hour'] = int(record_time_dict['hour'])
+            record_time_dict['minute'] = int(record_time_dict['minute'])
+            record_time_dict['second'] = int(record_time_dict['second'])
+            self.record_time_info = {**record_date_dict, **record_time_dict}
+            record_datetime = datetime(**self.record_time_info)
+            self.record_time_info['weekday'] = record_datetime.weekday()
 
 
     class DGBLOCK:
