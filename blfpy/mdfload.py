@@ -317,7 +317,9 @@ class mdfread:
                 self.parser.get_parser()
                 mapping_name2id = self.parser.get_name_canid_mapping()
                 self.__save_data_internal_prepare_data(mapping_name2id)
-                write_data(file_name, self.data2blf)
+                write_data(file_name,
+                           self.data2blf,
+                           self.hdblock.record_time_info)
         else:
             raise ValueError(f"\"{file_format}\" is not supported.")
 
