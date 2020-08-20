@@ -313,7 +313,8 @@ PyObject * write_data(PyObject *self, PyObject *args) {
     rec_time_item = PyDict_GetItemString(rec_time_input, "second");
     record_time.wSecond = (WORD)PyLong_AsLong(rec_time_item);
 
-    record_time.wMilliseconds = 0U;
+    rec_time_item = PyDict_GetItemString(rec_time_input, "millisecond");
+    record_time.wMilliseconds = (WORD)PyLong_AsLong(rec_time_item);
 
     bSuccess = bSuccess && BLSetMeasurementStartTime(hFile, &record_time);
     bSuccess = bSuccess && BLSetWriteOptions(hFile, 6, 0);

@@ -483,7 +483,7 @@ class mdfread:
             self.record_time_info = {**record_date_dict, **record_time_dict}
             record_datetime = datetime(**self.record_time_info)
             self.record_time_info['weekday'] = record_datetime.weekday()
-
+            self.record_time_info['millisecond'] = 0
 
     class DGBLOCK:
         """
