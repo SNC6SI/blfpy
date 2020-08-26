@@ -233,7 +233,7 @@ class blfload():
             p = os.path.abspath(self.blf)
             file_name_pre = os.path.splitext(p)[0]
         if file_format=='mat':
-            if not file_name.endswith('.mat'):
+            if not file_name_pre.endswith('.mat'):
                 file_name = ''.join((file_name_pre, '.mat'))
             from scipy.io import savemat
             mdict = {'can': self.parsed_data}
