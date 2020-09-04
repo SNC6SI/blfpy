@@ -17,6 +17,9 @@ class blfload():
 
 
     def __init__(self, dbc=None, blf=None, signals=None):
+        # TODO:
+        # multi dbcs are accepted
+        # only one blf is accepted
         self.__dbc = None
         self.__blf = None
         if dbc is not None:
