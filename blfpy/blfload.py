@@ -230,8 +230,6 @@ class blfload():
 
 
     def save_data(self, file_name=None, file_format='mat'):
-        # TODO: rewrite as a interface, will also save as mdf
-        # default file_name
         if file_name is None:
             p = os.path.abspath(self.blf)
             file_name_pre = os.path.splitext(p)[0]
