@@ -13,14 +13,14 @@
 
 #if defined ( _MSC_VER )
 typedef struct SYSTEMTIME_t {
-    uint8_t wYear;
-    uint8_t wMonth;
-    uint8_t wDayOfWeek;
-    uint8_t wDay;
-    uint8_t wHour;
-    uint8_t wMinute;
-    uint8_t wSecond;
-    uint8_t wMilliseconds;
+    uint16_t wYear;
+    uint16_t wMonth;
+    uint16_t wDayOfWeek;
+    uint16_t wDay;
+    uint16_t wHour;
+    uint16_t wMinute;
+    uint16_t wSecond;
+    uint16_t wMilliseconds;
 } SYSTEMTIME;
 #endif
 
