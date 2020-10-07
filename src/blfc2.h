@@ -9,6 +9,20 @@
 #define BL_HEADER_SIZE 32
 #define BL_HEADER_CONTAINER_SIZE 32
 #define BL_MESSAGE_SIZE 48
+#define BL_LOGG_SIZE 144
+
+#define BL_OBJ_SIGNATURE  0x4A424F4C
+#define BL_LOGG_SIGNATURE 0x47474F4C
+
+#define BL_APPID_BLFLOAD 22
+
+#define BL_Major 0
+#define BL_Minor 1
+#define BL_AppBuild 1
+
+
+#define BL_CHUNK 0x20000
+#define BL_ZLIB_LEVEL 9
 
 
 #ifdef _MSC_VER
@@ -71,11 +85,11 @@ typedef struct packed VBLObjectHeaderBase_t {
 } VBLObjectHeaderBase;
 
 typedef struct packed VBLObjectHeaderContainer_t {
-  VBLObjectHeaderBase base;
-  uint32_t            compressedflag;
-  uint32_t            reserved1;
-  uint32_t            deflatebuffersize;
-  uint32_t            reserved2;
+  VBLObjectHeaderBase mBase;
+  uint32_t            mCompressedflag;
+  uint32_t            mReserved1;
+  uint32_t            mDeflatebuffersize;
+  uint32_t            mReserved2;
 } VBLObjectHeaderContainer;
 
 typedef struct packed VBLObjectHeader_t {

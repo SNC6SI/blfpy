@@ -11,7 +11,7 @@ static long int midx = 0;
 static long int lidx = 0;
 static LOGG_t logg;
 static VBLObjectHeaderBase Base;
-static VBLObjectHeaderContainer Container;
+static VBLObjectHeaderContainer container;
 static VBLCANMessage message;
 static VBLFileStatisticsEx pStatistics;
 static uint8_t peekFlag = 1;
@@ -24,6 +24,16 @@ static uint8_t *unCompressedData = NULL;
 static uint32_t unCompressedSize = 0;
 static uint8_t *restData = NULL;
 static uint32_t restSize = 0;
+
+
+static uint32_t objectCounts[4] = {0, 0, 0, 0};
+static uint8_t compressedDataWrite[BL_CHUNK];
+static uint8_t unCompressedDataWrite[BL_CHUNK];
+static uint32_t thisSize = 0;
+static uint8_t paddingBytesWrite[3] = {0, 0, 0};
+static uint32_t paddingSize = 0;
+
+static uint8_t i;
 
 extern int errno;
 
@@ -123,9 +133,9 @@ uint8_t blfPeekObject(){
                 }
             }
             PyMem_Free(unCompressedData);
-            fread(&Container, BL_HEADER_CONTAINER_SIZE, 1, fp);
+            fread(&container, BL_HEADER_CONTAINER_SIZE, 1, fp);
             //
-            compressedSize = Container.base.mObjectSize - 
+            compressedSize = container.mBase.mObjectSize - 
                              BL_HEADER_CONTAINER_SIZE;
             compressedData = PyMem_Malloc(compressedSize);
             fread(compressedData, compressedSize, 1, fp);
@@ -133,7 +143,7 @@ uint8_t blfPeekObject(){
                 fseek(fp, paddingBytes, SEEK_CUR);
             }
             //
-            unCompressedSize = Container.deflatebuffersize + restSize;
+            unCompressedSize = container.mDeflatebuffersize + restSize;
             unCompressedData = PyMem_Malloc(unCompressedSize);
             memUncompress(unCompressedData + restSize,
                           unCompressedSize - restSize,
@@ -346,117 +356,176 @@ PyObject* read_data(PyObject* self, PyObject* args)
     return arglist;
 }
 
-#if 0
+
+
+void loggInit(void){
+    logg.mSignature = BL_LOGG_SIGNATURE;
+    logg.mHeaderSize = BL_LOGG_SIZE;
+    logg.mCRC = 0;
+    logg.mApplicationID = BL_APPID_BLFLOAD;
+    logg.mdwCompression = 0;
+    logg.mApplicationMajor = BL_Major;
+    logg.mApplicationMinor = BL_Minor;
+    logg.mApplicationBuild = BL_AppBuild;
+    //
+    logg.mFileSize = BL_LOGG_SIZE;
+    logg.mUncompressedFileSize = BL_LOGG_SIZE;
+    logg.mObjectCount = 0;
+}
+
+
+void messageInit(void){
+    message.mHeader.mBase.mSignature = BL_OBJ_SIGNATURE;
+    message.mHeader.mBase.mHeaderSize = BL_HEADER_SIZE;
+    message.mHeader.mBase.mHeaderVersion = 1;
+    message.mHeader.mBase.mObjectSize = BL_MESSAGE_SIZE;
+    message.mHeader.mBase.mObjectType = BL_OBJ_TYPE_CAN_MESSAGE;
+    //
+    message.mHeader.mObjectFlags = BL_OBJ_FLAG_TIME_ONE_NANS;
+    //
+    message.mDLC = 8;
+}
+
+
+void containerInit(void){
+    container.mBase.mSignature = BL_OBJ_SIGNATURE;
+    container.mBase.mHeaderSize = BL_HEADER_BASE_SIZE;
+    container.mBase.mHeaderVersion = 1;
+    container.mBase.mObjectType = BL_OBJ_TYPE_LOG_CONTAINER;
+    //
+    container.mCompressedflag = 2;
+}
+
+
+void blfWriteInit(void){
+    filename = NULL;
+    fp = NULL;
+    //
+    memset(&logg, 0, BL_LOGG_SIZE);
+    loggInit();
+    //
+    memset(&message, 0, BL_MESSAGE_SIZE);
+    messageInit();
+    //
+    memset(&container, 0, BL_HEADER_CONTAINER_SIZE);
+    containerInit();
+    //
+    contFlag = 0;
+    rcnt = 0;
+    objectCounts[0] = 0;
+    objectCounts[1] = 0;
+    objectCounts[2] = 0;
+    objectCounts[3] = 0;
+    //
+    compressedSize = 0;
+    unCompressedSize = 0;
+    thisSize = 0;
+    restSize = 0;
+    paddingSize = 0;
+}
+
+
+void blfWriteObjectInternal(void){
+    compressedSize = BL_CHUNK;
+    compress(compressedDataWrite, &compressedSize, unCompressedDataWrite, unCompressedSize);
+    container.mBase.mObjectSize = BL_HEADER_CONTAINER_SIZE + compressedSize;
+    container.mDeflatebuffersize = unCompressedSize;
+    //
+    fwrite(&container, BL_HEADER_CONTAINER_SIZE, 1, fp);
+    fwrite(compressedDataWrite, compressedSize, 1, fp);
+    paddingSize = compressedSize & 3;
+    if(paddingSize > 0){
+        fwrite(paddingBytesWrite, paddingSize, 1, fp);
+    }
+    //
+    logg.mFileSize += BL_HEADER_CONTAINER_SIZE + compressedSize + paddingSize;
+    logg.mUncompressedFileSize += BL_HEADER_CONTAINER_SIZE + unCompressedSize;
+    //
+    unCompressedSize = 0;
+}
+
+
+uint8_t blfWriteObject(void){
+    while(rcnt < objectCounts[0]){
+        if(contFlag){
+            memcpy(((uint8_t *)unCompressedDataWrite) + unCompressedSize, ((uint8_t *)&message) + thisSize, restSize);
+            unCompressedSize += restSize;
+            contFlag = 0;
+            rcnt++;
+        }else{
+            message.mHeader.mObjectTimeStamp = (uint64_t)((*(f64_cantime + rcnt))*1000000000);
+            message.mChannel = (uint16_t)(*(u16_canchannel + rcnt));
+            message.mID = (uint32_t)(*(u32_canmsgid + rcnt));
+            for(i=0;i<8;i++){
+                message.mData[i] = (uint8_t)(*(u8_candata + rcnt*8 +i));
+            }
+            if(unCompressedSize + BL_MESSAGE_SIZE <= BL_CHUNK){
+                memcpy(((uint8_t *)unCompressedDataWrite) + unCompressedSize, &message, BL_MESSAGE_SIZE);
+                unCompressedSize += BL_MESSAGE_SIZE;
+                rcnt++;
+            }else{
+                thisSize = BL_CHUNK - unCompressedSize;
+                restSize = unCompressedSize + BL_MESSAGE_SIZE - BL_CHUNK;
+                if(thisSize!=0){
+                    memcpy(((uint8_t *)unCompressedDataWrite) + unCompressedSize, &message, thisSize);
+                    unCompressedSize += thisSize;
+                }
+                contFlag = 1;
+            }
+        }
+        if(contFlag){
+            blfWriteObjectInternal();
+        }
+    }
+    //
+    if(unCompressedSize > 0){
+        blfWriteObjectInternal();
+    }
+}
+
 PyObject * write_data(PyObject *self, PyObject *args) {
-    HANDLE hFile;
-    SYSTEMTIME record_time;
-    BOOL bSuccess;
-    char* cfileName;
     Py_ssize_t len;
-    PyObject * rec_time_input, * rec_time_item;
     PyObject * O_data, * O_id, * O_channel, * O_time;
     npy_intp* pdim_data, * pdim_id, * pdim_channel, * pdim_time;
-    npy_int len_message[4], len_min, i,j;
-    VBLCANMessage2 message;
-    npy_ubyte* data;
-    npy_uint32* id;
-    npy_uint16* channel;
-    npy_double* time;
-    char a;
 
-    if (!PyArg_ParseTuple(args, "s#(OOOO)O", &cfileName, &len, &O_data, &O_id, &O_channel, &O_time, &rec_time_input))
+    blfWriteInit();
+
+    if (!PyArg_ParseTuple(args, "s#(OOOO)", &filename, &len, &O_data, &O_id, &O_channel, &O_time))
         return NULL;
     pdim_data = PyArray_SHAPE(O_data);
     pdim_id = PyArray_SHAPE(O_id);
     pdim_channel = PyArray_SHAPE(O_channel);
     pdim_time = PyArray_SHAPE(O_time);
-    len_message[0] = pdim_data[0];
-    len_message[1] = pdim_id[0];
-    len_message[2] = pdim_channel[0];
-    len_message[3] = pdim_time[0];
-    len_min = len_message[0];
-    for (i = 1; i < 4; i++) {
-        if (len_message[i] < len_min) {
-            len_min = len_message[i];
-        }
+    objectCounts[0] = pdim_data[0];
+    objectCounts[1] = pdim_id[0];
+    objectCounts[2] = pdim_channel[0];
+    objectCounts[3] = pdim_time[0];
+
+    u8_candata = (npy_ubyte*)PyArray_DATA((PyArrayObject*)O_data);
+    u32_canmsgid = (npy_uint32*)PyArray_DATA((PyArrayObject*)O_id);
+    u16_canchannel = (npy_uint16*)PyArray_DATA((PyArrayObject*)O_channel);
+    f64_cantime = (npy_double*)PyArray_DATA((PyArrayObject*)O_time);
+
+    fp = fopen(filename, "wb");
+    if(fp==NULL){
+        PyErr_SetString(PyExc_FileNotFoundError, strerror(errno));
+        return NULL;
     }
-
-    data = (npy_ubyte*)PyArray_DATA((PyArrayObject*)O_data);
-    id = (npy_uint32*)PyArray_DATA((PyArrayObject*)O_id);
-    channel = (npy_uint16*)PyArray_DATA((PyArrayObject*)O_channel);
-    time = (npy_double*)PyArray_DATA((PyArrayObject*)O_time);
-
-    hFile = BLCreateFile(cfileName, GENERIC_WRITE);
-    if (INVALID_HANDLE_VALUE == hFile)
-    {
-        return -1;
-    }
-    bSuccess = BLSetApplication(hFile, BL_APPID_UNKNOWN, 1, 0, 0);
-    //GetSystemTime(&systemTime);
-    rec_time_item = PyDict_GetItemString(rec_time_input, "year");
-    record_time.wYear = (WORD)PyLong_AsLong(rec_time_item);
-
-    rec_time_item = PyDict_GetItemString(rec_time_input, "month");
-    record_time.wMonth = (WORD)PyLong_AsLong(rec_time_item);
-
-    rec_time_item = PyDict_GetItemString(rec_time_input, "weekday");
-    record_time.wDayOfWeek = (WORD)PyLong_AsLong(rec_time_item);
-
-    rec_time_item = PyDict_GetItemString(rec_time_input, "day");
-    record_time.wDay = (WORD)PyLong_AsLong(rec_time_item);
-
-    rec_time_item = PyDict_GetItemString(rec_time_input, "hour");
-    record_time.wHour = (WORD)PyLong_AsLong(rec_time_item);
-
-    rec_time_item = PyDict_GetItemString(rec_time_input, "minute");
-    record_time.wMinute = (WORD)PyLong_AsLong(rec_time_item);
-
-    rec_time_item = PyDict_GetItemString(rec_time_input, "second");
-    record_time.wSecond = (WORD)PyLong_AsLong(rec_time_item);
-
-    rec_time_item = PyDict_GetItemString(rec_time_input, "millisecond");
-    record_time.wMilliseconds = (WORD)PyLong_AsLong(rec_time_item);
-
-    bSuccess = bSuccess && BLSetMeasurementStartTime(hFile, &record_time);
-    bSuccess = bSuccess && BLSetWriteOptions(hFile, 6, 0);
-    if (bSuccess) {
-        memset(&message, 0, sizeof(VBLCANMessage2));
-
-        message.mHeader.mBase.mSignature = BL_OBJ_SIGNATURE;
-        message.mHeader.mBase.mHeaderSize = sizeof(message.mHeader);
-        message.mHeader.mBase.mHeaderVersion = 1;
-        message.mHeader.mBase.mObjectSize = sizeof(VBLCANMessage);
-        message.mHeader.mBase.mObjectType = BL_OBJ_TYPE_CAN_MESSAGE;
-        message.mHeader.mObjectFlags = BL_OBJ_FLAG_TIME_ONE_NANS;
-    }
-    for (i = 0; i < len_min; i++) {
-
-
-        message.mHeader.mObjectTimeStamp = (npy_ulonglong)((*(time+i)) * 1000000000);
-        message.mChannel = *(channel+i);
-        message.mFlags = CAN_MSG_FLAGS(0, 0);
-        message.mDLC = 8;
-        message.mID = *(id+i);
-        for (j = 0; j < 8; j++)
-        {
-            message.mData[j] = *(data + (i << 3) + j);
-        }
-
-        bSuccess = BLWriteObject(hFile, &message.mHeader.mBase);
-    }
-    if (!BLCloseHandle(hFile))
-    {
-        return -1;
-    }
+    fseek(fp, BL_LOGG_SIZE, SEEK_SET);
+    blfWriteObject();
+    logg.mObjectCount = rcnt;
+    fseek(fp, 0, SEEK_SET);
+    fwrite(&logg, BL_LOGG_SIZE, 1, fp);
+    fclose(fp);
     Py_RETURN_NONE;
 }
-#endif
+
 
 
 static PyMethodDef blfcMethods[] = {
     {"read_info", (PyCFunction)read_info, METH_VARARGS, 0},
     {"read_data", (PyCFunction)read_data, METH_VARARGS, 0},
-    //{"write_data", (PyCFunction)write_data, METH_VARARGS, 0},
+    {"write_data", (PyCFunction)write_data, METH_VARARGS, 0},
     {NULL, NULL, 0, NULL}
 };
 
