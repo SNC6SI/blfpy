@@ -1,10 +1,11 @@
-//#pragma once
 #define NPY_NO_DEPRECATED_API NPY_1_7_API_VERSION
 #define Py_LIMITED_API 0x03060000
-#include <python.h>
+#include "Python.h"
 #include <stdint.h>
-#if defined ( _MSC_VER )
+#ifdef _MSC_VER 
     #include <Windows.h>
+#else
+    struct _typeobject {};
 #endif
 #include <numpy/ndarraytypes.h>
 #include <numpy/ufuncobject.h>

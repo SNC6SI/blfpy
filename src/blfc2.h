@@ -11,8 +11,11 @@
 #define BL_MESSAGE_SIZE 48
 
 
-#if defined ( _MSC_VER )
-typedef struct SYSTEMTIME_t {
+#ifdef _MSC_VER
+#define packed
+#else
+#define packed __attribute__ ((__packed__))
+typedef struct packed SYSTEMTIME_t {
     uint16_t wYear;
     uint16_t wMonth;
     uint16_t wDayOfWeek;
@@ -24,7 +27,7 @@ typedef struct SYSTEMTIME_t {
 } SYSTEMTIME;
 #endif
 
-typedef struct LOGG{
+typedef struct packed LOGG{
   uint32_t mSignature;
   uint32_t mHeaderSize;
   uint32_t mCRC;
@@ -44,7 +47,7 @@ typedef struct LOGG{
   uint8_t  mReserved4[72];
 } LOGG_t;
 
-typedef struct VBLFileStatisticsEx_t {
+typedef struct packed VBLFileStatisticsEx_t {
   uint32_t      mStatisticsSize;               /* sizeof (VBLFileStatisticsEx) */
   uint8_t       mApplicationID;                /* application ID */
   uint8_t       mApplicationMajor;             /* application major number */
@@ -59,7 +62,7 @@ typedef struct VBLFileStatisticsEx_t {
   uint32_t      mReserved[18];                 /* reserved */
 } VBLFileStatisticsEx;
 
-typedef struct VBLObjectHeaderBase_t {
+typedef struct packed VBLObjectHeaderBase_t {
   uint32_t  mSignature;
   uint16_t  mHeaderSize;
   uint16_t  mHeaderVersion;
@@ -67,7 +70,7 @@ typedef struct VBLObjectHeaderBase_t {
   uint32_t  mObjectType;
 } VBLObjectHeaderBase;
 
-typedef struct VBLObjectHeaderContainer_t {
+typedef struct packed VBLObjectHeaderContainer_t {
   VBLObjectHeaderBase base;
   uint32_t            compressedflag;
   uint32_t            reserved1;
@@ -75,7 +78,7 @@ typedef struct VBLObjectHeaderContainer_t {
   uint32_t            reserved2;
 } VBLObjectHeaderContainer;
 
-typedef struct VBLObjectHeader_t {
+typedef struct packed VBLObjectHeader_t {
   VBLObjectHeaderBase mBase;
   uint32_t  mObjectFlags;
   uint16_t  mReserved;
@@ -83,7 +86,7 @@ typedef struct VBLObjectHeader_t {
   uint64_t  mObjectTimeStamp;
 } VBLObjectHeader;
 
-typedef struct VBLCANMessage_t {
+typedef struct packed VBLCANMessage_t {
   VBLObjectHeader mHeader;
   uint16_t        mChannel;
   uint8_t         mFlags;
@@ -92,7 +95,7 @@ typedef struct VBLCANMessage_t {
   uint8_t         mData[8];
 } VBLCANMessage;
 
-typedef struct VBLCANMessage2_t {
+typedef struct packed VBLCANMessage2_t {
   VBLObjectHeader mHeader;
   uint16_t        mChannel;
   uint8_t         mFlags;
