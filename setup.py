@@ -7,18 +7,18 @@ Created on Fri Jul 24 00:16:44 2020
 
 from setuptools import setup, Extension
 from distutils import sysconfig
+from glob import glob
 import os
 
 
 blfc = Extension(name = 'blfpy.blfc',
-                 sources = [os.path.join(os.getcwd(), 'src', 'blfc.c')],
+                 sources = ['src/blfc2.c'] + glob('src/zlib/*.c'),
                  include_dirs = [os.path.join(sysconfig.get_python_lib(),
-                                              'numpy', 'core', 'include')],
-                 library_dirs = [os.path.join(os.getcwd(), 'src')],
-                 libraries = ['binlog'])
+                                              'numpy', 'core', 'include'),
+                                 'src'])
 
 setup (name = 'blfpy',
-       version = '0.4.0',
+       version = '0.5.0',
        author = 'Shen, Chenghao',
        author_email='snc6si@gmail.com',
        maintainer = 'Shen, Chenghao',
