@@ -486,11 +486,12 @@ uint8_t blfWriteObject(void){
 PyObject * write_data(PyObject *self, PyObject *args) {
     Py_ssize_t len;
     PyObject * O_data, * O_id, * O_channel, * O_time;
+    PyObject * rec_time, * end_time; 
     npy_intp* pdim_data, * pdim_id, * pdim_channel, * pdim_time;
 
     blfWriteInit();
 
-    if (!PyArg_ParseTuple(args, "s#(OOOO)", &filename, &len, &O_data, &O_id, &O_channel, &O_time))
+    if (!PyArg_ParseTuple(args, "s#(OOOO)OO", &filename, &len, &O_data, &O_id, &O_channel, &O_time, &rec_time, &end_time))
         return NULL;
     pdim_data = PyArray_SHAPE(O_data);
     pdim_id = PyArray_SHAPE(O_id);
@@ -514,6 +515,24 @@ PyObject * write_data(PyObject *self, PyObject *args) {
     fseek(fp, BL_LOGG_SIZE, SEEK_SET);
     blfWriteObject();
     logg.mObjectCount = rcnt;
+    //
+    logg.mMeasurementStartTime.wYear = (uint16_t)PyLong_AsLong(PyDict_GetItemString(rec_time, "year"));
+    logg.mMeasurementStartTime.wMonth = (uint16_t)PyLong_AsLong(PyDict_GetItemString(rec_time, "month"));
+    logg.mMeasurementStartTime.wDayOfWeek = (uint16_t)PyLong_AsLong(PyDict_GetItemString(rec_time, "weekday"));
+    logg.mMeasurementStartTime.wDay = (uint16_t)PyLong_AsLong(PyDict_GetItemString(rec_time, "day"));
+    logg.mMeasurementStartTime.wHour = (uint16_t)PyLong_AsLong(PyDict_GetItemString(rec_time, "hour"));
+    logg.mMeasurementStartTime.wMinute = (uint16_t)PyLong_AsLong(PyDict_GetItemString(rec_time, "minute"));
+    logg.mMeasurementStartTime.wSecond = (uint16_t)PyLong_AsLong(PyDict_GetItemString(rec_time, "second"));
+    logg.mMeasurementStartTime.wMilliseconds = (uint16_t)PyLong_AsLong(PyDict_GetItemString(rec_time, "millisecond"));
+    logg.mLastObjectTime.wYear = (uint16_t)PyLong_AsLong(PyDict_GetItemString(end_time, "year"));
+    logg.mLastObjectTime.wMonth = (uint16_t)PyLong_AsLong(PyDict_GetItemString(end_time, "month"));
+    logg.mLastObjectTime.wDayOfWeek = (uint16_t)PyLong_AsLong(PyDict_GetItemString(end_time, "weekday"));
+    logg.mLastObjectTime.wDay = (uint16_t)PyLong_AsLong(PyDict_GetItemString(end_time, "day"));
+    logg.mLastObjectTime.wHour = (uint16_t)PyLong_AsLong(PyDict_GetItemString(end_time, "hour"));
+    logg.mLastObjectTime.wMinute = (uint16_t)PyLong_AsLong(PyDict_GetItemString(end_time, "minute"));
+    logg.mLastObjectTime.wSecond = (uint16_t)PyLong_AsLong(PyDict_GetItemString(end_time, "second"));
+    logg.mLastObjectTime.wMilliseconds = (uint16_t)PyLong_AsLong(PyDict_GetItemString(end_time, "millisecond"));
+    //
     fseek(fp, 0, SEEK_SET);
     fwrite(&logg, BL_LOGG_SIZE, 1, fp);
     fclose(fp);
