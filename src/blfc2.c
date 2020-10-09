@@ -102,7 +102,7 @@ int memUncompress(uint8_t  *next_out,
   return zres == Z_OK;
 }
 
-uint8_t blfPeekObject(){
+uint8_t blfPeekObject(void){
     uint8_t success = 1;
     uint32_t paddingBytes;
     long int midx_;
@@ -168,7 +168,7 @@ uint8_t blfPeekObject(){
     return success;
 }
 
-uint8_t blfReadObjectSecure(){
+uint8_t blfReadObjectSecure(void){
     long int lidx_;
     int i;
     uint32_t paddingBytes;
