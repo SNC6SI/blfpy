@@ -1,5 +1,8 @@
 # blfpy
 > A tool for better automating CAN-data proccessing in python
+
+> Cross-platform: both windows & linux
+
 - read communication protocol in dbc-format
 - read data from blf and mdf(only version 3.00 is tested)
 - convert data to structured data
