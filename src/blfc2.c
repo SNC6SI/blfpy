@@ -37,9 +37,9 @@ static uint8_t i;
 
 extern int errno;
 
-unsigned char * u8_candata, *u8_tmp;
-unsigned short * u16_canchannel, * u16_tmp;
-unsigned long * u32_canmsgid, * u32_tmp;
+uint8_t * u8_candata, *u8_tmp;
+uint16_t * u16_canchannel, * u16_tmp;
+uint32_t * u32_canmsgid, * u32_tmp;
 double * f64_cantime, * f64_tmp;
 
 
