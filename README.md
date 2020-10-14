@@ -1,3 +1,4 @@
+# <img alt="blfpy logo" src="resource/blfpy_logo.png">
 # blfpy
 > A tool for better automating CAN-data proccessing in python
 
