@@ -70,9 +70,20 @@ that you use it in conda environment.
     - DETERMINE which data will be parsed (default: all) and their indices in raw data
     - DETECT channel: automatically make channel mapping from dbc-infos to data (will also be a user interface later)
     - PARSE data and create a dict in python workspace
+> Without return value, parsed data will be stored in bl.parsed_data.
+> Otherwise, use can=bl.read() to get bl.parsed_datay
 
 ```python
 >>> bl.read()
+or
+>>> can = bl.read()
+```
+
+- for pack voltage in example, use it as follows
+
+```python
+>>> time_0x100 = can['VBU_BMS_0x100']['ctime']
+>>> packU      = can['VBU_BMS_0x100']['VBU_BMS_PackU']
 ```
 
 - sava_data to mat-file or mdf-file
