@@ -76,7 +76,8 @@ class dbc2code():
                     SG_dict['ccode_raw2phy'] = \
                         self._parser_internal_matrix2c(SG_dict)
                     SG_dict['mat_value2bytes'], \
-                    SG_dict['mat_raw2bytes'] = \
+                    SG_dict['mat_raw2bytes'], \
+                    SG_dict['mat_value2bytes_c'] = \
                         self._parser_internal_pack(SG_dict)
                     # enum
                     if BO_dict['canid'] in self.enums.keys():
@@ -126,8 +127,24 @@ class dbc2code():
                             mat_value2pack[i] += ss
                         else:
                             mat_value2pack[i] = ss
+            # merge value c
+            mat_value2pack_c = [[]] * 8
+            for k, v in BO_dict['signal'].items():
+                for i, s in enumerate(v['mat_value2bytes_c']):
+                    if len(s):
+                        # find rep str
+                        rep = BO_dict['mapping_s2v'][v['name']]
+                        # do rep
+                        ss = re.sub('rr', rep, s)
+                        # merge
+                        if len(mat_value2pack_c[i]):
+                            ss = f" | {ss}"
+                            mat_value2pack_c[i] += ss
+                        else:
+                            mat_value2pack_c[i] = ss
             BO_dict['mat_raw2pack'] = mat_raw2pack
             BO_dict['mat_value2pack'] = mat_value2pack
+            BO_dict['mat_value2pack_c'] = mat_value2pack_c
             self.message[BO_dict['canid']] = BO_dict
 
 
@@ -252,6 +269,7 @@ class dbc2code():
     def _parser_internal_pack(self, info):
         mat_raw2bytes = [''] * 8
         mat_value2bytes = [''] * 8
+        mat_value2bytes_c = [''] * 8
         # from raw
         rr = "rr"
         mat = info['sigmat']
@@ -266,7 +284,14 @@ class dbc2code():
         for i in range(loopnum):
             mat_value2bytes[mat[i,0]] = \
                 f"(({rr}>>{mat[i,4]})&{2**mat[i,3]-1})<<{mat[i,1]}"
-        return mat_value2bytes, mat_raw2bytes
+        # to c
+        rr = f"(uint32)((rr-{(info['offset'])})/{info['gain']})"
+        mat = info['sigmat']
+        loopnum = mat.shape[0]
+        for i in range(loopnum):
+            mat_value2bytes_c[mat[i,0]] = \
+                f"(uint8)((({rr}>>{mat[i,4]})&{2**mat[i,3]-1})<<{mat[i,1]})"
+        return mat_value2bytes, mat_raw2bytes, mat_value2bytes_c
 
 
     def _get_enum(self):
@@ -322,6 +347,7 @@ class dbc2code():
             mapping[v['name']] = v['canid']
         return mapping
 
+
     def get_unpack_ccode_bycanid(self, canid):
         retstr = ''
         # check
@@ -339,6 +365,28 @@ class dbc2code():
             signals = self.message[canid]['signal']
             for k,v in signals.items():
                 retstr += v['name'] + '=' + v['ccode_raw2phy'] + '\n'
+        else:
+            pass
+        return retstr
+
+
+    def get_pack_ccode_bycanid(self, canid):
+        retstr = ''
+        # check
+        if isinstance(canid, int):
+            pass
+        elif isinstance(canid, str):
+            try:
+                canid = int(canid, 16)
+            except:
+                pass
+        else:
+            pass
+        # loop
+        if canid in self.message.keys():
+            packbytes = self.message[canid]['mat_value2pack_c']
+            for i,byte in enumerate(packbytes):
+                retstr += 'ptr[' + str(i) + ']=' + byte + '\n'
         else:
             pass
         return retstr
