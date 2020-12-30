@@ -30,6 +30,7 @@ class dbc2code():
                                          r"(\d+) (\d+);")
     __BITMATRIX = np.flip(np.arange(64).reshape(8, 8), 1).reshape(64,)
     __BB = 'bb'
+    __C = 'ptr'
 
 
     def __init__(self, fn=None):
@@ -72,6 +73,8 @@ class dbc2code():
                     SG_dict['pycode_raw2si'], \
                     SG_dict['pycode_si2phy'] = \
                         self._parser_internal_matrix2py(SG_dict)
+                    SG_dict['ccode_raw2phy'] = \
+                        self._parser_internal_matrix2c(SG_dict)
                     SG_dict['mat_value2bytes'], \
                     SG_dict['mat_raw2bytes'] = \
                         self._parser_internal_pack(SG_dict)
@@ -219,6 +222,32 @@ class dbc2code():
             phy += '+' + str(offset)
         return si, phy
 
+    def _parser_internal_matrix2c(self, info):
+        sigmat = info['sigmat']
+        gain = info['gain']
+        offset = info['offset']
+        # unpack
+        loopnum = sigmat.shape[0]
+        si = ''
+        for j in range(loopnum):
+            if j > 0:
+                si = ' + ' + si
+            s = self.__C + '[' + str(sigmat[j, 0]) + ']'
+            s =  '(' + s + '>>' + str(sigmat[j, 1]) + ')'
+            s = '(' + s + '&(' + str(2**sigmat[j, 3]-1) + '))'
+            if sigmat[j, 4]:
+                s = '(' + str(2**sigmat[j, 4]) + ')*' + s
+            si = s + si
+        si = '(' + si + ')'
+        # gain offset
+        if gain!=1:
+            phy = si + '*' + str(gain)
+        else:
+            phy = si
+        if offset:
+            phy += '+' + str(offset)
+        phy = '(' + phy + ')'
+        return phy
 
     def _parser_internal_pack(self, info):
         mat_raw2bytes = [''] * 8
@@ -292,3 +321,24 @@ class dbc2code():
         for k, v in self.message.items():
             mapping[v['name']] = v['canid']
         return mapping
+
+    def get_unpack_ccode_bycanid(self, canid):
+        retstr = ''
+        # check
+        if isinstance(canid, int):
+            pass
+        elif isinstance(canid, str):
+            try:
+                canid = int(canid, 16)
+            except:
+                pass
+        else:
+            pass
+        # loop
+        if canid in self.message.keys():
+            signals = self.message[canid]['signal']
+            for k,v in signals.items():
+                retstr += v['name'] + '=' + v['ccode_raw2phy'] + '\n'
+        else:
+            pass
+        return retstr
