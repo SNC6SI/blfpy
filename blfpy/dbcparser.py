@@ -385,8 +385,13 @@ class dbc2code():
         # loop
         if canid in self.message.keys():
             packbytes = self.message[canid]['mat_value2pack_c']
+            # pack
             for i,byte in enumerate(packbytes):
                 retstr += 'ptr[' + str(i) + ']=' + byte + '\n'
+            # mapping
+            mapping = self.message[canid]['mapping_v2s']
+            for k,v in mapping.items():
+                retstr += k + '\t' + v + '\n'
         else:
             pass
         return retstr
