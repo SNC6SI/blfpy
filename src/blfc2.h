@@ -2,6 +2,8 @@
 #define BL_OBJ_TYPE_LOG_CONTAINER 10
 #define BL_OBJ_TYPE_CAN_MESSAGE2 86
 
+#define BL_OBJ_TYPE_CAN_ERROR_EXT 73
+
 #define BL_OBJ_FLAG_TIME_TEN_MICS 0x00000001 /* 10 micro second timestamp */
 #define BL_OBJ_FLAG_TIME_ONE_NANS 0x00000002 /* 1 nano second timestamp */
 
@@ -10,6 +12,7 @@
 #define BL_HEADER_CONTAINER_SIZE 32
 #define BL_MESSAGE_SIZE 48
 #define BL_LOGG_SIZE 144
+#define BL_ERROREXT_SIZE 64
 
 #define BL_OBJ_SIGNATURE  0x4A424F4C
 #define BL_LOGG_SIGNATURE 0x47474F4C
@@ -121,3 +124,19 @@ typedef struct packed VBLCANMessage2_t {
   uint8_t         mReserved1;
   uint16_t        mReserved2;
 } VBLCANMessage2;
+
+typedef struct packed VBLCANErrorFrameExt_t {
+    VBLObjectHeader    mHeader;                     /* object header */
+    uint16_t           mChannel;                    /* application channel */
+    uint16_t           mLength;                     /* CAN error frame length */
+    uint32_t           mFlags;                      /* extended CAN error frame flags */
+    uint8_t            mECC;                        /* error control code */
+    uint8_t            mPosition;                   /* error position */
+    uint8_t            mDLC;                        /* lower 4 bits: DLC from CAN-Core. Upper 4 bits: reserved */
+    uint8_t            mReserved1;
+    uint32_t           mFrameLengthInNS;            /* frame length in ns */
+    uint32_t           mID;                         /* frame ID from CAN-Core */
+    uint16_t           mFlagsExt;                   /* extended error flags */
+    uint16_t           mReserved2;
+    uint8_t            mData[8];                    /* Payload, only for CAN-Core */
+} VBLCANErrorFrameExt;

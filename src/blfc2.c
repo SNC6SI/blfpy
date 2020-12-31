@@ -13,6 +13,7 @@ static LOGG_t logg;
 static VBLObjectHeaderBase Base;
 static VBLObjectHeaderContainer container;
 static VBLCANMessage message;
+static VBLCANErrorFrameExt errorframe;
 static VBLFileStatisticsEx pStatistics;
 static uint8_t peekFlag = 1;
 static uint8_t contFlag = 0;
@@ -41,6 +42,7 @@ uint8_t * u8_candata, *u8_tmp;
 uint16_t * u16_canchannel, * u16_tmp;
 uint32_t * u32_canmsgid, * u32_tmp;
 double * f64_cantime, * f64_tmp;
+uint8_t * u8_errorflag, *u8_tmp1;
 
 
 void blfInit(void){
@@ -213,6 +215,66 @@ uint8_t blfReadObjectSecure(void){
 }
 
 
+uint8_t blfReadObjectSecureError(void){
+    long int lidx_;
+    int i;
+    uint32_t paddingBytes;
+    lidx_ = lidx + BL_HEADER_BASE_SIZE;
+    if(lidx_ >= unCompressedSize){
+        peekFlag = 1;
+        contFlag = 1;
+        return 0;
+    }
+    //
+    memcpy(&Base, unCompressedData+lidx, BL_HEADER_BASE_SIZE);
+    //
+    paddingBytes = Base.mObjectSize & 3;
+    lidx_ = lidx + Base.mObjectSize + paddingBytes;
+    if(lidx_ > unCompressedSize){
+        peekFlag = 1;
+        contFlag = 1;
+        return 0;
+    }
+    //
+    contFlag = 0;
+    switch (Base.mObjectType){
+        case BL_OBJ_TYPE_CAN_MESSAGE:
+        case BL_OBJ_TYPE_CAN_MESSAGE2:
+            memcpy(&message, unCompressedData+lidx, BL_MESSAGE_SIZE);
+            for(i=0;i<8;i++) *(u8_candata + rcnt*8 + i) = message.mData[i];
+            *(u32_canmsgid + rcnt) = message.mID;
+            *(u16_canchannel + rcnt) = message.mChannel;
+            if(message.mHeader.mObjectFlags==BL_OBJ_FLAG_TIME_ONE_NANS)
+            *(f64_cantime + rcnt) = 
+                ((double)message.mHeader.mObjectTimeStamp)/1000000000;
+            else
+            *(f64_cantime + rcnt) = 
+                ((double)message.mHeader.mObjectTimeStamp)/100000;
+            *(u8_errorflag + rcnt) = 0;
+            rcnt++;
+            break;
+        case BL_OBJ_TYPE_CAN_ERROR_EXT:
+            memcpy(&errorframe, unCompressedData+lidx, BL_ERROREXT_SIZE);
+            for(i=0;i<8;i++) *(u8_candata + rcnt*8 + i) = errorframe.mData[i];
+            *(u32_canmsgid + rcnt) = errorframe.mID;
+            *(u16_canchannel + rcnt) = errorframe.mChannel;
+            if(message.mHeader.mObjectFlags==BL_OBJ_FLAG_TIME_ONE_NANS)
+            *(f64_cantime + rcnt) = 
+                ((double)errorframe.mHeader.mObjectTimeStamp)/1000000000;
+            else
+            *(f64_cantime + rcnt) = 
+                ((double)errorframe.mHeader.mObjectTimeStamp)/100000;
+            *(u8_errorflag + rcnt) = 1;
+            rcnt++;
+            break;
+        default:
+            break;
+    }
+    lidx = lidx_;
+    return 1;
+}
+
+
 PyObject* read_info(PyObject* self, PyObject* args)
 {
     Py_ssize_t len;
@@ -355,6 +417,104 @@ PyObject* read_data(PyObject* self, PyObject* args)
 
     return arglist;
 }
+
+
+PyObject* read_data_and_error(PyObject* self, PyObject* args)
+{
+    Py_ssize_t len;
+    PyObject * arglist;
+    PyObject * L_candata, * L_candata_;
+    PyObject * L_canmsgid;
+    PyObject * L_canchannel;
+    PyObject * L_cantime;
+    PyObject * L_errorflag;
+    npy_intp dimcandata, dimcanmsg;
+    npy_intp d[2];
+    PyArray_Dims bytedim;
+    
+    bytedim.ptr = d;
+    bytedim.len = 2;
+
+    blfInit();
+
+    if (!PyArg_ParseTuple(args, "s#", &filename, &len))
+        return NULL;
+
+    fp = fopen(filename, "rb");
+    if(fp==NULL){
+        PyErr_SetString(PyExc_FileNotFoundError, strerror(errno));
+        return NULL;
+    }
+
+    fseek(fp, 0, SEEK_END);
+    filelen = ftell(fp);
+    fseek(fp, 0, SEEK_SET);
+
+    fread(&logg, sizeof(LOGG_t), 1, fp);
+    blfStatisticsFromLogg();
+
+    // allocate memroy
+    u8_candata = (unsigned char *)PyMem_Malloc(((size_t)(logg.mObjectCount)) * (sizeof(unsigned char)) * 8);
+    u32_canmsgid = (unsigned long *)PyMem_Malloc(((size_t)(logg.mObjectCount)) * sizeof(unsigned long));
+    u16_canchannel = (unsigned short *)PyMem_Malloc(((size_t)(logg.mObjectCount)) * sizeof(unsigned short));
+    f64_cantime = (double *)PyMem_Malloc(((size_t)(logg.mObjectCount)) * sizeof(double));
+    u8_errorflag = (unsigned char *)PyMem_Malloc(((size_t)(logg.mObjectCount)) * sizeof(unsigned char));
+
+    // =======================================================================
+    // BEGIN read data
+    // =======================================================================
+   while(blfPeekObject())
+        blfReadObjectSecureError();
+
+    fclose(fp);
+    // =======================================================================
+    // END read data
+    // =======================================================================
+
+    // reallocate memory if needed
+    if (logg.mObjectCount!= rcnt)
+    {
+        u8_tmp = (unsigned char *)PyMem_Realloc(u8_candata, ((size_t)(rcnt)) * (sizeof(unsigned char)) * 8);
+        if (u8_tmp != NULL) u8_candata = u8_tmp;
+        u32_tmp = (unsigned long *)PyMem_Realloc(u32_canmsgid, ((size_t)(rcnt)) * sizeof(unsigned long));
+        if (u32_tmp != NULL) u32_canmsgid = u32_tmp;
+        u16_tmp = (unsigned short *)PyMem_Realloc(u16_canchannel, ((size_t)(rcnt)) * sizeof(unsigned short));
+        if (u16_tmp != NULL) u16_canchannel = u16_tmp;
+        f64_tmp = (double*)PyMem_Realloc(f64_cantime, ((size_t)(rcnt)) * sizeof(double));
+        if (f64_tmp != NULL) f64_cantime = f64_tmp;
+        u8_tmp1 = (unsigned char *)PyMem_Realloc(u8_errorflag, ((size_t)(rcnt)) * sizeof(unsigned char));
+        if (u8_tmp1 != NULL) u8_errorflag = u8_tmp1;
+    }
+
+    // create numpy ndarray
+    // set owndata is important for memory management (free memory) in python
+    dimcandata = ((npy_intp)rcnt) << 3;
+    dimcanmsg = ((npy_intp)rcnt);
+    L_candata_    = PyArray_SimpleNewFromData(1, &dimcandata, NPY_UINT8, u8_candata);
+    PyArray_ENABLEFLAGS((PyArrayObject *)L_candata_, NPY_ARRAY_OWNDATA);
+    bytedim.ptr[0] = rcnt;
+    bytedim.ptr[1] = 8;
+    L_candata = PyArray_Newshape((PyArrayObject *)L_candata_, &bytedim, NPY_CORDER);
+    // L_candata = PyArray_Newshape((PyArrayObject *)L_candata_, &bytedim, NPY_FORTRANORDER);
+    Py_DECREF(L_candata_);
+    
+    L_canmsgid   = PyArray_SimpleNewFromData(1, &dimcanmsg, NPY_ULONG, u32_canmsgid);
+    PyArray_ENABLEFLAGS((PyArrayObject *)L_canmsgid, NPY_ARRAY_OWNDATA);
+    
+    L_canchannel = PyArray_SimpleNewFromData(1, &dimcanmsg, NPY_USHORT, u16_canchannel);
+    PyArray_ENABLEFLAGS((PyArrayObject *)L_canchannel, NPY_ARRAY_OWNDATA);
+    
+    L_cantime    = PyArray_SimpleNewFromData(1, &dimcanmsg, NPY_DOUBLE, f64_cantime);
+    PyArray_ENABLEFLAGS((PyArrayObject *)L_cantime, NPY_ARRAY_OWNDATA);
+
+    L_errorflag    = PyArray_SimpleNewFromData(1, &dimcanmsg, NPY_UINT8, u8_errorflag);
+    PyArray_ENABLEFLAGS((PyArrayObject *)L_errorflag, NPY_ARRAY_OWNDATA);
+    
+    arglist = Py_BuildValue("(NNNNN)", L_candata, L_canmsgid, L_canchannel, L_cantime, L_errorflag);
+
+    return arglist;
+}
+
 
 
 
@@ -544,6 +704,7 @@ PyObject * write_data(PyObject *self, PyObject *args) {
 static PyMethodDef blfcMethods[] = {
     {"read_info", (PyCFunction)read_info, METH_VARARGS, 0},
     {"read_data", (PyCFunction)read_data, METH_VARARGS, 0},
+    {"read_data_and_error", (PyCFunction)read_data_and_error, METH_VARARGS, 0},
     {"write_data", (PyCFunction)write_data, METH_VARARGS, 0},
     {NULL, NULL, 0, NULL}
 };
