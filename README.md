@@ -107,7 +107,27 @@ or
                 dbc='../test/dbc/IC321_PTCAN_CMatrix_V1.7_PT装车_VBU.dbc')
 ```
 
+**what's more**
 
-## TODO
-- maybe or maybe not plot in Matlab
-
+> for reading raw 8-bytes data the procedure is as follows
+- read normal message only
+```python
+>>> from blfpy.blfc import read_data
+>>> raw = read_data('PTCAN出现少量错误帧.blf'.encode('GBK'))
+# raw is a list with 4 elements
+# [uint8*8 data,
+#  uint32 canid,
+#  uint16 channel,
+#  float64 time]
+```
+- read normal message and errors
+```python
+>>> from blfpy.blfc import read_data_and_error
+>>> raw_and_err = read_data_and_error('PTCAN出现少量错误帧.blf'.encode('GBK'))
+# raw_and_err is a list with 5 elements
+# [uint8*8 data,
+#  uint32 canid,
+#  uint16 channel,
+#  float64 time,
+#  uint8 errorflag {1:errorframe,0:normal}]
+```
