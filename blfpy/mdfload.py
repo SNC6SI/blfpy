@@ -10,7 +10,7 @@ import warnings
 import math
 import os
 import re
-from datetime import datetime
+from datetime import datetime, timedelta
 import numpy as np
 from scipy import interpolate
 from .blfc import write_data
@@ -307,8 +307,8 @@ class mdfread:
                     long_field_names=True,
                     do_compression=True)
         elif file_format=='blf':
-            if not file_name_pre.endswith('.blf'):
-                file_name = ''.join((file_name_pre, '.blf'))
+            if not file_name.endswith('.blf'):
+                file_name = ''.join((file_name, '.blf'))
             if dbc is None:
                 raise FileNotFoundError("\"dbc\" must be specified.")
             else:
@@ -317,9 +317,10 @@ class mdfread:
                 self.parser.get_parser()
                 mapping_name2id = self.parser.get_name_canid_mapping()
                 self.__save_data_internal_prepare_data(mapping_name2id)
-                write_data(file_name,
+                write_data(file_name.encode('GBK'),
                            self.data2blf,
-                           self.hdblock.record_time_info)
+                           self.hdblock.record_time_info,
+                           self.hdblock.end_time_info)
         else:
             raise ValueError(f"\"{file_format}\" is not supported.")
 
@@ -375,6 +376,27 @@ class mdfread:
         self.data2blf[1] = self.data2blf[1].take(self.idx, axis=0)
         self.data2blf[2] = self.data2blf[2].take(self.idx, axis=0)
         self.data2blf[3] = self.data2blf[3].take(self.idx, axis=0)
+        # begin time
+        t = self.hdblock.record_time_info
+        begin_time = datetime(year=t['year'],
+                              month=t['month'],
+                              day=t['day'],
+                              hour=t['hour'],
+                              minute=t['minute'],
+                              second=t['second'],
+                              microsecond=t['millisecond']*1000)
+        # end time
+        delta_t = timedelta(seconds=self.data2blf[3][-1])
+        end_time = begin_time + delta_t
+        self.hdblock.end_time_info = {'year':end_time.year,
+                                      'month':end_time.month,
+                                      'day':end_time.day,
+                                      'hour':end_time.hour,
+                                      'minute':end_time.minute,
+                                      'second':end_time.second,
+                                      'millisecond':int(end_time.microsecond/1000.0),
+                                      'weekday':end_time.weekday()}
+
 
 
     class IDBLOCK:
