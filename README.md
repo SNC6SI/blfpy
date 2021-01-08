@@ -131,3 +131,7 @@ or
 #  float64 time,
 #  uint8 errorflag {1:errorframe,0:normal}]
 ```
+
+## TODO
+- to support multiple channel for reading/parsing blf
+- to support multiple channel for converting mdf to blf
