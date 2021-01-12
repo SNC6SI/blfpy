@@ -285,7 +285,7 @@ class dbc2code():
             mat_value2bytes[mat[i,0]] = \
                 f"(({rr}>>{mat[i,4]})&{2**mat[i,3]-1})<<{mat[i,1]}"
         # to c
-        rr = f"(uint32)((rr-{(info['offset'])})/{info['gain']})"
+        rr = f"(uint32)((rr-({(info['offset'])}))/{info['gain']})"
         mat = info['sigmat']
         loopnum = mat.shape[0]
         for i in range(loopnum):
