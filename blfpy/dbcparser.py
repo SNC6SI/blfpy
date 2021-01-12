@@ -128,7 +128,7 @@ class dbc2code():
                         else:
                             mat_value2pack[i] = ss
             # merge value c
-            mat_value2pack_c = [[]] * 8
+            mat_value2pack_c = [''] * 8
             for k, v in BO_dict['signal'].items():
                 for i, s in enumerate(v['mat_value2bytes_c']):
                     if len(s):
