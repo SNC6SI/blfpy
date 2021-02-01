@@ -147,11 +147,11 @@ uint8_t blfPeekObject(void){
             //
             unCompressedSize = container.mDeflatebuffersize + restSize;
             unCompressedData = PyMem_Malloc(unCompressedSize);
-            memUncompress(unCompressedData + restSize,
-                          unCompressedSize - restSize,
-                          compressedData,
-                          compressedSize,
-                          0);
+            success = memUncompress(unCompressedData + restSize,
+                                    unCompressedSize - restSize,
+                                    compressedData,
+                                    compressedSize,
+                                    0);
             //
             PyMem_Free(compressedData);
             if(restSize > 0){
@@ -361,6 +361,9 @@ PyObject* read_data(PyObject* self, PyObject* args)
 
     fread(&logg, sizeof(LOGG_t), 1, fp);
     blfStatisticsFromLogg();
+    if(logg.mObjectCount==0){
+        logg.mObjectCount = (uint32_t)(filelen/DEFAULT_CONTAINER_FACTOR);
+    }
 
     // allocate memroy
     u8_candata = (unsigned char *)PyMem_Malloc(((size_t)(logg.mObjectCount)) * (sizeof(unsigned char)) * 8);
@@ -452,6 +455,9 @@ PyObject* read_data_and_error(PyObject* self, PyObject* args)
 
     fread(&logg, sizeof(LOGG_t), 1, fp);
     blfStatisticsFromLogg();
+    if(logg.mObjectCount==0){
+        logg.mObjectCount = (uint32_t)(filelen/DEFAULT_CONTAINER_FACTOR);
+    }
 
     // allocate memroy
     u8_candata = (unsigned char *)PyMem_Malloc(((size_t)(logg.mObjectCount)) * (sizeof(unsigned char)) * 8);

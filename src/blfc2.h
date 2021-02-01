@@ -28,6 +28,9 @@
 #define BL_ZLIB_LEVEL 9
 
 
+#define DEFAULT_CONTAINER_FACTOR 8
+
+
 #ifdef _MSC_VER
 #define packed
 #else
