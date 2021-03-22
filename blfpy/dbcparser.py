@@ -17,11 +17,11 @@ class dbc2code():
                          r"(?P<name>\w+) : " + \
                          r"(?P<start>\d+)\|" + \
                          r"(?P<length>\d+)@" + \
-                         r"(?P<endian>[01])\+? \(" + \
-                         r"(?P<gain>\d+(\.\d*)?)," + \
-                         r"(?P<offset>-?\d+(\.\d*)?)\) \[" + \
-                         r"(?P<phymin>-?\d+(\.\d*)?(E\+\d+)?)\|" + \
-                         r"(?P<phymax>-?\d+(\.\d*)?(E\+\d+)?)\] \"" + \
+                         r"(?P<endian>[01])[\+-]? \(" + \
+                         r"(?P<gain>\d+(\.\d*)?([eE][\+-]\d+)?)," + \
+                         r"(?P<offset>-?\d+(\.\d*)?([eE][\+-]\d+)?)\) \[" + \
+                         r"(?P<phymin>-?\d+(\.\d*)?([eE][\+-]\d+)?)\|" + \
+                         r"(?P<phymax>-?\d+(\.\d*)?([eE][\+-]\d+)?)\] \"" + \
                          r"(?P<unit>.*?)\"\s+" + \
                          r"(?P<reciever>.*)")
     __VAL_RE = re.compile(r'VAL_ (\d+) (\w+) ((?:\d+ ".+?")+?) ;')
