@@ -399,6 +399,21 @@ class dbc2code():
 
 
 if __name__ == '__main__':
-    a = dbc2code('C:/Users/shing/Desktop/ME7_PTCAN_CMatrix_V208.190815_PVS.dbc')
-    # a = dbc2code('C:/Users/shing/Desktop/ME5_APSPA_CAN_CMatrix_V2.0_ 2021.4.28_update.dbc')
+    # a = dbc2code('C:/Users/shing/Desktop/ME7_PTCAN_CMatrix_V208.190815_PVS.dbc')
+    a = dbc2code('C:/Users/shing/Desktop/ME5_APSPA_CAN_CMatrix_V2.0_ 2021.4.28_update.dbc')
+    # a = dbc2code(r'C:/Users/shing/Desktop/20210416/dbc/ME5_ADASCAN_CMatrix_V1.7_APS.DBC')
     a.get_parser()
+
+    s = 'void unpack_all(uint16 canid, uint8* ptr)\n{\n'
+    for msg in a.message.values():
+        indent = '\t'
+        s += f"{indent}if(canid=={msg['name']})\n"
+        s += f"{indent}{{\n"
+        indent = '\t\t'
+        for sig in msg['signal'].values():
+            s += f"{indent}{sig['name']} = {sig['ccode_raw2phy']};\n"
+        indent = '\t'
+        s += f"{indent}}}\n"
+    s += '}'
+    with open('abc.c', 'wt') as f:
+        f.write(s)
