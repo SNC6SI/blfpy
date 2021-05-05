@@ -259,7 +259,7 @@ class dbc2code():
         si = '(' + si + ')'
         # gain offset
         if gain!=1:
-            phy = si + '*' + str(gain) + 'F'
+            phy = si + ' *' + str(gain) + 'F'
         else:
             phy = si
         if offset:
