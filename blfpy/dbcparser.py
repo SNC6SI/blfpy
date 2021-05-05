@@ -12,7 +12,8 @@ import numpy as np
 class dbc2code():
 
     __BO_Blk_RE = re.compile(r'BO_ \d+ [a-zA-Z].+?\n\n', re.DOTALL)
-    __BO_RE = re.compile(r"BO_ (?P<canid>\d+) (?P<name>\w+)")
+    __BO_RE = re.compile(r"BO_ (?P<canid>\d+) (?P<name>\w+): " + \
+                         r"(?P<dlc>\d{1,2}) (?P<sender>\w+)")
     __SG_RE = re.compile(r"\s*SG_ " + \
                          r"(?P<name>\w+) : " + \
                          r"(?P<start>\d+)\|" + \
@@ -28,7 +29,7 @@ class dbc2code():
     __VAL_INTERN_RE = re.compile(r'(\d+) "(.*?)"')
     __BA_GenMsgCycleTime_RE = re.compile(r"BA_ \"GenMsgCycleTime\" BO_ " + \
                                          r"(\d+) (\d+);")
-    __BITMATRIX = np.flip(np.arange(64).reshape(8, 8), 1).reshape(64,)
+    __BITMATRIX = np.flip(np.arange(512).reshape(64, 8), 1).reshape(512,)
     __BB = 'bb'
     __C = 'ptr'
 
@@ -98,7 +99,7 @@ class dbc2code():
             BO_dict['mapping_v2s'] = mapping_v2s
             BO_dict['mapping_s2v'] = mapping_s2v
             # merge raw
-            mat_raw2pack = [[]] * 8
+            mat_raw2pack = [[]] * 64
             for k, v in BO_dict['signal'].items():
                 for i, s in enumerate(v['mat_raw2bytes']):
                     if len(s):
@@ -113,7 +114,7 @@ class dbc2code():
                         else:
                             mat_raw2pack[i] = ss
             # merge value
-            mat_value2pack = [[]] * 8
+            mat_value2pack = [[]] * 64
             for k, v in BO_dict['signal'].items():
                 for i, s in enumerate(v['mat_value2bytes']):
                     if len(s):
@@ -128,7 +129,7 @@ class dbc2code():
                         else:
                             mat_value2pack[i] = ss
             # merge value c
-            mat_value2pack_c = [''] * 8
+            mat_value2pack_c = [''] * 64
             for k, v in BO_dict['signal'].items():
                 for i, s in enumerate(v['mat_value2bytes_c']):
                     if len(s):
@@ -267,9 +268,9 @@ class dbc2code():
         return phy
 
     def _parser_internal_pack(self, info):
-        mat_raw2bytes = [''] * 8
-        mat_value2bytes = [''] * 8
-        mat_value2bytes_c = [''] * 8
+        mat_raw2bytes = [''] * 64
+        mat_value2bytes = [''] * 64
+        mat_value2bytes_c = [''] * 64
         # from raw
         rr = "rr"
         mat = info['sigmat']
@@ -395,3 +396,9 @@ class dbc2code():
         else:
             pass
         return retstr
+
+
+if __name__ == '__main__':
+    a = dbc2code('C:/Users/shing/Desktop/ME7_PTCAN_CMatrix_V208.190815_PVS.dbc')
+    # a = dbc2code('C:/Users/shing/Desktop/ME5_APSPA_CAN_CMatrix_V2.0_ 2021.4.28_update.dbc')
+    a.get_parser()
