@@ -176,7 +176,7 @@ class dbc2code():
             bitstart_bitpos = 0
             
         loopnum = abs(bitstart_bytepos - bitend_bytepos) + 1
-        sigmat = np.zeros((loopnum, 5), dtype=int)
+        sigmat = np.zeros((loopnum, 5), dtype=np.uint64)
         # which byte
         # start bit pos this line
         # end bit pos this line
