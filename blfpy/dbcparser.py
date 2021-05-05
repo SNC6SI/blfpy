@@ -251,10 +251,10 @@ class dbc2code():
             if j > 0:
                 si = ' + ' + si
             s = self.__C + '[' + str(sigmat[j, 0]) + ']'
-            s =  '(' + s + '>>' + str(sigmat[j, 1]) + 'U)'
-            s = '(' + s + '&(' + str(2**sigmat[j, 3]-1) + 'U))'
+            s =  '(' + s + '>>' + str(int(sigmat[j, 1])) + 'U)'
+            s = '(' + s + '&(' + str(int(2**sigmat[j, 3]-1)) + 'U))'
             if sigmat[j, 4]:
-                s = '(' + str(2**sigmat[j, 4]) + 'U)*' + s
+                s = '(' + str(int(2**sigmat[j, 4])) + 'U)*' + s
             si = s + si
         si = '(' + si + ')'
         # gain offset
