@@ -263,7 +263,10 @@ class dbc2code():
         else:
             phy = si
         if offset:
-            phy += '+' + str(offset) + 'F'
+            if offset<0:
+                phy += str(offset) + 'F'
+            else:
+                phy += '+' + str(offset) + 'F'
         phy = '(' + phy + ')'
         return phy
 
