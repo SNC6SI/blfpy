@@ -18,7 +18,7 @@ blfc = Extension(name = 'blfpy.blfc',
                                  'src'])
 
 setup (name = 'blfpy',
-       version = '0.5.2',
+       version = '0.5.3',
        author = 'Shen, Chenghao',
        author_email='snc6si@gmail.com',
        maintainer = 'Shen, Chenghao',
