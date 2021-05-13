@@ -133,5 +133,6 @@ or
 ```
 
 ## TODO
+- to support canfd/canfd error frame for reading/parsing blf
 - to support multiple channel for reading/parsing blf
 - to support multiple channel for converting mdf to blf
