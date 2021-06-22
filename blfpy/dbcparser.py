@@ -38,7 +38,7 @@ class dbc2code():
         if fn is None:
             self.__dbc_raw = None
         else:
-            with open(fn, 'rt', encoding='GBK') as f:
+            with open(fn, 'rt', encoding='GBK', errors='ignore') as f:
                 self.__dbc_raw = f.read()
 
 
