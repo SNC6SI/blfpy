@@ -134,7 +134,8 @@ class dbc2code():
                 for i, s in enumerate(v['mat_value2bytes_c']):
                     if len(s):
                         # find rep str
-                        rep = BO_dict['mapping_s2v'][v['name']]
+                        # rep = BO_dict['mapping_s2v'][v['name']]
+                        rep = v['name']
                         # do rep
                         ss = re.sub('rr', rep, s)
                         # merge
