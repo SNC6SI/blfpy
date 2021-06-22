@@ -294,7 +294,7 @@ class dbc2code():
         loopnum = mat.shape[0]
         for i in range(loopnum):
             mat_value2bytes_c[mat[i,0]] = \
-                f"(uint8)((({rr}>>{mat[i,4]})&{2**mat[i,3]-1})<<{mat[i,1]})"
+                f"(uint8)((({rr}>>{mat[i,4]})&{int(2**mat[i,3]-1)}U)<<{int(mat[i,1])}U)"
         return mat_value2bytes, mat_raw2bytes, mat_value2bytes_c
 
 
