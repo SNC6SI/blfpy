@@ -290,12 +290,26 @@ class dbc2code():
             mat_value2bytes[mat[i,0]] = \
                 f"(({rr}>>{mat[i,4]})&{2**mat[i,3]-1})<<{mat[i,1]}"
         # to c
-        rr = f"(uint32)((rr-({(info['offset'])}F))/{info['gain']}F)"
+        # rr = f"(uint32)((rr-({(info['offset'])}F))/{info['gain']}F)"
+        rr = "rr"
+        if info['offset']:
+            rr = f"(rr-({info['offset']}F))"
+        if info['gain']!=1.0:
+            rr = f"({rr}/{info['gain']}F)"
+        rr = f"((uint32){rr})"
+        
         mat = info['sigmat']
         loopnum = mat.shape[0]
         for i in range(loopnum):
-            mat_value2bytes_c[mat[i,0]] = \
-                f"(uint8)((({rr}>>{mat[i,4]}U)&{int(2**mat[i,3]-1)}U)<<{int(mat[i,1])}U)"
+            # f"(uint8)((({rr}>>{int(mat[i,4])}U)&{int(2**mat[i,3]-1)}U)<<{int(mat[i,1])}U)"
+            s = f"{rr}"
+            if int(mat[i,4]):
+                s = f'({s}>>{int(mat[i,4])}U)'
+            s = f'({s}&{int(2**mat[i,3]-1)}U)'
+            if int(mat[i,1]):
+                s = f'({s}<<{int(mat[i,1])}U)'
+            s = f'(uint8){s}'
+            mat_value2bytes_c[mat[i,0]] = s
         return mat_value2bytes, mat_raw2bytes, mat_value2bytes_c
 
 
