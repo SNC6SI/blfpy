@@ -1,0 +1,1184 @@
+VERSION ""
+
+
+NS_ : 
+	NS_DESC_
+	CM_
+	BA_DEF_
+	BA_
+	VAL_
+	CAT_DEF_
+	CAT_
+	FILTER
+	BA_DEF_DEF_
+	EV_DATA_
+	ENVVAR_DATA_
+	SGTYPE_
+	SGTYPE_VAL_
+	BA_DEF_SGTYPE_
+	BA_SGTYPE_
+	SIG_TYPE_REF_
+	VAL_TABLE_
+	SIG_GROUP_
+	SIG_VALTYPE_
+	SIGTYPE_VALTYPE_
+	BO_TX_BU_
+	BA_DEF_REL_
+	BA_REL_
+	BA_DEF_DEF_REL_
+	BU_SG_REL_
+	BU_EV_REL_
+	BU_BO_REL_
+	SG_MUL_VAL_
+
+BS_:
+
+BU_: BMS ACU WPTC MCU OBC DCDC VCU GW
+
+
+BO_ 800 EAC_0x320: 8 GW
+ SG_ EAC_power : 6|7@0+ (0.1,0) [0|12.7] "KW"  BMS,VCU
+ SG_ EAC_Status : 15|2@0+ (1,0) [0|3] ""  BMS,VCU
+
+BO_ 851 TBOX_0x353: 8 GW
+ SG_ TBOX_FOTA_mode : 47|1@0+ (1,0) [0|1] ""  MCU,DCDC,BMS,VCU
+
+BO_ 155 VCU_0x9B: 8 VCU
+ SG_ Checksum_0x9B : 7|8@0+ (1,0) [0|255] ""  OBC,BMS,GW
+ SG_ VCU_BMS_WorkMode : 10|3@0+ (1,0) [0|7] ""  BMS,GW
+ SG_ Rolling_counter_0x9B : 59|4@0+ (1,0) [0|15] ""  OBC,BMS,GW
+
+BO_ 157 VCU_0x9D: 8 VCU
+ SG_ VCU_BattPump_ErrorSts : 34|3@0+ (1,0) [0|7] ""  BMS,GW
+
+BO_ 256 BMS_0x100: 8 BMS
+ SG_ BMS_PackU : 7|13@0+ (0.1,0) [0|800] "V"  MCU,VCU,GW
+ SG_ BMS_WaringLevel : 10|3@0+ (1,0) [0|7] ""  VCU,GW
+ SG_ BMS_PackI : 23|16@0+ (0.1,-1000) [-1000|1000] "A"  VCU,GW
+ SG_ BMS_RelayChrPos : 41|2@0+ (1,0) [0|3] ""  VCU,GW
+ SG_ BMS_RelayNeg : 43|2@0+ (1,0) [0|3] ""  MCU,VCU,GW
+ SG_ BMS_RelayPre : 45|2@0+ (1,0) [0|3] ""  VCU,GW
+ SG_ BMS_RelayPos : 47|2@0+ (1,0) [0|3] ""  MCU,VCU,GW
+ SG_ BMS_RelayChrNeg : 49|2@0+ (1,0) [0|3] ""  VCU,GW
+ SG_ BMS_State : 53|4@0+ (1,0) [0|15] ""  VCU,GW
+ SG_ BMS_ChrFastState : 55|2@0+ (1,0) [0|3] ""  VCU,GW
+ SG_ BMS_SPreCharging : 61|2@0+ (1,0) [0|3] ""  GW
+ SG_ BMS_ChrSlowState : 63|2@0+ (1,0) [0|3] ""  VCU,GW
+ SG_ BMS_0x100_RollingCounter : 59|4@0+ (1,0) [0|15] ""  VCU,GW
+
+BO_ 258 BMS_0x102: 8 BMS
+ SG_ BMS_RealSOC : 7|10@0+ (0.1,0) [0|100] "%"  VCU,GW
+ SG_ BMS_PackDispSoc : 13|10@0+ (0.1,0) [0|100] "%"  VCU,GW
+ SG_ BMS_PackSOE : 17|10@0+ (0.1,0) [0|102.3] "kwh"  VCU,GW
+ SG_ BMS_WakeUpSignal : 18|1@0+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_Insulation_R : 39|10@0+ (1,0) [0|1000] "KΩ"  GW
+ SG_ BMS_LinkU : 44|13@0+ (0.1,0) [0|800] "V"  VCU,GW
+ SG_ BMS_BalanceSts : 45|1@0+ (1,0) [0|1] ""  GW
+ SG_ BMS_HVIL1_State : 61|2@0+ (1,0) [0|3] ""  VCU,GW
+ SG_ BMS_HVIL2_State : 63|2@0+ (1,0) [0|3] ""  VCU,GW
+ SG_ BMS_0x102_RollingCounter : 59|4@0+ (1,0) [0|15] ""  VCU,GW
+
+BO_ 261 BMS_0x105: 8 BMS
+ SG_ BMS_PackSOH : 6|7@0+ (1,0) [0|100] "%" Vector__XXX
+ SG_ BMS_ChrRequestU : 15|13@0+ (0.1,0) [0|800] "V"  OBC,GW
+ SG_ BMS_ChrRequest : 18|3@0+ (1,0) [0|7] ""  OBC,GW
+ SG_ BMS_ChrRequestI : 31|12@0+ (0.1,0) [0|400] "A"  OBC,GW
+ SG_ BMS_VCU_TotalEnergy : 47|19@0+ (1,0) [0|524286] "kwh"  VCU,GW
+ SG_ BMS_0x105_RollingCounter : 59|4@0+ (1,0) [0|15] ""  OBC,GW
+
+BO_ 274 BMS_0x112: 8 BMS
+ SG_ BMS_MaxCellNo : 7|8@0+ (1,0) [0|255] ""  GW
+ SG_ BMS_MaxCellU : 15|13@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_MinCellNo : 31|8@0+ (1,0) [0|255] ""  GW
+ SG_ BMS_MinCellU : 39|13@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_CellVolDev : 55|12@0+ (1,0) [0|4000] "mV"  GW
+ SG_ BMS_0x112_RollingCounter : 59|4@0+ (1,0) [0|15] ""  GW
+
+BO_ 277 BMS_0x115: 8 BMS
+ SG_ BMS_MaxDschPower : 7|10@0+ (0.25,0) [0|250] "KW"  GW
+ SG_ BMS_MaxDschPowerPeak : 13|10@0+ (0.25,0) [0|250] "KW"  GW
+ SG_ BMS_DschAllowedPower : 19|10@0+ (0.25,0) [0|250] "KW"  VCU,GW
+ SG_ BMS_MaxChrgPowerPeak : 25|10@0+ (0.25,0) [0|250] "KW"  GW
+ SG_ BMS_MaxChrgPower : 47|10@0+ (0.25,0) [0|250] "KW"  GW
+ SG_ BMS_ChrgAllowedPower : 53|10@0+ (0.25,0) [0|250] "KW"  VCU,GW
+ SG_ BMS_0x115_RollingCounter : 59|4@0+ (1,0) [0|15] ""  GW
+
+BO_ 278 BMS_0x116: 8 BMS
+ SG_ BMS_CellOverVolWaring : 1|2@0+ (1,0) [0|3] ""  GW
+ SG_ BMS_CellUnderVolWaring : 3|2@0+ (1,0) [0|3] ""  GW
+ SG_ BMS_TempOverWaring : 5|2@0+ (1,0) [0|3] ""  GW
+ SG_ BMS_TempUnderWaring : 7|2@0+ (1,0) [0|3] ""  GW
+ SG_ BMS_CellVolDevWaring : 9|2@0+ (1,0) [0|3] ""  GW
+ SG_ BMS_TempDveWaring : 11|2@0+ (1,0) [0|3] ""  GW
+ SG_ BMS_BattOverVolWaring : 13|2@0+ (1,0) [0|3] ""  GW
+ SG_ BMS_BattUnderVolWaring : 15|2@0+ (1,0) [0|3] ""  GW
+ SG_ BMS_DCChargePlugTempOverHigh : 16|1@0+ (1,0) [0|1] ""  GW
+ SG_ BMS_DisCharOverCurr : 18|2@0+ (1,0) [0|3] ""  GW
+ SG_ BMS_RegenOverCurr : 20|2@0+ (1,0) [0|3] ""  GW
+ SG_ BMS_InnerCANTimeout : 21|1@0+ (1,0) [0|1] ""  GW
+ SG_ BMS_ISOWaring : 23|2@0+ (1,0) [0|3] ""  VCU,GW
+ SG_ BMS_BCUHWFault : 24|1@0+ (1,0) [0|1] ""  GW
+ SG_ BMS_NegRelayFault : 26|2@0+ (1,0) [0|3] ""  GW
+ SG_ BMS_PosRelayFault : 28|2@0+ (1,0) [0|3] ""  GW
+ SG_ BMS_PreRelayFault : 30|2@0+ (1,0) [0|3] ""  GW
+ SG_ BMS_LowVoltageMSD : 31|1@0+ (1,0) [0|1] ""  GW
+ SG_ BMS_CharPosRelayFault : 33|2@0+ (1,0) [0|3] ""  GW
+ SG_ BMS_CharNegRelayFault : 35|2@0+ (1,0) [0|3] ""  GW
+ SG_ BMS_BMUFault : 36|1@0+ (1,0) [0|1] ""  GW
+ SG_ BMS_VcuCANTimeout : 37|1@0+ (1,0) [0|1] ""  GW
+ SG_ BMS_BattHVDisaccord : 38|1@0+ (1,0) [0|1] ""  GW
+ SG_ BMS_PressureSensorFault : 39|1@0+ (1,0) [0|1] ""  GW
+ SG_ BMS_SOClow : 41|2@0+ (1,0) [0|3] ""  GW
+ SG_ BMS_Mismatch : 42|1@0+ (1,0) [0|1] ""  GW
+ SG_ BMS_SOCOverHigh : 43|1@0+ (1,0) [0|1] ""  GW
+ SG_ BMS_BattOverCharge : 44|1@0+ (1,0) [0|1] ""  GW
+ SG_ BMS_SOCSkip : 45|1@0+ (1,0) [0|1] ""  GW
+ SG_ BMS_CGOverCurr : 46|1@0+ (1,0) [0|1] ""  GW
+ SG_ BMS_LowVoltageFault : 47|1@0+ (1,0) [0|1] ""  GW
+ SG_ BMS_LiquidLeak : 48|1@0+ (1,0) [0|1] ""  GW
+ SG_ BMS_CrashFault : 49|1@0+ (1,0) [0|1] ""  GW
+ SG_ BMS_ThermRunAway : 50|1@0+ (1,0) [0|1] ""  GW
+ SG_ BMS_Maintenance : 52|2@0+ (1,0) [0|3] ""  GW
+ SG_ BMS_BusbarTempOverWaring : 53|1@0+ (1,0) [0|1] ""  GW
+ SG_ BMS_FuseFault : 54|1@0+ (1,0) [0|1] ""  GW
+ SG_ BMS_CurrSensorFault : 61|2@0+ (1,0) [0|3] ""  GW
+ SG_ BMS_0x116_RollingCounter : 59|4@0+ (1,0) [0|15] ""  GW
+
+BO_ 276 BMS_0x114: 8 BMS
+ SG_ BMS_KL30inputVol : 7|8@0+ (0.1,0) [0|25.4] "V"  VCU
+ SG_ BMS_thermalControlReq : 10|3@0+ (1,0) [0|7] ""  VCU
+ SG_ BMS_ThermalCtrlTargetTemp : 23|8@0+ (1,-40) [-40|85] "℃"  VCU
+ SG_ BMS_InputWaterTemp : 31|8@0+ (0.5,-40) [-40|85] "℃"  VCU
+ SG_ BMS_OutputWaterTemp : 39|8@0+ (0.5,-40) [-40|85] "℃"  VCU
+ SG_ BMS_BattThermalReqLvl : 47|8@0+ (1,0) [0|15] ""  VCU
+ SG_ BMS_PACK_PressureValue : 55|7@0+ (1,50) [50|175] "Kpa"  VCU
+ SG_ BMS_0x114_RollingCounter : 59|4@0+ (1,0) [0|15] ""  VCU
+
+BO_ 289 ESP_0x121: 8 GW
+ SG_ ESP_VehicleSpeed : 11|12@0+ (0.05625,0) [0|230.28749] "kph"  ACU,MCU,BMS,VCU
+ SG_ ESP_VehicleSpeed_Valid : 12|1@0+ (1,0) [0|1] ""  ACU,MCU,BMS,VCU
+
+BO_ 291 MCU_0x123: 8 MCU
+ SG_ MCU_DC_linkVoltage : 12|10@0+ (1,0) [0|1023] "V"  BMS,GW
+ SG_ MCU_DC_linkCurrent : 18|11@0+ (1,-1023) [-1023|1024] "A"  BMS,GW
+
+BO_ 336 VCU_0x150: 8 VCU
+ SG_ VCU_ChargeDepthSts : 44|2@0+ (1,0) [0|3] ""  BMS,GW
+
+BO_ 337 VCU_0x151: 8 VCU
+ SG_ VCU_MotorPump_ErrorSts : 18|3@0+ (1,0) [0|7] ""  BMS,GW
+
+BO_ 392 DCDC_0x188: 8 DCDC
+ SG_ DCDC_IdcHvCurr : 26|11@0+ (0.1,0) [0|100] "A"  BMS,VCU,GW
+ SG_ DCDC_UdcHvVolt : 50|11@0+ (1,0) [0|600] "V"  BMS,VCU,GW
+
+BO_ 528 ACU_0x210: 8 ACU
+ SG_ Checksum_0x210 : 7|8@0+ (1,0) [0|255] ""  BMS,GW
+ SG_ ACU_CrashStatus : 8|1@0+ (1,0) [0|1] ""  MCU,BMS,VCU,GW
+ SG_ RollingCounter_0x210 : 59|4@0+ (1,0) [0|15] ""  BMS,GW
+
+BO_ 774 BMS_0x306: 8 BMS
+ SG_ BMS_RemainChargingTime : 7|10@0+ (1,0) [0|1000] "min"  GW
+ SG_ BMS_Charing_Time : 13|10@0+ (1,0) [0|1000] "min"  GW
+ SG_ BMS_Charging_Ah : 16|9@0+ (0.5,0) [0|250] "Ah"  GW
+ SG_ BMS_TotalCharging_Ah : 35|20@0+ (1,0) [0|500000] "Ah"  GW
+ SG_ BMS_Charging_Energy : 63|8@0+ (0.5,0) [0|125] "kwh"  GW
+
+BO_ 784 BCM_0x310: 8 GW
+ SG_ BCM_SystemPowerMode : 1|2@0+ (1,0) [0|3] ""  MCU,DCDC,BMS,VCU
+
+BO_ 805 WPTC_0x325: 8 WPTC
+ SG_ WPTC_RunSts : 1|2@0+ (1,0) [0|3] ""  BMS,VCU,GW
+ SG_ WPTC_Power : 14|7@0+ (0.1,0) [0|12.7] "KW"  BMS,VCU,GW
+
+BO_ 853 TBOX_0x355_Time: 8 GW
+ SG_ TBOX_TimeSyncSts : 7|1@0+ (1,0) [0|1] ""  MCU,BMS,VCU
+ SG_ TBOX_TimeSyncData_Year : 15|7@0+ (1,2000) [2000|2099] ""  MCU,BMS,VCU
+ SG_ TBOX_TimeSyncData_Month : 23|4@0+ (1,0) [1|12] ""  MCU,BMS,VCU
+ SG_ TBOX_TimeSyncData_Day : 31|5@0+ (1,0) [1|31] ""  MCU,BMS,VCU
+ SG_ TBOX_TimeSyncData_Hour : 39|5@0+ (1,0) [0|23] ""  MCU,BMS,VCU
+ SG_ TBOX_TimeSyncData_Minute : 47|6@0+ (1,0) [0|59] ""  MCU,BMS,VCU
+ SG_ TBOX_TimeSyncData_Second : 55|6@0+ (1,0) [0|59] ""  MCU,BMS,VCU
+
+BO_ 928 ICM_0x3A0: 8 GW
+ SG_ ICM_ODOTotal : 7|24@0+ (1,0) [0|999999] "KM"  MCU,BMS,VCU
+
+BO_ 1299 BMS_0x513: 8 BMS
+ SG_ BMS_MaxTempNo : 7|8@0+ (1,0) [0|255] ""  GW
+ SG_ BMS_MaxTemp : 15|8@0+ (0.5,-40) [-40|85] "℃"  VCU,GW
+ SG_ BMS_MinTempNo : 23|8@0+ (1,0) [0|255] ""  GW
+ SG_ BMS_MinTemp : 31|8@0+ (0.5,-40) [-40|85] "℃"  VCU,GW
+ SG_ BMS_BattTempDev : 39|8@0+ (0.5,-40) [-40|85] "℃"  GW
+ SG_ BMS_CCTemp1 : 47|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ BMS_CCTemp2 : 55|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ BMS_0x513_RollingCounter : 59|4@0+ (1,0) [0|15] ""  GW
+
+BO_ 1300 BMS_0x514: 8 BMS
+ SG_ BMS_ModuleBusbarMaxTempNo : 15|8@0+ (1,0) [0|255] ""  GW
+ SG_ BMS_ModuleBusbarMaxTemp : 23|8@0+ (0.5,-40) [-40|85] "℃"  GW
+ SG_ BMS_ModuleBusbarMinTempNo : 31|8@0+ (1,0) [0|255] ""  GW
+ SG_ BMS_ModuleBusbarMinTemp : 39|8@0+ (0.5,-40) [-40|85] "℃"  GW
+ SG_ BMS_0x514_RollingCounter : 59|4@0+ (1,0) [0|15] ""  GW
+
+BO_ 1328 BMS_0x530: 8 BMS
+ SG_ BMS_BattCellNum1Vol : 7|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum2Vol : 23|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum3Vol : 39|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum4Vol : 55|16@0+ (1,0) [0|5000] "mV"  GW
+
+BO_ 1329 BMS_0x531: 8 BMS
+ SG_ BMS_BattCellNum5Vol : 7|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum6Vol : 23|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum7Vol : 39|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum8Vol : 55|16@0+ (1,0) [0|5000] "mV"  GW
+
+BO_ 1330 BMS_0x532: 8 BMS
+ SG_ BMS_BattCellNum9Vol : 7|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum10Vol : 23|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum11Vol : 39|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum12Vol : 55|16@0+ (1,0) [0|5000] "mV"  GW
+
+BO_ 1331 BMS_0x533: 8 BMS
+ SG_ BMS_BattCellNum13Vol : 7|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum14Vol : 23|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum15Vol : 39|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum16Vol : 55|16@0+ (1,0) [0|5000] "mV"  GW
+
+BO_ 1332 BMS_0x534: 8 BMS
+ SG_ BMS_BattCellNum17Vol : 7|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum18Vol : 23|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum19Vol : 39|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum20Vol : 55|16@0+ (1,0) [0|5000] "mV"  GW
+
+BO_ 1333 BMS_0x535: 8 BMS
+ SG_ BMS_BattCellNum21Vol : 7|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum22Vol : 23|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum23Vol : 39|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum24Vol : 55|16@0+ (1,0) [0|5000] "mV"  GW
+
+BO_ 1334 BMS_0x536: 8 BMS
+ SG_ BMS_BattCellNum25Vol : 7|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum26Vol : 23|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum27Vol : 39|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum28Vol : 55|16@0+ (1,0) [0|5000] "mV"  GW
+
+BO_ 1335 BMS_0x537: 8 BMS
+ SG_ BMS_BattCellNum29Vol : 7|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum30Vol : 23|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum31Vol : 39|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum32Vol : 55|16@0+ (1,0) [0|5000] "mV"  GW
+
+BO_ 1336 BMS_0x538: 8 BMS
+ SG_ BMS_BattCellNum33Vol : 7|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum34Vol : 23|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum35Vol : 39|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum36Vol : 55|16@0+ (1,0) [0|5000] "mV"  GW
+
+BO_ 1337 BMS_0x539: 8 BMS
+ SG_ BMS_BattCellNum37Vol : 7|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum38Vol : 23|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum39Vol : 39|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum40Vol : 55|16@0+ (1,0) [0|5000] "mV"  GW
+
+BO_ 1338 BMS_0x53A: 8 BMS
+ SG_ BMS_BattCellNum41Vol : 7|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum42Vol : 23|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum43Vol : 39|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum44Vol : 55|16@0+ (1,0) [0|5000] "mV"  GW
+
+BO_ 1339 BMS_0x53B: 8 BMS
+ SG_ BMS_BattCellNum45Vol : 7|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum46Vol : 23|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum47Vol : 39|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum48Vol : 55|16@0+ (1,0) [0|5000] "mV"  GW
+
+BO_ 1340 BMS_0x53C: 8 BMS
+ SG_ BMS_BattCellNum49Vol : 7|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum50Vol : 23|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum51Vol : 39|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum52Vol : 55|16@0+ (1,0) [0|5000] "mV"  GW
+
+BO_ 1341 BMS_0x53D: 8 BMS
+ SG_ BMS_BattCellNum53Vol : 7|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum54Vol : 23|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum55Vol : 39|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum56Vol : 55|16@0+ (1,0) [0|5000] "mV"  GW
+
+BO_ 1342 BMS_0x53E: 8 BMS
+ SG_ BMS_BattCellNum57Vol : 7|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum58Vol : 23|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum59Vol : 39|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum60Vol : 55|16@0+ (1,0) [0|5000] "mV"  GW
+
+BO_ 1343 BMS_0x53F: 8 BMS
+ SG_ BMS_BattCellNum61Vol : 7|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum62Vol : 23|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum63Vol : 39|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum64Vol : 55|16@0+ (1,0) [0|5000] "mV"  GW
+
+BO_ 1344 BMS_0x540: 8 BMS
+ SG_ BMS_BattCellNum65Vol : 7|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum66Vol : 23|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum67Vol : 39|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum68Vol : 55|16@0+ (1,0) [0|5000] "mV"  GW
+
+BO_ 1345 BMS_0x541: 8 BMS
+ SG_ BMS_BattCellNum69Vol : 7|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum70Vol : 23|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum71Vol : 39|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum72Vol : 55|16@0+ (1,0) [0|5000] "mV"  GW
+
+BO_ 1346 BMS_0x542: 8 BMS
+ SG_ BMS_BattCellNum73Vol : 7|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum74Vol : 23|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum75Vol : 39|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum76Vol : 55|16@0+ (1,0) [0|5000] "mV"  GW
+
+BO_ 1347 BMS_0x543: 8 BMS
+ SG_ BMS_BattCellNum77Vol : 7|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum78Vol : 23|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum79Vol : 39|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum80Vol : 55|16@0+ (1,0) [0|5000] "mV"  GW
+
+BO_ 1348 BMS_0x544: 8 BMS
+ SG_ BMS_BattCellNum81Vol : 7|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum82Vol : 23|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum83Vol : 39|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum84Vol : 55|16@0+ (1,0) [0|5000] "mV"  GW
+
+BO_ 1349 BMS_0x545: 8 BMS
+ SG_ BMS_BattCellNum85Vol : 7|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum86Vol : 23|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum87Vol : 39|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum88Vol : 55|16@0+ (1,0) [0|5000] "mV"  GW
+
+BO_ 1350 BMS_0x546: 8 BMS
+ SG_ BMS_BattCellNum89Vol : 7|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum90Vol : 23|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum91Vol : 39|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum92Vol : 55|16@0+ (1,0) [0|5000] "mV"  GW
+
+BO_ 1351 BMS_0x547: 8 BMS
+ SG_ BMS_BattCellNum93Vol : 7|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum94Vol : 23|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum95Vol : 39|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum96Vol : 55|16@0+ (1,0) [0|5000] "mV"  GW
+
+BO_ 1352 BMS_0x548: 8 BMS
+ SG_ BMS_BattCellNum97Vol : 7|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum98Vol : 23|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum99Vol : 39|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum100Vol : 55|16@0+ (1,0) [0|5000] "mV"  GW
+
+BO_ 1353 BMS_0x549: 8 BMS
+ SG_ BMS_BattCellNum101Vol : 7|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum102Vol : 23|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum103Vol : 39|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum104Vol : 55|16@0+ (1,0) [0|5000] "mV"  GW
+
+BO_ 1354 BMS_0x54A: 8 BMS
+ SG_ BMS_BattCellNum105Vol : 7|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum106Vol : 23|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum107Vol : 39|16@0+ (1,0) [0|5000] "mV"  GW
+ SG_ BMS_BattCellNum108Vol : 55|16@0+ (1,0) [0|5000] "mV"  GW
+
+BO_ 1360 OBC_0x550: 8 OBC
+ SG_ OBC_ChrgOutputVolt : 15|16@0+ (0.1,0) [0|600] "V"  BMS,GW
+ SG_ OBC_CCLineSts : 27|1@0+ (1,0) [0|1] ""  BMS,VCU,GW
+ SG_ OBC_ChrgSts : 31|3@0+ (1,0) [0|7] ""  BMS,VCU,GW
+ SG_ OBC_ChrgOutputCurr : 43|12@0+ (0.1,0) [0|40] ""  BMS,GW
+ SG_ OBC_S2Sts : 60|1@0+ (1,0) [0|1] ""  BMS,GW
+
+BO_ 1424 BMS_0x590: 8 BMS
+ SG_ BMS_BattSerialNumber : 7|16@0+ (1,0) [0|9999] ""  GW
+ SG_ BMS_BattManuYear : 23|8@0+ (1,0) [0|255] ""  GW
+ SG_ BMS_BattManuMonth : 31|8@0+ (1,0) [0|255] ""  GW
+ SG_ BMS_BattManuDay : 39|8@0+ (1,0) [0|255] ""  GW
+
+BO_ 1425 BMS_0x591: 8 BMS
+ SG_ BMS_BattSupplierCode : 15|24@0+ (1,0) [0|16777215] ""  GW
+ SG_ BMS_ProductTypeCode : 39|8@0+ (1,0) [0|255] ""  GW
+ SG_ BMS_BattTypeCode : 47|8@0+ (1,0) [0|255] ""  GW
+ SG_ BMS_BattSpecCode : 55|16@0+ (1,0) [0|65535] ""  GW
+
+BO_ 1426 BMS_0x592: 8 BMS
+ SG_ BMS_BattRetrospectCode : 7|56@0+ (1,0) [1|7.20575940379279E+016] ""  GW
+
+BO_ 1427 BMS_0x593: 8 BMS
+ SG_ BMS_BattProductionDate : 7|24@0+ (1,0) [1|16777215] ""  GW
+ SG_ BMS_BattS_Num : 31|24@0+ (1,0) [0|16777215] ""  GW
+ SG_ BMS_BattRecycleCode : 55|16@0+ (1,0) [0|65535] ""  GW
+
+BO_ 1428 BMS_0x594: 8 BMS
+ SG_ BMS_BattCodeLenth : 7|8@0+ (1,0) [1|26] ""  GW
+ SG_ BMS_Temp_ProbeNum : 45|6@0+ (1,0) [0|63] ""  GW
+ SG_ BMS_PackageTotalNum : 47|2@0+ (1,0) [0|3] ""  GW
+ SG_ BMS_CellTotalNum : 55|8@0+ (1,0) [0|255] ""  GW
+
+BO_ 1504 BMS_0x5E0_Version: 8 BMS
+ SG_ BMS_SWVersion_Supplier : 3|4@0+ (1,0) [0|15] ""  GW
+ SG_ BMS_SWVersion_Main : 7|4@0+ (1,0) [0|15] ""  GW
+ SG_ BMS_SWVersion_Sub1 : 11|4@0+ (1,0) [0|15] ""  GW
+ SG_ BMS_SWVersion_Sub2 : 15|4@0+ (1,0) [0|15] ""  GW
+ SG_ BMS_HWVersion_Supplier : 19|4@0+ (1,0) [0|15] ""  GW
+ SG_ BMS_HWVersion_Main : 23|4@0+ (1,0) [0|15] ""  GW
+ SG_ BMS_HWVersion_Sub1 : 27|4@0+ (1,0) [0|15] ""  GW
+ SG_ BMS_HWVersion_Sub2 : 31|4@0+ (1,0) [0|15] ""  GW
+ SG_ BMS_PackEnergy : 39|8@0+ (1,0) [0|255] "kWh"  GW
+ SG_ BMS_CellSupplier : 47|8@0+ (1,0) [0|255] ""  GW
+ SG_ BMS_SoftVersion : 55|12@0+ (1,0) [0|4000] ""  GW
+
+BO_ 1520 BMS_0x5F0: 8 BMS
+ SG_ BMS_BattTempSensorNum36 m1 : 7|8@0+ (1,-40) [-40|120] "℃" Vector__XXX
+ SG_ BMS_BattTempSensorNum37 m1 : 15|8@0+ (1,-40) [-40|120] "℃" Vector__XXX
+ SG_ BMS_BattTempSensorNum38 m1 : 23|8@0+ (1,-40) [-40|120] "℃" Vector__XXX
+ SG_ BMS_BattTempSensorNum39 m1 : 31|8@0+ (1,-40) [-40|120] "℃" Vector__XXX
+ SG_ BMS_BattTempSensorNum40 m1 : 39|8@0+ (1,-40) [-40|120] "℃" Vector__XXX
+ SG_ BMS_BattTempSensorNum41 m1 : 47|8@0+ (1,-40) [-40|120] "℃" Vector__XXX
+ SG_ BMS_BattTempSensorNum42 m1 : 55|8@0+ (1,-40) [-40|120] "℃" Vector__XXX
+ SG_ BMS_BattTempSensorNum1 m0 : 7|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ BMS_BattTempSensorNum2 m0 : 15|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ BMS_BattTempSensorNum3 m0 : 23|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ BMS_BattTempSensorNum4 m0 : 31|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ BMS_BattTempSensorNum5 m0 : 39|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ BMS_BattTempSensorNum6 m0 : 47|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ BMS_BattTempSensorNum7 m0 : 55|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ BMS_BattTempFrame1 M : 63|2@0+ (1,0) [0|3] ""  GW
+
+BO_ 1521 BMS_0x5F1: 8 BMS
+ SG_ BMS_BattTempSensorNum43 m1 : 7|8@0+ (1,-40) [-40|120] "℃" Vector__XXX
+ SG_ BMS_BattTempSensorNum44 m1 : 15|8@0+ (1,-40) [-40|120] "℃" Vector__XXX
+ SG_ BMS_BattTempSensorNum45 m1 : 23|8@0+ (1,-40) [-40|120] "℃" Vector__XXX
+ SG_ BMS_BattTempSensorNum46 m1 : 31|8@0+ (1,-40) [-40|120] "℃" Vector__XXX
+ SG_ BMS_BattTempSensorNum47 m1 : 39|8@0+ (1,-40) [-40|120] "℃" Vector__XXX
+ SG_ BMS_BattTempSensorNum48 m1 : 47|8@0+ (1,-40) [-40|120] "℃" Vector__XXX
+ SG_ BMS_BattTempSensorNum49 m1 : 55|8@0+ (1,-40) [-40|120] "℃" Vector__XXX
+ SG_ BMS_BattTempSensorNum8 m0 : 7|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ BMS_BattTempSensorNum9 m0 : 15|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ BMS_BattTempSensorNum10 m0 : 23|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ BMS_BattTempSensorNum11 m0 : 31|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ BMS_BattTempSensorNum12 m0 : 39|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ BMS_BattTempSensorNum13 m0 : 47|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ BMS_BattTempSensorNum14 m0 : 55|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ BMS_BattTempFrame2 M : 63|2@0+ (1,0) [0|3] ""  GW
+
+BO_ 1522 BMS_0x5F2: 8 BMS
+ SG_ BMS_BattTempSensorNum50 m1 : 7|8@0+ (1,-40) [-40|120] "℃" Vector__XXX
+ SG_ BMS_BattTempSensorNum51 m1 : 15|8@0+ (1,-40) [-40|120] "℃" Vector__XXX
+ SG_ BMS_BattTempSensorNum52 m1 : 23|8@0+ (1,-40) [-40|120] "℃" Vector__XXX
+ SG_ BMS_BattTempSensorNum53 m1 : 31|8@0+ (1,-40) [-40|120] "℃" Vector__XXX
+ SG_ BMS_BattTempSensorNum54 m1 : 39|8@0+ (1,-40) [-40|120] "℃" Vector__XXX
+ SG_ BMS_BattTempSensorNum55 m1 : 47|8@0+ (1,-40) [-40|120] "℃" Vector__XXX
+ SG_ BMS_BattTempSensorNum56 m1 : 55|8@0+ (1,-40) [-40|120] "℃" Vector__XXX
+ SG_ BMS_BattTempSensorNum15 m0 : 7|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ BMS_BattTempSensorNum16 m0 : 15|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ BMS_BattTempSensorNum17 m0 : 23|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ BMS_BattTempSensorNum18 m0 : 31|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ BMS_BattTempSensorNum19 m0 : 39|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ BMS_BattTempSensorNum20 m0 : 47|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ BMS_BattTempSensorNum21 m0 : 55|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ BMS_BattTempFrame3 M : 63|2@0+ (1,0) [0|3] ""  GW
+
+BO_ 1523 BMS_0x5F3: 8 BMS
+ SG_ BMS_BattTempSensorNum57 m1 : 7|8@0+ (1,-40) [-40|120] "℃" Vector__XXX
+ SG_ BMS_BattTempSensorNum58 m1 : 15|8@0+ (1,-40) [-40|120] "℃" Vector__XXX
+ SG_ BMS_BattTempSensorNum59 m1 : 23|8@0+ (1,-40) [-40|120] "℃" Vector__XXX
+ SG_ BMS_BattTempSensorNum60 m1 : 31|8@0+ (1,-40) [-40|120] "℃" Vector__XXX
+ SG_ BMS_BattTempSensorNum61 m1 : 39|8@0+ (1,-40) [-40|120] "℃" Vector__XXX
+ SG_ BMS_BattTempSensorNum62 m1 : 47|8@0+ (1,-40) [-40|120] "℃" Vector__XXX
+ SG_ BMS_BattTempSensorNum63 m1 : 55|8@0+ (1,-40) [-40|120] "℃" Vector__XXX
+ SG_ BMS_BattTempSensorNum22 m0 : 7|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ BMS_BattTempSensorNum23 m0 : 15|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ BMS_BattTempSensorNum24 m0 : 23|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ BMS_BattTempSensorNum25 m0 : 31|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ BMS_BattTempSensorNum26 m0 : 39|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ BMS_BattTempSensorNum27 m0 : 47|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ BMS_BattTempSensorNum28 m0 : 55|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ BMS_BattTempFrame4 M : 63|2@0+ (1,0) [0|3] ""  GW
+
+BO_ 1524 BMS_0x5F4: 8 BMS
+ SG_ BMS_BattTempSensorNum64 m1 : 7|8@0+ (1,-40) [-40|120] "℃" Vector__XXX
+ SG_ BMS_BattTempSensorNum65 m1 : 15|8@0+ (1,-40) [-40|120] "℃" Vector__XXX
+ SG_ BMS_BattTempSensorNum66 m1 : 23|8@0+ (1,-40) [-40|120] "℃" Vector__XXX
+ SG_ BMS_BattTempSensorNum67 m1 : 31|8@0+ (1,-40) [-40|120] "℃" Vector__XXX
+ SG_ BMS_BattTempSensorNum68 m1 : 39|8@0+ (1,-40) [-40|120] "℃" Vector__XXX
+ SG_ BMS_BattTempSensorNum69 m1 : 47|8@0+ (1,-40) [-40|120] "℃" Vector__XXX
+ SG_ BMS_BattTempSensorNum70 m1 : 55|8@0+ (1,-40) [-40|120] "℃" Vector__XXX
+ SG_ BMS_BattTempSensorNum29 m0 : 7|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ BMS_BattTempSensorNum30 m0 : 15|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ BMS_BattTempSensorNum31 m0 : 23|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ BMS_BattTempSensorNum32 m0 : 31|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ BMS_BattTempSensorNum33 m0 : 39|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ BMS_BattTempSensorNum34 m0 : 47|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ BMS_BattTempSensorNum35 m0 : 55|8@0+ (1,-40) [-40|120] "℃"  GW
+ SG_ BMS_BattTempFrame5 M : 63|2@0+ (1,0) [0|3] ""  GW
+
+BO_ 1552 OBC_0x610: 8 OBC
+ SG_ OBC_CP_Duty : 55|8@0+ (0.5,0) [0|100] "%"  BMS,GW
+ SG_ OBC_CC_Status : 63|3@0+ (1,0) [0|7] ""  BMS,VCU,GW
+
+BO_ 1555 OBC_0x613: 8 OBC
+ SG_ OBC_MaxChrgOutpVolt : 15|16@0+ (0.1,0) [0|600] "V"  BMS
+ SG_ OBC_MaxChrgOutpCur : 31|12@0+ (0.1,0) [0|40] "A"  BMS
+ SG_ OBC_MaxChrgOutpPwr : 33|10@0+ (0.1,0) [0|100] "kw"  BMS
+
+BO_ 1810 BMS_UDSDiag_ReqPhsy: 8 GW
+ SG_ BMS_UDSDiag_ReqPhsy_0x712 : 7|64@0+ (1,0) [0|255] ""  BMS
+
+BO_ 1818 BMS_UDSDiag_Resp: 8 BMS
+ SG_ BMS_UDSDiag_Resp_0x71A : 7|64@0+ (1,0) [0|255] ""  GW
+
+BO_ 2015 UDSDiag_ReqFunc: 8 GW
+ SG_ UDSDiag_ReqFunc_0x7DF : 7|64@0+ (1,0) [0|255] ""  ACU,WPTC,MCU,OBC,DCDC,BMS,VCU
+
+
+
+CM_ "Version:V302.200315,Date:2020/3/15,Author:李明,Review:,Approval:,Description:(BMS)1、BMS增加接收ICM_0x3A0中的里程信息
+2、0x116中增加BMS_PressureSensorFault压力传感器故障信号；
+3、BMS_0x114中增加BMS_PACK_PressureValue发送；
+4、BMS_0x114中调整BMS_KL30inputVol 的startbit。
+5、BMS_0x5E0中增加BMS_SoftVersion内部版本号
+6、BMS_0x5F0~BMS_0x5F4中增加BMS_BattTempFrame信息，并更新每个ID里的包含的温度探针编号，同时更新BMS_0x5F0到0x5F4的报文周期为500ms;
+ ";
+CM_ SG_ 800 EAC_power "压缩机工作功率";
+CM_ SG_ 800 EAC_Status "Compressor state：压缩机状态位";
+CM_ SG_ 851 TBOX_FOTA_mode "FOTA模式";
+CM_ SG_ 155 Checksum_0x9B "Checksum: IDMSB XOR IDLSB XOR Byte1 XOR Byte2 XOR Byte3 XOR Byte4 XOR Byte5 XOR Byte6 XOR Byte7";
+CM_ SG_ 155 VCU_BMS_WorkMode "VCU控制BMS工作模式";
+CM_ SG_ 155 Rolling_counter_0x9B "RollingCounter: used 4bit length signal and the arithmetic is increased from 0 to 15 by every message.";
+CM_ SG_ 157 VCU_BattPump_ErrorSts "电池水泵故障状态";
+CM_ SG_ 256 BMS_PackU "电池电压";
+CM_ SG_ 256 BMS_WaringLevel "电池报警等级";
+CM_ SG_ 256 BMS_PackI "电池电流";
+CM_ SG_ 256 BMS_RelayChrPos "快充正接触器状态";
+CM_ SG_ 256 BMS_RelayNeg "总负接触器状态";
+CM_ SG_ 256 BMS_RelayPre "预充电接触器状态";
+CM_ SG_ 256 BMS_RelayPos "总正接触器状态";
+CM_ SG_ 256 BMS_RelayChrNeg "快充负接触器状态";
+CM_ SG_ 256 BMS_State "BMS工作状态";
+CM_ SG_ 256 BMS_ChrFastState "直流充电状态";
+CM_ SG_ 256 BMS_SPreCharging "预充电状态";
+CM_ SG_ 256 BMS_ChrSlowState "交流充电状态";
+CM_ SG_ 256 BMS_0x100_RollingCounter "从0到15循环计数，如果通信中断，则重新从0开始计数。";
+CM_ SG_ 258 BMS_RealSOC "电池实际SOC
+允许跳变";
+CM_ SG_ 258 BMS_PackDispSoc "仪表显示SOC";
+CM_ SG_ 258 BMS_PackSOE "电池剩余能量";
+CM_ SG_ 258 BMS_WakeUpSignal "BMS唤醒信号KL15状态";
+CM_ SG_ 258 BMS_Insulation_R "绝缘电阻值
+最大值1000KΩ";
+CM_ SG_ 258 BMS_LinkU "电池预充电电压";
+CM_ SG_ 258 BMS_BalanceSts "电池均衡状态";
+CM_ SG_ 258 BMS_HVIL1_State "HVIL1状态";
+CM_ SG_ 258 BMS_HVIL2_State "HVIL2状态";
+CM_ SG_ 258 BMS_0x102_RollingCounter "从0到15循环计数，如果通信中断，则重新从0开始计数。";
+CM_ SG_ 261 BMS_PackSOH "电池生命健康度";
+CM_ SG_ 261 BMS_ChrRequestU "充电电压请求";
+CM_ SG_ 261 BMS_ChrRequest "充电请求";
+CM_ SG_ 261 BMS_ChrRequestI "充电电流请求";
+CM_ SG_ 261 BMS_VCU_TotalEnergy "总能耗";
+CM_ SG_ 261 BMS_0x105_RollingCounter "从0到15循环计数，如果通信中断，则重新从0开始计数。";
+CM_ SG_ 274 BMS_MaxCellNo "电池最高单体电压编号";
+CM_ SG_ 274 BMS_MaxCellU "电池最高单体电压";
+CM_ SG_ 274 BMS_MinCellNo "电池最低单体电压编号";
+CM_ SG_ 274 BMS_MinCellU "电池最低单体电压";
+CM_ SG_ 274 BMS_CellVolDev "电池单体压差";
+CM_ SG_ 274 BMS_0x112_RollingCounter "从0到15循环计数，如果通信中断，则重新从0开始计数。";
+CM_ SG_ 277 BMS_MaxDschPower "电池最大可持续放电功率";
+CM_ SG_ 277 BMS_MaxDschPowerPeak "电池最大峰值放电功率";
+CM_ SG_ 277 BMS_DschAllowedPower "电池允许放电功率";
+CM_ SG_ 277 BMS_MaxChrgPowerPeak "电池最大峰值充电功率";
+CM_ SG_ 277 BMS_MaxChrgPower "电池最大可持续充电功率";
+CM_ SG_ 277 BMS_ChrgAllowedPower "电池允许充电功率";
+CM_ SG_ 277 BMS_0x115_RollingCounter "从0到15循环计数，如果通信中断，则重新从0开始计数。";
+CM_ SG_ 278 BMS_CellOverVolWaring "单体过压
+GBT 32960.3 T18-5";
+CM_ SG_ 278 BMS_CellUnderVolWaring "单体欠压
+GBT 32960.3 T18-6";
+CM_ SG_ 278 BMS_TempOverWaring "温度过高
+GBT 32960.3 T18-1";
+CM_ SG_ 278 BMS_TempUnderWaring "温度过低";
+CM_ SG_ 278 BMS_CellVolDevWaring "压差过大
+GBT 32960.3 T18-10";
+CM_ SG_ 278 BMS_TempDveWaring "温差过大
+GBT 32960.3 T18-0";
+CM_ SG_ 278 BMS_BattOverVolWaring "电池包过压
+GBT 32960.3 T18-2";
+CM_ SG_ 278 BMS_BattUnderVolWaring "电池包欠压
+GBT 32960.3 T18-3";
+CM_ SG_ 278 BMS_DCChargePlugTempOverHigh "快充枪过温故障";
+CM_ SG_ 278 BMS_DisCharOverCurr "放电过流";
+CM_ SG_ 278 BMS_RegenOverCurr "回馈电流过大";
+CM_ SG_ 278 BMS_InnerCANTimeout "BMS内网通讯超时";
+CM_ SG_ 278 BMS_ISOWaring "绝缘报警";
+CM_ SG_ 278 BMS_BCUHWFault "采集板硬件故障
+具体故障信息由UDS事件帧报出";
+CM_ SG_ 278 BMS_NegRelayFault "负极继电器故障";
+CM_ SG_ 278 BMS_PosRelayFault "正极继电器故障";
+CM_ SG_ 278 BMS_PreRelayFault "预充电继电器故障";
+CM_ SG_ 278 BMS_LowVoltageMSD "低压MSD状态";
+CM_ SG_ 278 BMS_CharPosRelayFault "快充正极继电器故障";
+CM_ SG_ 278 BMS_CharNegRelayFault "快充负继电器故障";
+CM_ SG_ 278 BMS_BMUFault "主控板故障
+主板硬件故障
+具体故障信息由UDS事件帧报出";
+CM_ SG_ 278 BMS_VcuCANTimeout "整车通信超时";
+CM_ SG_ 278 BMS_BattHVDisaccord "高压异常
+电池采样与累加值不一致";
+CM_ SG_ 278 BMS_PressureSensorFault "压力传感器故障";
+CM_ SG_ 278 BMS_SOClow "SOC低报警
+GBT 32960.3 T18-4";
+CM_ SG_ 278 BMS_Mismatch "动力蓄电池包不匹配报警
+GBT 32960.3 T18-9";
+CM_ SG_ 278 BMS_SOCOverHigh "SOC过高
+GBT 32960.3 T18-7";
+CM_ SG_ 278 BMS_BattOverCharge "电池过充
+GBT 32960.3 T18-17";
+CM_ SG_ 278 BMS_SOCSkip "SOC跳变
+GBT 32960.3 T18-8";
+CM_ SG_ 278 BMS_CGOverCurr "充电过流故障";
+CM_ SG_ 278 BMS_LowVoltageFault "低压供电电源故障";
+CM_ SG_ 278 BMS_LiquidLeak "电池漏液故障";
+CM_ SG_ 278 BMS_CrashFault "电池碰撞故障";
+CM_ SG_ 278 BMS_ThermRunAway "电池热失控故障";
+CM_ SG_ 278 BMS_Maintenance "电池保养灯";
+CM_ SG_ 278 BMS_BusbarTempOverWaring "汇流排过温";
+CM_ SG_ 278 BMS_FuseFault "电池熔断器故障";
+CM_ SG_ 278 BMS_CurrSensorFault "电流传感器故障
+具体故障信息由UDS事件帧报出";
+CM_ SG_ 278 BMS_0x116_RollingCounter "从0到15循环计数，如果通信中断，则重新从0开始计数。";
+CM_ SG_ 276 BMS_KL30inputVol "KL30输入电压";
+CM_ SG_ 276 BMS_thermalControlReq "电池热管理控制请求";
+CM_ SG_ 276 BMS_ThermalCtrlTargetTemp "电池包热管理目标温度";
+CM_ SG_ 276 BMS_InputWaterTemp "电池进水口温度";
+CM_ SG_ 276 BMS_OutputWaterTemp "电池出水口温度";
+CM_ SG_ 276 BMS_BattThermalReqLvl "电池包热管理需求等级，暂时定义为15个等级";
+CM_ SG_ 276 BMS_PACK_PressureValue "电池PACK压力值";
+CM_ SG_ 276 BMS_0x114_RollingCounter "从0到15循环计数，如果通信中断，则重新从0开始计数。";
+CM_ SG_ 289 ESP_VehicleSpeed "Current Vehicle Speed
+当前实际车速";
+CM_ SG_ 289 ESP_VehicleSpeed_Valid "Vehicle speed value valid
+车速有效";
+CM_ SG_ 291 MCU_DC_linkVoltage "直流母线电压";
+CM_ SG_ 291 MCU_DC_linkCurrent "直流母线电流";
+CM_ SG_ 336 VCU_ChargeDepthSts "充电深度设置状态";
+CM_ SG_ 337 VCU_MotorPump_ErrorSts "电机水泵故障状态";
+CM_ SG_ 392 DCDC_IdcHvCurr "High side  current of DCDC
+DCDC高压输入电流";
+CM_ SG_ 392 DCDC_UdcHvVolt "High side  voltage of DCDC
+DCDC高压输入电压";
+CM_ SG_ 528 Checksum_0x210 "Checksum: IDMSB XOR IDLSB XOR Byte1 XOR Byte2 XOR Byte3 XOR Byte4 XOR Byte5 XOR Byte6XOR Byte7";
+CM_ SG_ 528 ACU_CrashStatus "ACU output crash status";
+CM_ SG_ 528 RollingCounter_0x210 "从0到15循环计数，如果通信中断，则重新从0开始计数。";
+CM_ SG_ 774 BMS_RemainChargingTime "剩余充电时间";
+CM_ SG_ 774 BMS_Charing_Time "本次充电时长";
+CM_ SG_ 774 BMS_Charging_Ah "本次充入容量";
+CM_ SG_ 774 BMS_TotalCharging_Ah "累计充电容量";
+CM_ SG_ 774 BMS_Charging_Energy "本次充入能量";
+CM_ SG_ 784 BCM_SystemPowerMode "整车电源状态
+vehicle Power Status";
+CM_ SG_ 805 WPTC_RunSts "WPTC运行状态";
+CM_ SG_ 805 WPTC_Power "WPTC实际工作功率";
+CM_ SG_ 853 TBOX_TimeSyncSts "TBOX发送的仪表时间同步有效位";
+CM_ SG_ 853 TBOX_TimeSyncData_Year "TBOX发送的同步时间数据----年
+0x0-0x63: Year
+0x64-0x7F: Invalid";
+CM_ SG_ 853 TBOX_TimeSyncData_Month "TBOX发送的同步时间数据----月
+0x0: Invalid
+0x1-0xC: Month";
+CM_ SG_ 853 TBOX_TimeSyncData_Day "TBOX发送的同步时间数据----日
+0x0: Invalid
+0x01-0x1F: Day";
+CM_ SG_ 853 TBOX_TimeSyncData_Hour "ACM发送的同步时间数据----时
+0x0-0x17: Hour
+0x18-0x1F: Invalid";
+CM_ SG_ 853 TBOX_TimeSyncData_Minute "TBOX发送的同步时间数据----分
+0x0-0x3B: Minute
+0x3C-0x3F: Invalid";
+CM_ SG_ 853 TBOX_TimeSyncData_Second "TBOX发送的同步时间数据----秒
+0x00-0x3B: Second
+0x3C-0x3F: Invalid";
+CM_ SG_ 928 ICM_ODOTotal "ODO 总里程";
+CM_ SG_ 1299 BMS_MaxTempNo "电池最高温度编号";
+CM_ SG_ 1299 BMS_MaxTemp "电池最高温度";
+CM_ SG_ 1299 BMS_MinTempNo "电池最低温度编号";
+CM_ SG_ 1299 BMS_MinTemp "电池最低温度";
+CM_ SG_ 1299 BMS_BattTempDev "电池温度差";
+CM_ SG_ 1299 BMS_CCTemp1 "快充接口1温度";
+CM_ SG_ 1299 BMS_CCTemp2 "快充接口2温度";
+CM_ SG_ 1299 BMS_0x513_RollingCounter "从0到15循环计数，如果通信中断，则重新从0开始计数。";
+CM_ SG_ 1300 BMS_ModuleBusbarMaxTempNo "模组busbar最高温度编号";
+CM_ SG_ 1300 BMS_ModuleBusbarMaxTemp "模组busbar最高温度";
+CM_ SG_ 1300 BMS_ModuleBusbarMinTempNo "模组busbar最低温度编号";
+CM_ SG_ 1300 BMS_ModuleBusbarMinTemp "模组busbar最低温度";
+CM_ SG_ 1300 BMS_0x514_RollingCounter "从0到15循环计数，如果通信中断，则重新从0开始计数。";
+CM_ SG_ 1328 BMS_BattCellNum1Vol "1号单体电压值";
+CM_ SG_ 1328 BMS_BattCellNum2Vol "2号单体电压值";
+CM_ SG_ 1328 BMS_BattCellNum3Vol "3号单体电压值";
+CM_ SG_ 1328 BMS_BattCellNum4Vol "4号单体电压值";
+CM_ SG_ 1329 BMS_BattCellNum5Vol "5号单体电压值";
+CM_ SG_ 1329 BMS_BattCellNum6Vol "6号单体电压值";
+CM_ SG_ 1329 BMS_BattCellNum7Vol "7号单体电压值";
+CM_ SG_ 1329 BMS_BattCellNum8Vol "8号单体电压值";
+CM_ SG_ 1330 BMS_BattCellNum9Vol "9号单体电压值";
+CM_ SG_ 1330 BMS_BattCellNum10Vol "10号单体电压值";
+CM_ SG_ 1330 BMS_BattCellNum11Vol "11号单体电压值";
+CM_ SG_ 1330 BMS_BattCellNum12Vol "12号单体电压值";
+CM_ SG_ 1331 BMS_BattCellNum13Vol "13号单体电压值";
+CM_ SG_ 1331 BMS_BattCellNum14Vol "14号单体电压值";
+CM_ SG_ 1331 BMS_BattCellNum15Vol "15号单体电压值";
+CM_ SG_ 1331 BMS_BattCellNum16Vol "16号单体电压值";
+CM_ SG_ 1332 BMS_BattCellNum17Vol "17号单体电压值";
+CM_ SG_ 1332 BMS_BattCellNum18Vol "18号单体电压值";
+CM_ SG_ 1332 BMS_BattCellNum19Vol "19号单体电压值";
+CM_ SG_ 1332 BMS_BattCellNum20Vol "20号单体电压值";
+CM_ SG_ 1333 BMS_BattCellNum21Vol "21号单体电压值";
+CM_ SG_ 1333 BMS_BattCellNum22Vol "22号单体电压值";
+CM_ SG_ 1333 BMS_BattCellNum23Vol "23号单体电压值";
+CM_ SG_ 1333 BMS_BattCellNum24Vol "24号单体电压值";
+CM_ SG_ 1334 BMS_BattCellNum25Vol "25号单体电压值";
+CM_ SG_ 1334 BMS_BattCellNum26Vol "26号单体电压值";
+CM_ SG_ 1334 BMS_BattCellNum27Vol "27号单体电压值";
+CM_ SG_ 1334 BMS_BattCellNum28Vol "28号单体电压值";
+CM_ SG_ 1335 BMS_BattCellNum29Vol "29号单体电压值";
+CM_ SG_ 1335 BMS_BattCellNum30Vol "30号单体电压值";
+CM_ SG_ 1335 BMS_BattCellNum31Vol "31号单体电压值";
+CM_ SG_ 1335 BMS_BattCellNum32Vol "32号单体电压值";
+CM_ SG_ 1336 BMS_BattCellNum33Vol "33号单体电压值";
+CM_ SG_ 1336 BMS_BattCellNum34Vol "34号单体电压值";
+CM_ SG_ 1336 BMS_BattCellNum35Vol "35号单体电压值";
+CM_ SG_ 1336 BMS_BattCellNum36Vol "36号单体电压值";
+CM_ SG_ 1337 BMS_BattCellNum37Vol "37号单体电压值";
+CM_ SG_ 1337 BMS_BattCellNum38Vol "38号单体电压值";
+CM_ SG_ 1337 BMS_BattCellNum39Vol "39号单体电压值";
+CM_ SG_ 1337 BMS_BattCellNum40Vol "40号单体电压值";
+CM_ SG_ 1338 BMS_BattCellNum41Vol "41号单体电压值";
+CM_ SG_ 1338 BMS_BattCellNum42Vol "42号单体电压值";
+CM_ SG_ 1338 BMS_BattCellNum43Vol "43号单体电压值";
+CM_ SG_ 1338 BMS_BattCellNum44Vol "44号单体电压值";
+CM_ SG_ 1339 BMS_BattCellNum45Vol "45号单体电压值";
+CM_ SG_ 1339 BMS_BattCellNum46Vol "46号单体电压值";
+CM_ SG_ 1339 BMS_BattCellNum47Vol "47号单体电压值";
+CM_ SG_ 1339 BMS_BattCellNum48Vol "48号单体电压值";
+CM_ SG_ 1340 BMS_BattCellNum49Vol "49号单体电压值";
+CM_ SG_ 1340 BMS_BattCellNum50Vol "50号单体电压值";
+CM_ SG_ 1340 BMS_BattCellNum51Vol "51号单体电压值";
+CM_ SG_ 1340 BMS_BattCellNum52Vol "52号单体电压值";
+CM_ SG_ 1341 BMS_BattCellNum53Vol "53号单体电压值";
+CM_ SG_ 1341 BMS_BattCellNum54Vol "54号单体电压值";
+CM_ SG_ 1341 BMS_BattCellNum55Vol "55号单体电压值";
+CM_ SG_ 1341 BMS_BattCellNum56Vol "56号单体电压值";
+CM_ SG_ 1342 BMS_BattCellNum57Vol "57号单体电压值";
+CM_ SG_ 1342 BMS_BattCellNum58Vol "58号单体电压值";
+CM_ SG_ 1342 BMS_BattCellNum59Vol "59号单体电压值";
+CM_ SG_ 1342 BMS_BattCellNum60Vol "60号单体电压值";
+CM_ SG_ 1343 BMS_BattCellNum61Vol "61号单体电压值";
+CM_ SG_ 1343 BMS_BattCellNum62Vol "62号单体电压值";
+CM_ SG_ 1343 BMS_BattCellNum63Vol "63号单体电压值";
+CM_ SG_ 1343 BMS_BattCellNum64Vol "64号单体电压值";
+CM_ SG_ 1344 BMS_BattCellNum65Vol "65号单体电压值";
+CM_ SG_ 1344 BMS_BattCellNum66Vol "66号单体电压值";
+CM_ SG_ 1344 BMS_BattCellNum67Vol "67号单体电压值";
+CM_ SG_ 1344 BMS_BattCellNum68Vol "68号单体电压值";
+CM_ SG_ 1345 BMS_BattCellNum69Vol "69号单体电压值";
+CM_ SG_ 1345 BMS_BattCellNum70Vol "70号单体电压值";
+CM_ SG_ 1345 BMS_BattCellNum71Vol "71号单体电压值";
+CM_ SG_ 1345 BMS_BattCellNum72Vol "72号单体电压值";
+CM_ SG_ 1346 BMS_BattCellNum73Vol "73号单体电压值";
+CM_ SG_ 1346 BMS_BattCellNum74Vol "74号单体电压值";
+CM_ SG_ 1346 BMS_BattCellNum75Vol "75号单体电压值";
+CM_ SG_ 1346 BMS_BattCellNum76Vol "76号单体电压值";
+CM_ SG_ 1347 BMS_BattCellNum77Vol "77号单体电压值";
+CM_ SG_ 1347 BMS_BattCellNum78Vol "78号单体电压值";
+CM_ SG_ 1347 BMS_BattCellNum79Vol "79号单体电压值";
+CM_ SG_ 1347 BMS_BattCellNum80Vol "80号单体电压值";
+CM_ SG_ 1348 BMS_BattCellNum81Vol "81号单体电压值";
+CM_ SG_ 1348 BMS_BattCellNum82Vol "82号单体电压值";
+CM_ SG_ 1348 BMS_BattCellNum83Vol "83号单体电压值";
+CM_ SG_ 1348 BMS_BattCellNum84Vol "84号单体电压值";
+CM_ SG_ 1349 BMS_BattCellNum85Vol "85号单体电压值";
+CM_ SG_ 1349 BMS_BattCellNum86Vol "86号单体电压值";
+CM_ SG_ 1349 BMS_BattCellNum87Vol "87号单体电压值";
+CM_ SG_ 1349 BMS_BattCellNum88Vol "88号单体电压值";
+CM_ SG_ 1350 BMS_BattCellNum89Vol "89号单体电压值";
+CM_ SG_ 1350 BMS_BattCellNum90Vol "90号单体电压值";
+CM_ SG_ 1350 BMS_BattCellNum91Vol "91号单体电压值";
+CM_ SG_ 1350 BMS_BattCellNum92Vol "92号单体电压值";
+CM_ SG_ 1351 BMS_BattCellNum93Vol "93号单体电压值";
+CM_ SG_ 1351 BMS_BattCellNum94Vol "94号单体电压值";
+CM_ SG_ 1351 BMS_BattCellNum95Vol "95号单体电压值";
+CM_ SG_ 1351 BMS_BattCellNum96Vol "96号单体电压值";
+CM_ SG_ 1352 BMS_BattCellNum97Vol "97号单体电压值";
+CM_ SG_ 1352 BMS_BattCellNum98Vol "98号单体电压值";
+CM_ SG_ 1352 BMS_BattCellNum99Vol "99号单体电压值";
+CM_ SG_ 1352 BMS_BattCellNum100Vol "100号单体电压值";
+CM_ SG_ 1353 BMS_BattCellNum101Vol "101号单体电压值";
+CM_ SG_ 1353 BMS_BattCellNum102Vol "102号单体电压值";
+CM_ SG_ 1353 BMS_BattCellNum103Vol "103号单体电压值";
+CM_ SG_ 1353 BMS_BattCellNum104Vol "104号单体电压值";
+CM_ SG_ 1354 BMS_BattCellNum105Vol "105号单体电压值";
+CM_ SG_ 1354 BMS_BattCellNum106Vol "106号单体电压值";
+CM_ SG_ 1354 BMS_BattCellNum107Vol "107号单体电压值";
+CM_ SG_ 1354 BMS_BattCellNum108Vol "108号单体电压值";
+CM_ SG_ 1360 OBC_ChrgOutputVolt "OBC output votage reported
+OBC输出电压";
+CM_ SG_ 1360 OBC_CCLineSts "CC signal connect status
+CC信号连接状态";
+CM_ SG_ 1360 OBC_ChrgSts "OBC state machine mode
+OBC 状态机";
+CM_ SG_ 1360 OBC_ChrgOutputCurr "OBC output current reported
+OBC输出电流";
+CM_ SG_ 1360 OBC_S2Sts "S2 switch status
+S2开关状态";
+CM_ SG_ 1424 BMS_BattSerialNumber "序列号
+GBT 34014-4.3.7";
+CM_ SG_ 1424 BMS_BattManuYear "电池生产年
+GBT 34014-4.3.6";
+CM_ SG_ 1424 BMS_BattManuMonth "电池生产月
+GBT 34014-4.3.6";
+CM_ SG_ 1424 BMS_BattManuDay "电池生产日
+GBT 34014-4.3.6";
+CM_ SG_ 1425 BMS_BattSupplierCode "电池厂商代码
+GBT 34014 附录A.1 ASCII码解析";
+CM_ SG_ 1425 BMS_ProductTypeCode "产品类型代码
+,GBT 34014 附录A.1ASCII码解析";
+CM_ SG_ 1425 BMS_BattTypeCode "电池类型代码
+GBT 34014 附录A.1ASCII码解析";
+CM_ SG_ 1425 BMS_BattSpecCode "电池规格代码
+GBT 34014 附录A.1ASCII码解析";
+CM_ SG_ 1426 BMS_BattRetrospectCode "电池追溯码
+GBT 34014-4.3.5";
+CM_ SG_ 1427 BMS_BattProductionDate "电池生产日期";
+CM_ SG_ 1427 BMS_BattS_Num "电池序列号";
+CM_ SG_ 1427 BMS_BattRecycleCode "电池梯级利用代码";
+CM_ SG_ 1428 BMS_BattCodeLenth "可充电储能系统编码长度
+GBT 32960.3 T-6";
+CM_ SG_ 1428 BMS_Temp_ProbeNum "动力蓄电池温度探针总数
+GBT 32960.3 T-B.8";
+CM_ SG_ 1428 BMS_PackageTotalNum "电池包总数
+GBT 32960.3 T-B.6";
+CM_ SG_ 1428 BMS_CellTotalNum "单体蓄电池总数
+GBT 32960.3 T-B.6";
+CM_ SG_ 1504 BMS_SWVersion_Supplier "BMS软件供应商代码（有电咖定义，如A/B/C分别代表A点/B点/C点供应商）";
+CM_ SG_ 1504 BMS_SWVersion_Main "BMS软件版本-大版本（A/B/C代表A样/B样/C样件）";
+CM_ SG_ 1504 BMS_SWVersion_Sub1 "BMS软件版本-小版本第一位";
+CM_ SG_ 1504 BMS_SWVersion_Sub2 "BMS软件版本-小版本第二位";
+CM_ SG_ 1504 BMS_HWVersion_Supplier "BMS硬件供应商代码（有电咖定义，如A/B/C分别代表A点/B点/C点供应商）";
+CM_ SG_ 1504 BMS_HWVersion_Main "BMS硬件版本-大版本（A/B/C代表A样/B样/C样件）";
+CM_ SG_ 1504 BMS_HWVersion_Sub1 "BMS硬件版本-小版本第一位";
+CM_ SG_ 1504 BMS_HWVersion_Sub2 "BMS硬件版本-小版本第二位";
+CM_ SG_ 1504 BMS_PackEnergy "电池包可用能量";
+CM_ SG_ 1504 BMS_CellSupplier "电池包电芯供应商
+见信号值描述";
+CM_ SG_ 1504 BMS_SoftVersion "BMS内部软件版本号";
+CM_ SG_ 1520 BMS_BattTempSensorNum36 "36号温度探针温度值";
+CM_ SG_ 1520 BMS_BattTempSensorNum37 "37号温度探针温度值";
+CM_ SG_ 1520 BMS_BattTempSensorNum38 "38号温度探针温度值";
+CM_ SG_ 1520 BMS_BattTempSensorNum39 "39号温度探针温度值";
+CM_ SG_ 1520 BMS_BattTempSensorNum40 "40号温度探针温度值";
+CM_ SG_ 1520 BMS_BattTempSensorNum41 "41号温度探针温度值";
+CM_ SG_ 1520 BMS_BattTempSensorNum42 "42号温度探针温度值";
+CM_ SG_ 1520 BMS_BattTempSensorNum1 "1号温度探针温度值";
+CM_ SG_ 1520 BMS_BattTempSensorNum2 "2号温度探针温度值";
+CM_ SG_ 1520 BMS_BattTempSensorNum3 "3号温度探针温度值";
+CM_ SG_ 1520 BMS_BattTempSensorNum4 "4号温度探针温度值";
+CM_ SG_ 1520 BMS_BattTempSensorNum5 "5号温度探针温度值";
+CM_ SG_ 1520 BMS_BattTempSensorNum6 "6号温度探针温度值";
+CM_ SG_ 1520 BMS_BattTempSensorNum7 "7号温度探针温度值";
+CM_ SG_ 1520 BMS_BattTempFrame1 "电芯温度第1帧序号";
+CM_ SG_ 1521 BMS_BattTempSensorNum8 "8号温度探针温度值";
+CM_ SG_ 1521 BMS_BattTempSensorNum9 "9号温度探针温度值";
+CM_ SG_ 1521 BMS_BattTempSensorNum10 "10号温度探针温度值";
+CM_ SG_ 1521 BMS_BattTempSensorNum11 "11号温度探针温度值";
+CM_ SG_ 1521 BMS_BattTempSensorNum12 "12号温度探针温度值";
+CM_ SG_ 1521 BMS_BattTempSensorNum13 "13号温度探针温度值";
+CM_ SG_ 1521 BMS_BattTempSensorNum14 "14号温度探针温度值";
+CM_ SG_ 1521 BMS_BattTempFrame2 "电芯温度第2帧序号";
+CM_ SG_ 1522 BMS_BattTempSensorNum15 "15号温度探针温度值";
+CM_ SG_ 1522 BMS_BattTempSensorNum16 "16号温度探针温度值";
+CM_ SG_ 1522 BMS_BattTempSensorNum17 "17号温度探针温度值";
+CM_ SG_ 1522 BMS_BattTempSensorNum18 "18号温度探针温度值";
+CM_ SG_ 1522 BMS_BattTempSensorNum19 "19号温度探针温度值";
+CM_ SG_ 1522 BMS_BattTempSensorNum20 "20号温度探针温度值";
+CM_ SG_ 1522 BMS_BattTempSensorNum21 "21号温度探针温度值";
+CM_ SG_ 1522 BMS_BattTempFrame3 "电芯温度第3帧序号";
+CM_ SG_ 1523 BMS_BattTempSensorNum22 "22号温度探针温度值";
+CM_ SG_ 1523 BMS_BattTempSensorNum23 "23号温度探针温度值";
+CM_ SG_ 1523 BMS_BattTempSensorNum24 "24号温度探针温度值";
+CM_ SG_ 1523 BMS_BattTempSensorNum25 "25号温度探针温度值";
+CM_ SG_ 1523 BMS_BattTempSensorNum26 "26号温度探针温度值";
+CM_ SG_ 1523 BMS_BattTempSensorNum27 "27号温度探针温度值";
+CM_ SG_ 1523 BMS_BattTempSensorNum28 "28号温度探针温度值";
+CM_ SG_ 1523 BMS_BattTempFrame4 "电芯温度第4帧序号";
+CM_ SG_ 1524 BMS_BattTempSensorNum29 "29号温度探针温度值";
+CM_ SG_ 1524 BMS_BattTempSensorNum30 "30号温度探针温度值";
+CM_ SG_ 1524 BMS_BattTempSensorNum31 "31号温度探针温度值";
+CM_ SG_ 1524 BMS_BattTempSensorNum32 "32号温度探针温度值";
+CM_ SG_ 1524 BMS_BattTempSensorNum33 "33号温度探针温度值";
+CM_ SG_ 1524 BMS_BattTempSensorNum34 "34号温度探针温度值";
+CM_ SG_ 1524 BMS_BattTempSensorNum35 "35号温度探针温度值";
+CM_ SG_ 1524 BMS_BattTempFrame5 "电芯温度第5帧序号";
+CM_ SG_ 1552 OBC_CP_Duty "CP占空比";
+CM_ SG_ 1552 OBC_CC_Status "CC电阻值";
+CM_ SG_ 1555 OBC_MaxChrgOutpVolt "OBC maximum charging voltage
+OBC最大充电电压";
+CM_ SG_ 1555 OBC_MaxChrgOutpCur "OBC maximum charging current
+OBC最大充电电流";
+CM_ SG_ 1555 OBC_MaxChrgOutpPwr "OBC maximum charging power
+OBC最大充电功率";
+CM_ SG_ 1810 BMS_UDSDiag_ReqPhsy_0x712 "BMS UDS诊断物理寻址ID，数据位根据需求供应商可自定义";
+CM_ SG_ 1818 BMS_UDSDiag_Resp_0x71A "BMS UDS诊断响应ID，数据位根据需求供应商可自定义";
+CM_ SG_ 2015 UDSDiag_ReqFunc_0x7DF "整车UDS诊断功能寻址ID，数据位根据需求供应商可自定义";
+BA_DEF_ BO_  "NmMessage" ENUM  "No","Yes";
+BA_DEF_ BO_  "DiagState" ENUM  "No","Yes";
+BA_DEF_ BO_  "DiagRequest" ENUM  "No","Yes";
+BA_DEF_ BO_  "DiagResponse" ENUM  "No","Yes";
+BA_DEF_ BO_  "GenMsgSendType" ENUM  "cyclic","Event","IfActive","CE","CA","NoMsgSendType";
+BA_DEF_ BO_  "GenMsgCycleTime" INT 0 0;
+BA_DEF_ SG_  "GenSigSendType" ENUM  "cyclic","OnChange","OnWrite","IfActive","OnChangeWithRepetition","OnWriteWithRepetition","IfActiveWithRepetition","NoSigSendType","OnChangeAndIfActive","OnChangeAndIfActiveWithRepetition","CA","CE","Event";
+BA_DEF_ SG_  "GenSigStartValue" INT 0 0;
+BA_DEF_ SG_  "GenSigInactiveValue" INT 0 0;
+BA_DEF_ BO_  "GenMsgCycleTimeFast" INT 0 0;
+BA_DEF_ BO_  "GenMsgNrOfRepetition" INT 0 0;
+BA_DEF_ BO_  "GenMsgDelayTime" INT 0 0;
+BA_DEF_  "DBName" STRING ;
+BA_DEF_ BU_  "NodeLayerModules" STRING ;
+BA_DEF_ SG_  "GenSigTimeoutValue" INT 0 1000000000;
+BA_DEF_ BO_  "GenMsgCycleTimeActive" INT 0 0;
+BA_DEF_ BU_  "ILUsed" ENUM  "No","Yes";
+BA_DEF_ BU_  "DiagStationAddress" HEX 0 255;
+BA_DEF_ BU_  "NmNode" ENUM  "Not","Yes";
+BA_DEF_ BU_  "NmStationAddress" HEX 0 65535;
+BA_DEF_ BU_  "NmCAN" INT 0 2;
+BA_DEF_  "Manufacturer" STRING ;
+BA_DEF_  "NmType" STRING ;
+BA_DEF_  "NmBaseAddress" HEX 0 2047;
+BA_DEF_  "NmMessageCount" INT 0 255;
+BA_DEF_ BO_  "GenMsgILSupport" ENUM  "No","Yes";
+BA_DEF_ BO_  "GenMsgStartDelayTime" INT 0 65535;
+BA_DEF_  "BusType" STRING ;
+BA_DEF_DEF_  "NmMessage" "No";
+BA_DEF_DEF_  "DiagState" "No";
+BA_DEF_DEF_  "DiagRequest" "No";
+BA_DEF_DEF_  "DiagResponse" "No";
+BA_DEF_DEF_  "GenMsgSendType" "cyclic";
+BA_DEF_DEF_  "GenMsgCycleTime" 0;
+BA_DEF_DEF_  "GenSigSendType" "cyclic";
+BA_DEF_DEF_  "GenSigStartValue" 0;
+BA_DEF_DEF_  "GenSigInactiveValue" 0;
+BA_DEF_DEF_  "GenMsgCycleTimeFast" 0;
+BA_DEF_DEF_  "GenMsgNrOfRepetition" 0;
+BA_DEF_DEF_  "GenMsgDelayTime" 0;
+BA_DEF_DEF_  "DBName" "";
+BA_DEF_DEF_  "NodeLayerModules" "CANoeILNLVector.dll";
+BA_DEF_DEF_  "GenSigTimeoutValue" 0;
+BA_DEF_DEF_  "GenMsgCycleTimeActive" 0;
+BA_DEF_DEF_  "ILUsed" "No";
+BA_DEF_DEF_  "DiagStationAddress" 0;
+BA_DEF_DEF_  "NmNode" "Not";
+BA_DEF_DEF_  "NmStationAddress" 0;
+BA_DEF_DEF_  "NmCAN" 0;
+BA_DEF_DEF_  "Manufacturer" "";
+BA_DEF_DEF_  "NmType" "";
+BA_DEF_DEF_  "NmBaseAddress" 1024;
+BA_DEF_DEF_  "NmMessageCount" 128;
+BA_DEF_DEF_  "GenMsgILSupport" "No";
+BA_DEF_DEF_  "GenMsgStartDelayTime" 0;
+BA_DEF_DEF_  "BusType" "CAN";
+BA_ "BusType" "CAN";
+BA_ "DBName" "ME7_PTCAN_CMatrix_V30220200315_4";
+BA_ "GenMsgCycleTime" BO_ 800 100;
+BA_ "GenMsgSendType" BO_ 851 3;
+BA_ "GenMsgCycleTime" BO_ 851 100;
+BA_ "GenMsgCycleTime" BO_ 155 20;
+BA_ "GenMsgCycleTime" BO_ 157 100;
+BA_ "GenMsgCycleTime" BO_ 256 20;
+BA_ "GenMsgCycleTime" BO_ 258 20;
+BA_ "GenMsgCycleTime" BO_ 261 100;
+BA_ "GenMsgCycleTime" BO_ 274 100;
+BA_ "GenMsgCycleTime" BO_ 277 100;
+BA_ "GenMsgCycleTime" BO_ 278 100;
+BA_ "GenMsgCycleTime" BO_ 276 100;
+BA_ "GenMsgCycleTime" BO_ 289 20;
+BA_ "GenMsgCycleTime" BO_ 291 100;
+BA_ "GenMsgCycleTime" BO_ 336 20;
+BA_ "GenMsgCycleTime" BO_ 337 20;
+BA_ "GenMsgCycleTime" BO_ 392 100;
+BA_ "GenMsgCycleTime" BO_ 528 10;
+BA_ "GenMsgCycleTime" BO_ 774 1000;
+BA_ "GenMsgSendType" BO_ 784 3;
+BA_ "GenMsgCycleTime" BO_ 784 50;
+BA_ "GenMsgCycleTime" BO_ 805 100;
+BA_ "GenMsgCycleTime" BO_ 853 1000;
+BA_ "GenMsgSendType" BO_ 928 3;
+BA_ "GenMsgCycleTime" BO_ 928 100;
+BA_ "GenMsgCycleTime" BO_ 1299 500;
+BA_ "GenMsgCycleTime" BO_ 1300 500;
+BA_ "GenMsgCycleTime" BO_ 1328 1000;
+BA_ "GenMsgCycleTime" BO_ 1329 1000;
+BA_ "GenMsgCycleTime" BO_ 1330 1000;
+BA_ "GenMsgCycleTime" BO_ 1331 1000;
+BA_ "GenMsgCycleTime" BO_ 1332 1000;
+BA_ "GenMsgCycleTime" BO_ 1333 1000;
+BA_ "GenMsgCycleTime" BO_ 1334 1000;
+BA_ "GenMsgCycleTime" BO_ 1335 1000;
+BA_ "GenMsgCycleTime" BO_ 1336 1000;
+BA_ "GenMsgCycleTime" BO_ 1337 1000;
+BA_ "GenMsgCycleTime" BO_ 1338 1000;
+BA_ "GenMsgCycleTime" BO_ 1339 1000;
+BA_ "GenMsgCycleTime" BO_ 1340 1000;
+BA_ "GenMsgCycleTime" BO_ 1341 1000;
+BA_ "GenMsgCycleTime" BO_ 1342 1000;
+BA_ "GenMsgCycleTime" BO_ 1343 1000;
+BA_ "GenMsgCycleTime" BO_ 1344 1000;
+BA_ "GenMsgCycleTime" BO_ 1345 1000;
+BA_ "GenMsgCycleTime" BO_ 1346 1000;
+BA_ "GenMsgCycleTime" BO_ 1347 1000;
+BA_ "GenMsgCycleTime" BO_ 1348 1000;
+BA_ "GenMsgCycleTime" BO_ 1349 1000;
+BA_ "GenMsgCycleTime" BO_ 1350 1000;
+BA_ "GenMsgCycleTime" BO_ 1351 1000;
+BA_ "GenMsgCycleTime" BO_ 1352 1000;
+BA_ "GenMsgCycleTime" BO_ 1353 1000;
+BA_ "GenMsgCycleTime" BO_ 1354 1000;
+BA_ "GenMsgCycleTime" BO_ 1360 200;
+BA_ "GenMsgCycleTime" BO_ 1424 5000;
+BA_ "GenMsgCycleTime" BO_ 1425 5000;
+BA_ "GenMsgCycleTime" BO_ 1426 5000;
+BA_ "GenMsgCycleTime" BO_ 1427 5000;
+BA_ "GenMsgCycleTime" BO_ 1428 5000;
+BA_ "GenMsgCycleTime" BO_ 1504 5000;
+BA_ "GenMsgCycleTime" BO_ 1520 500;
+BA_ "GenMsgCycleTime" BO_ 1521 500;
+BA_ "GenMsgCycleTime" BO_ 1522 500;
+BA_ "GenMsgCycleTime" BO_ 1523 500;
+BA_ "GenMsgCycleTime" BO_ 1524 500;
+BA_ "GenMsgCycleTime" BO_ 1552 100;
+BA_ "GenMsgCycleTime" BO_ 1555 100;
+BA_ "DiagState" BO_ 1810 1;
+BA_ "DiagResponse" BO_ 1810 1;
+BA_ "GenMsgSendType" BO_ 1810 1;
+BA_ "DiagState" BO_ 1818 1;
+BA_ "DiagResponse" BO_ 1818 1;
+BA_ "GenMsgSendType" BO_ 1818 1;
+BA_ "DiagState" BO_ 2015 1;
+BA_ "DiagResponse" BO_ 2015 1;
+BA_ "GenMsgSendType" BO_ 2015 1;
+BA_ "GenSigStartValue" SG_ 258 BMS_Insulation_R 1022;
+BA_ "GenSigStartValue" SG_ 276 BMS_InputWaterTemp 255;
+BA_ "GenSigStartValue" SG_ 276 BMS_OutputWaterTemp 255;
+BA_ "GenSigStartValue" SG_ 291 MCU_DC_linkVoltage 1022;
+BA_ "GenSigStartValue" SG_ 291 MCU_DC_linkCurrent 2046;
+BA_ "GenSigStartValue" SG_ 853 TBOX_TimeSyncData_Month 1;
+BA_ "GenSigStartValue" SG_ 853 TBOX_TimeSyncData_Day 1;
+BA_ "GenSigStartValue" SG_ 1299 BMS_MaxTemp 255;
+BA_ "GenSigStartValue" SG_ 1299 BMS_MinTemp 255;
+BA_ "GenSigStartValue" SG_ 1299 BMS_BattTempDev 255;
+BA_ "GenSigStartValue" SG_ 1299 BMS_CCTemp1 255;
+BA_ "GenSigStartValue" SG_ 1299 BMS_CCTemp2 255;
+BA_ "GenSigStartValue" SG_ 1426 BMS_BattRetrospectCode 1;
+BA_ "GenSigStartValue" SG_ 1427 BMS_BattProductionDate 1;
+BA_ "GenSigStartValue" SG_ 1427 BMS_BattS_Num 1;
+BA_ "GenSigStartValue" SG_ 1427 BMS_BattRecycleCode 1;
+BA_ "GenSigStartValue" SG_ 1428 BMS_BattCodeLenth 1;
+BA_ "GenSigSendType" SG_ 1810 BMS_UDSDiag_ReqPhsy_0x712 1;
+BA_ "GenSigSendType" SG_ 1818 BMS_UDSDiag_Resp_0x71A 1;
+BA_ "GenSigSendType" SG_ 2015 UDSDiag_ReqFunc_0x7DF 1;
+VAL_ 800 EAC_Status 3 "System fault" 2 "Active" 1 "Not active" 0 "initi" ;
+VAL_ 851 TBOX_FOTA_mode 1 "FOTA 非PT CAN节点" 0 "Default" ;
+VAL_ 155 VCU_BMS_WorkMode 7 "预留" 6 "预留" 5 "紧急下电指令" 4 "下电指令" 3 "放电指令" 2 "慢充指令" 1 "快充指令" 0 "standby" ;
+VAL_ 157 VCU_BattPump_ErrorSts 7 "Reserved" 6 "空转" 5 "过压" 4 "过温" 3 "低压" 2 "过流" 1 "堵转" 0 "正常" ;
+VAL_ 256 BMS_WaringLevel 7 "预留" 6 "预留" 5 "预留" 4 "预留" 3 "三级告警" 2 "二级告警" 1 "一级告警" 0 "无告警" ;
+VAL_ 256 BMS_RelayChrPos 3 "Debounce（预留）" 2 "Fault （故障)" 1 "Close（闭合）" 0 "Open （断开）" ;
+VAL_ 256 BMS_RelayNeg 3 "Debounce（预留）" 2 "Fault （故障)" 1 "Close（闭合）" 0 "Open （断开）" ;
+VAL_ 256 BMS_RelayPre 3 "Debounce（预留）" 2 "Fault （故障)" 1 "Close（闭合）" 0 "Open （断开）" ;
+VAL_ 256 BMS_RelayPos 3 "Debounce（预留）" 2 "Fault （故障)" 1 "Close（闭合）" 0 "Open （断开）" ;
+VAL_ 256 BMS_RelayChrNeg 3 "Debounce（预留）" 2 "Fault （故障)" 1 "Close（闭合）" 0 "Open （断开）" ;
+VAL_ 256 BMS_State 15 "Error" 14 "Reset" 13 "预留" 12 "预留" 11 "预留" 10 "预留" 9 "预留" 8 "预留" 7 "预留" 6 "AfterRun" 5 "Fast_Charging" 4 "Slow_Charging" 3 "DisCharging" 2 "Precharging" 1 "Standby" 0 "Initialazation" ;
+VAL_ 256 BMS_ChrFastState 3 "充电故障" 2 "充电完成" 1 "充电中" 0 "未充电" ;
+VAL_ 256 BMS_SPreCharging 3 "预充失败" 2 "预充完成" 1 "预充中" 0 "未预充" ;
+VAL_ 256 BMS_ChrSlowState 3 "充电故障" 2 "充电完成" 1 "充电中" 0 "未充电" ;
+VAL_ 258 BMS_WakeUpSignal 1 "KL15_ON" 0 "KL15_OFF" ;
+VAL_ 258 BMS_BalanceSts 1 "电池开启" 0 "电池关闭" ;
+VAL_ 258 BMS_HVIL1_State 3 "预留" 2 "断开" 1 "闭合" 0 "未检测" ;
+VAL_ 258 BMS_HVIL2_State 3 "预留" 2 "断开" 1 "闭合" 0 "未检测" ;
+VAL_ 261 BMS_ChrRequest 7 "预留" 6 "预留" 5 "预留" 4 "预留" 3 "预留" 2 "预留" 1 "Request" 0 "No Request" ;
+VAL_ 261 BMS_VCU_TotalEnergy 524287 "Invalid" ;
+VAL_ 278 BMS_CellOverVolWaring 3 "三级故障" 2 "二级故障" 1 "一级故障" 0 "Not fault" ;
+VAL_ 278 BMS_CellUnderVolWaring 3 "三级故障" 2 "二级故障" 1 "一级故障" 0 "Not fault" ;
+VAL_ 278 BMS_TempOverWaring 3 "三级故障" 2 "二级故障" 1 "一级故障" 0 "Not fault" ;
+VAL_ 278 BMS_TempUnderWaring 3 "三级故障" 2 "二级故障" 1 "一级故障" 0 "Not fault" ;
+VAL_ 278 BMS_CellVolDevWaring 3 "三级故障" 2 "二级故障" 1 "一级故障" 0 "Not fault" ;
+VAL_ 278 BMS_TempDveWaring 3 "三级故障" 2 "二级故障" 1 "一级故障" 0 "Not fault" ;
+VAL_ 278 BMS_BattOverVolWaring 3 "三级故障" 2 "二级故障" 1 "一级故障" 0 "Not fault" ;
+VAL_ 278 BMS_BattUnderVolWaring 3 "三级故障" 2 "二级故障" 1 "一级故障" 0 "Not fault" ;
+VAL_ 278 BMS_DCChargePlugTempOverHigh 1 "故障" 0 "正常" ;
+VAL_ 278 BMS_DisCharOverCurr 3 "三级故障" 2 "二级故障" 1 "一级故障" 0 "Not fault" ;
+VAL_ 278 BMS_RegenOverCurr 3 "三级故障" 2 "二级故障" 1 "一级故障" 0 "Not fault" ;
+VAL_ 278 BMS_InnerCANTimeout 1 "故障" 0 "正常" ;
+VAL_ 278 BMS_ISOWaring 3 "三级故障" 2 "二级故障" 1 "一级故障" 0 "Not fault" ;
+VAL_ 278 BMS_BCUHWFault 1 "故障" 0 "正常" ;
+VAL_ 278 BMS_NegRelayFault 3 "预留" 2 "断开" 1 "黏连" 0 "正常" ;
+VAL_ 278 BMS_PosRelayFault 3 "预留" 2 "断开" 1 "黏连" 0 "正常" ;
+VAL_ 278 BMS_PreRelayFault 3 "预留" 2 "断开" 1 "黏连" 0 "正常" ;
+VAL_ 278 BMS_LowVoltageMSD 1 "断开" 0 "正常" ;
+VAL_ 278 BMS_CharPosRelayFault 3 "预留" 2 "断开" 1 "黏连" 0 "正常" ;
+VAL_ 278 BMS_CharNegRelayFault 3 "预留" 2 "断开" 1 "黏连" 0 "正常" ;
+VAL_ 278 BMS_BMUFault 1 "故障" 0 "正常" ;
+VAL_ 278 BMS_VcuCANTimeout 1 "故障" 0 "正常" ;
+VAL_ 278 BMS_BattHVDisaccord 1 "故障" 0 "正常" ;
+VAL_ 278 BMS_PressureSensorFault 1 "故障" 0 "正常" ;
+VAL_ 278 BMS_SOClow 3 "三级故障" 2 "二级故障" 1 "一级故障" 0 "Not fault" ;
+VAL_ 278 BMS_Mismatch 1 "Mismatch" 0 "Match" ;
+VAL_ 278 BMS_SOCOverHigh 1 "SOC过高" 0 "SOC正常" ;
+VAL_ 278 BMS_BattOverCharge 1 "动力电池过充" 0 "正常" ;
+VAL_ 278 BMS_SOCSkip 1 "SOC跳变报警" 0 "正常" ;
+VAL_ 278 BMS_CGOverCurr 1 "过流" 0 "正常" ;
+VAL_ 278 BMS_LowVoltageFault 1 "异常" 0 "正常" ;
+VAL_ 278 BMS_LiquidLeak 1 "漏液" 0 "正常" ;
+VAL_ 278 BMS_CrashFault 1 "碰撞" 0 "正常" ;
+VAL_ 278 BMS_ThermRunAway 1 "热失控" 0 "正常" ;
+VAL_ 278 BMS_Maintenance 3 "预留" 2 "预留" 1 "电池保养" 0 "正常" ;
+VAL_ 278 BMS_BusbarTempOverWaring 1 "过温" 0 "正常" ;
+VAL_ 278 BMS_FuseFault 1 "故障" 0 "正常" ;
+VAL_ 278 BMS_CurrSensorFault 3 "三级故障" 2 "二级故障" 1 "一级故障" 0 "Not fault" ;
+VAL_ 276 BMS_thermalControlReq 7 "预留" 6 "预留" 5 "预留" 4 "预留" 3 "请求均温" 2 "请求冷却" 1 "请求加热" 0 "无请求" ;
+VAL_ 276 BMS_InputWaterTemp 254 "无效" ;
+VAL_ 276 BMS_OutputWaterTemp 254 "无效" ;
+VAL_ 276 BMS_PACK_PressureValue 126 "Invalid" ;
+VAL_ 289 ESP_VehicleSpeed_Valid 1 "Invalid" 0 "Valid" ;
+VAL_ 291 MCU_DC_linkVoltage 1023 "Failure" 1022 "Init" ;
+VAL_ 291 MCU_DC_linkCurrent 2047 "Failure" 2046 "Init" ;
+VAL_ 336 VCU_ChargeDepthSts 3 "预留" 2 "预留" 1 "长途旅行" 0 "日常行驶" ;
+VAL_ 337 VCU_MotorPump_ErrorSts 7 "Reserved" 6 "空转" 5 "过压" 4 "过温" 3 "低压" 2 "过流" 1 "堵转" 0 "正常" ;
+VAL_ 528 ACU_CrashStatus 1 "crash" 0 "no crash" ;
+VAL_ 784 BCM_SystemPowerMode 3 "START" 2 "ON" 1 "ACC" 0 "OFF" ;
+VAL_ 805 WPTC_RunSts 3 "预留" 2 "故障" 1 "运行" 0 "关闭" ;
+VAL_ 853 TBOX_TimeSyncSts 1 "start  sync" 0 "Default" ;
+VAL_ 928 ICM_ODOTotal 16777215 "Invalid" ;
+VAL_ 1299 BMS_MaxTemp 254 "invalid" ;
+VAL_ 1299 BMS_MinTemp 254 "invalid" ;
+VAL_ 1299 BMS_BattTempDev 254 "invalid" ;
+VAL_ 1299 BMS_CCTemp1 254 "invalid" ;
+VAL_ 1299 BMS_CCTemp2 254 "invalid" ;
+VAL_ 1360 OBC_CCLineSts 1 "Connected" 0 "Not connected" ;
+VAL_ 1360 OBC_ChrgSts 7 "Reserved" 6 "Aftercharge" 5 "Shutdown" 4 "Failure" 3 "PowerActive" 2 "Standby" 1 "PreStart" 0 "Initialization" ;
+VAL_ 1360 OBC_S2Sts 1 "Closed" 0 "Opened" ;
+VAL_ 1424 BMS_BattManuYear 49 "1" 50 "2" 51 "3" 52 "4" 53 "5" 54 "6" 55 "7" 56 "8" 57 "9" 65 "A" 66 "B" 67 "C" 68 "D" 69 "E" 70 "F" 71 "G" 72 "H" 74 "J" 75 "K" 76 "L" 77 "M" 78 "N" 80 "P" 81 "Q" 82 "R" 83 "S" 84 "T" 86 "V" 87 "W" 88 "X" 89 "Y" ;
+VAL_ 1424 BMS_BattManuMonth 49 "1" 50 "2" 51 "3" 52 "4" 53 "5" 54 "6" 55 "7" 56 "8" 57 "9" 65 "A" 66 "B" 67 "C" 81 "Q" ;
+VAL_ 1424 BMS_BattManuDay 49 "1" 50 "2" 51 "3" 52 "4" 53 "5" 54 "6" 55 "7" 56 "8" 57 "9" 65 "A" 66 "B" 67 "C" 68 "D" 69 "E" 70 "F" 71 "G" 72 "H" 74 "J" 75 "K" 76 "L" 77 "M" 78 "N" 80 "P" 81 "Q" 82 "R" 83 "S" 84 "T" 86 "V" 87 "W" 88 "X" 89 "Y" 48 "0" ;
+VAL_ 1425 BMS_ProductTypeCode 80 "P" 77 "M" 67 "C" ;
+VAL_ 1425 BMS_BattTypeCode 65 "A" 66 "B" 67 "C" 68 "D" 69 "E" 70 "F" 71 "G" 90 "Z" ;
+VAL_ 1504 BMS_SWVersion_Supplier 10 "捷新/捷能" ;
+VAL_ 1504 BMS_SWVersion_Main 3 "SOP" 2 "PVS-C样" 1 "PT-A/B样" ;
+VAL_ 1504 BMS_HWVersion_Supplier 10 "捷新/捷能" ;
+VAL_ 1504 BMS_HWVersion_Main 3 "SOP" 2 "PVS-C样" 1 "PT-A/B样" ;
+VAL_ 1504 BMS_PackEnergy 77 "77kWh" 54 "54kWh" ;
+VAL_ 1504 BMS_CellSupplier 17 "捷威" 16 "万向" ;
+VAL_ 1520 BMS_BattTempFrame1 3 "预留" 2 "预留" 1 "第二部分（每部分发1帧）" 0 "第一部分（每部分发1帧）" ;
+VAL_ 1521 BMS_BattTempFrame2 3 "预留" 2 "预留" 1 "第二部分（每部分发1帧）" 0 "第一部分（每部分发1帧）" ;
+VAL_ 1522 BMS_BattTempFrame3 3 "预留" 2 "预留" 1 "第二部分（每部分发1帧）" 0 "第一部分（每部分发1帧）" ;
+VAL_ 1523 BMS_BattTempFrame4 3 "预留" 2 "预留" 1 "第二部分（每部分发1帧）" 0 "第一部分（每部分发1帧）" ;
+VAL_ 1524 BMS_BattTempFrame5 3 "预留" 2 "预留" 1 "第二部分（每部分发1帧）" 0 "第一部分（每部分发1帧）" ;
+VAL_ 1552 OBC_CC_Status 7 "预留" 6 "CC接地" 5 "100Ohm" 4 "220Ohm" 3 "680Ohm" 2 "1500Ohm" 1 "半连接" 0 "无连接" ;
+
