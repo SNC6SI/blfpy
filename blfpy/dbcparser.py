@@ -15,7 +15,8 @@ class dbc2code():
     __BO_RE = re.compile(r"BO_ (?P<canid>\d+) (?P<name>\w+): " + \
                          r"(?P<dlc>\d{1,2}) (?P<sender>\w+)")
     __SG_RE = re.compile(r"\s*SG_ " + \
-                         r"(?P<name>\w+) : " + \
+                         r"(?P<name>\w+)\s+" + \
+                         r"(?P<multiplex>[mM]?[\d]?)\s*: " + \
                          r"(?P<start>\d+)\|" + \
                          r"(?P<length>\d+)@" + \
                          r"(?P<endian>[01])[\+-]? \(" + \
@@ -86,6 +87,9 @@ class dbc2code():
                             self.enums[BO_dict['canid']].keys():
                             SG_dict['enum'] = \
                                 self.enums[BO_dict['canid']][SG_dict['name']]
+                    # multiplex
+                    if SG_dict['multiplex']=='M':
+                        BO_dict['multiplexor'] = SG_dict['name']
                     # 
                     SG_dicts[SG_dict['name']] = SG_dict
             BO_dict['signal'] = SG_dicts
