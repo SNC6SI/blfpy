@@ -225,9 +225,9 @@ class dbc2code():
         for j in range(loopnum):
             if j > 0:
                 si = ' + ' + si
-            s = self.__BB + '[:,' + str(sigmat[j, 0]) + ']'
-            s =  '(' + s + '>>' + str(sigmat[j, 1]) + ')'
-            s = '(' + s + '&(' + str(2**sigmat[j, 3]-1) + '))'
+            s = self.__BB + '[:,' + str(int(sigmat[j, 0])) + ']'
+            s =  '(' + s + '>>' + str(int(sigmat[j, 1])) + ')'
+            s = '(' + s + '&(' + str(int(2**sigmat[j, 3]-1)) + '))'
             if sigmat[j, 4]:
                 s = '(' + str(2**sigmat[j, 4]) + ')*' + s
             si = s + si
