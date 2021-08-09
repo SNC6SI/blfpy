@@ -407,10 +407,10 @@ PyObject* read_data(PyObject* self, PyObject* args)
     // L_candata = PyArray_Newshape((PyArrayObject *)L_candata_, &bytedim, NPY_FORTRANORDER);
     Py_DECREF(L_candata_);
     
-    L_canmsgid   = PyArray_SimpleNewFromData(1, &dimcanmsg, NPY_ULONG, u32_canmsgid);
+    L_canmsgid   = PyArray_SimpleNewFromData(1, &dimcanmsg, NPY_UINT32, u32_canmsgid);
     PyArray_ENABLEFLAGS((PyArrayObject *)L_canmsgid, NPY_ARRAY_OWNDATA);
     
-    L_canchannel = PyArray_SimpleNewFromData(1, &dimcanmsg, NPY_USHORT, u16_canchannel);
+    L_canchannel = PyArray_SimpleNewFromData(1, &dimcanmsg, NPY_UINT16, u16_canchannel);
     PyArray_ENABLEFLAGS((PyArrayObject *)L_canchannel, NPY_ARRAY_OWNDATA);
     
     L_cantime    = PyArray_SimpleNewFromData(1, &dimcanmsg, NPY_DOUBLE, f64_cantime);
@@ -504,10 +504,10 @@ PyObject* read_data_and_error(PyObject* self, PyObject* args)
     // L_candata = PyArray_Newshape((PyArrayObject *)L_candata_, &bytedim, NPY_FORTRANORDER);
     Py_DECREF(L_candata_);
     
-    L_canmsgid   = PyArray_SimpleNewFromData(1, &dimcanmsg, NPY_ULONG, u32_canmsgid);
+    L_canmsgid   = PyArray_SimpleNewFromData(1, &dimcanmsg, NPY_UINT32, u32_canmsgid);
     PyArray_ENABLEFLAGS((PyArrayObject *)L_canmsgid, NPY_ARRAY_OWNDATA);
     
-    L_canchannel = PyArray_SimpleNewFromData(1, &dimcanmsg, NPY_USHORT, u16_canchannel);
+    L_canchannel = PyArray_SimpleNewFromData(1, &dimcanmsg, NPY_UINT16, u16_canchannel);
     PyArray_ENABLEFLAGS((PyArrayObject *)L_canchannel, NPY_ARRAY_OWNDATA);
     
     L_cantime    = PyArray_SimpleNewFromData(1, &dimcanmsg, NPY_DOUBLE, f64_cantime);
