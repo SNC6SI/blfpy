@@ -366,9 +366,9 @@ PyObject* read_data(PyObject* self, PyObject* args)
     }
 
     // allocate memroy
-    u8_candata = (unsigned char *)PyMem_Malloc(((size_t)(logg.mObjectCount)) * (sizeof(unsigned char)) * 8);
-    u32_canmsgid = (unsigned long *)PyMem_Malloc(((size_t)(logg.mObjectCount)) * sizeof(unsigned long));
-    u16_canchannel = (unsigned short *)PyMem_Malloc(((size_t)(logg.mObjectCount)) * sizeof(unsigned short));
+    u8_candata = (uint8_t *)PyMem_Malloc(((size_t)(logg.mObjectCount)) * (sizeof(uint8_t)) * 8);
+    u32_canmsgid = (uint32_t *)PyMem_Malloc(((size_t)(logg.mObjectCount)) * sizeof(uint32_t));
+    u16_canchannel = (uint16_t *)PyMem_Malloc(((size_t)(logg.mObjectCount)) * sizeof(uint16_t));
     f64_cantime = (double *)PyMem_Malloc(((size_t)(logg.mObjectCount)) * sizeof(double));
 
     // =======================================================================
@@ -385,11 +385,11 @@ PyObject* read_data(PyObject* self, PyObject* args)
     // reallocate memory if needed
     if (logg.mObjectCount!= rcnt)
     {
-        u8_tmp = (unsigned char *)PyMem_Realloc(u8_candata, ((size_t)(rcnt)) * (sizeof(unsigned char)) * 8);
+        u8_tmp = (uint8_t *)PyMem_Realloc(u8_candata, ((size_t)(rcnt)) * (sizeof(uint8_t)) * 8);
         if (u8_tmp != NULL) u8_candata = u8_tmp;
-        u32_tmp = (unsigned long *)PyMem_Realloc(u32_canmsgid, ((size_t)(rcnt)) * sizeof(unsigned long));
+        u32_tmp = (uint32_t *)PyMem_Realloc(u32_canmsgid, ((size_t)(rcnt)) * sizeof(uint32_t));
         if (u32_tmp != NULL) u32_canmsgid = u32_tmp;
-        u16_tmp = (unsigned short *)PyMem_Realloc(u16_canchannel, ((size_t)(rcnt)) * sizeof(unsigned short));
+        u16_tmp = (uint16_t *)PyMem_Realloc(u16_canchannel, ((size_t)(rcnt)) * sizeof(uint16_t));
         if (u16_tmp != NULL) u16_canchannel = u16_tmp;
         f64_tmp = (double*)PyMem_Realloc(f64_cantime, ((size_t)(rcnt)) * sizeof(double));
         if (f64_tmp != NULL) f64_cantime = f64_tmp;
@@ -460,11 +460,11 @@ PyObject* read_data_and_error(PyObject* self, PyObject* args)
     }
 
     // allocate memroy
-    u8_candata = (unsigned char *)PyMem_Malloc(((size_t)(logg.mObjectCount)) * (sizeof(unsigned char)) * 8);
-    u32_canmsgid = (unsigned long *)PyMem_Malloc(((size_t)(logg.mObjectCount)) * sizeof(unsigned long));
-    u16_canchannel = (unsigned short *)PyMem_Malloc(((size_t)(logg.mObjectCount)) * sizeof(unsigned short));
+    u8_candata = (uint8_t *)PyMem_Malloc(((size_t)(logg.mObjectCount)) * (sizeof(uint8_t)) * 8);
+    u32_canmsgid = (uint32_t *)PyMem_Malloc(((size_t)(logg.mObjectCount)) * sizeof(uint32_t));
+    u16_canchannel = (uint16_t *)PyMem_Malloc(((size_t)(logg.mObjectCount)) * sizeof(uint16_t));
     f64_cantime = (double *)PyMem_Malloc(((size_t)(logg.mObjectCount)) * sizeof(double));
-    u8_errorflag = (unsigned char *)PyMem_Malloc(((size_t)(logg.mObjectCount)) * sizeof(unsigned char));
+    u8_errorflag = (uint8_t *)PyMem_Malloc(((size_t)(logg.mObjectCount)) * sizeof(uint8_t));
 
     // =======================================================================
     // BEGIN read data
@@ -480,15 +480,15 @@ PyObject* read_data_and_error(PyObject* self, PyObject* args)
     // reallocate memory if needed
     if (logg.mObjectCount!= rcnt)
     {
-        u8_tmp = (unsigned char *)PyMem_Realloc(u8_candata, ((size_t)(rcnt)) * (sizeof(unsigned char)) * 8);
+        u8_tmp = (uint8_t *)PyMem_Realloc(u8_candata, ((size_t)(rcnt)) * (sizeof(uint8_t)) * 8);
         if (u8_tmp != NULL) u8_candata = u8_tmp;
-        u32_tmp = (unsigned long *)PyMem_Realloc(u32_canmsgid, ((size_t)(rcnt)) * sizeof(unsigned long));
+        u32_tmp = (uint32_t *)PyMem_Realloc(u32_canmsgid, ((size_t)(rcnt)) * sizeof(uint32_t));
         if (u32_tmp != NULL) u32_canmsgid = u32_tmp;
-        u16_tmp = (unsigned short *)PyMem_Realloc(u16_canchannel, ((size_t)(rcnt)) * sizeof(unsigned short));
+        u16_tmp = (uint16_t *)PyMem_Realloc(u16_canchannel, ((size_t)(rcnt)) * sizeof(uint16_t));
         if (u16_tmp != NULL) u16_canchannel = u16_tmp;
         f64_tmp = (double*)PyMem_Realloc(f64_cantime, ((size_t)(rcnt)) * sizeof(double));
         if (f64_tmp != NULL) f64_cantime = f64_tmp;
-        u8_tmp1 = (unsigned char *)PyMem_Realloc(u8_errorflag, ((size_t)(rcnt)) * sizeof(unsigned char));
+        u8_tmp1 = (uint8_t *)PyMem_Realloc(u8_errorflag, ((size_t)(rcnt)) * sizeof(uint8_t));
         if (u8_tmp1 != NULL) u8_errorflag = u8_tmp1;
     }
 
